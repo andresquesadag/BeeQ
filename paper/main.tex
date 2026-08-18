@@ -1,0 +1,82 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{siunitx}
+
+\title{Compact Molecular Descriptors for Honey Bee Toxicity Screening:\\
+A Structure-Aware Comparison of Classical and Quantum Kernels}
+
+% Double-blind review: restore author metadata only in the camera-ready copy.
+\author{\IEEEauthorblockN{Anonymous Authors}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This manuscript template describes a structure-aware study of acute pesticide
+toxicity to \textit{Apis mellifera}. The study evaluates a compact ten-feature
+molecular representation, controlled structural and partition-descriptor
+ablations, and matched classical and simulated quantum kernels. Numerical
+claims will be inserted only from versioned experiment bundles.
+\end{abstract}
+
+\begin{IEEEkeywords}
+honey bee toxicity, molecular descriptors, pesticide screening, quantum
+kernel, support vector machine, structure-aware validation
+\end{IEEEkeywords}
+
+\section{Introduction}
+% Motivation: pollinator protection, limited species-specific data, and the
+% value of compact/interpretable screening models.
+% End with 3--4 concrete contributions, not a claim of quantum advantage.
+
+\section{Related Work}
+% ApisTox dataset and benchmark; molecular fingerprints and graph kernels;
+% quantum kernels for compact molecular representations.
+
+\section{Materials and Methods}
+\subsection{Curated Molecular Domain and Endpoint}
+% N=893; development N=712; historical holdout N=181; LD50 threshold;
+% explain why this is a curated working domain rather than full ApisTox.
+
+\subsection{X10 Molecular Representation}
+% Define all ten descriptors, provenance, finite-value requirements, and the
+% pre-specified X9/partition ablations.
+
+\subsection{Structure-Aware Evaluation}
+% Frozen Butina-cluster folds, nested inner model selection, no overlap,
+% pooled OOF metrics, and status of the historical holdout.
+
+\subsection{Classical Models}
+% Logistic regression, RBF-SVC, random forest, grids, class weighting.
+
+\subsection{Simulated Quantum Kernels}
+% Exact statevectors, feature maps, scales, SVC with precomputed kernels,
+% PSD checks, and matched molecule/feature/fold controls.
+
+\subsection{Metrics and Statistical Analysis}
+% Primary: AUROC. Secondary: AUPRC, balanced accuracy, MCC. Add paired
+% uncertainty and kernel geometry diagnostics in phase 4.
+
+\section{Results}
+\subsection{X10 Classical Baseline}
+% Generated from results/runs/<run_id>/summary.csv.
+
+\subsection{Structural and Partition-Descriptor Ablations}
+
+\subsection{Classical--Quantum Kernel Comparison}
+
+\subsection{Structure-Disjoint Generalization}
+
+\section{Discussion}
+% Interpret signal, complementarity, model disagreement, practical limits,
+% simulator-only scope, repeated holdout access, and descriptor availability.
+
+\section{Conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

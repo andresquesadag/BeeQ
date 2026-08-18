@@ -1,25 +1,15 @@
-Data, derived descriptor tables and figures in this repository are licensed
-under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+DATA LICENSING NOTICE
+=====================
 
-You are free to share and adapt this material for any purpose, provided you
-give appropriate credit to the authors of this repository and to the original
-data source cited below.
+This repository does not grant a license to the underlying ApisTox records,
+toxicity measurements, or in-house descriptors. Source CSV files are local
+handoff inputs and are excluded from version control.
 
-Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
-Summary:        https://creativecommons.org/licenses/by/4.0/
+Before redistributing data, descriptor tables, predictions linked to molecule
+identifiers, or derived datasets, consult and comply with:
 
-PROVENANCE
-----------
-data/raw/bbb.csv derives from the in-vivo logBB dataset published in:
+1. the license distributed with the specific handoff;
+2. the original ApisTox dataset license and citation requirements; and
+3. the terms governing any in-house descriptors.
 
-  M. Dichiara, B. Amata, R. Turnaturi, A. Marrazzo, and E. Amata,
-  "Tuning properties for blood-brain barrier permeation: a statistics-based
-  analysis," ACS Chem. Neurosci., vol. 11, no. 1, pp. 34-44, 2020.
-  doi: 10.1021/acschemneuro.9b00541
-
-It is redistributed here for reproducibility only. The terms of the original
-publication apply to the underlying measurements; the CC BY 4.0 license above
-covers this repository's curation and derived files.
-
-NOTE: the code in this repository is licensed separately, under the MIT
-license in ../LICENSE.
+Code is licensed separately under the MIT license in ../LICENSE.

@@ -156,6 +156,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.donotmerge_aux
 
 # Spyder project settings
 .spyderproject
@@ -202,6 +203,13 @@ cython_debug/
 # .vscode/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
+
+# Local handoff material. It is an input source, never a repository artifact.
+.donotmerge_aux/
+
+# Local experiment caches and temporary files
+cache/
+tmp/
 
 # Ruff stuff:
 .ruff_cache/

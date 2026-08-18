@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use BeeQ, cite the associated paper after publication."
+title: "BeeQ: Structure-aware honey-bee toxicity kernel experiments"
+type: software
+version: 0.1.0
+date-released: 2026-08-18
+license: MIT
+authors:
+  - family-names: "Anonymous"
+    given-names: "Authors"
+repository-code: "https://github.com/REPLACE-WITH-PRODUCTION-REPOSITORY"
+abstract: >-
+  Reproducible classical and simulated-quantum kernel experiments for acute
+  honey-bee toxicity screening using compact molecular descriptors.

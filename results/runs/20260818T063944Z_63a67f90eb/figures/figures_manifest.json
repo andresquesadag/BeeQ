@@ -1,0 +1,7 @@
+{
+  "figures": {
+    "classical_oof_auroc.png": "70418f10304ea3891263800c23059d6f2879f2e914f4c18bee670a44fa3182df",
+    "classical_oof_mcc.png": "7a302fe085d8134659c774bd7ff8ffe07d626ff03173ed27738ee145fb43fc51"
+  },
+  "source_summary_sha256": "783998cbdb7114379a9fdf05d1b35db04590929de8b87db9f2d49924a702d36f"
+}

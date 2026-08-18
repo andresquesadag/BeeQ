@@ -1,52 +1,124 @@
-# QB3P2
+# BeeQ
 
-Quantum kernel methods for blood-brain barrier permeability prediction.
-Code for the paper _Q-B3P2_ (in preparation).
+Reproducible classical and simulated-quantum kernel experiments for acute
+honey-bee toxicity screening with a compact molecular representation.
+
+The working endpoint is binary acute toxicity for *Apis mellifera*:
+
+- `LABEL = 1`: strongest available acute LD50 <= 11 microgram/bee.
+- `LABEL = 0`: strongest available acute LD50 > 11 microgram/bee.
+
+The initial study evaluates ten molecular descriptors (X10), controlled
+ablations, structure-aware generalization, and matched RBF/quantum kernels.
+Regional validation is intentionally outside the initial experimental scope.
+
+## Research questions
+
+1. Does X10 contain signal that distinguishes toxic from non-toxic molecules?
+2. Does the explicit organophosphorus motif count (`n_OP`) add predictive signal?
+3. Do `MolLogP` and `LiPHEX_prediction` provide complementary information?
+4. Do matched RBF and quantum fidelity kernels induce different geometries and predictions?
+5. Does predictive signal persist for structure-disjoint molecules?
+
+## Five-phase workflow
+
+1. **Foundation:** repository structure, dataset contract, hashes, manifests,
+   frozen folds, tests, and paper templates.
+2. **Classical baseline:** nested group-aware model selection inside the five
+   frozen development folds, X10 ablations, and pooled out-of-fold metrics.
+3. **Quantum comparison:** simulated fidelity kernels on exactly the same
+   coordinates, molecules, folds, and model-selection budget.
+4. **Results:** paired metrics, kernel diagnostics, figures, prediction-level
+   disagreement, uncertainty, and an auditable result bundle.
+5. **Paper:** 6-8 page double-blind IEEE manuscript for BIP 2026.
+
+See [`docs/EXPERIMENT_PLAN.md`](docs/EXPERIMENT_PLAN.md) for acceptance
+criteria and the boundary between development and historical evaluation.
 
 ## Setup
 
+Python 3.11 or newer is recommended.
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+python -m venv .venv
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-## Reproduce everything
+## Data handoff
 
-Run from the repository root, in this order:
+The source CSV files are local handoff material and are never committed. By
+default the commands expect:
 
-```bash
-python -m src.data          # data/raw/bbb.csv  ->  data/processed/descriptors.csv
-python -m src.experiment    #                   ->  results/folds.csv, results/seeds.csv
-python -m src.plots         #                   ->  paper/fig/ba_by_model.png
+```text
+.donotmerge_aux/data/train.csv
+.donotmerge_aux/data/test.csv
+.donotmerge_aux/data/master.csv
 ```
 
-Each module also runs on its own as a check:
+Another directory can be supplied with `--data-dir` or the `BEEQ_DATA_DIR`
+environment variable. The expected schema is documented in
+[`data/README.md`](data/README.md).
+
+## Run phase 1
+
+Audit the handoff and create a non-sensitive, hash-addressed manifest:
 
 ```bash
-python -m src.feature_maps  # prints the four circuits
-python -m src.kernels       # verifies the kernels are symmetric, unit-diagonal, PSD
-pytest                      # the same checks as assertions
+python -m src.data --write-manifest data/processed/dataset_manifest.json
+python -m unittest discover -s tests -v
+```
+
+## Run phase 2
+
+The default experiment evaluates logistic regression, RBF-SVC and random
+forest over the declared representations. Preprocessing and hyperparameter
+selection are fitted without access to each outer fold.
+
+```bash
+python -m src.experiment --config configs/classical.json
+```
+
+For a faster smoke run:
+
+```bash
+python -m src.experiment --config configs/classical.json \
+  --models logistic rbf_svc --representations x10 without_n_op
+```
+
+Every run writes a new directory under `results/runs/` containing its config,
+input/split hashes, Git state, fold metrics, OOF predictions and output hashes.
+Historical holdout evaluation is opt-in:
+
+```bash
+python -m src.experiment --config configs/classical.json --evaluate-holdout
+```
+
+It is always labeled `historical_holdout`, never `unseen_test`.
+
+## Generate figures
+
+```bash
+python -m src.plots --run-dir results/runs/<run_id>
 ```
 
 ## Layout
 
-| Path              | What it is                                               |
-| ----------------- | -------------------------------------------------------- |
-| `data/raw/`       | Input data, never edited                                 |
-| `data/processed/` | Descriptors + fixed train/test split, generated          |
-| `src/config.py`   | Seeds, qubit mapping, interaction graphs - all constants |
-| `src/`            | The pipeline, one step per module                        |
-| `results/`        | CSV outputs, committed so the paper's numbers are in git |
-| `paper/`          | LaTeX source; `paper/fig/` is written by `src/plots.py`  |
+| Path | Purpose |
+| --- | --- |
+| `configs/` | Versioned experiment declarations |
+| `data/` | Dataset contract and generated non-sensitive manifests |
+| `docs/` | Experimental protocol and decisions |
+| `notebooks/` | Thin, executable views over the source modules |
+| `src/` | Validated data, experiments, metrics, kernels, and plots |
+| `tests/` | Data-contract, metric, and kernel invariants |
+| `results/runs/` | Versioned run bundles used by the paper |
+| `paper/` | IEEE LaTeX source and generated figures |
 
-## Notes
+## Provenance and licenses
 
-The fidelity kernel is computed from statevectors, not by executing circuits:
-with 4 qubits each molecule is a 16-element vector and the whole Gram matrix is
-one matrix product. Shot noise is added by binomial sampling of the exact
-probabilities. No quantum hardware or simulator backend is required.
-
-## License
-
-Code: MIT (see `LICENSE`).
-Data, derived tables and figures: CC BY 4.0 (see `data/LICENSE`).
+Code is MIT licensed. Dataset redistribution is not implied; consult
+[`data/LICENSE`](data/LICENSE) and the source dataset terms before publishing
+or redistributing data-derived artifacts.

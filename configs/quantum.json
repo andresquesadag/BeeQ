@@ -1,0 +1,21 @@
+{
+  "status": "phase_3_template",
+  "seed": 42,
+  "backend": "exact_statevector_simulation",
+  "shots": null,
+  "representations": [
+    "x10",
+    "without_n_op"
+  ],
+  "feature_maps": [
+    "angle_product",
+    "iqp_zz_linear"
+  ],
+  "kernel_classifier": "svc_precomputed",
+  "selection_metric": "roc_auc",
+  "notes": [
+    "Use the same molecule IDs and outer folds as the classical experiment.",
+    "Fit preprocessing only with the training partition available at each level.",
+    "Record exact statevector and kernel-construction parameters in the run manifest."
+  ]
+}

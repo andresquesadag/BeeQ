@@ -1,0 +1,17 @@
+{
+  "bootstrap_replicates": 2000,
+  "classical_run": "20260818T070536Z_32d0e94b8b",
+  "confidence_level": 0.95,
+  "paper_models": [
+    "logistic",
+    "random_forest",
+    "rbf_matched",
+    "quantum_angle_product",
+    "quantum_iqp_zz_linear"
+  ],
+  "primary_metric": "auroc",
+  "protocol": "final_analysis_v1",
+  "quantum_run": "20260818T070420Z_quantum_bfff644b61",
+  "seed": 42,
+  "split_sha256": "b04f4b8b4d82812ffdec74e5c5d1bd6eca3fd16adf7932edc988e943f5148e70"
+}

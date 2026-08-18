@@ -1,0 +1,119 @@
+{
+  "created_utc": "2026-08-18T07:04:20.645786+00:00",
+  "dataset": {
+    "development": {
+      "clusters": 374,
+      "fold_counts": {
+        "1": 137,
+        "2": 105,
+        "3": 147,
+        "4": 181,
+        "5": 142
+      },
+      "label_counts": {
+        "0": 490,
+        "1": 222
+      },
+      "positive_prevalence": 0.31179775280898875,
+      "rows": 712,
+      "unique_ids": 712,
+      "unique_smiles": 712
+    },
+    "endpoint": {
+      "column": "LABEL",
+      "negative": "acute LD50 > 11 microgram/bee",
+      "positive": "acute LD50 <= 11 microgram/bee"
+    },
+    "feature_order": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "feature_schema_sha256": "59d471a97c1adbc65ff42afb4714d6c08fe935c620ec57d39a69554d90c9ad9b",
+    "historical_holdout": {
+      "clusters": 88,
+      "label_counts": {
+        "0": 132,
+        "1": 49
+      },
+      "positive_prevalence": 0.27071823204419887,
+      "rows": 181,
+      "unique_ids": 181,
+      "unique_smiles": 181
+    },
+    "master": {
+      "clusters": 462,
+      "label_counts": {
+        "0": 622,
+        "1": 271
+      },
+      "positive_prevalence": 0.303471444568869,
+      "rows": 893,
+      "unique_ids": 893,
+      "unique_smiles": 893
+    },
+    "overlap": {
+      "butina_clusters": 0,
+      "ids": 0,
+      "smiles": 0
+    },
+    "schema_version": 1,
+    "source_files": {
+      "master.csv": "a73800d9123caf4e7dfc0a5833b2fb3c7d4514b3593e1b7d9974994ed54eab96",
+      "test.csv": "0b6cabbb62e5b10751b080aac118d0c92b7d7177bd8e00c7c3986e1d061fcdb1",
+      "train.csv": "deb88b60578cb44f3e64912cbc30d0aaa1f518f5ed91c45af9bcedf1a2c1ad7c"
+    },
+    "split_sha256": "b04f4b8b4d82812ffdec74e5c5d1bd6eca3fd16adf7932edc988e943f5148e70"
+  },
+  "environment": {
+    "packages": {
+      "matplotlib": "3.11.1",
+      "nbclient": "0.11.0",
+      "nbformat": "5.10.4",
+      "numpy": "2.5.1",
+      "pandas": "2.3.3",
+      "qiskit": null,
+      "rdkit": null,
+      "scikit-learn": "1.9.0",
+      "scipy": "1.18.0"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.5"
+  },
+  "evaluation": {
+    "development": "nested_structure_aware_oof",
+    "holdout": "historical_holdout_previously_inspected"
+  },
+  "git": {
+    "commit": "a9f51cc76a725f766859ae6f1fc78fee9b51f367",
+    "dirty": true,
+    "status": [
+      "M configs/quantum.json",
+      " M src/experiment.py",
+      "?? results/runs/20260818T070312Z_quantum_f0994974c4/",
+      "?? src/provenance.py",
+      "?? src/quantum_experiment.py"
+    ]
+  },
+  "outputs": {
+    "best_params.json": "260f9f1023e315f763b9b940ec2a1e492918c31c529e80c8a775dd54f7e9ba79",
+    "fold_metrics.csv": "3083682d7e29a26d04fabd1adb769ae6e51c1655633ee947d586dc234dcb171e",
+    "historical_holdout_best_params.json": "330280120c2b1e5f6fa2290f86fb51b9b0153a12b76cec67abed2656bcd72b53",
+    "historical_holdout_metrics.csv": "3910cd784be83e3eed233545eef7c206c2e2aabe10f63f9f31eb4974ae0c3e09",
+    "historical_holdout_predictions.csv": "235f1c6f33232ddedc134661c7bb3d9474576b5a91b6a6a602dd65cd61e76600",
+    "historical_kernel_diagnostics.csv": "752dde2dd961551b418402cdbb05f95efd5dc47dde26f0214627224cb52d39dc",
+    "kernel_diagnostics.csv": "c46ab4237dee7081b6deb432813a129591a3fd4cc8ac9aa774f925859587c5dc",
+    "oof_predictions.csv": "e7b63ee88d06b68b2c5548495871cf3e13e46afc5bf8d018d38265a4f16d8f09",
+    "run_config.json": "74076e49877b4a9c47f61cdecc56673df17a8cf4dba8e29ae9f8a55f6dbfb725",
+    "summary.csv": "529855aa21de1608fe210dc8b6b1bf533499e026f9b3feb6dcdb9193d9a1a4ed"
+  },
+  "run_config_sha256": "bfff644b61f39ce9025edae0182f7c55f607c32e4e2bf6e6cb6b5786e024c582",
+  "schema_version": 1
+}

@@ -3,10 +3,7 @@
 from __future__ import annotations
 
 import argparse
-import importlib.metadata
 import json
-import platform
-import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -14,36 +11,7 @@ from typing import Any
 from .classical_models import run_development_oof, run_historical_holdout
 from .config import DEFAULT_RESULTS_DIR, FEATURE_SETS, PROJECT_ROOT
 from .data import load_bundle, sha256_file, sha256_json, write_json
-
-
-def _git_state() -> dict[str, Any]:
-    def run(*args: str) -> str:
-        completed = subprocess.run(
-            ["git", *args],
-            cwd=PROJECT_ROOT,
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        return completed.stdout.strip()
-
-    commit = run("rev-parse", "HEAD") or None
-    status = run("status", "--porcelain")
-    return {"commit": commit, "dirty": bool(status), "status": status.splitlines()}
-
-
-def _environment() -> dict[str, Any]:
-    packages = {}
-    for name in ["numpy", "pandas", "scikit-learn", "matplotlib", "qiskit", "rdkit"]:
-        try:
-            packages[name] = importlib.metadata.version(name)
-        except importlib.metadata.PackageNotFoundError:
-            packages[name] = None
-    return {
-        "python": platform.python_version(),
-        "platform": platform.platform(),
-        "packages": packages,
-    }
+from .provenance import environment, git_state
 
 
 def _load_config(path: Path) -> dict[str, Any]:
@@ -128,8 +96,8 @@ def _write_outputs(
 def main() -> None:
     args = _parse_args()
     config = _load_config(args.config.resolve())
-    source_git_state = _git_state()
-    source_environment = _environment()
+    source_git_state = git_state()
+    source_environment = environment()
     models = args.models or config["models"]
     representations = args.representations or config["representations"]
     inner_splits = args.inner_splits or int(config["inner_splits"])

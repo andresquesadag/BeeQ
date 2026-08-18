@@ -1,0 +1,80 @@
+{
+  "evaluate_historical_holdout": true,
+  "feature_schema_sha256": "59d471a97c1adbc65ff42afb4714d6c08fe935c620ec57d39a69554d90c9ad9b",
+  "feature_sets": {
+    "without_liphex": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "without_mollogp": [
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "without_n_op": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "without_partition_pair": [
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "x10": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ]
+  },
+  "inner_splits": 4,
+  "models": [
+    "logistic",
+    "rbf_svc",
+    "random_forest"
+  ],
+  "n_jobs": -1,
+  "primary_metric": "roc_auc",
+  "protocol": "classical_nested_structure_aware_v1",
+  "quick_grid": false,
+  "representations": [
+    "x10",
+    "without_n_op",
+    "without_mollogp",
+    "without_liphex",
+    "without_partition_pair"
+  ],
+  "seed": 42,
+  "split_sha256": "b04f4b8b4d82812ffdec74e5c5d1bd6eca3fd16adf7932edc988e943f5148e70"
+}

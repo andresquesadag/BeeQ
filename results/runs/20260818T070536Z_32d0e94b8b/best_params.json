@@ -1,0 +1,802 @@
+[
+  {
+    "best_inner_auroc": 0.765224835359411,
+    "best_params": {
+      "model__C": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7647429088403552,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7172396873022056,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.6951530799920783,
+    "best_params": {
+      "model__C": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7125353809920406,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 5,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7818310906561423,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.773539826190019,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7388665059967217,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7074760297506744,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7240001353222435,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 5,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7643901053321344,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7592666934296801,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.75837218218998,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7666961840138077,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7351822121634868,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 5,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7292078454863135,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 1,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.732997050250467,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 2,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.6817352556924225,
+    "best_params": {
+      "model__C": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 3,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.6815520694833566,
+    "best_params": {
+      "model__C": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 4,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.6773807704259229,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 5,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.771362396517676,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 1,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7528312380054739,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.03
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 2,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7262576683382833,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 3,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.6988858157629323,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 4,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7041363629826329,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.03
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 5,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7182455905799591,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 1,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7164829099042267,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 2,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7211502101692715,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 3,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7329425476411011,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 4,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.6862911981052271,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 5,
+    "representation": "without_n_op"
+  },
+  {
+    "best_inner_auroc": 0.7447531113162582,
+    "best_params": {
+      "model__C": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 1,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7342454367815232,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 2,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7009004972247919,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 3,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.6895783176603439,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 4,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.6924322767738653,
+    "best_params": {
+      "model__C": 10.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 5,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7684401069753036,
+    "best_params": {
+      "model__C": 100.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 1,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.746992942709697,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 2,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7158565462859277,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 3,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7103383909987321,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 4,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7003508376250751,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 5,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7322766758584563,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 1,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7453956655969773,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 2,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7418199193201551,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 3,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7614066902859482,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 4,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7133317818126033,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 5,
+    "representation": "without_mollogp"
+  },
+  {
+    "best_inner_auroc": 0.7669870722406955,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 1,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7635000494533946,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 2,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7026127631173216,
+    "best_params": {
+      "model__C": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 3,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.6994877021994813,
+    "best_params": {
+      "model__C": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 4,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7197213647455266,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 5,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7947893979726278,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 1,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7758561566982751,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 2,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7375235324666894,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 3,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7261509168269613,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.3
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 4,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7247316762568953,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 5,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7887706802820674,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 1,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7690233390931993,
+    "best_params": {
+      "model__max_depth": 6,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 2,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7564262399175552,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 3,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7729526594751415,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 4,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7436324554166596,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 5,
+    "representation": "without_liphex"
+  },
+  {
+    "best_inner_auroc": 0.7460012976058525,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 1,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7342662986336733,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 2,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.6891352021357742,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 3,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.6914051973508537,
+    "best_params": {
+      "model__C": 0.1
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 4,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.6999429848818252,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "development_oof",
+    "model": "logistic",
+    "outer_fold": 5,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7776269049560975,
+    "best_params": {
+      "model__C": 100.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 1,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7504081151773714,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 2,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7266453454403817,
+    "best_params": {
+      "model__C": 10.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 3,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7066266549567207,
+    "best_params": {
+      "model__C": 100.0,
+      "model__gamma": 0.3
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 4,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7051088145553563,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "model": "rbf_svc",
+    "outer_fold": 5,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7489714755760305,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 1,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7333445174886319,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 2,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.738321455523638,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 3,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7661530953691942,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 4,
+    "representation": "without_partition_pair"
+  },
+  {
+    "best_inner_auroc": 0.7126246348369574,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 1
+    },
+    "evaluation_status": "development_oof",
+    "model": "random_forest",
+    "outer_fold": 5,
+    "representation": "without_partition_pair"
+  }
+]

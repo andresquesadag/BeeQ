@@ -1,0 +1,106 @@
+[
+  {
+    "best_cv_auroc": 0.7334968137765239,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.03
+    },
+    "cv_fold_auroc": [
+      0.561340206185567,
+      0.6673290937996821,
+      0.8302211302211303,
+      0.7916087802167269,
+      0.8169848584595129
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "rbf_matched",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7358127994734268,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125
+    },
+    "cv_fold_auroc": [
+      0.5822164948453609,
+      0.6657392686804452,
+      0.8265356265356265,
+      0.8053626007224228,
+      0.7992100065832785
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_angle_product",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7346729461070345,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "cv_fold_auroc": [
+      0.5587628865979382,
+      0.6518282988871225,
+      0.8368550368550368,
+      0.8207835509863851,
+      0.80513495720869
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_iqp_zz_linear",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.711903252952,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.1
+    },
+    "cv_fold_auroc": [
+      0.5644329896907216,
+      0.6522257551669317,
+      0.7297297297297297,
+      0.755765490414004,
+      0.8573622997586132
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "rbf_matched",
+    "representation": "without_n_op"
+  },
+  {
+    "best_cv_auroc": 0.7141121083459612,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.5
+    },
+    "cv_fold_auroc": [
+      0.5574742268041237,
+      0.6546104928457871,
+      0.7343980343980343,
+      0.775493192553487,
+      0.8485845951283738
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_angle_product",
+    "representation": "without_n_op"
+  },
+  {
+    "best_cv_auroc": 0.7122086118370999,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "cv_fold_auroc": [
+      0.5853092783505155,
+      0.6430842607313195,
+      0.7223587223587224,
+      0.7720200055570992,
+      0.838270792187843
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_iqp_zz_linear",
+    "representation": "without_n_op"
+  }
+]

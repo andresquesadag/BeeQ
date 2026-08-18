@@ -118,3 +118,20 @@ Each run manifest records:
 
 Hashes make adaptive experimentation auditable; they do not turn a repeatedly
 inspected holdout back into an unseen confirmatory test.
+
+## Completed reference execution
+
+All five phases completed on 2026-08-18 with seed 42:
+
+| Artifact | Frozen directory |
+| --- | --- |
+| Classical models and ablations | `results/runs/20260818T070536Z_32d0e94b8b` |
+| Matched quantum/RBF kernels | `results/runs/20260818T070420Z_quantum_bfff644b61` |
+| Integrated analysis | `results/final/20260818T070959Z_f1f76c91f3` |
+| Executed master notebook | `notebooks/classic.ipynb` |
+| IEEE manuscript | `output/pdf/BeeQ_BIP2026.pdf` |
+
+The source handoff contains 893 curated molecules rather than the complete
+ApisTox benchmark. Accordingly, the manuscript frames this as a compact-domain
+follow-up and treats the 181-molecule set as a historical holdout. Costa Rican
+external validation remains deferred.

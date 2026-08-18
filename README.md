@@ -98,11 +98,46 @@ python -m src.experiment --config configs/classical.json --evaluate-holdout
 
 It is always labeled `historical_holdout`, never `unseen_test`.
 
-## Generate figures
+## Run phase 3
+
+The quantum phase uses exact NumPy statevectors, so Qiskit and hardware
+credentials are not required. It executes product-state and IQP-ZZ fidelity
+kernels plus a matched RBF control.
 
 ```bash
-python -m src.plots --run-dir results/runs/<run_id>
+python -m src.quantum_experiment --config configs/quantum.json --evaluate-holdout
 ```
+
+## Run phase 4
+
+Combine one complete classical run and one complete quantum run:
+
+```bash
+python -m src.analysis --config configs/analysis.json \
+  --classical-run results/runs/<classical_run_id> \
+  --quantum-run results/runs/<quantum_run_id>
+```
+
+This creates bootstrap intervals, paired comparisons, kernel diagnostics,
+generalization strata, figures and LaTeX tables under `results/final/`.
+`results/final/latest.json` records the exact bundle displayed by the notebook.
+
+## Run phase 5
+
+The executed master notebook contains all five phases and loads frozen results
+when expensive cells are disabled:
+
+```bash
+jupyter nbconvert --to notebook --execute --inplace notebooks/classic.ipynb
+```
+
+Compile the six-page double-blind manuscript from `paper/`:
+
+```bash
+latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+```
+
+The reviewed submission artifact is `output/pdf/BeeQ_BIP2026.pdf`.
 
 ## Layout
 
@@ -111,11 +146,12 @@ python -m src.plots --run-dir results/runs/<run_id>
 | `configs/` | Versioned experiment declarations |
 | `data/` | Dataset contract and generated non-sensitive manifests |
 | `docs/` | Experimental protocol and decisions |
-| `notebooks/` | Thin, executable views over the source modules |
+| `notebooks/` | Executed five-phase master notebook |
 | `src/` | Validated data, experiments, metrics, kernels, and plots |
 | `tests/` | Data-contract, metric, and kernel invariants |
 | `results/runs/` | Versioned run bundles used by the paper |
-| `paper/` | IEEE LaTeX source and generated figures |
+| `paper/` | IEEE LaTeX source, generated tables, and figures |
+| `output/pdf/` | Reviewed conference-paper PDF |
 
 ## Provenance and licenses
 

@@ -2,18 +2,18 @@
 
 ## Purpose and current status
 
-This folder is a future workflow scaffold for assessing the BeeQ acute honey-bee toxicity baseline on one approved external CSV per future run, such as a later Costa Rican laboratory collection. It is documentation and input structure, not a deployed prediction service and not a completed validation analysis.
+This folder supports the two approved BeeQ acute honey-bee toxicity baselines—random forest and classical RBF-SVC—on one approved external CSV per future run, such as a later Costa Rican laboratory collection. The exported packages are full-reference refits, not the fitted objects that generated the historical development/holdout metrics. This is not a completed validation analysis.
 
 The current committed baseline result bundle is the read-only reference at `results/final/20260818T070959Z_f1f76c91f3/`; its `all_metrics.csv` is available for provenance and context. It is a saved research-result bundle, not a serialized scoring model, and cannot be invoked as the future predictor.
 
-There is currently no compatible serialized predictor, no complete public descriptor-generation path for every required X10 feature, and no external laboratory dataset in this folder. The notebook contains safe scoring placeholders that stop clearly where those dependencies are missing. Placeholder cells must not be treated as operational scoring, predictions, validation results, or evidence of model performance.
+Compatible serialized predictors now exist at `../deployment_baseline/model_packages/random_forest/` and `../deployment_baseline/model_packages/rbf_svc/`. That separate deployment phase is the sole authoritative package location. There is still no complete public descriptor-generation path for every required X10 feature and no external laboratory dataset in this folder. The runtime can score only already-approved X10 feature rows; it does not derive descriptors from SMILES.
 
 ## Prerequisite files and software
 
 Before a real run is considered, the team must have all of the following:
 
 - An approved, access-controlled external CSV and written permission to process it.
-- A versioned model package that explicitly identifies its training data, endpoint, preprocessing, feature order, threshold/calibration policy, and approval status.
+- The approved random-forest and classical RBF-SVC packages from `deployment_baseline/model_packages/`, each explicitly identifying its full-reference training corpus, endpoint, preprocessing, feature order, threshold/applicability policy status, and approval status.
 - An approved implementation for every required X10 descriptor, including the in-house descriptors that are not publicly recomputable from the current repository.
 - A compatible Python/Jupyter environment and any reviewed dependencies required by the model and descriptor package.
 - A documented applicability/domain policy and a review owner for exceptions.
@@ -32,6 +32,8 @@ Do not install or select dependencies, models, descriptor implementations, or th
 | `output/` | Private root for separate external-validation runs | Empty except for placeholders; generated runs ignored |
 | `output/README.md` | Output privacy and review rules | Available |
 | `output/.gitignore` | Keeps generated run folders private while retaining documentation/placeholders | Available |
+
+The original BeeQ base experiment and its historical result bundles remain unchanged. The deployment package directory is the only authoritative model-package source.
 
 The repository must not become the storage location for real external records, molecule-level predictions, laboratory identifiers, or confidential derived tables. Use one input CSV per run and a new unique output subfolder for every run.
 
@@ -76,7 +78,7 @@ The intended sequence in `external_validation_template.ipynb` is:
 3. **Validate structures.** Parse `smiles` with the approved implementation and record parse failures or normalization decisions without silently discarding rows.
 4. **Prepare X10.** Generate the exact ordered X10 descriptors with approved versions and units. Confirm finite values, feature order, descriptor hash, and compatibility with the model package.
 5. **Read baseline provenance.** Check `baseline_results_dir` and, if approved, read saved metadata/results such as `all_metrics.csv` for reference only. Do not load it as a predictor or write into it.
-6. **Load the future model package.** Confirm a compatible serialized model package, model version, endpoint, preprocessing, threshold/calibration policy, and approval status before generating any score. Actual prediction cannot run without this package and complete descriptor computation.
+6. **Load the deployment packages.** Confirm both compatible serialized packages, model versions, endpoint, preprocessing, threshold/calibration policy, and approval status before generating any score. Actual prediction cannot run without these packages and complete descriptor computation.
 7. **Generate predictions and applicability flags.** Produce predictions only for accepted rows, retain row-level status for rejected/flagged rows, and attach model, input, descriptor, and policy provenance under a new unique `run_output_dir`.
 8. **Compare with observations when approved.** Join predictions to reviewed labels by stable sample ID, report eligible counts and exclusions, and calculate only metrics approved for the study. Save optional comparison metrics separately from the baseline results. Do not treat a prediction-only input as validation evidence.
 9. **Review and export privately.** Store molecule-level outputs and audit records in the unique run folder or another access-controlled location. Share only reviewed aggregates, if permitted.

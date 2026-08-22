@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "path": "data/raw/master.csv",
+    "sha256": "a73800d9123caf4e7dfc0a5833b2fb3c7d4514b3593e1b7d9974994ed54eab96",
+    "n_total": 893,
+    "n_development": 712,
+    "n_test": 181
+  },
+  "seed": 42,
+  "main_feature_set": "X10",
+  "feature_sets": {
+    "X10": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "X9_HDONOR_ABLATION": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "X9_NO_OP_ABLATION": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ]
+  },
+  "frozen_cv_folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "policies": {
+    "missing_values": "No imputation; fail if X10 is missing or non-finite.",
+    "outliers": "No automatic deletion, clipping, or winsorization.",
+    "scale_sensitive_models": "StandardScaler fitted within the allowed training fold only.",
+    "tree_models": "Raw X10 / passthrough by default.",
+    "robust_scaler": "Sensitivity candidate only; if selected by performance, tune inside inner CV.",
+    "pca": "Not part of main X10 pipeline; optional fold-local ablation/resource experiment.",
+    "class_balance": "No over/undersampling in preprocessing; handle with model-side weighting and metrics.",
+    "cv": "Reuse frozen STRICT_CV_FOLD assignments; never regenerate for favorable performance.",
+    "test": "Never fit transformations on TEST; historical TEST labels are not used during preprocessing.",
+    "kernel_fairness": "Matched classical and quantum kernels receive the same preprocessed coordinates."
+  }
+}

@@ -1,8 +1,8 @@
 # Private validation outputs
 
-This directory is reserved for future external-validation exports. Use one new
+This directory is reserved for private external-validation exports. Use one new
 private run subfolder per approved external CSV. A reviewed run may contain
-validation metadata, random-forest and RBF-SVC predictions, model-disagreement
+validation metadata, random-forest, RBF-SVC, and IQP-ZZ predictions, model-disagreement
 flags, applicability results, and optional comparisons with laboratory labels.
 Keep real predictions, applicability flags, observed labels, laboratory
 identifiers, and derived tables private until data-use permissions,

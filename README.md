@@ -139,6 +139,21 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 The reviewed submission artifact is `output/pdf/BeeQ_BIP2026.pdf`.
 
+## External validation
+
+The deployment phase contains full-reference Random Forest, RBF-SVC, and exact
+IQP-ZZ packages. Run one approved private X10 handoff with:
+
+```bash
+python -m external_validation.run --input <external.csv> --data-dir <reference-data-dir>
+```
+
+The command verifies all three artifacts by deterministic refit, audits the
+external descriptor contract and structural overlap, computes applicability,
+and writes private predictions, 2,000-replicate bootstrap metrics, paired
+AUROC comparisons, threshold sensitivity, and hashes to a unique ignored run
+folder under `external_validation/output/`.
+
 ## Layout
 
 | Path | Purpose |
@@ -150,6 +165,8 @@ The reviewed submission artifact is `output/pdf/BeeQ_BIP2026.pdf`.
 | `src/` | Validated data, experiments, metrics, kernels, and plots |
 | `tests/` | Data-contract, metric, and kernel invariants |
 | `results/runs/` | Versioned run bundles used by the paper |
+| `deployment_baseline/` | Versioned full-reference deployment models |
+| `external_validation/` | Private three-model external-validation workflow |
 | `paper/` | IEEE LaTeX source, generated tables, and figures |
 | `output/pdf/` | Reviewed conference-paper PDF |
 

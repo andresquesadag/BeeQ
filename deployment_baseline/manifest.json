@@ -3,6 +3,7 @@
   "fit_scope": "full_curated_reference_corpus",
   "fit_rows": 893,
   "models": {
+    "quantum_iqp_zz_linear": "model_packages/quantum_iqp_zz_linear/manifest.json",
     "random_forest": "model_packages/random_forest/manifest.json",
     "rbf_svc": "model_packages/rbf_svc/manifest.json"
   },

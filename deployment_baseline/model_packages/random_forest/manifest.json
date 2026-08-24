@@ -1,7 +1,7 @@
 {
   "applicability_policy": {
-    "required_before_scientific_external_validation": true,
-    "status": "not_approved"
+    "method": "standardized-X10 nearest-reference distance",
+    "status": "implemented_by_external_validation_runtime_v1"
   },
   "approval_status": "approved_for_external_validation",
   "artifact": "model.pkl",
@@ -11,10 +11,12 @@
     "classical_run_manifest_sha256": "3a0f08b08ed92425cdbc3de91361d1c7a3ae2d20a648cd8116efde606f26eafc",
     "export_is_not_an_original_evaluation_fit": true,
     "historical_holdout_best_params_sha256": "262aee8bdafe55a0c37ac8bdc41f5fbacbe2c203e4e7651c617cfa1328646e69",
+    "historical_holdout_labels_used_for_parameter_selection": false,
     "metrics_are_read_only_context": true,
     "results_dir": "results\\final\\20260818T070959Z_f1f76c91f3",
     "results_manifest_sha256": "17da482a75c9d1f27ba47c9ae90ec4a754af0a5473bfb7c6f41273f64b7cffbe",
-    "run_config_sha256": "64655688f5d1db5a591de4ea053b40931ff961e6c284d42f7e641e41472d077f"
+    "run_config_sha256": "64655688f5d1db5a591de4ea053b40931ff961e6c284d42f7e641e41472d077f",
+    "selection_used_development_labels_only": true
   },
   "endpoint": {
     "column": "LABEL",
@@ -55,8 +57,16 @@
     "split_sha256": "b04f4b8b4d82812ffdec74e5c5d1bd6eca3fd16adf7932edc988e943f5148e70"
   },
   "threshold_policy": {
+    "development_oof_sensitivity": {
+      "criterion": "maximum Youden J on pooled structure-aware development OOF scores",
+      "oof_predictions_sha256": "e901a1e63a20b70de5d7e812bbb60cb9d3ba3cb2eb1bb3af05578ec2519e6d6e",
+      "threshold": 0.3388229410865411,
+      "uses_external_labels": false
+    },
     "endpoint_threshold": "acute LD50 <= 11 microgram/bee",
-    "model_predict_semantics": "serialized estimator class prediction only",
-    "status": "not_approved_for_external_decision_thresholding"
+    "primary_decision_policy": "serialized estimator class prediction (probability >= 0.5)",
+    "primary_threshold": 0.5,
+    "score_type": "positive-class probability",
+    "status": "frozen_for_external_validation_v1"
   }
 }

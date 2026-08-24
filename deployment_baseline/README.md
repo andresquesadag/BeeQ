@@ -6,8 +6,8 @@ historical result bundles, configs, paper, or private handoff.
 
 ## Scope
 
-The two versioned packages in `model_packages/` are the approved random-forest
-and classical RBF-SVC pair. They are new deployment fits on the full 893-row
+The three versioned packages in `model_packages/` are the approved random-forest,
+classical RBF-SVC, and exact-statevector IQP-ZZ kernel models. They are new deployment fits on the full 893-row
 curated BeeQ reference corpus (development plus historical holdout), using the
 recorded X10 recipe and selected parameters. They are not the fitted objects
 that generated the original development or historical-holdout metrics.
@@ -25,7 +25,7 @@ historical results remain read-only context.
 3. Use the separately approved descriptor implementation to derive the exact
    ordered X10 matrix, including the in-house descriptors. Confirm finite
    values and the feature-schema hash.
-4. Have `external_validation/runtime.py` load both packages from this folder,
+4. Have `external_validation/runtime.py` load all three packages from this folder,
    after package, threshold, applicability, and dependency approvals are
    recorded.
 5. Write private validation metadata, per-model predictions, model-disagreement
@@ -38,7 +38,7 @@ historical results remain read-only context.
 `external_validation/runtime.py` loads only these packages through the
 authoritative `deployment_baseline/model_packages/` path. It can validate an
 already-approved X10 feature matrix and return side-by-side predictions and
-model disagreement. It does not compute descriptors from SMILES and no
+three-model disagreement. It does not compute descriptors from SMILES and no
 external or Costa Rican data is included.
 
 External scientific validation remains gated on approved descriptor generation

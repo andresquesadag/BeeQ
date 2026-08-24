@@ -1,4 +1,4 @@
-"""Safe loading and run-boundary helpers for future external validation.
+"""Safe loading and run-boundary helpers for BeeQ external validation.
 
 The runtime only accepts an explicitly versioned package whose manifest matches
 the BeeQ X10 contract. It never treats saved result tables as predictors and it
@@ -24,6 +24,11 @@ from src.config import PROJECT_ROOT, X10_FEATURES
 BASELINE_RESULTS_DIR = PROJECT_ROOT / "results" / "final" / "20260818T070959Z_f1f76c91f3"
 OUTPUT_ROOT = PROJECT_ROOT / "external_validation" / "output"
 DEPLOYMENT_PACKAGE_ROOT = PROJECT_ROOT / "deployment_baseline" / "model_packages"
+APPROVED_MODEL_ORDER = (
+    "random_forest",
+    "rbf_svc",
+    "quantum_iqp_zz_linear",
+)
 EXPECTED_ENDPOINT = {
     "positive": "acute LD50 <= 11 microgram/bee",
     "negative": "acute LD50 > 11 microgram/bee",
@@ -127,15 +132,12 @@ def load_model_package(package_dir: str | Path) -> LoadedModelPackage:
 def load_approved_model_packages(
     package_root: str | Path = DEPLOYMENT_PACKAGE_ROOT,
 ) -> dict[str, LoadedModelPackage]:
-    """Load the authoritative approved RF/RBF deployment pair only."""
+    """Load the authoritative approved classical/quantum deployment set."""
 
     root = Path(package_root).resolve()
     if root != DEPLOYMENT_PACKAGE_ROOT.resolve():
         raise ValueError("approved packages must be loaded from deployment_baseline/model_packages")
-    packages = {
-        "random_forest": load_model_package(root / "random_forest"),
-        "rbf_svc": load_model_package(root / "rbf_svc"),
-    }
+    packages = {name: load_model_package(root / name) for name in APPROVED_MODEL_ORDER}
     for expected_name, package in packages.items():
         if package.manifest["model_name"] != expected_name:
             raise ValueError("deployment package model name does not match its approved slot")
@@ -172,7 +174,7 @@ def score_x10_features(
     values = features.to_numpy(dtype=float)
     if not np.isfinite(values).all():
         raise ValueError("feature matrix contains missing or non-finite values")
-    return np.asarray(package.model.predict(features), dtype=int)
+    return np.asarray(package.model.predict(values), dtype=int)
 
 
 def _continuous_score(model: Any, features: pd.DataFrame) -> np.ndarray:
@@ -190,20 +192,25 @@ def score_side_by_side(
 ) -> pd.DataFrame:
     """Return predictions, ranking scores, and disagreement for compatible packages."""
 
-    if set(packages) != {"random_forest", "rbf_svc"}:
-        raise ValueError("exactly the approved random_forest and rbf_svc packages are required")
+    if tuple(packages) != APPROVED_MODEL_ORDER:
+        raise ValueError(
+            "the approved random_forest, rbf_svc, and quantum_iqp_zz_linear "
+            "packages are required in canonical order"
+        )
     if tuple(features.columns) != X10_FEATURES:
         raise ValueError("feature matrix must use the exact ordered BeeQ X10 columns")
     values = features.to_numpy(dtype=float)
     if not np.isfinite(values).all():
         raise ValueError("feature matrix contains missing or non-finite values")
     result = pd.DataFrame(index=features.index)
-    for name in ("random_forest", "rbf_svc"):
+    for name in APPROVED_MODEL_ORDER:
         model = packages[name].model
-        result[f"{name}_prediction"] = np.asarray(model.predict(features), dtype=int)
-        result[f"{name}_score"] = _continuous_score(model, features)
-    result["model_disagreement"] = (
-        result["random_forest_prediction"] != result["rbf_svc_prediction"]
+        result[f"{name}_prediction"] = np.asarray(model.predict(values), dtype=int)
+        result[f"{name}_score"] = _continuous_score(model, values)
+    prediction_columns = [f"{name}_prediction" for name in APPROVED_MODEL_ORDER]
+    result["positive_votes"] = result[prediction_columns].sum(axis=1).astype(int)
+    result["any_model_disagreement"] = (
+        result[prediction_columns].nunique(axis=1) > 1
     )
     return result.reset_index(drop=True)
 

@@ -5,17 +5,16 @@
   },
   "approval_status": "approved_for_external_validation",
   "artifact": "model.pkl",
-  "artifact_sha256": "f91b57a3690eebebfd124bd559d628f44824c54fd3ef726ef6de9e3695cd89d6",
+  "artifact_sha256": "6283b2f13d401871ba56190f1219c4b2c9f1159ebab6b6668e3a3cca2898d7d4",
   "baseline_provenance": {
-    "classical_run_dir": "results\\runs\\20260818T070536Z_32d0e94b8b",
-    "classical_run_manifest_sha256": "3a0f08b08ed92425cdbc3de91361d1c7a3ae2d20a648cd8116efde606f26eafc",
     "export_is_not_an_original_evaluation_fit": true,
-    "historical_holdout_best_params_sha256": "262aee8bdafe55a0c37ac8bdc41f5fbacbe2c203e4e7651c617cfa1328646e69",
     "historical_holdout_labels_used_for_parameter_selection": false,
     "metrics_are_read_only_context": true,
+    "quantum_run_dir": "results\\runs\\20260818T070420Z_quantum_bfff644b61",
+    "quantum_run_manifest_sha256": "5af74dc82b7cf6bee5a8d87461529d532e4997a65a796ba6c72101151cb3e43b",
     "results_dir": "results\\final\\20260818T070959Z_f1f76c91f3",
     "results_manifest_sha256": "17da482a75c9d1f27ba47c9ae90ec4a754af0a5473bfb7c6f41273f64b7cffbe",
-    "run_config_sha256": "64655688f5d1db5a591de4ea053b40931ff961e6c284d42f7e641e41472d077f",
+    "selection_record_sha256": "330280120c2b1e5f6fa2290f86fb51b9b0153a12b76cec67abed2656bcd72b53",
     "selection_used_development_labels_only": true
   },
   "endpoint": {
@@ -39,16 +38,20 @@
   "fit_corpus": "893 curated reference molecules: development plus historical holdout",
   "fit_rows": 893,
   "fit_scope": "full_curated_reference_corpus",
-  "model_name": "rbf_svc",
-  "model_version": "beeq-x10-rbf_svc-full-reference-v1",
+  "model_name": "quantum_iqp_zz_linear",
+  "model_version": "beeq-x10-quantum_iqp_zz_linear-full-reference-v1",
   "package_schema_version": 1,
   "preprocessing": {
-    "model_recipe_source": "historical_holdout_best_params.json, x10, approved model",
-    "pipeline": "src.classical_models.model_specs",
+    "backend": "exact_numpy_statevector",
+    "class_weight": "balanced",
+    "kernel": "IQP-ZZ nearest-neighbor linear coupling fidelity kernel",
+    "pipeline": "src.deployment_models.ExactIQPZZKernelSVC",
     "random_seed": 42,
+    "selection_cv_auroc": 0.7346729461070345,
     "settings": {
-      "model__C": 1.0,
-      "model__gamma": 0.03
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
     }
   },
   "source_data": {
@@ -59,8 +62,8 @@
   "threshold_policy": {
     "development_oof_sensitivity": {
       "criterion": "maximum Youden J on pooled structure-aware development OOF scores",
-      "oof_predictions_sha256": "e901a1e63a20b70de5d7e812bbb60cb9d3ba3cb2eb1bb3af05578ec2519e6d6e",
-      "threshold": -0.3016812575887826,
+      "oof_predictions_sha256": "e7b63ee88d06b68b2c5548495871cf3e13e46afc5bf8d018d38265a4f16d8f09",
+      "threshold": -0.2578196419168673,
       "uses_external_labels": false
     },
     "endpoint_threshold": "acute LD50 <= 11 microgram/bee",

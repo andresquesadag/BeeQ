@@ -1,14 +1,20 @@
-# Future external validation
+# External validation
 
-This folder contains the guarded runtime path for the two approved BeeQ deployment baselines—random forest and classical RBF-SVC—plus a future workflow for one independently collected external CSV per run, such as a Costa Rican laboratory dataset. The authoritative packages live in `deployment_baseline/model_packages/`, a separate deployment phase. This folder contains no external observations, raw molecule rows, descriptor-generation implementation, or validation results. It is not a replacement for the existing research pipeline and does not claim that external validation has occurred.
+This folder contains the guarded runtime for the three BeeQ deployment baselines—random forest, classical RBF-SVC, and exact-statevector IQP-ZZ—plus the workflow for one independently documented external CSV per run. The authoritative packages live in `deployment_baseline/model_packages/`. External observations and generated molecule-level results remain private and outside version control.
 
-The current committed baseline bundle is a read-only reference for provenance and context at `results/final/20260818T070959Z_f1f76c91f3/`, including `all_metrics.csv`. Its saved metrics remain historical context, not the fitted objects used for export. The two exported final packages were refit on the full 893-molecule curated reference corpus (development plus historical holdout) and must not be represented as the same fitted objects that generated the development/holdout metrics.
+The current committed baseline bundle is a read-only reference for provenance and context at `results/final/20260818T070959Z_f1f76c91f3/`, including `all_metrics.csv`. Its saved metrics remain historical context, not the fitted objects used for export. The three exported final packages were refit on the full 893-molecule curated reference corpus (development plus historical holdout) and must not be represented as the same fitted objects that generated the development/holdout metrics.
 
-`runtime.py` provides guarded packaging interfaces: it accepts only the approved versioned packages from `deployment_baseline/model_packages/`, with a manifest, artifact hash, exact X10 schema, endpoint, preprocessing, threshold policy, approval status, and baseline provenance. It validates external input structure, scores only an already-approved X10 feature matrix, returns side-by-side predictions/disagreement for both models, and allocates unique output directories. It does not compute descriptors from SMILES.
+`runtime.py` provides guarded package interfaces and `run.py` executes the complete private validation. The workflow validates the input and exact X10 matrix, verifies every model artifact against a deterministic refit, computes applicability, returns three-model predictions/disagreement, evaluates observed labels with 2,000 bootstrap replicates, and hashes every output. It does not compute descriptors from SMILES.
 
-## How to use the future tool
+## Run the tool
 
-The intended future use is one approved external CSV per run. The workflow validates the CSV, prepares the exact approved X10 descriptors, loads both versioned packages from `deployment_baseline/model_packages/`, generates per-model predictions plus disagreement and applicability outputs, and optionally compares predictions with independently documented laboratory labels. The committed baseline results are read only for provenance and reference; they are not the future scoring model. Each run writes to a new private output subfolder. Real scoring remains gated until descriptor computation, threshold/calibration, applicability, privacy, and review approvals are complete.
+From the project root, run:
+
+```powershell
+python -m external_validation.run --input <private-external.csv> --data-dir <private-reference-data-dir>
+```
+
+Each invocation creates a unique ignored folder under `external_validation/output/`. The input may use the public template names or the native BeeQ handoff names (`ID`, `SMILES`, `LABEL`, and all X10 columns).
 
 ## Practical run flow
 
@@ -18,8 +24,8 @@ The intended future flow is:
 2. Confirm data-use, privacy, and redistribution permissions before copying or processing it.
 3. Validate the input schema, identifiers, labels, units, missingness, and structure fields.
 4. Recompute the exact X10 descriptor definitions required by the packaged model, including any approved in-house descriptors.
-5. Load both explicitly versioned packages from `deployment_baseline/model_packages/` and verify their manifests and hashes.
-6. Generate random-forest and RBF-SVC predictions, scores, model-disagreement flags, applicability/domain flags, and provenance.
+5. Load all three explicitly versioned packages from `deployment_baseline/model_packages/` and verify their manifests, hashes, and deterministic refits.
+6. Generate random-forest, RBF-SVC, and IQP-ZZ predictions, scores, model-disagreement flags, applicability/domain flags, and provenance.
 7. Compare predictions with observed laboratory labels only after endpoint, units, label provenance, and approved metrics are reviewed.
 8. Write validation reports and approved private outputs to a unique subfolder under `external_validation/output/`; never overwrite the baseline bundle or a prior run.
 
@@ -39,7 +45,7 @@ The expected label convention follows the current BeeQ reference documentation: 
 
 ## Current limitations
 
-- No Costa Rican or other external laboratory dataset is included.
+- No private external laboratory dataset is committed.
 - The deployment packages are new 893-row fits, not the original evaluation objects; historical metrics are read-only context.
 - The current repository does not provide a complete public package that recomputes every X10 descriptor, including the in-house descriptors.
 - The historical BeeQ holdout was previously inspected and is not a substitute for a new independent validation set.
@@ -48,9 +54,9 @@ The expected label convention follows the current BeeQ reference documentation: 
 
 ## Run status and expected outputs
 
-Do not run this as a validated analysis until approved inputs, complete descriptor generation, a compatible serialized model package, applicability thresholds, and review procedures exist. The notebook intentionally stops with clear placeholders where those dependencies are unavailable. It must not invent predictions, scores, confidence intervals, or trained-model results.
+The runtime is operational for an approved CSV that already contains the exact X10 matrix and labels. Descriptor-contract mismatches, structural overlap, and rows outside the applicability boundary are retained as explicit warnings rather than silently discarded.
 
-The proposed private output set for each unique run is: an input snapshot/reference and manifest hash; a validation report; per-model predictions and continuous scores; a model-disagreement report; an applicability report; descriptor/schema provenance; optional observed-label comparison metrics; and run metadata linking back to the read-only baseline bundle. Generated run outputs are ignored by `output/.gitignore`; the baseline results remain separate and are never overwritten.
+The private output set for each unique run is: an input manifest and hash; validation and deployment-verification reports; per-model predictions and continuous scores; disagreement and applicability fields; bootstrap metrics and paired comparisons; threshold sensitivity; two aggregate paper figures; one generated LaTeX table; and run metadata linking back to the read-only baseline bundle. Generated outputs are ignored by `output/.gitignore`; the baseline results remain separate and are never overwritten.
 
 ## Files
 
@@ -62,5 +68,6 @@ The proposed private output set for each unique run is: an input snapshot/refere
 - `model_package.schema.json`: manifest contract for a future approved package.
 - `../deployment_baseline/model_packages/random_forest/`: approved full-reference random-forest package.
 - `../deployment_baseline/model_packages/rbf_svc/`: approved full-reference classical RBF-SVC package.
+- `../deployment_baseline/model_packages/quantum_iqp_zz_linear/`: approved full-reference exact IQP-ZZ package.
 
-The package artifacts are deployment-oriented refits, not a rerun of the research comparison. The manifests identify the recorded selection recipe and preserve the original result-bundle hashes for audit context. The current thresholding and applicability/domain policies remain marked as not approved; scientific external validation therefore remains blocked until those policies, descriptor generation (including the in-house X10 descriptors), input approvals, and review procedures are complete.
+The package artifacts are deployment-oriented refits, not a rerun of the research comparison. Their primary decision thresholds are the frozen estimator defaults; development-OOF Youden thresholds are reported only as sensitivity analyses and never fitted to external labels. Applicability uses the 95th percentile of leave-one-out nearest-neighbor distance in standardized reference X10 space.

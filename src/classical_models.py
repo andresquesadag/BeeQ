@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedGroupKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -43,7 +44,7 @@ def model_specs(seed: int, quick: bool = False) -> dict[str, ModelSpec]:
     forest_depth = [None, 6] if not quick else [None]
     forest_leaf = [1, 3] if not quick else [1]
 
-    return {
+    specs = {
         "logistic": ModelSpec(
             estimator=Pipeline(
                 [
@@ -97,7 +98,55 @@ def model_specs(seed: int, quick: bool = False) -> dict[str, ModelSpec]:
                 "model__min_samples_leaf": forest_leaf,
             },
         ),
+        "mlp": ModelSpec(
+            estimator=Pipeline(
+                [
+                    ("scale", StandardScaler()),
+                    (
+                        "model",
+                        MLPClassifier(
+                            max_iter=2000,
+                            early_stopping=True,
+                            random_state=seed,
+                        ),
+                    ),
+                ]
+            ),
+            param_grid={
+                "model__hidden_layer_sizes": [(32,), (32, 16)] if not quick else [(32,)],
+                "model__alpha": [0.0001, 0.001, 0.01] if not quick else [0.001],
+                "model__learning_rate_init": [0.0003, 0.001] if not quick else [0.001],
+            },
+        ),
     }
+    try:
+        from xgboost import XGBClassifier
+
+        specs["xgboost"] = ModelSpec(
+            estimator=Pipeline(
+                [
+                    (
+                        "model",
+                        XGBClassifier(
+                            objective="binary:logistic",
+                            eval_metric="logloss",
+                            n_jobs=1,
+                            random_state=seed,
+                        ),
+                    )
+                ]
+            ),
+            param_grid={
+                "model__n_estimators": [100, 200] if not quick else [100],
+                "model__max_depth": [2, 3] if not quick else [2],
+                "model__learning_rate": [0.03, 0.1] if not quick else [0.1],
+                "model__subsample": [0.8],
+                "model__colsample_bytree": [0.8, 1.0] if not quick else [1.0],
+            },
+        )
+    except ImportError:
+        pass
+    return specs
 
 
 def _inner_splits(

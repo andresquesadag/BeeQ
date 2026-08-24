@@ -105,7 +105,7 @@ credentials are not required. It executes product-state and IQP-ZZ fidelity
 kernels plus a matched RBF control.
 
 ```bash
-python -m src.quantum_experiment --config configs/quantum.json --evaluate-holdout
+python -m src.quantum_experiment --config configs/quantum.json
 ```
 
 ## Run phase 4
@@ -154,6 +154,40 @@ and writes private predictions, 2,000-replicate bootstrap metrics, paired
 AUROC comparisons, threshold sensitivity, and hashes to a unique ignored run
 folder under `external_validation/output/`.
 
+## Corrected complete campaign
+
+The corrected Luis handoff can be evaluated end to end with one command:
+
+```bash
+python -m src.campaign
+```
+
+Run it from the repository root with the project virtual environment active.
+On Windows, the fully explicit command is:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.campaign
+```
+
+Each invocation creates a unique `results/campaigns/<timestamp>_<config-hash>/`
+directory. It snapshots and hashes the corrected train, holdout, master, and
+external tables; runs nested structure-aware HPO for logistic regression,
+RBF-SVC, Random Forest, XGBoost, and the exploratory MLP; runs matched RBF,
+product-state, and IQP-ZZ exact-statevector kernels; evaluates the historical
+holdout and the eight-molecule external challenge; records exact and RDKit-
+canonical SMILES overlap; and writes one top-level manifest containing hashes
+for every output. Existing runs are never overwritten.
+
+The external panel contains only eight independent molecules and is therefore
+reported as an exploratory challenge, not as definitive evidence of model
+generalization.
+
+The campaign directory is the source of truth for corrected results. Older
+`results/runs/` and `results/final/` bundles are retained only as historical
+provenance and must not be mixed with corrected campaign metrics. Raw dataset
+snapshots are ignored by Git; their hashes remain recorded in the campaign
+configuration and manifest.
+
 ## Layout
 
 | Path | Purpose |
@@ -165,6 +199,7 @@ folder under `external_validation/output/`.
 | `src/` | Validated data, experiments, metrics, kernels, and plots |
 | `tests/` | Data-contract, metric, and kernel invariants |
 | `results/runs/` | Versioned run bundles used by the paper |
+| `results/campaigns/` | One-command corrected classical/quantum campaigns |
 | `deployment_baseline/` | Versioned full-reference deployment models |
 | `external_validation/` | Private three-model external-validation workflow |
 | `paper/` | IEEE LaTeX source, generated tables, and figures |

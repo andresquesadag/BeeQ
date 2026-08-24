@@ -1,0 +1,35 @@
+{
+  "classical_models": [
+    "logistic",
+    "rbf_svc",
+    "random_forest",
+    "xgboost",
+    "mlp"
+  ],
+  "code_hashes": {
+    "configs/quantum.json": "f88e97fc78d581099340eefa6492a0e496e93bdc35583831d8f5a46ac142a369",
+    "src/campaign.py": "42e2ebb7dbf78f77be8312dbbc5dd6df7f274a62aae2261e87b64e555ce47ae5",
+    "src/classical_models.py": "02c9a111c7e0891f69d081a988a1b340bc208100098576a82d125aa1a002f64a",
+    "src/external_challenge.py": "8ad60bb34cbfcb15858f0a40b87958c42fc1e9fccfa859be2f462fd7cabb4dc0",
+    "src/quantum_experiment.py": "175482a801fee4313e6c5d3914aebcb1af107962ffc6892873634c97f73b7687"
+  },
+  "inner_folds": 4,
+  "matched_kernel_control": "rbf_matched",
+  "outer_folds": 5,
+  "protocol": "beeq_corrected_complete_nested_v1",
+  "quantum_models": [
+    "quantum_angle_product",
+    "quantum_iqp_zz_linear"
+  ],
+  "quick": false,
+  "representation": "x10",
+  "schema_version": 1,
+  "seed": 42,
+  "selection_metric": "roc_auc",
+  "source_hashes": {
+    "ExternalFinal_RDKitFixed.csv": "70a01eedd970991e072eb9db8e2acdbe854dc8d4623b42bb2263318486cd41fb",
+    "master_RDKitFixed.csv": "a0a6177b3319dba8f210d2358bdd63edbb1c6db3d9b657daa992459b11f2c38e",
+    "test_RDKitFixed.csv": "3f964207e5d732315501d11be2d50c4f520e51a8c7f17b70fe8594390988c8f5",
+    "train_RDKitFixed.csv": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984"
+  }
+}

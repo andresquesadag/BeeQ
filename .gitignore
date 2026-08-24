@@ -211,6 +211,10 @@ tempCodeRunnerFile.py
 cache/
 tmp/
 
+# Corrected campaign inputs are local/private. Their SHA-256 hashes remain in
+# the versioned campaign manifests, but raw snapshots must not be committed.
+results/campaigns/*/data_snapshot/
+
 # Ruff stuff:
 .ruff_cache/
 

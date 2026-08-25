@@ -36,6 +36,13 @@ def _run(command: list[str], log_path: Path) -> None:
         raise RuntimeError(f"Command failed; see {log_path}")
 
 
+def _only_run(directory: Path) -> Path:
+    runs = [path for path in directory.iterdir() if path.is_dir()]
+    if len(runs) != 1:
+        raise RuntimeError(f"Expected exactly one run under {directory}; found {runs}")
+    return runs[0]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -60,8 +67,19 @@ def main() -> None:
         PROJECT_ROOT / "src" / "classical_models.py",
         PROJECT_ROOT / "src" / "quantum_experiment.py",
         PROJECT_ROOT / "src" / "external_challenge.py",
+        PROJECT_ROOT / "src" / "split_70_20_10.py",
         PROJECT_ROOT / "configs" / "quantum.json",
     ]
+    supplemental_names = [
+        "split_manifest.json",
+        "external_reference_match_audit.csv",
+        "Externalset_reference_only.csv",
+    ]
+    supplemental_paths = {
+        name: source / name
+        for name in supplemental_names
+        if (source / name).is_file()
+    }
     config = {
         "schema_version": 1,
         "protocol": "beeq_corrected_complete_nested_v1",
@@ -75,6 +93,9 @@ def main() -> None:
         "representation": "x10",
         "quick": bool(args.quick),
         "source_hashes": {name: sha256_file(path) for name, path in source_paths.items()},
+        "supplemental_source_hashes": {
+            name: sha256_file(path) for name, path in supplemental_paths.items()
+        },
         "code_hashes": {
             str(path.relative_to(PROJECT_ROOT)).replace("\\", "/"): sha256_file(path)
             for path in code_paths
@@ -90,6 +111,8 @@ def main() -> None:
     snapshot = root / "data_snapshot"
     for source_name, target_name in CORRECTED_NAMES.items():
         shutil.copy2(source_paths[source_name], snapshot / target_name)
+    for name, path in supplemental_paths.items():
+        shutil.copy2(path, root / "audit" / name)
     write_json(root / "run_config.json", config)
     write_json(root / "environment.json", environment())
     write_json(root / "git_state.json", git_state())
@@ -104,6 +127,7 @@ def main() -> None:
     if args.quick:
         classical.append("--quick")
     _run(classical, root / "logs" / "classical.log")
+    classical_run = _only_run(root / "classical")
 
     _run(
         [
@@ -114,10 +138,13 @@ def main() -> None:
         ],
         root / "logs" / "quantum.log",
     )
+    quantum_run = _only_run(root / "quantum")
 
     _run(
         [
             python, "-m", "src.external_challenge", "--data-dir", str(source),
+            "--classical-run", str(classical_run),
+            "--quantum-run", str(quantum_run),
             "--output", str(root / "external"),
         ],
         root / "logs" / "external.log",

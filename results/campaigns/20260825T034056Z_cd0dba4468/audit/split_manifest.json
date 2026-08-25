@@ -1,0 +1,63 @@
+{
+  "labels": {
+    "external": {
+      "0": 62,
+      "1": 27
+    },
+    "holdout": {
+      "0": 125,
+      "1": 54
+    },
+    "train": {
+      "0": 435,
+      "1": 190
+    }
+  },
+  "leakage_audit": {
+    "cluster_note": "Reference-forced external rows share Butina clusters with internal rows; complete cluster isolation would move 234/893 rows external.",
+    "external_internal_butina_cluster_overlap": 40,
+    "external_internal_canonical_smiles_overlap": 0,
+    "external_internal_exact_smiles_overlap": 0,
+    "external_internal_id_overlap": 0,
+    "train_holdout_butina_cluster_overlap": 0,
+    "train_holdout_exact_smiles_overlap": 0,
+    "train_holdout_id_overlap": 0
+  },
+  "outputs": {
+    "ExternalFinal_RDKitFixed.csv": "687b1d75fc5979efceb9240e3118695a5245a22648dc7e525a9949bfb22fd613",
+    "Externalset_reference_only.csv": "faa79acaf4723347be21339d8aa3b652f272915a21542f2f5b074d17a23183a0",
+    "external_reference_match_audit.csv": "da2c96c3b599bb5169a4e4a1caf151fec1ce5fb69d7a4475fcf40110e015b725",
+    "master_RDKitFixed.csv": "964ac5fa0e69438c975eaf2f12e95ea78d1f30a11aeb1bdf4a4d6e1cd5f0f450",
+    "master_full_reference_RDKitFixed.csv": "893c90e3b59c554f436e78192c8b4985032d41d1349f0e523392f3d94855a200",
+    "test_RDKitFixed.csv": "986877659cd58a6453f100a320711e2391ca20dbf552f6fe7cdae75119d85dbf",
+    "train_RDKitFixed.csv": "74b4d88416686c2d37e44cc0e62b2f01b3b0a29c5d287b1c0119d9cf05b01343"
+  },
+  "protocol": "corrected_master_forced_reference_70_20_10_v1",
+  "schema_version": 1,
+  "seed": 42,
+  "source": {
+    "corrected_master": "C:\\Github_Repos\\BeeQ\\.donotmerge_aux\\Luis\\01_DATA\\master_RDKitFixed.csv",
+    "corrected_master_sha256": "a0a6177b3319dba8f210d2358bdd63edbb1c6db3d9b657daa992459b11f2c38e",
+    "external_reference": "C:\\Github_Repos\\BeeQ\\.donotmerge_aux\\data\\Externalset.csv",
+    "external_reference_sha256": "faa79acaf4723347be21339d8aa3b652f272915a21542f2f5b074d17a23183a0",
+    "reference_label_conflicts": 2,
+    "reference_rows": 73,
+    "reference_rows_matched_to_master": 71,
+    "reference_rows_not_in_master": 2
+  },
+  "split": {
+    "external_fraction": 0.09966405375139978,
+    "external_reference_linked_rows": 71,
+    "external_rows": 89,
+    "external_stratified_additions": 18,
+    "group_search": {
+      "candidate_index": 803,
+      "holdout_prevalence_error": 0.0018066094110453235,
+      "holdout_size_error": 0
+    },
+    "holdout_fraction": 0.20044792833146696,
+    "holdout_rows": 179,
+    "train_fraction": 0.6998880179171333,
+    "train_rows": 625
+  }
+}

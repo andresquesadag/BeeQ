@@ -11,6 +11,29 @@ Run the complete corrected campaign from the repository root:
 The optional `--source-data` and `--output-root` arguments change locations,
 not the protocol. Do not use `--quick` for paper results.
 
+## 70/20/10 split variant
+
+Generate the deterministic split, then point the same campaign command at it:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.split_70_20_10
+.\.venv\Scripts\python.exe -m src.campaign `
+  --source-data .donotmerge_aux/generated/master_70_20_10_seed42
+```
+
+The 893 corrected master rows are partitioned into 625 development rows
+(69.99%), 179 holdout rows (20.04%), and 89 external rows (9.97%). The legacy
+73-row external file is only a reservation reference. Seventy-one compounds
+can be linked to the master by canonical SMILES or CAS, while two are absent.
+Eighteen additional master rows are selected deterministically and stratified
+by label to complete the external target.
+
+Train and holdout are Butina-cluster disjoint. External and internal are ID,
+exact-SMILES, and canonical-SMILES disjoint. They are not completely
+Butina-cluster disjoint: enforcing all reference molecules and full cluster
+isolation would require 234 external rows (26.2%), which conflicts with the
+requested 10% external size.
+
 ## Fixed structure
 
 Every invocation creates `results/campaigns/<timestamp>_<config-hash>/` with:

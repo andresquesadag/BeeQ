@@ -1,0 +1,74 @@
+reference_ID,reference_name,reference_CAS,reference_LABEL,match_status,match_method,master_ID,master_name,master_LABEL,label_agrees
+1,Acetochlor,34256-82-1,0,matched,canonical_smiles,89.0,2-Chloro-N-(ethoxymethyl)-N-(2-ethyl-6-methylphenyl)acetamide,0.0,True
+2,Acibenzolar-S-methyl,135158-54-2,0,matched,canonical_smiles,597.0,"1,2,3-Benzothiadiazole-7-carbothioic acid S-methyl ester",0.0,True
+3,Afidopyropen,915972-17-7,0,matched,cas,1031.0,"Cyclopropanecarboxylic acid, [(3S,4R,4aR,6S,6aS,12R,12aS,12bS)-3-[(Cyclopropylcarbonyl)oxy]-1,3,4,4a,5,6,6a,12,12a,12b-decahydro-6,12-dihydroxy-4,6a,12b-trimethyl-11-oxo-9-(3-pyridinyl)-2H,11H-naphtho[2,1-b]pyrano[3,4-e]pyran-4-yl]methyl ester",0.0,True
+4,Ametoctradin,865318-97-4,0,matched,canonical_smiles,801.0,Ametoctradin (Ref: BAS 650F),0.0,True
+5,Amicarbazone,129909-90-6,0,matched,canonical_smiles,643.0,"4-Amino-N-(1,1-dimethylethyl)-4,5-dihydro-3-(1-methylethyl)-5-oxo-1H-1,2,4-triazole-1-carboxamide",0.0,True
+6,Boscalid,188425-85-6,0,matched,canonical_smiles,705.0,"2-Chloro-N-(4'-chloro[1,1'-biphenyl]-2-yl)-3-pyridinecarboxamide",0.0,True
+7,Carboxin,5234-68-4,0,matched,canonical_smiles,297.0,"5,6-Dihydro-2-methyl-N-phenyl-1,4-oxathiin-3-carboxamide",0.0,True
+8,Clomazone,81777-89-1,0,matched,canonical_smiles,511.0,"2-[(2-Chlorophenyl)methyl]-4,4-dimethyl-3-isoxazolidinone",0.0,True
+9,Clothianidin,210880-92-5,1,matched,canonical_smiles,684.0,Clothianidin (Ref: CGA 322704),1.0,True
+10,Cyazofamid,120116-88-3,0,matched,canonical_smiles,660.0,"4-Chloro-2-cyano-N,N-dimethyl-5-(4-methylphenyl)-1H-imidazole-1-sulfonamide",0.0,True
+11,Cyclanilide,113136-77-9,0,matched,canonical_smiles,663.0,"1-[[(2,4-Dichlorophenyl)amino]carbonyl]cyclopropane carboxylic acid",0.0,True
+12,Cypermethrin,52315-07-8,1,matched,canonical_smiles,184.0,Beta-cypermethrin (Ref: OMS 3068),1.0,True
+13,Deltamethrin,52918-63-5,1,matched,cas,409.0,"(1R,3R)-3-(2,2-Dibromoethenyl)-2,2-dimethylcyclopropanecarboxylic acid (S)cyano(3-phenoxyphenyl)methyl ester",1.0,True
+14,Desmedipham,13684-56-5,0,matched,canonical_smiles,335.0,"N-[3-[[(Phenylamino)carbonyl]oxy]phenyl]carbamic acid, Ethyl ester",0.0,True
+15,Diclosulam,145701-21-9,0,matched,canonical_smiles,668.0,"N-(2,6-Dichlorophenyl)-5-ethoxy-7-fluoro-[1,2,4-triazolo[1,5-c]pyrimidine-2-sulfonamide",0.0,True
+16,Ethaboxam,162650-77-3,0,matched,canonical_smiles,992.0,N-(Cyano-2-thienylmethyl)-4-ethyl-2-(ethylamino)-5-thiazolecarboxamide,0.0,True
+17,Ethalfluralin,55283-68-6,0,matched,canonical_smiles,378.0,"N-Ethyl-N-(2-methyl-2-propenyl)-2,6-dinitro-4-(trifluoromethyl)benzenamine",0.0,True
+18,Etoxazole,153233-91-1,0,matched,canonical_smiles,639.0,"2-(2,6-Difluorophenyl)-4-[4-(1,1-dimethylethyl)-2-ethoxyphenyl]-4,5-dihydrooxazole",0.0,True
+19,Fenamidone,161326-34-7,0,matched,cas,677.0,"(5S)-3,5-Dihydro-5-methyl-2-(methylthio)-5-phenyl-3-(phenylamino)-4H-imidazol-4-one",0.0,True
+20,Fenpropimorph,67564-91-4,0,matched,cas,487.0,"(2R,6S)-rel-4-[3-[4-(1,1-Dimethylethyl)phenyl]-2-methylpropyl]-2,6-dimethylmorpholine  ",0.0,True
+21,Fipronil,120068-37-3,1,matched,canonical_smiles,387.0,"5-Amino-1-[2,6-dichloro-4-(trifluoromethyl)phenyl]-4-[(trifluoromethyl)sulfinyl]-1H-pyrazole-3-carbonitrile",1.0,True
+22,Flazasulfuron,104040-78-0,0,matched,canonical_smiles,543.0,"N-[[4,6-Dimethoxy-2-pyrimidinyl)amino]carbonyl]-3-(trifluoromethyl)-2-pyridinesulfonamide",0.0,True
+23,Florpyrauxifen-benzyl ester,1390661-72-9,0,matched,canonical_smiles,825.0,Benzyl 4-amino-3-chloro-6-(4-chloro-2-fluoro-3-methoxyphenyl)-5-fluoropyridine-2-carboxylate,0.0,True
+24,Fluazifop-P-butyl,79241-46-6,0,matched,canonical_smiles,448.0,Fluazifop-butyl (Ref: SL 236),0.0,True
+25,Flubendiamide,272451-65-7,0,matched,canonical_smiles,586.0,"N2-[1,1-Dimethyl-2-(methylsulfonyl)ethyl]-3-iodo-N1-[2-methyl-4-[1,2,2,2-tetrafluoro-1-(trifluoromethyl)ethyl]phenyl]-1,2-benzenedicarboxamide",0.0,True
+26,Flufenacet,142459-58-3,0,matched,canonical_smiles,581.0,"N-(4-Fluorophenyl)-N-(1-methylethyl)-2-[[5-(trifluoromethyl)-1,3,4-thiadiazol-2-yl]oxy]acetamide",0.0,True
+27,Flumetralin,62924-70-3,0,matched,canonical_smiles,526.0,"2-Chloro-N-[2,6-dinitro-4-(trifluoromethyl)phenyl]-N-ethyl-6-fluorobenzenemethanamine",0.0,True
+28,Fluometuron,2164-17-2,0,matched,canonical_smiles,285.0,"N,N-Dimethyl-N'-[3-(trifluoromethyl)phenyl]urea",0.0,True
+29,Fluoxastrobin,361377-29-9,0,matched,cas,985.0,"(1E)-[2-[[6-(2-Chlorophenoxy)-5-fluoro-4-pyrimidinyl]oxy]phenyl](5,6-dihydro-1,4,2-dioxazin-3-yl)-methanone, O-Methyloxime",0.0,True
+30,Flutriafol,76674-21-0,0,matched,canonical_smiles,410.0,Flutriafol (Ref: PP 450),1.0,False
+31,Glyphosate,1071-83-6,0,matched,canonical_smiles,342.0,N-(Phosphonomethyl)glycine,0.0,True
+32,Hexaflumuron,86479-06-3,0,matched,canonical_smiles,491.0,Hexaflumuron (Ref: XRD 473),0.0,True
+33,Hymexazole,10004-44-1,0,matched,canonical_smiles,402.0,5-Methyl-3(2H)-isoxazolone,0.0,True
+34,Imazamox,114311-32-9,0,matched,cas,534.0,Imazamox (Ref: BAS 720H),0.0,True
+35,Imazethapyr,81335-77-5,0,matched,cas,507.0,Imazethapyr (Ref: AC 252925),0.0,True
+36,Imazosulfuron,122548-33-8,0,matched,canonical_smiles,610.0,"2-Chloro-N-[[(4,6-dimethoxy-2-pyrimidinyl)amino]carbonyl]imidazo[1,2-a]pyridine-3-sulfonamide",0.0,True
+37,Imidacloprid,138261-41-3,1,matched,canonical_smiles,564.0,Imidacloprid (Ref: BAY NTN 33893),1.0,True
+38,Indoxacarb,173584-44-6,1,matched,cas,461.0,"(4aS)-7-Chloro-2,5-dihydro-2-[[(methoxycarbonyl)[4-(trifluoromethoxy)phenyl]amino]carbonyl]indeno[1,2-e][1,3,4]oxadiazine-4a(3H)-carboxylic acid methyl ester",1.0,True
+39,lambda-Cyhalothrin,91465-08-6,1,not_in_master,,,,,
+40,Malathion,121-75-5,1,matched,canonical_smiles,65.0,"2-[(Dimethoxyphosphinothioyl)thio]butanedioic acid 1,4-diethyl ester",1.0,True
+41,Mandipropamid,374726-62-2,0,matched,canonical_smiles,648.0,4-Chloro-N-[2-[3-methoxy-4-(2-propynyloxy)phenyl]ethyl]-alpha-(2-propynyloxy)benzeneacetamide,0.0,True
+42,MCPA,94-74-6,0,matched,canonical_smiles,137.0,2-(4-Chloro-2-methylphenoxy)acetic acid,0.0,True
+43,Mesotrione,104206-82-8,0,matched,canonical_smiles,665.0,Mesotrione (Ref: ZA 1296),1.0,False
+44,Metaldehyde,108-62-3,0,matched,canonical_smiles,857.0,Metaldehyde,0.0,True
+45,Metolachlor,51218-45-2,0,matched,canonical_smiles,418.0,2-Chloro-N-(2-ethyl-6-methylphenyl)-N-(2-methoxy-1-methylethyl)acetamide,0.0,True
+46,Myclobutanil,88671-89-0,0,matched,canonical_smiles,497.0,"alpha-Butyl-alpha-(4-chlorophenyl)-1H-1,2,4-triazole-1-propanenitrile",0.0,True
+47,Novaluron,116714-46-6,0,matched,canonical_smiles,629.0,"N-[[[3-Chloro-4-[1,1,2-trifluoro-2-(trifluoromethoxy)ethoxy]phenyl]amino]carbonyl]-2,6-difluorobenzamide",0.0,True
+48,Oxamyl,23135-22-0,1,matched,cas,273.0,2-(Dimethylamino)-N-[[(methylamino)carbonyl]oxy]-2-oxo-ethanimidothioic acid methyl ester,1.0,True
+49,Oxyfluorfen,42874-03-3,0,matched,canonical_smiles,400.0,2-Chloro-1-(3-ethoxy-4-nitrophenoxy)-4-(trifluoromethyl)benzene,0.0,True
+50,Pendimethalin,40487-42-1,0,matched,canonical_smiles,63.0,"N-(1-Ethylpropyl)-3,4-dimethyl-2,6-dinitro-benzenamine",0.0,True
+51,Penoxsulam,219714-96-2,0,matched,canonical_smiles,987.0,"2-(2,2-Difluoroethoxy)-N-(5,8-dimethoxy[1,2,4]triazolo[1,5-c]pyrimidin-2-yl)-6-(trifluoromethyl)benzenesulfonamide",0.0,True
+52,Permethrin,52645-53-1,1,matched,canonical_smiles,159.0,"3-(2,2-Dichloroethenyl)-2,2-dimethylcyclopropanecarboxylic acid, (3-Phenoxyphenyl)methyl ester",1.0,True
+53,Phenmedipham,13684-63-4,0,matched,canonical_smiles,102.0,(3-Methylphenyl)carbamic acid 3-[(methoxycarbonyl)amino]phenyl ester,0.0,True
+54,Propanil,709-98-8,0,matched,canonical_smiles,39.0,"N-(3,4-Dichlorophenyl)propanamide",0.0,True
+55,Propargite,2312-35-8,0,matched,canonical_smiles,881.0,"2-[4-(1,1-Dimethylethyl)phenoxy]cyclohexyl 2-propynyl ester sulfurous acid",0.0,True
+56,Prothioconazole,178928-70-6,0,matched,canonical_smiles,980.0,"2-[2-(1-Chlorocyclopropyl)-3-(2-chlorophenyl)-2-hydroxypropyl]-1,2-dihydro-3H-1,2,4-triazole-3-thione",0.0,True
+57,Pymetrozine,123312-89-0,0,matched,cas,601.0,"4,5-Dihydro-6-methyl-4-[(E)-(3-pyridinylmethylene)amino]-1,2,4-triazin-3(2H)-one",0.0,True
+58,Pyraclostrobin,175013-18-0,0,matched,canonical_smiles,125.0,[2-[[[1-(4-Chlorophenyl)-1H-pyrazol-3-yl]oxy]methyl]phenyl]methoxycarbamic acid methyl ester,0.0,True
+59,Pyridaben,96489-71-3,1,matched,canonical_smiles,538.0,"4-Chloro-2-(1,1-dimethylethyl)-5-[[[4-(1,1-dimethylethyl)phenyl]methyl]thio]-3(2H)pyridazinene",1.0,True
+60,Pyrimethanil,53112-28-0,0,matched,canonical_smiles,547.0,"4,6-Dimethyl-N-phenyl-2-pyrimidinamine",0.0,True
+61,Pyriproxyfen,95737-68-1,0,matched,canonical_smiles,484.0,2-[1-Methyl-2-(4-phenoxyphenoxy)ethoxy]pyridine,0.0,True
+62,Spirodiclofen,148477-71-8,0,matched,canonical_smiles,702.0,"2,2-Dimethylbutanoic acid, 3-(2,4-Dichlorophenyl)-2-oxo-1-oxaspiro[4.5]dec-3-en-4-yl ester",0.0,True
+63,Spiromesifen,283594-90-1,0,matched,canonical_smiles,955.0,"3,3-Dimethylbutanoic acid 2-oxo-3-(2,4,6-trimethylphenyl)-1-oaxspiro[4.4]non-3-en-4-yl ester",0.0,True
+64,Tefluthrin,391634-71-2,1,not_in_master,,,,,
+65,Thiacloprid,111988-49-9,0,matched,canonical_smiles,989.0,[N(Z)]-N-[3-[(6-Chloro-3-pyridinyl)methyl]-2-thiazolidinylidene]cyanamide,0.0,True
+66,Thiamethoxam,153719-23-4,1,matched,cas,671.0,"3-[(2-Chloro-5-thiazolyl)methyl]tetrahydro-5-methyl-N-nitro-4H-1,3,5-oxadiazin-4-imine",1.0,True
+67,Thidiazuron,51707-55-2,0,matched,canonical_smiles,890.0,"N-Phenyl-N'-1,2,3-thiadiazol-5-yl-urea",0.0,True
+68,Thiobencarb,28249-77-6,0,matched,canonical_smiles,352.0,"N,N-Diethylcarbamothioic acid S-[(4-chlorophenyl)methyl] ester",0.0,True
+69,Thiodicarb,59669-26-0,1,matched,cas,436.0,"N,N'-[Thiobis[(methylimino)carbonyloxy]]bisethanimidothioic acid dimethyl ester",1.0,True
+70,Triadimenol,55219-65-3,0,matched,canonical_smiles,421.0,"beta-(4-Chlorophenoxy)-alpha-(1,1-dimethylethyl)-1H-1,2,4-triazole-1-ethanol",0.0,True
+71,Triclopyr,55335-06-3,0,matched,canonical_smiles,200.0,"2-[(3,5,6-Trichloro-2-pyridinyl)oxy]acetic acid",0.0,True
+72,Trifloxystrobin,141517-21-7,0,matched,cas,577.0,(alphaE)-alpha-(Methoxyimino)-2-[[[(E)-[1-[3-(trifluoromethyl)phenyl]ethylidene]amino]oxy]methyl]benzeneacteic acid methyl ester,0.0,True
+73,Triforine,26644-46-2,0,matched,canonical_smiles,854.0,"N,N'-[1,4-Piperazinediylbis(2,2,2-trichloroethylidene)]bis-formamide",0.0,True

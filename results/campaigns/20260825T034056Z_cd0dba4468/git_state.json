@@ -1,0 +1,10 @@
+{
+  "commit": "5a410041c9807aa499e8cf3f64bd855f21d51558",
+  "dirty": true,
+  "status": [
+    "M src/campaign.py",
+    " M src/external_challenge.py",
+    "?? results/campaigns/20260825T034056Z_cd0dba4468/",
+    "?? src/split_70_20_10.py"
+  ]
+}

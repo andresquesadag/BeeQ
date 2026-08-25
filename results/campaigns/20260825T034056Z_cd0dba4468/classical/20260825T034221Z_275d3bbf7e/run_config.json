@@ -1,0 +1,35 @@
+{
+  "evaluate_historical_holdout": true,
+  "feature_schema_sha256": "59d471a97c1adbc65ff42afb4714d6c08fe935c620ec57d39a69554d90c9ad9b",
+  "feature_sets": {
+    "x10": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ]
+  },
+  "inner_splits": 4,
+  "models": [
+    "logistic",
+    "rbf_svc",
+    "random_forest",
+    "xgboost",
+    "mlp"
+  ],
+  "n_jobs": 1,
+  "primary_metric": "roc_auc",
+  "protocol": "classical_nested_structure_aware_v1",
+  "quick_grid": false,
+  "representations": [
+    "x10"
+  ],
+  "seed": 42,
+  "split_sha256": "cb2c42b0bf5ee7cf0526e4b1319eb26439e0382589bfa7ef7005d067be5905dd"
+}

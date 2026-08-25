@@ -182,6 +182,22 @@ The external panel contains only eight independent molecules and is therefore
 reported as an exploratory challenge, not as definitive evidence of model
 generalization.
 
+### Reproducible 70/20/10 variant
+
+Create a second split from the corrected 893-row master while using the old
+73-row external file only as a reservation list:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.split_70_20_10
+.\.venv\Scripts\python.exe -m src.campaign `
+  --source-data .donotmerge_aux/generated/master_70_20_10_seed42
+```
+
+This produces 625 development rows, 179 holdout rows, and 89 external rows.
+Seventy-one reference molecules are recovered from the corrected master; two
+reference compounds absent from the master are documented but not fabricated.
+The external descriptors and labels always come from the corrected master.
+
 The campaign directory is the source of truth for corrected results. Older
 `results/runs/` and `results/final/` bundles are retained only as historical
 provenance and must not be mixed with corrected campaign metrics. Raw dataset

@@ -1,5 +1,0 @@
-# Keep generated external-validation run outputs private and separate from the baseline bundle.
-*
-!.gitignore
-!.gitkeep
-!README.md

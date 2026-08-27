@@ -152,9 +152,13 @@ def load_bundle(data_dir: str | Path | None = None) -> DatasetBundle:
     """Load and validate all available handoff tables."""
 
     resolved = resolve_data_dir(data_dir)
-    train_path = resolved / "train.csv"
-    test_path = resolved / "test.csv"
-    master_path = resolved / "master.csv"
+    def input_path(short_name: str, corrected_name: str) -> Path:
+        short = resolved / short_name
+        return short if short.is_file() else resolved / corrected_name
+
+    train_path = input_path("train.csv", "train_RDKitFixed.csv")
+    test_path = input_path("test.csv", "test_RDKitFixed.csv")
+    master_path = input_path("master.csv", "master_RDKitFixed.csv")
 
     train = _read_csv(train_path)
     test = _read_csv(test_path)

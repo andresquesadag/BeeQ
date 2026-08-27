@@ -1,41 +1,32 @@
-# Data contract
+# Versioned BeeQ data
 
-BeeQ consumes a curated X10 handoff without committing molecule-level source
-data. The default local source is `.donotmerge_aux/data/`.
+This directory makes the retained campaigns independent of the former local
+the original local handoff.
 
-## Required files
+## `official/`
 
-- `train.csv`: development molecules with frozen `STRICT_CV_FOLD` values 1-5.
-- `test.csv`: structure-disjoint historical holdout.
-- `master.csv`: exact union of development and holdout rows.
+| File | Role |
+| --- | --- |
+| `master_RDKitFixed.csv` | Corrected 893-row master |
+| `train_RDKitFixed.csv` | Frozen 712-row development partition |
+| `test_RDKitFixed.csv` | 181-row historical, previously inspected holdout |
+| `ExternalFinal_RDKitFixed.csv` | Eight-molecule CR8 challenge |
 
-## Identity, target and split columns
+## `reference/`
 
-`ID`, `name`, `CID`, `CAS`, `SMILES`, `LABEL`, `SET`,
-`BUTINA_CLUSTER_ID`, `STRICT_CV_FOLD`.
+`Externalset.csv` is the 73-row reservation list used only to reconstruct the
+recorded 70/20/10 split. Matched rows take corrected values from the official
+master; stored reference descriptors are not used as model inputs.
 
-`STRICT_CV_FOLD` must be defined for development rows and empty for holdout
-rows. Molecule IDs, SMILES and Butina clusters must not overlap between
-development and holdout.
+## `generated/`
 
-## X10 feature schema
+Ignored deterministic output from `python -m src.split_70_20_10`.
 
-1. `MolLogP`
-2. `MolWt`
-3. `TPSA_SP`
-4. `NumHDonors`
-5. `NumRotatableBonds`
-6. `NumAromaticRings`
-7. `nHalogen`
-8. `n_OP`
-9. `LiPHEX_prediction`
-10. `sasa002_frac_polar_hetero_only`
+## Frozen X10 order
 
-All feature values must be finite. The feature order is part of the
-experimental contract and is included in every run hash.
+`MolLogP`, `MolWt`, `TPSA_SP`, `NumHDonors`, `NumRotatableBonds`,
+`NumAromaticRings`, `nHalogen`, `n_OP`, `LiPHEX_prediction`, and
+`sasa002_frac_polar_hetero_only`.
 
-## Generated artifacts
-
-`data/processed/dataset_manifest.json` contains only schema, counts and
-cryptographic hashes. It is safe to version provided the handoff terms permit
-publishing aggregate counts.
+Every committed input is listed in `SHA256SUMS.csv`. Do not replace a CSV in
+place; add a new version and record its provenance instead.

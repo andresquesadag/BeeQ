@@ -48,7 +48,7 @@ def main() -> None:
     parser.add_argument(
         "--source-data",
         type=Path,
-        default=PROJECT_ROOT / ".donotmerge_aux" / "Luis" / "01_DATA",
+        default=PROJECT_ROOT / "data" / "official",
     )
     parser.add_argument(
         "--output-root", type=Path, default=PROJECT_ROOT / "results" / "campaigns"

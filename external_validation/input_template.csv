@@ -1,2 +1,0 @@
-sample_id,compound_name,smiles,observed_label,observed_ld50_ug_per_bee,data_source,notes
-FICTIONAL-EXAMPLE-001,Fictional Example Compound,C1=CC=CC=C1,0,250.0,FICTIONAL_EXAMPLE_NOT_REAL,"Schema-only example; do not treat as a real compound or observation"

@@ -1,8 +1,0 @@
-{
-  "artifact": "BeeQ_BIP2026.pdf",
-  "double_blind": true,
-  "page_count": 6,
-  "paper_sha256": "6167be3597fe328c02e21c1e5e6d4557b0d0ab7658bc3b7943665cb64e2acd2c",
-  "source": "paper/main.tex",
-  "visual_review": "passed_all_pages"
-}

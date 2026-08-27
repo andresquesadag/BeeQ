@@ -1,6 +1,0 @@
-{
-  "analysis_directory": "results\\final\\20260818T070959Z_f1f76c91f3",
-  "classical_run": "results\\runs\\20260818T070536Z_32d0e94b8b",
-  "manifest_sha256": "17da482a75c9d1f27ba47c9ae90ec4a754af0a5473bfb7c6f41273f64b7cffbe",
-  "quantum_run": "results\\runs\\20260818T070420Z_quantum_bfff644b61"
-}

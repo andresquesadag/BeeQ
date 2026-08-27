@@ -1,0 +1,81 @@
+CR8_ID,CR8_name,CR8_LABEL,Smax,RANK,NEIGHBOR_ID,NEIGHBOR_name,NEIGHBOR_SMILES,TANIMOTO,NEIGHBOR_LABEL,TOP5_LOCAL_TOXIC_FRACTION,TOP10_LOCAL_TOXIC_FRACTION
+1,Isotianil,0,0.2641509433962264,1,579,Fenpiclonil (Ref: CGA 142705),N#Cc1c[nH]cc1-c1cccc(Cl)c1Cl,0.2641509433962264,1,0.4,0.3
+1,Isotianil,0,0.2641509433962264,2,613,(alphaE)-2-[[6-(2-Cyanophenoxy)-4-pyrimidinyl]oxy]-alpha-(methoxymethylene)benzeneacetic acid methyl ester,COC=C(C(=O)OC)c1ccccc1Oc1cc(Oc2ccccc2C#N)ncn1,0.2463768115942029,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,3,710,Zarilamid (Ref: ICIA001),CCOC(C#N)NC(=O)c1ccc(Cl)cc1,0.23728813559322035,1,0.4,0.3
+1,Isotianil,0,0.2641509433962264,4,298,N-1H-Benzimidazol-2-yl carbamic acid methyl ester,COC(=O)Nc1nc2ccccc2[nH]1,0.23214285714285715,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,5,992,N-(Cyano-2-thienylmethyl)-4-ethyl-2-(ethylamino)-5-thiazolecarboxamide,CCNc1nc(CC)c(C(=O)NC(C#N)c2cccs2)s1,0.22857142857142856,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,6,536,Halofenozide (Ref: RH 0345),CC(C)(C)N(NC(=O)c1ccc(Cl)cc1)C(=O)c1ccccc1,0.22413793103448276,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,7,206,Dichlobenil (Ref: H 133),N#Cc1c(Cl)cccc1Cl,0.2222222222222222,1,0.4,0.3
+1,Isotianil,0,0.2641509433962264,8,1028,Penflufen (Ref: BYF-14182),Cc1nn(C)c(F)c1C(=O)Nc1ccccc1C(C)CC(C)C,0.22058823529411764,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,9,931,Propyzamide (Ref: RH 315),C#CC(C)(C)NC(=O)c1cc(Cl)cc(Cl)c1,0.21818181818181817,0,0.4,0.3
+1,Isotianil,0,0.2641509433962264,10,782,Fluxapyroxad (Ref: BAS 700F),Cn1cc(C(=O)Nc2ccccc2-c2cc(F)c(F)c(F)c2)c(C(F)F)n1,0.21739130434782608,0,0.4,0.3
+2,Fluoxapiprolin,0,0.5408163265306123,1,1023,"1-[4-[4-[5-(2,6-Difluorophenyl)-4,5-dihydro-3-isoxazolyl]-2-thiazolyl]-1-piperidinyl]-2-[5-methyl-3-(trifluoromethyl)-1H-pyrazol-1-yl]ethanone",Cc1cc(C(F)(F)F)nn1CC(=O)N1CCC(c2nc(C3=NOC(c4c(F)cccc4F)C3)cs2)CC1,0.5408163265306123,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,2,993,3-[2-Chloro-4-(methanesulfonyl)benzoyl]-4-(phenylsulfanyl)bicyclo[3.2.1]oct-3-en-2-one,CS(=O)(=O)c1ccc(C(=O)C2=C(Sc3ccccc3)C3CCC(C3)C2=O)c(Cl)c1,0.2336448598130841,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,3,628,"3-Chloro-2-[[(5-ethoxy-7-fluoro[1,2,4]triazolo[1,5-c]pyrimidin-2-yl)sulfonyl]amino]benzoic acid, Methyl ester",CCOc1nc(F)cc2nc(S(=O)(=O)Nc3c(Cl)cccc3C(=O)OC)nn12,0.22123893805309736,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,4,797,"N-[9-(Dichloromethylene)-1,2,3,4-tetrahydro-1,4-1H-pyrazole-4-carboxamide",Cn1cc(C(=O)Nc2cccc3c2C2CCC3C2=C(Cl)Cl)c(C(F)F)n1,0.21818181818181817,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,5,301,Benazolin (Ref: RD 7693),O=C(O)Cn1c(=O)sc2cccc(Cl)c21,0.2127659574468085,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,6,356,Piperalin (Ref: HSDB 7058),CC1CCCCN1CCCOC(=O)c1ccc(Cl)c(Cl)c1,0.21153846153846154,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,7,649,2-[2-Chloro-5-[4-chloro-5-(difluoromethoxy)-1-methyl-1H-pyrazol-3-yl]-4-fluorophenoxy]acetic acid ethyl ester,CCOC(=O)COc1cc(-c2nn(C)c(OC(F)F)c2Cl)c(F)cc1Cl,0.2072072072072072,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,8,779,"N-(3',4'-Dichloro-5-fluoro[1,1'-biphenyl]-2-yl)-3-(difluoromethyl)-1-methyl-1H-pyrazole-4-carboxamide",Cn1cc(C(=O)Nc2ccc(F)cc2-c2ccc(Cl)c(Cl)c2)c(C(F)F)n1,0.2037037037037037,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,9,791,"N-{2-[(4,6-Dimethoxypyrimidin-2-yl)(hydroxy)methyl]-6-(methoxymethyl)phenyl}-1,1-difluoromethanesulfonamide",COCc1cccc(C(O)c2nc(OC)cc(OC)n2)c1NS(=O)(=O)C(F)F,0.2037037037037037,0,0.0,0.0
+2,Fluoxapiprolin,0,0.5408163265306123,10,527,Bensulfuron (Ref: IN R9419),COc1cc(OC)nc(NC(=O)NS(=O)(=O)Cc2ccccc2C(=O)O)n1,0.2,0,0.0,0.0
+3,Ethiprole,1,0.74,1,387,"5-Amino-1-[2,6-dichloro-4-(trifluoromethyl)phenyl]-4-[(trifluoromethyl)sulfinyl]-1H-pyrazole-3-carbonitrile",N#Cc1nn(-c2c(Cl)cc(C(F)(F)F)cc2Cl)c(N)c1[S+]([O-])C(F)(F)F,0.74,1,0.2,0.2
+3,Ethiprole,1,0.74,2,526,"2-Chloro-N-[2,6-dinitro-4-(trifluoromethyl)phenyl]-N-ethyl-6-fluorobenzenemethanamine",CCN(Cc1c(F)cccc1Cl)c1c([N+](=O)[O-])cc(C(F)(F)F)cc1[N+](=O)[O-],0.2638888888888889,0,0.2,0.2
+3,Ethiprole,1,0.74,3,696,"2-[2-Chloro-4-fluoro-5-[5-methyl-6-oxo-4-(trifluoromethyl)-1(6H)-pyridazinyl]phenoxy]acetic acid, Ethyl ester",CCOC(=O)COc1cc(-n2ncc(C(F)(F)F)c(C)c2=O)c(F)cc1Cl,0.2564102564102564,0,0.2,0.2
+3,Ethiprole,1,0.74,4,743,Haloxyfop-etotyl (Ref: DOWCO 453EE),CCOCCOC(=O)C(C)Oc1ccc(Oc2ncc(C(F)(F)F)cc2Cl)cc1,0.25,0,0.2,0.2
+3,Ethiprole,1,0.74,5,34,"N-Butyl-N-ethyl-2,6-dinitro-4-(trifluoromethyl)benzenamine",CCCCN(CC)c1c([N+](=O)[O-])cc(C(F)(F)F)cc1[N+](=O)[O-],0.24615384615384617,0,0.2,0.2
+3,Ethiprole,1,0.74,6,359,Fluchloralin (Ref: BAS 392H),CCCN(CCCl)c1c([N+](=O)[O-])cc(C(F)(F)F)cc1[N+](=O)[O-],0.24242424242424243,0,0.2,0.2
+3,Ethiprole,1,0.74,7,241,"2,6-Dinitro-N,N-dipropyl-4-(trifluoromethyl)benzenamine",CCCN(CCC)c1c([N+](=O)[O-])cc(C(F)(F)F)cc1[N+](=O)[O-],0.24193548387096775,0,0.2,0.2
+3,Ethiprole,1,0.74,8,378,"N-Ethyl-N-(2-methyl-2-propenyl)-2,6-dinitro-4-(trifluoromethyl)benzenamine",C=C(C)CN(CC)c1c([N+](=O)[O-])cc(C(F)(F)F)cc1[N+](=O)[O-],0.23880597014925373,0,0.2,0.2
+3,Ethiprole,1,0.74,9,400,2-Chloro-1-(3-ethoxy-4-nitrophenoxy)-4-(trifluoromethyl)benzene,CCOc1cc(Oc2ccc(C(F)(F)F)cc2Cl)ccc1[N+](=O)[O-],0.2328767123287671,0,0.2,0.2
+3,Ethiprole,1,0.74,10,939,4-Bromo-2-(4-chlorophenyl)-1-(ethoxymethyl)-5-(trifluoromethyl)-1H-pyrrole-3-carbonitrile,CCOCn1c(-c2ccc(Cl)cc2)c(C#N)c(Br)c1C(F)(F)F,0.2191780821917808,1,0.2,0.2
+4,Cyclobutrifluram,0,0.2647058823529412,1,423,Triflumuron (Ref: OMS 2015),O=C(NC(=O)c1ccccc1Cl)Nc1ccc(OC(F)(F)F)cc1,0.2647058823529412,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,2,805,Cyclaniliprole (Ref: IKI-3106),CC(NC(=O)c1cc(Cl)cc(Br)c1NC(=O)c1cc(Br)nn1-c1ncccc1Cl)C1CC1,0.26436781609195403,1,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,3,1025,1-(3-Chloropyridin-2-yl)-N-[4-cyano-2-methyl-6-(methylcarbamoyl)phenyl]-3-{[5-(trifluoromethyl)-2H-tetrazol-2-yl]methyl}-1H-pyrazole-5-carboxamide,CNC(=O)c1cc(C#N)cc(C)c1NC(=O)c1cc(Cn2nnc(C(F)(F)F)n2)nn1-c1ncccc1Cl,0.2604166666666667,1,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,4,544,Chlorantraniliprole (Ref: DPX E2Y45),CNC(=O)c1cc(Cl)cc(C)c1NC(=O)c1cc(Br)nn1-c1ncccc1Cl,0.24390243902439024,1,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,5,777,"2-[1-[2-[[(3,5-Difluorophenyl)amino]carbonyl]hydrazinylidene]ethyl]-3-pyridinecarboxylic acid",CC(=NNC(=O)Nc1cc(F)cc(F)c1)c1ncccc1C(=O)O,0.24324324324324326,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,6,525,Flutolanil (Ref: NNF 136),CC(C)Oc1cccc(NC(=O)c2ccccc2C(F)(F)F)c1,0.24285714285714285,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,7,680,Picolinafen (Ref: BAS 700H),O=C(Nc1ccc(F)cc1)c1cccc(Oc2cccc(C(F)(F)F)c2)n1,0.24,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,8,722,Pyrifenox (Ref: CGA 179945),CON=C(Cc1cccnc1)c1ccc(Cl)cc1Cl,0.23943661971830985,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,9,771,Isopyrazam (Ref: SYN 520453),CC(C)C1C2CCC1c1c(NC(=O)c3cn(C)nc3C(F)F)cccc12,0.2375,0,0.6,0.3
+4,Cyclobutrifluram,0,0.2647058823529412,10,178,"N-(3-Chlorophenyl)carbamic acid, 1-Methylethyl ester",CC(C)OC(=O)Nc1cccc(Cl)c1,0.234375,0,0.6,0.3
+5,Isoprothiolane,0,0.2972972972972973,1,134,"N-Phenylcarbamic acid, 1-Methylethyl ester",CC(C)OC(=O)Nc1ccccc1,0.2972972972972973,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,2,265,Bromopropylate (Ref: GS 19851),CC(C)OC(=O)C(O)(c1ccc(Br)cc1)c1ccc(Br)cc1,0.28205128205128205,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,3,953,Nitrothal-isopropyl (Ref: BAS 300 OOF),CC(C)OC(=O)c1cc(C(=O)OC(C)C)cc([N+](=O)[O-])c1,0.275,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,4,178,"N-(3-Chlorophenyl)carbamic acid, 1-Methylethyl ester",CC(C)OC(=O)Nc1cccc(Cl)c1,0.2558139534883721,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,5,498,Diethofencarb (Ref: S 1605),CCOc1ccc(NC(=O)OC(C)C)cc1OCC,0.2391304347826087,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,6,709,Iprovalicarb (Ref: SZX 0722),Cc1ccc(C(C)NC(=O)C(NC(=O)OC(C)C)C(C)C)cc1,0.23404255319148937,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,7,153,Dinobuton (Ref: OMS 1056),CCC(C)c1cc([N+](=O)[O-])cc([N+](=O)[O-])c1OC(=O)OC(C)C,0.23076923076923078,0,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,8,455,2-[(Aminomethoxyphosphinothioyl)oxy]benzoic acid 1-methylethyl ester,COP(N)(=S)Oc1ccccc1C(=O)OC(C)C,0.22916666666666666,1,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,9,503,Isofenphos-methyl,COP(=S)(NC(C)C)Oc1ccccc1C(=O)OC(C)C,0.21568627450980393,1,0.0,0.3
+5,Isoprothiolane,0,0.2972972972972973,10,686,"2-(4-Methoxy[1,1'-biphenyl]-3-yl)hydrazinecarboxylic acid, 1-Methylethyl ester",COc1ccc(-c2ccccc2)cc1NNC(=O)OC(C)C,0.21568627450980393,1,0.0,0.3
+6,Isocycloseram,1,0.23255813953488372,1,456,Chlozolinate (Ref: M 8164),CCOC(=O)C1(C)OC(=O)N(c2cc(Cl)cc(Cl)c2)C1=O,0.23255813953488372,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,2,998,"2-Chloro-5-[3,6-dihydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)-1(2H)-pyrimidinyl]benzoic acid 1,1-dimethyl-2-oxo-2-(2-propenyloxy)ethyl ester",C=CCOC(=O)C(C)(C)OC(=O)c1cc(-n2c(=O)cc(C(F)(F)F)n(C)c2=O)ccc1Cl,0.22772277227722773,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,3,704,Mefenpyr diethyl (Ref: HOE 107892),CCOC(=O)C1=NN(c2ccc(Cl)cc2Cl)C(C)(C(=O)OCC)C1,0.22580645161290322,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,4,654,Cinidon-ethyl (Ref: BAS 615H),CCOC(=O)C(Cl)=Cc1cc(N2C(=O)C3=C(CCCC3)C2=O)ccc1Cl,0.22340425531914893,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,5,696,"2-[2-Chloro-4-fluoro-5-[5-methyl-6-oxo-4-(trifluoromethyl)-1(6H)-pyridazinyl]phenoxy]acetic acid, Ethyl ester",CCOC(=O)COc1cc(-n2ncc(C(F)(F)F)c(C)c2=O)c(F)cc1Cl,0.2222222222222222,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,6,779,"N-(3',4'-Dichloro-5-fluoro[1,1'-biphenyl]-2-yl)-3-(difluoromethyl)-1-methyl-1H-pyrazole-4-carboxamide",Cn1cc(C(=O)Nc2ccc(F)cc2-c2ccc(Cl)c(Cl)c2)c(C(F)F)n1,0.21875,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,7,450,Dimefuron (Ref: RP 23465),CN(C)C(=O)Nc1ccc(-n2nc(C(C)(C)C)oc2=O)c(Cl)c1,0.2127659574468085,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,8,202,Methazole (Ref: VCS-438),Cn1c(=O)on(-c2ccc(Cl)c(Cl)c2)c1=O,0.20987654320987653,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,9,642,Flupoxam (Ref: MON 18500),NC(=O)c1nc(-c2ccccc2)n(-c2ccc(Cl)c(COCC(F)(F)C(F)(F)F)c2)n1,0.2079207920792079,0,0.0,0.0
+6,Isocycloseram,1,0.23255813953488372,10,598,"alpha,2-Dichloro-5-[4-(difluoromethyl)-4,5-dihydro-3-methyl-5-oxo-1H-1,2,4-triazol-1-yl]-4-fluorobenzenepropanoic acid, Ethyl ester",CCOC(=O)C(Cl)Cc1cc(-n2nc(C)n(C(F)F)c2=O)c(F)cc1Cl,0.20618556701030927,0,0.0,0.0
+7,Spiropidion,0,0.36619718309859156,1,762,"Carbonic acid, cis-3-(2,5-Dimethylphenyl)-8-methoxy-2-oxo-1-azaspiro[4.5]dec-3-en-4-yl ethyl ester",CCOC(=O)OC1=C(c2cc(C)ccc2C)C(=O)NC12CCC(OC)CC2,0.36619718309859156,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,2,456,Chlozolinate (Ref: M 8164),CCOC(=O)C1(C)OC(=O)N(c2cc(Cl)cc(Cl)c2)C1=O,0.3230769230769231,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,3,704,Mefenpyr diethyl (Ref: HOE 107892),CCOC(=O)C1=NN(c2ccc(Cl)cc2Cl)C(C)(C(=O)OCC)C1,0.2702702702702703,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,4,51,Chlorobenzilate (Ref: ENT 18596),CCOC(=O)C(O)(c1ccc(Cl)cc1)c1ccc(Cl)cc1,0.26666666666666666,1,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,5,654,Cinidon-ethyl (Ref: BAS 615H),CCOC(=O)C(Cl)=Cc1cc(N2C(=O)C3=C(CCCC3)C2=O)ccc1Cl,0.26666666666666666,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,6,406,Procymidone (Ref: S 7131),CC12CC1(C)C(=O)N(c1cc(Cl)cc(Cl)c1)C2=O,0.23728813559322035,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,7,649,2-[2-Chloro-5-[4-chloro-5-(difluoromethoxy)-1-methyl-1H-pyrazol-3-yl]-4-fluorophenoxy]acetic acid ethyl ester,CCOC(=O)COc1cc(-c2nn(C)c(OC(F)F)c2Cl)c(F)cc1Cl,0.23170731707317074,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,8,598,"alpha,2-Dichloro-5-[4-(difluoromethyl)-4,5-dihydro-3-methyl-5-oxo-1H-1,2,4-triazol-1-yl]-4-fluorobenzenepropanoic acid, Ethyl ester",CCOC(=O)C(Cl)Cc1cc(-n2nc(C)n(C(F)F)c2=O)c(F)cc1Cl,0.22784810126582278,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,9,356,Piperalin (Ref: HSDB 7058),CC1CCCCN1CCCOC(=O)c1ccc(Cl)c(Cl)c1,0.2236842105263158,0,0.2,0.1
+7,Spiropidion,0,0.36619718309859156,10,656,"2,2-Dimethylpropanoic acid  8-(2,6-diethyl-4-methylphenyl)-1,2,4,5- tetrahydro-7-oxo-7H-pyrazolo[1,2-d][1,4,5]oxadiazepin-9-yl ester",CCc1cc(C)cc(CC)c1-c1c(OC(=O)C(C)(C)C)n2n(c1=O)CCOCC2,0.2236842105263158,0,0.2,0.1
+8,Florylpicoxamid,0,0.30851063829787234,1,1032,Fenpicoxamid (Ref: XDE 777),COc1ccnc(C(=O)NC2COC(=O)C(Cc3ccccc3)C(OC(=O)C(C)C)C(C)OC2=O)c1OCOC(=O)C(C)C,0.30851063829787234,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,2,650,Benthiavalicarb-isopropyl (Ref: KIF-230),CC(C)OC(=O)NC(C(=O)NC(C)c1nc2ccc(F)cc2s1)C(C)C,0.23170731707317074,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,3,415,Isoprocarb (Ref: OMS 32),CNC(=O)Oc1ccccc1C(C)C,0.22727272727272727,1,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,4,581,"N-(4-Fluorophenyl)-N-(1-methylethyl)-2-[[5-(trifluoromethyl)-1,3,4-thiadiazol-2-yl]oxy]acetamide",CC(C)N(C(=O)COc1nnc(C(F)(F)F)s1)c1ccc(F)cc1,0.225,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,5,709,Iprovalicarb (Ref: SZX 0722),Cc1ccc(C(C)NC(=O)C(NC(=O)OC(C)C)C(C)C)cc1,0.2222222222222222,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,6,455,2-[(Aminomethoxyphosphinothioyl)oxy]benzoic acid 1-methylethyl ester,COP(N)(=S)Oc1ccccc1C(=O)OC(C)C,0.2191780821917808,1,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,7,822,Halauxifen (Ref: X11393729),COc1c(Cl)ccc(-c2cc(N)c(Cl)c(C(=O)O)n2)c1F,0.21794871794871795,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,8,777,"2-[1-[2-[[(3,5-Difluorophenyl)amino]carbonyl]hydrazinylidene]ethyl]-3-pyridinecarboxylic acid",CC(=NNC(=O)Nc1cc(F)cc(F)c1)c1ncccc1C(=O)O,0.2125,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,9,995,Benthiavalicarb,CC(NC(=O)C(NC(=O)O)C(C)C)c1nc2ccc(F)cc2s1,0.2125,0,0.2,0.2
+8,Florylpicoxamid,0,0.30851063829787234,10,825,Benzyl 4-amino-3-chloro-6-(4-chloro-2-fluoro-3-methoxyphenyl)-5-fluoropyridine-2-carboxylate,COc1c(Cl)ccc(-c2nc(C(=O)OCc3ccccc3)c(Cl)c(N)c2F)c1F,0.21176470588235294,0,0.2,0.2

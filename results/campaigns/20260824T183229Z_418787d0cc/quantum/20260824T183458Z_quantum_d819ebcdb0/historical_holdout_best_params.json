@@ -1,0 +1,54 @@
+[
+  {
+    "best_cv_auroc": 0.7349985292890816,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.03
+    },
+    "cv_fold_auroc": [
+      0.5719072164948453,
+      0.6669316375198728,
+      0.8125307125307125,
+      0.7978605168102251,
+      0.825762563089752
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "rbf_matched",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7343072451498589,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.25
+    },
+    "cv_fold_auroc": [
+      0.5721649484536082,
+      0.6506359300476948,
+      0.8282555282555284,
+      0.811614337315921,
+      0.8088654816765416
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_angle_product",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7346063352064809,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "cv_fold_auroc": [
+      0.5677835051546393,
+      0.647456279809221,
+      0.8285012285012285,
+      0.8206446235065296,
+      0.8086460390607856
+    ],
+    "evaluation_status": "historical_holdout",
+    "model": "quantum_iqp_zz_linear",
+    "representation": "x10"
+  }
+]

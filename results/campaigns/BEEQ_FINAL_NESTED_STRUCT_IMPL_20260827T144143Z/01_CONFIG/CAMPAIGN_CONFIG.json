@@ -1,0 +1,43 @@
+{
+  "bootstrap_replicates": 2000,
+  "campaign": "BEEQ_FINAL_NESTED_STRUCT_IMPL",
+  "features": [
+    "MolLogP",
+    "MolWt",
+    "TPSA_SP",
+    "NumHDonors",
+    "NumRotatableBonds",
+    "NumAromaticRings",
+    "nHalogen",
+    "n_OP",
+    "LiPHEX_prediction",
+    "sasa002_frac_polar_hetero_only"
+  ],
+  "inner_folds": 4,
+  "input_hashes": {
+    "ExternalFinal_RDKitFixed.csv": "70a01eedd970991e072eb9db8e2acdbe854dc8d4623b42bb2263318486cd41fb",
+    "master_RDKitFixed.csv": "a0a6177b3319dba8f210d2358bdd63edbb1c6db3d9b657daa992459b11f2c38e",
+    "test_RDKitFixed.csv": "3f964207e5d732315501d11be2d50c4f520e51a8c7f17b70fe8594390988c8f5",
+    "train_RDKitFixed.csv": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984"
+  },
+  "outer_folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "primary_models": [
+    "logistic",
+    "random_forest",
+    "mlp",
+    "rbf_matched",
+    "quantum_angle_product",
+    "quantum_iqp_zz_linear"
+  ],
+  "seed": 20260824,
+  "selection_metric": "mean_inner_AUROC",
+  "threshold_policy": "max_MCC_then_balanced_accuracy_on_inner_OOF",
+  "y_randomization_mode": "fixed_configuration",
+  "y_randomization_replicates": 200
+}

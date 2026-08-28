@@ -1,0 +1,116 @@
+{
+  "created_utc": "2026-08-25T03:42:21.419281+00:00",
+  "dataset": {
+    "development": {
+      "clusters": 333,
+      "fold_counts": {
+        "1": 127,
+        "2": 125,
+        "3": 125,
+        "4": 124,
+        "5": 124
+      },
+      "label_counts": {
+        "0": 435,
+        "1": 190
+      },
+      "positive_prevalence": 0.304,
+      "rows": 625,
+      "unique_ids": 625,
+      "unique_smiles": 625
+    },
+    "endpoint": {
+      "column": "LABEL",
+      "negative": "acute LD50 > 11 microgram/bee",
+      "positive": "acute LD50 <= 11 microgram/bee"
+    },
+    "feature_order": [
+      "MolLogP",
+      "MolWt",
+      "TPSA_SP",
+      "NumHDonors",
+      "NumRotatableBonds",
+      "NumAromaticRings",
+      "nHalogen",
+      "n_OP",
+      "LiPHEX_prediction",
+      "sasa002_frac_polar_hetero_only"
+    ],
+    "feature_schema_sha256": "59d471a97c1adbc65ff42afb4714d6c08fe935c620ec57d39a69554d90c9ad9b",
+    "historical_holdout": {
+      "clusters": 96,
+      "label_counts": {
+        "0": 125,
+        "1": 54
+      },
+      "positive_prevalence": 0.3016759776536313,
+      "rows": 179,
+      "unique_ids": 179,
+      "unique_smiles": 179
+    },
+    "master": {
+      "clusters": 429,
+      "label_counts": {
+        "0": 560,
+        "1": 244
+      },
+      "positive_prevalence": 0.3034825870646766,
+      "rows": 804,
+      "unique_ids": 804,
+      "unique_smiles": 804
+    },
+    "overlap": {
+      "butina_clusters": 0,
+      "ids": 0,
+      "smiles": 0
+    },
+    "schema_version": 1,
+    "source_files": {
+      "master.csv": "964ac5fa0e69438c975eaf2f12e95ea78d1f30a11aeb1bdf4a4d6e1cd5f0f450",
+      "test.csv": "986877659cd58a6453f100a320711e2391ca20dbf552f6fe7cdae75119d85dbf",
+      "train.csv": "74b4d88416686c2d37e44cc0e62b2f01b3b0a29c5d287b1c0119d9cf05b01343"
+    },
+    "split_sha256": "cb2c42b0bf5ee7cf0526e4b1319eb26439e0382589bfa7ef7005d067be5905dd"
+  },
+  "environment": {
+    "packages": {
+      "matplotlib": "3.11.1",
+      "nbclient": "0.11.0",
+      "nbformat": "5.10.4",
+      "numpy": "2.5.1",
+      "pandas": "2.3.3",
+      "qiskit": "2.5.2",
+      "rdkit": "2026.3.5",
+      "scikit-learn": "1.9.0",
+      "scipy": "1.18.1"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.8"
+  },
+  "evaluation": {
+    "development": "nested_structure_aware_oof",
+    "holdout": "historical_holdout_previously_inspected"
+  },
+  "git": {
+    "commit": "5a410041c9807aa499e8cf3f64bd855f21d51558",
+    "dirty": true,
+    "status": [
+      "M src/campaign.py",
+      " M src/external_challenge.py",
+      "?? results/campaigns/20260825T034056Z_cd0dba4468/",
+      "?? src/split_70_20_10.py"
+    ]
+  },
+  "outputs": {
+    "best_params.json": "2127bd010166cf6340e8f899ad272ded660897ea5ddde77eb0246fc2d0e96cb6",
+    "fold_metrics.csv": "0aea7e03a7c6b37f943163077e70efcf57c746b6d172afc3cae270940913431c",
+    "historical_holdout_best_params.json": "11083bd91556ef5b8e53718b518f41f081d2e52a89459ae1d08c8f92ac0d8c8e",
+    "historical_holdout_metrics.csv": "47ccf5a80f742165d9d0ba111e52b8c9cc60329bb1a3b9415abf4894b91bc13d",
+    "historical_holdout_predictions.csv": "0722b400052dd0c62ffd2d72973ae41ddc81f11511a0da572e0d76492029b624",
+    "oof_predictions.csv": "c2d2e660a12bec0d70bd2d64bd89f2e33057cbbbf6af5ae60931812da25e393f",
+    "run_config.json": "f78d369807e34a0c34cb7ab00082ffa02da5db7c6d7c732e14aae105cfecb9e4",
+    "summary.csv": "2fc94430d1ec41de4af45d363b83cc5d5cde5108b21c3f68ce2ce6fa58e9c2fc"
+  },
+  "run_config_sha256": "275d3bbf7eced73773d11ba0c491fa331864f818b5c8815afb0c1c9ced1b8fea",
+  "schema_version": 1
+}

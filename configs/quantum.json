@@ -1,0 +1,21 @@
+{
+  "seed": 42,
+  "inner_splits": 4,
+  "backend": "exact_numpy_statevector",
+  "shots": null,
+  "representations": [
+    "x10",
+    "without_n_op"
+  ],
+  "kernels": [
+    "rbf_matched",
+    "quantum_angle_product",
+    "quantum_iqp_zz_linear"
+  ],
+  "c_values": [0.1, 1.0, 10.0, 100.0],
+  "rbf_gamma": [0.01, 0.03, 0.1, 0.3],
+  "feature_scales": [0.125, 0.25, 0.5, 1.0],
+  "interaction_strength": 1.0,
+  "kernel_classifier": "svc_precomputed",
+  "selection_metric": "roc_auc"
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "best_cv_auroc": 0.732821953835554,
+    "best_params": {
+      "model__C": 100.0
+    },
+    "evaluation_status": "historical_holdout",
+    "model": "logistic",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7350939642039853,
+    "best_params": {
+      "model__C": 1.0,
+      "model__gamma": 0.03
+    },
+    "evaluation_status": "historical_holdout",
+    "model": "rbf_svc",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7556929972315489,
+    "best_params": {
+      "model__max_depth": null,
+      "model__min_samples_leaf": 3
+    },
+    "evaluation_status": "historical_holdout",
+    "model": "random_forest",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.7447264319665806,
+    "best_params": {
+      "model__colsample_bytree": 0.8,
+      "model__learning_rate": 0.03,
+      "model__max_depth": 3,
+      "model__n_estimators": 200,
+      "model__subsample": 0.8
+    },
+    "evaluation_status": "historical_holdout",
+    "model": "xgboost",
+    "representation": "x10"
+  },
+  {
+    "best_cv_auroc": 0.6564316568897766,
+    "best_params": {
+      "model__alpha": 0.01,
+      "model__hidden_layer_sizes": [
+        32,
+        16
+      ],
+      "model__learning_rate_init": 0.001
+    },
+    "evaluation_status": "historical_holdout",
+    "model": "mlp",
+    "representation": "x10"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "internal_rows": 804,
+  "external_rows": 89,
+  "internal_unique_smiles": 804,
+  "external_unique_smiles": 89,
+  "id_overlap": 0,
+  "exact_smiles_overlap": 0,
+  "canonical_smiles_overlap": 0,
+  "butina_cluster_overlap": 40,
+  "canonicalization": "RDKit"
+}

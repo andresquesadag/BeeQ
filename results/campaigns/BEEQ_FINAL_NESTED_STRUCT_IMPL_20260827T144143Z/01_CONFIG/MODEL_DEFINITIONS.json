@@ -1,0 +1,34 @@
+{
+  "logistic": {
+    "class_weight": "balanced",
+    "implementation": "src.classical_models.model_specs",
+    "max_iter": 5000,
+    "scaler": "StandardScaler",
+    "solver": "liblinear"
+  },
+  "mlp": {
+    "early_stopping": true,
+    "implementation": "src.classical_models.model_specs",
+    "max_iter": 2000,
+    "scaler": "StandardScaler"
+  },
+  "quantum_angle_product": {
+    "classifier": "class-weighted precomputed SVC",
+    "implementation": "src.quantum_feature_maps.angle_product_statevectors"
+  },
+  "quantum_iqp_zz_linear": {
+    "classifier": "class-weighted precomputed SVC",
+    "implementation": "src.quantum_feature_maps.iqp_zz_linear_statevectors"
+  },
+  "random_forest": {
+    "class_weight": "balanced_subsample",
+    "implementation": "src.classical_models.model_specs",
+    "max_features": "sqrt",
+    "n_estimators": 300,
+    "scaler": null
+  },
+  "rbf_matched": {
+    "classifier": "class-weighted precomputed SVC",
+    "implementation": "src.kernels.rbf_kernel"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "captured_utc": "2026-08-25T23:56:27.221876+00:00",
+  "dependencies": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.1",
+    "optuna": "not installed",
+    "pandas": "2.3.3",
+    "pennylane": "not installed",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.8",
+    "qiskit": "2.5.2",
+    "rdkit": "2026.03.5",
+    "sklearn": "1.9.0",
+    "xgboost": "3.4.1"
+  },
+  "git": {
+    "commit": "46cf3a788a655fc2e1cda2ed3941e8b890accb00",
+    "dirty": true,
+    "status": [
+      " D results/final/20260818T070959Z_f1f76c91f3/all_metrics.csv",
+      " D results/final/20260818T070959Z_f1f76c91f3/analysis_config.json",
+      " D results/final/20260818T070959Z_f1f76c91f3/dataset_summary.json",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/descriptor_ablation.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/descriptor_correlations.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/holdout_distance_errors.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/kernel_geometry.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/roc_pr_curves.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/figures/x10_model_overview.png",
+      " D results/final/20260818T070959Z_f1f76c91f3/holdout_error_strata.csv",
+      " D results/final/20260818T070959Z_f1f76c91f3/kernel_diagnostics_summary.csv",
+      " D results/final/20260818T070959Z_f1f76c91f3/manifest.json",
+      " D results/final/20260818T070959Z_f1f76c91f3/paired_bootstrap.csv",
+      " D results/final/20260818T070959Z_f1f76c91f3/prediction_disagreement.csv",
+      " D results/final/latest.json",
+      "?? results/campaigns/BEEQ_FINAL_NESTED_STRUCT_IMPL_20260825T234128Z/",
+      "?? results/runs/20260818T070959Z_f1f76c91f3/",
+      "?? results/runs/latest.json",
+      "?? src/final_nested_campaign.py",
+      "?? tests/test_final_nested_campaign.py"
+    ]
+  }
+}

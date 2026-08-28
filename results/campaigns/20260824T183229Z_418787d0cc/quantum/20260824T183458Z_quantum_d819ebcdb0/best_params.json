@@ -1,0 +1,262 @@
+[
+  {
+    "best_inner_auroc": 0.7845741378091274,
+    "best_params": {
+      "C": 10.0,
+      "gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7954648526077097,
+      0.7610913930789707,
+      0.7450056116722783,
+      0.8367346938775512
+    ],
+    "model": "rbf_matched",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7913844149868994,
+    "best_params": {
+      "C": 100.0,
+      "feature_scale": 0.125
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7913832199546484,
+      0.8010204081632653,
+      0.72996632996633,
+      0.8431677018633541
+    ],
+    "model": "quantum_angle_product",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7836428964793354,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7879818594104309,
+      0.7728482697426796,
+      0.7250280583613916,
+      0.8487133984028394
+    ],
+    "model": "quantum_iqp_zz_linear",
+    "outer_fold": 1,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7744944013770485,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.8808449548810501,
+      0.8162428219852338,
+      0.6447821681864235,
+      0.7561076604554866
+    ],
+    "model": "rbf_matched",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7733171924102752,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.8796144380639869,
+      0.804963084495488,
+      0.647821681864235,
+      0.7608695652173912
+    ],
+    "model": "quantum_angle_product",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7718186714407892,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.8753076292042657,
+      0.7994257588187038,
+      0.6516717325227963,
+      0.7608695652173912
+    ],
+    "model": "quantum_iqp_zz_linear",
+    "outer_fold": 2,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7413200192317054,
+    "best_params": {
+      "C": 10.0,
+      "gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7858123569794051,
+      0.7224256292906178,
+      0.6954787234042553,
+      0.7615633672525438
+    ],
+    "model": "rbf_matched",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7434046458363763,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.25
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7903890160183067,
+      0.7102974828375286,
+      0.7236258865248227,
+      0.7493061979648474
+    ],
+    "model": "quantum_angle_product",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7391204943440933,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7832951945080092,
+      0.7059496567505721,
+      0.7163120567375887,
+      0.7509250693802035
+    ],
+    "model": "quantum_iqp_zz_linear",
+    "outer_fold": 3,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7104142400818033,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.5725006700616457,
+      0.7637857900318133,
+      0.6559139784946236,
+      0.8494565217391304
+    ],
+    "model": "rbf_matched",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7196003523587611,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.5875100509246851,
+      0.7754506892895016,
+      0.6629950170469447,
+      0.852445652173913
+    ],
+    "model": "quantum_angle_product",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7072098065291759,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.5711605467703028,
+      0.7595440084835632,
+      0.6606346708628377,
+      0.8374999999999999
+    ],
+    "model": "quantum_iqp_zz_linear",
+    "outer_fold": 4,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7169644769304991,
+    "best_params": {
+      "C": 1.0,
+      "gamma": 0.01
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7541322314049587,
+      0.625581395348837,
+      0.6862838158519222,
+      0.801860465116279
+    ],
+    "model": "rbf_matched",
+    "outer_fold": 5,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7250969024934594,
+    "best_params": {
+      "C": 10.0,
+      "feature_scale": 0.125
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7479338842975206,
+      0.6318604651162791,
+      0.7040816326530612,
+      0.8165116279069767
+    ],
+    "model": "quantum_angle_product",
+    "outer_fold": 5,
+    "representation": "x10"
+  },
+  {
+    "best_inner_auroc": 0.7171533113854164,
+    "best_params": {
+      "C": 1.0,
+      "feature_scale": 0.125,
+      "interaction_strength": 1.0
+    },
+    "evaluation_status": "development_oof",
+    "inner_fold_auroc": [
+      0.7529843893480258,
+      0.6253488372093023,
+      0.6884195538680589,
+      0.801860465116279
+    ],
+    "model": "quantum_iqp_zz_linear",
+    "outer_fold": 5,
+    "representation": "x10"
+  }
+]

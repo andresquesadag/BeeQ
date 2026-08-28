@@ -1,0 +1,12 @@
+{
+  "repository_commit_at_execution": "46cf3a788a655fc2e1cda2ed3941e8b890accb00",
+  "runner_note": "The recorded runner includes post-freeze figure-only layout corrections and the verified finalization-resume path; model, selection, threshold, freeze, and evaluation logic are unchanged from execution.",
+  "source_sha256": {
+    "src/classical_models.py": "02c9a111c7e0891f69d081a988a1b340bc208100098576a82d125aa1a002f64a",
+    "src/config.py": "b19947b91dde21e1d998d2683a7d2c7c20848cc5100b27af2cffe491bd047324",
+    "src/final_nested_campaign.py": "ff8d329bb1e716599b763ace66e8dd84f8039d0b9ba5ce1681a91f69c85f4f7b",
+    "src/kernels.py": "160caf060eff4929552454ed43313ad47773699a66a27dc833b69e11ded56225",
+    "src/quantum_experiment.py": "175482a801fee4313e6c5d3914aebcb1af107962ffc6892873634c97f73b7687",
+    "src/quantum_feature_maps.py": "dce90964bec0a0d899ff934e8e7821cf35bc17a89caad959a3a2938ad763e2d4"
+  }
+}

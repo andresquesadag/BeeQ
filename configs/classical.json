@@ -1,0 +1,18 @@
+{
+  "seed": 42,
+  "inner_splits": 4,
+  "primary_metric": "roc_auc",
+  "models": [
+    "logistic",
+    "rbf_svc",
+    "random_forest"
+  ],
+  "representations": [
+    "x10",
+    "without_n_op",
+    "without_mollogp",
+    "without_liphex",
+    "without_partition_pair"
+  ],
+  "evaluate_historical_holdout": false
+}

@@ -1,0 +1,10 @@
+{
+  "internal_rows": 893,
+  "external_rows": 8,
+  "internal_unique_smiles": 893,
+  "external_unique_smiles": 8,
+  "exact_smiles_overlap": 0,
+  "overlap_smiles": [],
+  "canonical_smiles_overlap": 0,
+  "canonicalization": "RDKit"
+}

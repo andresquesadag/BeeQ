@@ -156,6 +156,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.donotmerge_aux
 
 # Spyder project settings
 .spyderproject
@@ -203,6 +204,19 @@ cython_debug/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
+# Local handoff material. It is an input source, never a repository artifact.
+.donotmerge_aux/
+
+# Reproducible generated split; source inputs and hashes are versioned.
+data/generated/
+
+# Local experiment caches and temporary files
+cache/
+tmp/
+
+# Campaign-local snapshots duplicate the canonical versioned inputs.
+results/campaigns/*/data_snapshot/
+
 # Ruff stuff:
 .ruff_cache/
 
@@ -216,13 +230,3 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-
-# LaTeX build products
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.fdb_latexmk
-paper/*.fls
-paper/*.synctex.gz

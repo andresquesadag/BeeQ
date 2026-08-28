@@ -1,0 +1,16 @@
+{
+  "commit": "df46bb6f6c2faaaa9682ddc02712a41eb3c89aac",
+  "dirty": true,
+  "status": [
+    "M .gitignore",
+    " M README.md",
+    " M notebooks/classic.ipynb",
+    " M requirements.txt",
+    " M src/classical_models.py",
+    "?? docs/CORRECTED_CAMPAIGN.md",
+    "?? results/campaigns/",
+    "?? src/campaign.py",
+    "?? src/external_challenge.py",
+    "?? tests/test_campaign.py"
+  ]
+}

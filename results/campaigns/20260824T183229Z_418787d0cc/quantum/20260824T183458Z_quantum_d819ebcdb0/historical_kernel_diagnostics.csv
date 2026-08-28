@@ -1,0 +1,4 @@
+evaluation_status,representation,model,outer_fold,effective_rank,top1_eigenvalue_fraction,top10_eigenvalue_fraction,target_alignment,alignment_with_rbf
+historical_full_development_train,x10,rbf_matched,all,5.517172651049301,0.6342773858704484,0.9201746260043909,0.10670777575980468,1.0000000000000002
+historical_full_development_train,x10,quantum_angle_product,all,3.0864332933589815,0.7667995058277792,0.9688135518271195,0.09816852591648996,0.9824539801049609
+historical_full_development_train,x10,quantum_iqp_zz_linear,all,3.1563565415081505,0.7644673175942605,0.9653520720094374,0.09892088772358872,0.9850719901325391

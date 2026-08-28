@@ -1,0 +1,7 @@
+MODEL,THRESHOLD,CRITERION
+logistic,0.660538410080458,max_MCC_then_BA_on_development_OOF
+random_forest,0.6825919901627687,max_MCC_then_BA_on_development_OOF
+mlp,0.5245830868678072,max_MCC_then_BA_on_development_OOF
+rbf_matched,0.9156553048461064,max_MCC_then_BA_on_development_OOF
+quantum_angle_product,0.6461975880933146,max_MCC_then_BA_on_development_OOF
+quantum_iqp_zz_linear,0.38352092535744364,max_MCC_then_BA_on_development_OOF

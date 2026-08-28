@@ -2,8 +2,10 @@ DATA LICENSING NOTICE
 =====================
 
 This repository does not grant a license to the underlying ApisTox records,
-toxicity measurements, or in-house descriptors. Source CSV files are local
-handoff inputs and are excluded from version control.
+toxicity measurements, or in-house descriptors. The exact CSV inputs used by
+the retained campaigns are versioned here at the repository owner's direction
+for auditability and reproducibility; their inclusion does not grant additional
+redistribution rights.
 
 Before redistributing data, descriptor tables, predictions linked to molecule
 identifiers, or derived datasets, consult and comply with:

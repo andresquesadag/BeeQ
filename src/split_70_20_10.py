@@ -311,24 +311,17 @@ def main() -> None:
     parser.add_argument(
         "--master",
         type=Path,
-        default=PROJECT_ROOT
-        / ".donotmerge_aux"
-        / "Luis"
-        / "01_DATA"
-        / "master_RDKitFixed.csv",
+        default=PROJECT_ROOT / "data" / "official" / "master_RDKitFixed.csv",
     )
     parser.add_argument(
         "--external-reference",
         type=Path,
-        default=PROJECT_ROOT / ".donotmerge_aux" / "data" / "Externalset.csv",
+        default=PROJECT_ROOT / "data" / "reference" / "Externalset.csv",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=PROJECT_ROOT
-        / ".donotmerge_aux"
-        / "generated"
-        / "master_70_20_10_seed42",
+        default=PROJECT_ROOT / "data" / "generated" / "master_70_20_10_seed42",
     )
     parser.add_argument("--seed", type=int, default=SEED)
     args = parser.parse_args()

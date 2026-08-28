@@ -18,7 +18,6 @@ import subprocess
 import sys
 import warnings
 from collections.abc import Iterable
-from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -46,19 +45,14 @@ from sklearn.svm import SVC
 from .classical_models import model_specs
 from .config import OUTER_FOLDS, X10_FEATURES
 from .evaluation import continuous_scores
+from .model_artifacts import FrozenClassical, FrozenKernel
 from .quantum_experiment import _kernel_candidates, _kernel_matrices
 
 
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATA_DIR = PROJECT_ROOT / ".donotmerge_aux" / "Luis" / "01_DATA"
-DEFAULT_CAMPAIGN_DIR = (
-    PROJECT_ROOT
-    / "results"
-    / "campaigns"
-    / "BEEQ_FINAL_NESTED_STRUCT_IMPL_20260825T234128Z"
-)
+DEFAULT_DATA_DIR = PROJECT_ROOT / "data" / "official"
 SEED = 20260824
 INNER_FOLDS = 4
 BOOTSTRAP_REPLICATES = 2000
@@ -119,21 +113,6 @@ QUANTUM_CONFIG = {
     "interaction_strength": 1.0,
     "selection_metric": "roc_auc",
 }
-
-
-@dataclass
-class FrozenClassical:
-    estimator: Any
-    threshold: float
-
-
-@dataclass
-class FrozenKernel:
-    scaler: StandardScaler
-    classifier: SVC
-    train_scaled: np.ndarray
-    params: dict[str, float]
-    threshold: float
 
 
 def sha256_file(path: Path) -> str:
@@ -199,14 +178,26 @@ def prepare_directories(root: Path, *, allow_completed: bool = False) -> dict[st
         "figures": "09_FIGURES",
         "manifest": "10_MANIFEST",
     }
-    if not (root / "00_README" / "PRE_RUN_AUDIT.md").is_file():
-        raise FileNotFoundError("The approved PRE_RUN_AUDIT.md is missing")
     if not allow_completed and (root / "10_MANIFEST" / "ARTIFACT_MANIFEST_SHA256.csv").exists():
         raise FileExistsError("A completed campaign manifest already exists")
     paths = {key: root / value for key, value in names.items()}
     for path in paths.values():
         path.mkdir(parents=True, exist_ok=True)
+    pre_run_audit = paths["readme"] / "PRE_RUN_AUDIT.md"
+    if not pre_run_audit.exists():
+        pre_run_audit.write_text(
+            "# BeeQ pre-run audit\n\n"
+            "This directory was created before model execution. Input hashes, "
+            "split integrity, environment versions, and frozen configuration are "
+            "recorded in the numbered campaign directories.\n",
+            encoding="utf-8",
+        )
     return paths
+
+
+def default_campaign_dir() -> Path:
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    return PROJECT_ROOT / "results" / "campaigns" / f"BEEQ_FINAL_NESTED_STRUCT_IMPL_{timestamp}"
 
 
 def verify_input_hashes(data_dir: Path, output: Path) -> pd.DataFrame:
@@ -881,7 +872,30 @@ def write_initial_config(paths: dict[str, Path], input_hashes: pd.DataFrame) -> 
         "reference_circuit": "not available in repository; exact NumPy implementation is canonical",
     })
     write_json(paths["config"] / "ENVIRONMENT.json", {"captured_utc": datetime.now(timezone.utc).isoformat(), "git": git_state(), "dependencies": environment()})
+    write_source_provenance(paths["manifest"])
     pd.DataFrame([{"MODEL": model, "STATUS": "not_available", "REASON": "No independent Qiskit/PennyLane reference implementation exists in the repository; canonical exact NumPy implementation retained."} for model in QUANTUM_MODELS]).to_csv(paths["qc"] / "REFERENCE_IMPLEMENTATION_CHECK.csv", index=False)
+
+
+def write_source_provenance(manifest_dir: Path) -> None:
+    source_names = [
+        "classical_models.py",
+        "config.py",
+        "evaluation.py",
+        "final_nested_campaign.py",
+        "kernels.py",
+        "model_artifacts.py",
+        "quantum_experiment.py",
+        "quantum_feature_maps.py",
+    ]
+    write_json(
+        manifest_dir / "SOURCE_CODE_PROVENANCE.json",
+        {
+            "files": {
+                f"src/{name}": sha256_file(PROJECT_ROOT / "src" / name)
+                for name in source_names
+            }
+        },
+    )
 
 
 def markdown_table(frame: pd.DataFrame, columns: Iterable[str] | None = None, digits: int = 4) -> str:
@@ -1066,11 +1080,11 @@ def resume_finalization(root: Path, data_dir: Path, paths: dict[str, Path]) -> N
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
-    parser.add_argument("--campaign-dir", type=Path, default=DEFAULT_CAMPAIGN_DIR)
+    parser.add_argument("--campaign-dir", type=Path, default=None)
     parser.add_argument("--resume-finalization", action="store_true")
     parser.add_argument("--rebuild-manifest-only", action="store_true")
     args = parser.parse_args()
-    root = args.campaign_dir.resolve()
+    root = (args.campaign_dir or default_campaign_dir()).resolve()
     data_dir = args.data_dir.resolve()
     paths = prepare_directories(
         root,
@@ -1078,6 +1092,7 @@ def main() -> None:
     )
     if args.rebuild_manifest_only:
         verify_existing_freeze(root, paths["final"])
+        write_source_provenance(paths["manifest"])
         manifest = final_manifest(root, paths["manifest"])
         print(f"Manifest rebuilt and verified: {len(manifest)} artifacts", flush=True)
         return

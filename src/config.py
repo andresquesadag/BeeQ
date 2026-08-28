@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATA_DIR = PROJECT_ROOT / ".donotmerge_aux" / "data"
+DEFAULT_DATA_DIR = PROJECT_ROOT / "data" / "official"
 DATA_DIR_ENV = "BEEQ_DATA_DIR"
 DEFAULT_RESULTS_DIR = PROJECT_ROOT / "results" / "runs"
 

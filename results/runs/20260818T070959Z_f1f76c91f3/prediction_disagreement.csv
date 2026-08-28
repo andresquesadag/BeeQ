@@ -1,5 +1,0 @@
-evaluation_status,model,n_molecules,prediction_disagreement_rate,score_spearman_with_rbf
-development_oof,quantum_angle_product,712,0.014044943820224719,0.9428170526787011
-development_oof,quantum_iqp_zz_linear,712,0.011235955056179775,0.9463921837498017
-historical_holdout,quantum_angle_product,181,0.016574585635359115,0.9434885556432516
-historical_holdout,quantum_iqp_zz_linear,181,0.027624309392265192,0.9808876206666263

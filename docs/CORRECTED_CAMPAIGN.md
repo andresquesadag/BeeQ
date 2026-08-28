@@ -9,7 +9,7 @@ Run the complete corrected campaign from the repository root:
 ```
 
 The optional `--source-data` and `--output-root` arguments change locations,
-not the protocol. Do not use `--quick` for paper results.
+not the protocol. Do not use `--quick` for auditable production results.
 
 ## 70/20/10 split variant
 
@@ -18,7 +18,7 @@ Generate the deterministic split, then point the same campaign command at it:
 ```powershell
 .\.venv\Scripts\python.exe -m src.split_70_20_10
 .\.venv\Scripts\python.exe -m src.campaign `
-  --source-data .donotmerge_aux/generated/master_70_20_10_seed42
+  --source-data data/generated/master_70_20_10_seed42
 ```
 
 The 893 corrected master rows are partitioned into 625 development rows
@@ -60,8 +60,8 @@ is invoked by the campaign; it is not a separate exploratory workflow.
 - The eight-row external panel is exploratory due to its small sample size.
 - Exact and RDKit-canonical SMILES overlap with the internal corpus must both
   be zero.
-- Historical `results/runs/` and `results/final/` remain provenance only and
-  are not combined with corrected campaign results.
+- Completed historical campaigns under `results/campaigns/` remain immutable
+  provenance and are not combined with later validation results.
 
 ## Validation
 

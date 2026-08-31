@@ -10,6 +10,10 @@ authors:
     given-names: "Andrés"
     affiliation: "Universidad de Costa Rica"
     orcid: "https://orcid.org/0009-0008-5687-3149"
+  - family-names: "Carvajal-Charpentier"
+    given-names: "Melissa"
+    affiliation: "Instituto Tecnológico de Costa Rica"
+    orcid: "https://orcid.org/0009-0008-7770-3931"
 abstract: >-
   Auditable classical and simulated-quantum kernel experiments for acute
   honey-bee toxicity screening, including versioned inputs, executable

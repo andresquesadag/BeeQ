@@ -5,6 +5,11 @@ type: software
 version: 0.1.0
 date-released: 2026-08-18
 license: MIT
+authors:
+  - family-names: "Quesada-González"
+    given-names: "Andrés"
+    affiliation: "Universidad de Costa Rica"
+    orcid: "https://orcid.org/0009-0008-5687-3149"
 abstract: >-
   Auditable classical and simulated-quantum kernel experiments for acute
   honey-bee toxicity screening, including versioned inputs, executable

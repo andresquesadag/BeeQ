@@ -1,0 +1,10 @@
+{
+  "branch": "main",
+  "head": "d0513433a22edaecdfbebab94c7a924e0b51f55e",
+  "status_short_branch": [
+    "## main...origin/main",
+    "?? results/campaigns/BEEQ_EXERCISE_A_10Q_VS_20Q_20260829T021247Z/",
+    "?? src/exercise_a_campaign.py",
+    "?? tests/test_exercise_a_campaign.py"
+  ]
+}

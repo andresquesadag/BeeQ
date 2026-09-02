@@ -1,0 +1,12 @@
+{
+  "bytes_per_complex128_statevector_20q": 16777216,
+  "idle_equivalence_pass": true,
+  "idle_kernel_max_error": 2.1094237467877974e-15,
+  "idle_materialized_subset_samples": 3,
+  "max_outer_train_samples": 607,
+  "projected_materialized_outer_train_bytes": 10183770112,
+  "projected_materialized_outer_train_gib": 9.484375,
+  "selected_backend": "exact_chain_transfer_matrix",
+  "selected_backend_is_approximation": false,
+  "statevector_dimension_20q": 1048576
+}

@@ -1,0 +1,15 @@
+{
+  "branch": "main",
+  "head": "d0513433a22edaecdfbebab94c7a924e0b51f55e",
+  "status_short_branch": [
+    "## main...origin/main",
+    "?? results/campaigns/BEEQ_EXERCISE_A_10Q_VS_20Q_20260829T021247Z/",
+    "?? results/campaigns/BEEQ_EXERCISE_B_PAIRWISE_GRAPH_20260829T024302Z/",
+    "?? src/exercise_a_campaign.py",
+    "?? src/exercise_b_campaign.py",
+    "?? src/external_cr8_extension.py",
+    "?? tests/test_exercise_a_campaign.py",
+    "?? tests/test_exercise_b_campaign.py",
+    "?? tests/test_external_cr8_extension.py"
+  ]
+}

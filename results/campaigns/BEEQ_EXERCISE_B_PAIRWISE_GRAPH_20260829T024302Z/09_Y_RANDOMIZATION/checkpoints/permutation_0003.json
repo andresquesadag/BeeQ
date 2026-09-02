@@ -1,0 +1,21 @@
+{
+  "result": {
+    "BEST_PAIR": "TPSA_SP__nHalogen",
+    "BEST_PAIR_MCC": 0.1250448862892112,
+    "BEST_PATH": "[\"nHalogen\", \"MolWt\", \"LiPHEX_prediction\", \"TPSA_SP\", \"NumHDonors\", \"NumRotatableBonds\", \"MolLogP\", \"NumAromaticRings\", \"n_OP\", \"sasa002_frac_polar_hetero_only\"]",
+    "BEST_PATH_EDGE_SD": 0.012707841435182629,
+    "BEST_PATH_MIN_EDGE": 0.015507534849030655,
+    "BEST_PATH_SCORE": 0.3008951369406888,
+    "ELAPSED_SECONDS": 395.4307676000001,
+    "LABEL_SEED": 20360827,
+    "MODE": "complete_pair_screen_and_path_rebuild",
+    "PERMUTATION": 3
+  },
+  "signature": {
+    "input_sha256_lf": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984",
+    "permutation": 3,
+    "seed": 20260824,
+    "source_sha256": "0802080a5f5dfdea17024086481aebf681c62dfa993287531986193ba1b7ee16"
+  },
+  "status": "complete"
+}

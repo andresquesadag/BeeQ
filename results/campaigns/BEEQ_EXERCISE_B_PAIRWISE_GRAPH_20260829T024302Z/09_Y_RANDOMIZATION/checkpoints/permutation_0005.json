@@ -1,0 +1,21 @@
+{
+  "result": {
+    "BEST_PAIR": "MolWt__NumHDonors",
+    "BEST_PAIR_MCC": 0.1315879724905255,
+    "BEST_PATH": "[\"NumHDonors\", \"MolWt\", \"sasa002_frac_polar_hetero_only\", \"TPSA_SP\", \"NumAromaticRings\", \"NumRotatableBonds\", \"LiPHEX_prediction\", \"n_OP\", \"MolLogP\", \"nHalogen\"]",
+    "BEST_PATH_EDGE_SD": 0.019362437445259166,
+    "BEST_PATH_MIN_EDGE": 0.006800242281074419,
+    "BEST_PATH_SCORE": 0.28258697842678593,
+    "ELAPSED_SECONDS": 391.9190390000001,
+    "LABEL_SEED": 20360829,
+    "MODE": "complete_pair_screen_and_path_rebuild",
+    "PERMUTATION": 5
+  },
+  "signature": {
+    "input_sha256_lf": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984",
+    "permutation": 5,
+    "seed": 20260824,
+    "source_sha256": "0802080a5f5dfdea17024086481aebf681c62dfa993287531986193ba1b7ee16"
+  },
+  "status": "complete"
+}

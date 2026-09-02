@@ -1,0 +1,6 @@
+{
+  "A_outer_results_used_for_selection": false,
+  "CR8_used_for_selection": false,
+  "all_outer_checkpoints_report_no_outer_validation_selection": true,
+  "scaler_train_only": true
+}

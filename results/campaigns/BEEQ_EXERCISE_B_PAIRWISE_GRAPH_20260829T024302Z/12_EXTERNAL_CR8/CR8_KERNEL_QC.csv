@@ -1,0 +1,55 @@
+MODEL,STAGE,FOLD,PARAMS,N,SYMMETRY_ERROR,DIAGONAL_ERROR,MIN_EIGENVALUE,PSD_VERIFICATION,PASS
+current_order_10q,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_10q,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_10q,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_10q,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_10q,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_10q,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,2.2572804004708433e-16,numeric,True
+max_synergy_path_10q,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_10q,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_10q,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_10q,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_10q,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_10q,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,3.3545294634616138e-16,numeric,True
+stable_synergy_path_10q,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_10q,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_10q,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_10q,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_10q,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_10q,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,6.27886122727046e-17,numeric,True
+current_order_20q_duplicate,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_duplicate,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_duplicate,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_duplicate,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_duplicate,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_duplicate,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,1.2732300810491406e-16,numeric,True
+current_order_20q_complementary,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_complementary,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_complementary,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_complementary,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_complementary,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+current_order_20q_complementary,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,2.5002962223368836e-16,numeric,True
+max_synergy_path_20q_duplicate,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_duplicate,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_duplicate,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_duplicate,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_duplicate,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_duplicate,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,7.900431990221374e-17,numeric,True
+max_synergy_path_20q_complementary,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_complementary,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_complementary,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_complementary,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_complementary,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+max_synergy_path_20q_complementary,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,4.2860891576807903e-16,numeric,True
+stable_synergy_path_20q_duplicate,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_duplicate,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_duplicate,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_duplicate,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_duplicate,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_duplicate,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,1.7251075194436067e-16,numeric,True
+stable_synergy_path_20q_complementary,hpo_representative,cr8_final.1,"{""feature_scale"": 0.125}",575,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_complementary,hpo_representative,cr8_final.2,"{""feature_scale"": 0.125}",607,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_complementary,hpo_representative,cr8_final.3,"{""feature_scale"": 0.125}",565,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_complementary,hpo_representative,cr8_final.4,"{""feature_scale"": 0.125}",531,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_complementary,hpo_representative,cr8_final.5,"{""feature_scale"": 0.125}",570,0.0,0.0,,fidelity_gram_by_construction,True
+stable_synergy_path_20q_complementary,outer_fit,cr8_final,"{""C"": 1.0, ""feature_scale"": 0.125}",712,0.0,0.0,-1.2203948185546608e-16,numeric,True

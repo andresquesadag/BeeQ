@@ -1,0 +1,82 @@
+{
+  "completed_utc": "2026-08-29T02:21:24.032935+00:00",
+  "final_process_rss_bytes": 230977536,
+  "fold_runtimes": [
+    {
+      "elapsed_seconds": 4.593504500000563,
+      "rss_end_bytes": 207032320,
+      "rss_start_bytes": 193126400
+    },
+    {
+      "elapsed_seconds": 4.7918324999991455,
+      "rss_end_bytes": 208277504,
+      "rss_start_bytes": 203374592
+    },
+    {
+      "elapsed_seconds": 4.3878074000022025,
+      "rss_end_bytes": 207925248,
+      "rss_start_bytes": 205332480
+    },
+    {
+      "elapsed_seconds": 4.16224720000173,
+      "rss_end_bytes": 207515648,
+      "rss_start_bytes": 203685888
+    },
+    {
+      "elapsed_seconds": 4.429034000000684,
+      "rss_end_bytes": 207396864,
+      "rss_start_bytes": 203849728
+    },
+    {
+      "elapsed_seconds": 9.03573790000155,
+      "rss_end_bytes": 210042880,
+      "rss_start_bytes": 205156352
+    },
+    {
+      "elapsed_seconds": 8.571348000001308,
+      "rss_end_bytes": 210264064,
+      "rss_start_bytes": 207396864
+    },
+    {
+      "elapsed_seconds": 9.91161270000157,
+      "rss_end_bytes": 208240640,
+      "rss_start_bytes": 207745024
+    },
+    {
+      "elapsed_seconds": 9.606204799998523,
+      "rss_end_bytes": 207355904,
+      "rss_start_bytes": 205291520
+    },
+    {
+      "elapsed_seconds": 8.526317500000005,
+      "rss_end_bytes": 213336064,
+      "rss_start_bytes": 202375168
+    },
+    {
+      "elapsed_seconds": 8.402944900000875,
+      "rss_end_bytes": 213204992,
+      "rss_start_bytes": 202477568
+    },
+    {
+      "elapsed_seconds": 7.644493200001307,
+      "rss_end_bytes": 212852736,
+      "rss_start_bytes": 203210752
+    },
+    {
+      "elapsed_seconds": 7.5065069000011135,
+      "rss_end_bytes": 205631488,
+      "rss_start_bytes": 203235328
+    },
+    {
+      "elapsed_seconds": 8.643040500002826,
+      "rss_end_bytes": 210903040,
+      "rss_start_bytes": 204087296
+    },
+    {
+      "elapsed_seconds": 8.44225920000099,
+      "rss_end_bytes": 210624512,
+      "rss_start_bytes": 208302080
+    }
+  ],
+  "total_elapsed_seconds": 11.819356899999548
+}

@@ -1,0 +1,10 @@
+{
+  "src/exercise_a_campaign.py": {
+    "sha256_canonical_lf": "18520e101f43fbbc9c6488464b6ae740a7148990db5310f5c2f00174c5b9b61a",
+    "sha256_physical": "18520e101f43fbbc9c6488464b6ae740a7148990db5310f5c2f00174c5b9b61a"
+  },
+  "src/quantum_feature_maps.py": {
+    "sha256_canonical_lf": "dce90964bec0a0d899ff934e8e7821cf35bc17a89caad959a3a2938ad763e2d4",
+    "sha256_physical": "f7a62f8a601ca0a2256e41db09f7788af7194117f9b44d2db732aba79c2e48e8"
+  }
+}

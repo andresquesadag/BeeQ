@@ -1,0 +1,38 @@
+{
+  "current_order": [
+    "MolLogP",
+    "MolWt",
+    "TPSA_SP",
+    "NumHDonors",
+    "NumRotatableBonds",
+    "NumAromaticRings",
+    "nHalogen",
+    "n_OP",
+    "LiPHEX_prediction",
+    "sasa002_frac_polar_hetero_only"
+  ],
+  "max_synergy_path": [
+    "TPSA_SP",
+    "NumRotatableBonds",
+    "LiPHEX_prediction",
+    "NumAromaticRings",
+    "sasa002_frac_polar_hetero_only",
+    "NumHDonors",
+    "n_OP",
+    "MolLogP",
+    "MolWt",
+    "nHalogen"
+  ],
+  "stable_synergy_path": [
+    "NumAromaticRings",
+    "NumHDonors",
+    "MolWt",
+    "n_OP",
+    "MolLogP",
+    "LiPHEX_prediction",
+    "sasa002_frac_polar_hetero_only",
+    "nHalogen",
+    "NumRotatableBonds",
+    "TPSA_SP"
+  ]
+}

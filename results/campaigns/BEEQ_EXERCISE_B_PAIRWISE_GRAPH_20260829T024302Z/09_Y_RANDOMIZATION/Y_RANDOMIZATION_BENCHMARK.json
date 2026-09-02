@@ -1,0 +1,6 @@
+{
+  "median_seconds_per_replicate": 391.9190390000001,
+  "projected_seconds_for_200": 78383.80780000002,
+  "reduction_reason": "Benchmark exacto: 394.9768583 s por repeticion completa; 200 proyectan 21.94 h. Se ejecutan 5 ahora como diagnostico exploratorio. El parametro --y-replicates y checkpoints atomicos permiten ampliar esta misma campana a 200 con --resume sin recalcular las cinco completadas.",
+  "replicates_executed": 5
+}

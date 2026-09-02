@@ -1,0 +1,743 @@
+%=============================================================================
+%  BeeQ — IEEE conference paper template (scaffold / first-round submission)
+%
+%  Compile:  pdflatex main -> bibtex main -> pdflatex main -> pdflatex main
+%            (or: latexmk -pdf main.tex)
+%
+%  Figures  : ./fig/
+%  Bib file : BeeQ_references.bib
+%
+%  ──────────────────────────────────────────────────────────────────────────
+%  DRAFT NOTES
+%  All author-facing instructions use \draftnote{...}, which prints a
+%  colored box in draft mode.  To produce the clean submission PDF:
+%
+%      1.  Comment out  \draftmodetrue   (line ~38 below).
+%      2.  Recompile.  All \draftnote boxes disappear.
+%
+%  You can also search-and-delete every \draftnote{...} call once the
+%  paper is finalized.
+%  ──────────────────────────────────────────────────────────────────────────
+%=============================================================================
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+%---------------------------- Packages ---------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{flafter}
+\usepackage[all]{nowidow}
+\usepackage[detect-all]{siunitx}
+\usepackage{svg}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}
+\svgsetup{inkscapelatex=false}
+
+\graphicspath{{fig/}}
+
+%---------------------------- Draft-note mechanism ---------------------------
+% >>> SET TO FALSE (or comment out) FOR THE SUBMISSION PDF <<<
+\newif\ifdraftmode
+\draftmodetrue   % <--- comment this line to hide all draft notes
+
+\newcommand{\draftnote}[1]{%
+  \ifdraftmode
+    \par\noindent
+    \colorbox{yellow!30}{\parbox{\dimexpr\columnwidth-2\fboxsep}{%
+      \small\sffamily\textcolor{black!70}{#1}}}%
+    \par\smallskip
+  \fi
+}
+
+% Inline variant for margin comments inside paragraphs.
+\newcommand{\dnote}[1]{%
+  \ifdraftmode{\sffamily\small\textcolor{red!70!black}{[#1]}}\fi}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%=============================================================================
+\begin{document}
+
+% ---- Title -----------------------------------------------------------------
+\title{BeeQ: Quantum Fidelity Kernels for Acute Honey-Bee
+       Toxicity Prediction with Compact Molecular Descriptors}
+% Uncomment to acknowledge a funding agency in a first-page footnote:
+% \thanks{This work was supported by ...}
+
+% ---- Author block: 4 anonymous slots (first-round submission) --------------
+\author{
+\IEEEauthorblockN{Author~1}
+\IEEEauthorblockA{\textit{Department / School} \\
+\textit{Institution}\\
+City, Country \\
+email@institution}
+\and
+\IEEEauthorblockN{Author~2}
+\IEEEauthorblockA{\textit{Department / School} \\
+\textit{Institution}\\
+City, Country \\
+email@institution}
+\and
+\IEEEauthorblockN{Author~3}
+\IEEEauthorblockA{\textit{Department / School} \\
+\textit{Institution}\\
+City, Country \\
+email@institution}
+\and
+\IEEEauthorblockN{Author~4}
+\IEEEauthorblockA{\textit{Department / School} \\
+\textit{Institution}\\
+City, Country \\
+email@institution}
+}
+
+\maketitle
+
+%=============================================================================
+% ABSTRACT  (~150–200 words, one paragraph)
+% Target: 0.25 pages
+%=============================================================================
+\begin{abstract}
+\draftnote{%
+\textbf{Abstract checklist — cover each point in 1–2 sentences:}\\
+\textbullet\ Environmental problem: pollinator decline, pesticide risk.\\
+\textbullet\ Dataset and binary endpoint (ApisTox, $\mathrm{LD}_{50}\leq 11$~$\mu$g/bee).\\
+\textbullet\ Compact X10 representation (10 interpretable descriptors).\\
+\textbullet\ Classical baselines (LR, RF, RBF-SVC) under structure-aware splits.\\
+\textbullet\ Quantum fidelity kernels (Product, IQP-ZZ) matched on same inputs/folds.\\
+\textbullet\ Structure-aware evaluation (Butina cluster-disjoint holdout).\\
+\textbullet\ Main confirmed results (AUROC, AUPRC with CIs — replace placeholders).\\
+\textbullet\ Conservative interpretation: no claim of quantum advantage.\\
+\textbullet\ Contribution: matched protocol, ablation, regional evaluation.\\[4pt]
+\textbf{Rules:} no citations, no equations, no undefined abbreviations, no
+unsupported claims.}
+
+% ---- Write the abstract below this line ------------------------------------
+\textcolor{red!60!black}{[ABSTRACT PLACEHOLDER --- replace with final text]}
+\end{abstract}
+
+\begin{IEEEkeywords}
+quantum machine learning, quantum kernel methods, honey-bee toxicity,
+QSAR, cheminformatics, applicability domain, ApisTox, fidelity kernel,
+support vector machine, structure-aware evaluation
+\end{IEEEkeywords}
+
+%=============================================================================
+% I. INTRODUCTION
+% Target: ~1 page.  Do NOT subdivide into subsections.
+%=============================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+Quantum computing has emerged in recent years as a technology with significant scientific and commercial potential, owing to a set of properties with no direct equivalent in classical computing \cite{quamtum}. Unlike the traditional bit, which can only take the value of 0 or 1, the basic unit of quantum information, the qubit, can exist in a superposition of both states, allowing multiple possible solutions to a problem to be explored in parallel \cite{quamtum}. This property, together with phenomena such as entanglement and quantum interference, forms the basis of what is known as quantum machine learning, a field that seeks to leverage these characteristics to change how machine learning algorithms process and generalize information \cite{quamtum}. It has been proposed that, for certain classes of computational problems, these properties could result in exponential speedups over classical methods \cite{quamtum}, opening up possibilities for optimization, pattern recognition, and predictive modeling in diverse fields such as medicine, finance, cryptography, and logistics \cite{quamtum}.
+
+As a result, the quantum computing-as-a-service market is projected to grow from approximately USD 2.3 billion in 2023 to nearly USD 48.3 billion by 2033, with a compound annual growth rate of approximately 35.6\% \cite{quamtum}, alongside efforts by companies such as IBM, Google, and D-Wave to make these systems scalable and accessible \cite{quamtum}.
+
+A natural next step is to leverage these pattern-recognition capabilities in high-impact research, such as determining the effects of pesticides on \textit{Apis mellifera}, a species essential to the survival of a substantial proportion of living organisms on the planet.
+
+The Western honey bee (\textit{Apis mellifera}) is recognized as the most frequent individual pollinator of agricultural crops worldwide. This is the result of a long history of domestication and intentional transport by humans, which has allowed the species to achieve a nearly cosmopolitan distribution, occurring on every continent except Antarctica \cite{abejas}. It is estimated that approximately 87.5\% of flowering plant species depend on animal pollinators for reproduction \cite{abejas}. Therefore, understanding the contribution of the \textit{Apis mellifera} pollinator is essential for understanding the functioning of numerous terrestrial ecosystems. However, the influence of external agents, such as pesticides, on these delicate ecological systems has consequences, particularly in a country with the diversity of ecosystems found in Costa Rica.
+
+Costa Rica is not exempt from this concern. The country currently has Law No. 9929 \cite{cr_ley9929_2021}, which explicitly recognizes, at the national level, the importance of these pollinators and the threats they face. However, having a regulatory framework alone does not address the need for tools capable of anticipating the specific risk that each pesticide poses to these animals when used in the field. This situation suggests that, even in a country recognized worldwide for its commitment to conservation, significant gaps remain in the effective protection of its biodiversity against external threats, including the use of agrochemicals. This reinforces the need for tools that can anticipate and quantify such risks before they result in irreversible losses for key species such as pollinators.
+
+Classical machine learning approaches have already been applied to this problem, producing curated datasets and predictive models for pesticide toxicity in \textit{Apis mellifera} \cite{adamczyk2025apistox}. Quantum machine learning, with its distinct approach to representing and processing high-dimensional data, offers a potentially complementary avenue to address these limitations, motivating the present study to explore its application to pesticide toxicity prediction in \textit{A. mellifera}.
+
+% ---- Research questions ----------------------------------------------------
+\draftnote{%
+\textbf{Place three concise research questions here:}\\
+RQ1: Does the compact X10 representation retain sufficient chemical
+     information for structure-aware bee-toxicity prediction?\\
+RQ2: Do quantum fidelity kernels (Product, IQP-ZZ) differ from a matched
+     classical RBF-SVC when given the same X10 inputs, preprocessing,
+     and folds?\\
+RQ3: How do the trained models generalize across structural regions and
+     to a regionally curated agrochemical set?}
+
+% ---- Contributions ---------------------------------------------------------
+The contributions of this paper are:
+\begin{itemize}
+    \item \textcolor{red!60!black}{[Contribution 1 — compact X10 + chemical hypotheses]};
+    \item \textcolor{red!60!black}{[Contribution 2 — matched classical–quantum protocol]};
+    \item \textcolor{red!60!black}{[Contribution 3 — structure-aware + regional evaluation]}; and
+    \item \textcolor{red!60!black}{[Contribution 4 — public repository with data and code]}.
+\end{itemize}
+
+%=============================================================================
+% II. RELATED WORK
+% Target: ~1 page total across A, B, C.
+%=============================================================================
+
+\section{Related Work}
+\label{sec:related}
+In order to find previous related work, we conducted a literature review, using ApisTox benchmark paper~\cite{adamczyk2025apistox} as a starting point, which supplied an initial set of keywords
+through its own reference list. This set was extended with keywords
+from exploratory searches on chemical toxicity, drug discovery, machine
+learning (ML), and quantum machine learning (QML). From this pool,
+three Scopus query strings were built: one for honey bee toxicity
+classification with ML, one for molecular toxicity prediction with ML,
+and one for molecular property or toxicity prediction with QML~\cite{quesada2026beeq}.
+
+Fig.~\ref{fig:screening_flow} shows the resulting pipeline. The three
+queries were merged and deduplicated, then screened by title, abstract,
+and keywords, since full text was not read at this stage. The
+remaining records were scored under a five-criterion rubric spanning
+endpoint relevance, method relevance, dataset comparability, evaluation
+strength, and novelty importance, and the highest-ranked records were
+added to a reference manager for full-text retrieval. Each of these
+records was then read in full, together with the ApisTox paper that
+had motivated the initial keyword search but was not itself returned
+by the queries.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{fig/literature_screening_flow.png}
+\caption{Literature search and screening pipeline, from the three
+Scopus query strings to the final list of prioritized records
+forwarded to a reference manager for full-text retrieval.}
+\label{fig:screening_flow}
+\end{figure}
+
+
+% ---- II-A ------------------------------------------------------------------
+\subsection{Classical Honey-Bee Toxicity Modeling}
+\label{sec:related-classical-bee}
+
+Previous classical computing approaches classify acute honey-bee toxicity from its molecular structure using different representations for each molecule. In~\cite{carnesecchi2020integrating} they calculated two-dimensional Dragon descriptors and then made a narrowed-down selection of those molecular descriptors using genetic algorithm and random forest selection, to then fit those descriptors into Random Forest (RF) and k-Nearest Neighbour (kNN) classifiers. Molecular descriptors were also used as the input representation in \cite{sharifi2024insilico}, where they evaluated two large descriptor pools, with 319 MOE and 353 ADMET Predictor descriptors, which were separately reduced through descriptor selection before training ANN groups.
+Another approach was used in~\cite{yang2022randomwalk}. They measured the similarity between molecular graphs using a fixed-length random walk graph kernel and then used the resulting Gram matrix as input to an SVM.
+In later work, molecular fingerprints were used as a representation. In~\cite{xu2021insilico} they crossed nine fingerprint families with six learning algorithms, including Naive Bayes(NB), Artificial Neural Network (ANN), C4.5, Support Vector Machine (SVM), RF and kNN. Producing 54 binary classification models. One of the fingerprint families that~\cite{xu2021insilico} included was MACCS, which was also included in~\cite{moreirafilho2021beetoxai} along with Morgan and FeatMorgan fingerprints, that were combined with SVM and RF classifiers.
+
+The variety of representations is not about complexity or improving the results of their models, but rather because they are not solving the same classification problem, despite their research being on the same line. In~\cite{carnesecchi2020integrating}, they separated classes at 100~$\mu$g/bee and modeled 411 compounds, while~\cite{xu2021insilico, moreirafilho2021beetoxai, sharifi2024insilico} used the 11~$\mu$g/bee regulatory threshold although their datasets were not equivalent. In \cite{xu2021insilico} they modeled 676 structurally diverse pesticides for acute contact toxicity, while \cite{moreirafilho2021beetoxai} built separate datasets for contact and oral toxicity, with 382 and 169 compounds, respectively. The contact dataset from BeeToxAI was later used by \cite{yang2022randomwalk} for their graph-kernel comparison. \cite{sharifi2024insilico} used a larger collection of 1,542 compounds by combining PPDB data with a proprietary agrochemical dataset. These differences in endpoint, exposure route, and chemical space make the reported performance between studies difficult to compare directly.
+
+Furthermore, the studies differ in the assessment of the model's performance on novel molecules. \cite{carnesecchi2020integrating} employed a MaxMin-type splitting by means of PubChem fingerprints and Tanimoto similarity to ensure structural dissimilarity between the training and test sets of compounds. The applicability domain was estimated using VEGA-HUB. Conversely, \cite{xu2021insilico} utilized the random 80/20 split in combination with ten-fold cross-validation. In addition, they applied a kNN-distance approach, where performance of predictions on test compounds improves when the latter are limited to those supported by the training chemical space. \cite{moreirafilho2021beetoxai} also included an applicability domain through the fingerprint-based approach and identified unreliable predictions in the BeeToxAI model via this approach. The applicability domain was estimated in \cite{sharifi2024insilico} through the chemical clustering of data and further application of MACCS/Tanimoto similarity criterion as well as a descriptor-space-based criterion. Finally, \cite{yang2022randomwalk} handled variability via performing the evaluation over 2,000 resampled runs despite the fact that no restriction of structural similarity is implied thereby.
+
+These works provide several fundamental elements on which our research questions are based. First, \cite{xu2021insilico, moreirafilho2021beetoxai} prove the relevance of using SVM and RF in the classical model as a measure of acute honey bee toxicity, while \cite{yang2022randomwalk} provides a direct precedent in applying kernel-based comparison of molecules in the context of SVM. Second, \cite{carnesecchi2020integrating, sharifi2024insilico} prove that the evaluation of the model must take into account the structural dissimilarity and the coverage of chemical space. Finally, the application of the descriptor selection by \cite{carnesecchi2020integrating, sharifi2024insilico} proves that the information about the molecule that is supplied to the model is crucial.
+
+
+% ---- II-B ------------------------------------------------------------------
+\subsection{ApisTox, Structural Generalization, and Recent Models}
+\label{sec:related-apistox}
+
+The introduction of ApisTox provided a common benchmark for studying high acute toxicity to honey bees in more challenging conditions. In particular, the dataset was created by Adamczyk et al., with 1,035 standardized and deduplicated compounds, of which 296 compounds were toxic, whereas 739 compounds were non-toxic based on the approximate 11 $\mu$g/bee toxicity threshold \cite{adamczyk2025apistox}. Moreover, the ApisTox dataset contains predefined MaxMin and approximate temporal partitions. Specifically, the MaxMin partition chooses the test set based on molecular similarity. On the other hand, the approximate temporal partition ensures that the test set is comprised of newer molecules.
+
+Later, Adamczyk et al. performed experiments where ApisTox was used for evaluation of molecular fingerprints, graph kernels, Graph Neural Networks (GNNs), and pretrained molecular models using MaxMin and temporal partitions \cite{adamczyk2026evaluating}. Ranking of the models was different depending on these experimental settings. In the MaxMin partitioning, the WL-OA graph kernel achieved an MCC value of 0.49 and an AUROC of 83.95\%, whereas ECFP fingerprints showed MCC of 0.48 and AUROC of 78.16\% in the temporal partition. GNNs and pretrained models were not superior to fingerprints and graph kernels consistently. Therefore, the study demonstrates that model complexity does not necessarily affect its performance if the test molecules belong to a different chemical space. Moreover, results concerning model performance can vary depending on the generalization that is needed in the split.
+
+Recent work on the same problem highlight even more clearly how performance on prediction is different from generalization to structure. Specifically, Damião et al. used a GNN to train on the ApisTox dataset based on molecular graphs generated from SMILES \cite{damiao2025newgeneration}. Using the method of five-fold random cross-validation, they achieved 0.759 ± 0.030, 0.552 ± 0.057, and 0.763 ± 0.027 as average AUROC, MCC, and balanced accuracy for testing respectively. The training AUROC was around 0.97. It should be noted that the current study does not use MaxMin or temporal folds and only uses random folds.
+
+The model BeeEcoTox is another example of such distinction \cite{chen2026beeecotox}. Chen et al. utilized molecular graphs with the incorporation of semantic data from ChemFM along with other structural features for a set of about 1,139 agrochemicals. In its standard split setting, BeeEcoTox achieved an AUC of around 0.91 and recall of 0.90. In temporal-style evaluation, AUC dropped to approximately 0.72 and MCC to 0.22 when the distance between train-test chemical space grew. Such contrast demonstrates that good performance of a model in its standard split setup can be accompanied by poor performance in the newest part of chemical space. Overall, the ApisTox benchmark and these state-of-the-art models make structural generalization one of the crucial concerns for honey-bee toxicity prediction. It becomes clear that a comparison of model families should take into account not only their performance in random splits but also in lower structural space.
+
+% ---- II-C ------------------------------------------------------------------
+\subsection{Quantum Machine Learning for Molecular Prediction}
+\label{sec:related-qml}
+
+Quantum machine learning (QML) has been employed in predicting properties and toxicities of molecules, but the studies in each domain are different from each other. According to Schuld and Killoran, QML was explained using quantum feature space, where a classical input \(x\) was transformed to a quantum state \(|\phi(x)\rangle\). In a supervised learning problem, Havlíček et al. used the concept of a quantum kernel estimator, which measures similarities among the samples and provides the computed kernel as input to the classical Support Vector Machine (SVM). For fidelity-based kernels, such a similarity can be represented as
+
+\[
+K(x,x') =
+\left|
+\left\langle
+\phi(x)
+\middle|
+\phi(x')
+\right\rangle
+\right|^2
+\]
+
+This formulation is relevant to molecular prediction because the classifier can remain classical while the feature map determines a different similarity function between samples.~\cite{schuld2019hilbertspaces,havlicek2019quantumfeatures}
+
+The applications of QML for toxicology and molecule-based data, however, are fewer. Suzuki and Katouda made use of parameterized quantum circuits for a quantitative structure-activity relationship model that deals with the toxicity of 221 phenols. The study made comparisons between the results obtained by their quantum models and those of multiple linear regression and radial basis function networks.~\cite{suzuki2020toxicityqml}. Subsequently, Bhatia et al. investigated the pharmacokinetics and toxicology properties of small molecules using a quantum-kernel based framework with a Support Vector Classifier (SVC). Their work is more relevant to our scenario as it involves reduced molecular data, quantum feature representation, and kernel classifier as well as the comparison between the quantum and classical approaches.~\cite{bhatia2023admetox}
+
+It is not necessarily the case that there will be a favorable comparison between classical and quantum models. In the paper of Harjanto et al., they encoded the data in material datasets into only four features and compared the classical SVM with QSVM, VQC, and QNN. Through repeated stratified evaluations, the classical SVM obtained the best classification results. It was observed by the researchers that the poor performance of the QML model can be attributed to the shortcomings of feature encoding, circuit expressibility, qubit number, and optimization.~\cite{harjanto2026comparative}
+
+Therefore, the cited work gives examples of application of QML in toxicity prediction and quantum kernels in molecule classification; however, it lacks the case study of the honey bee toxicity problem. In particular, there was no comparison of the fidelity-based quantum kernel and classical kernel in ApisTox using the same representation, preprocessing, partitioning of the dataset taking into account molecular structure, and SVC formulation.
+
+
+%=============================================================================
+% III. MATERIALS AND METHODS
+% Target: ~2.5 pages across A–F.
+%=============================================================================
+\section{Materials and Methods}
+\label{sec:methods}
+
+% ---- III-A -----------------------------------------------------------------
+\subsection{Dataset, Endpoint, and Molecular Curation}
+\label{sec:dataset}
+% ~0.5 page
+
+\draftnote{%
+\textbf{Include:}\\
+\textbullet\ Original ApisTox source (\texttt{adamczyk2025apistox}).\\
+\textbullet\ Target species: \textit{Apis mellifera}.\\
+\textbullet\ Strongest available acute-toxicity observation per compound.\\
+\textbullet\ Binary classification (not LD$_{50}$ regression).\\
+\textbullet\ Curation: 1,035 original $\to$ 893 final molecules.\\
+\textbullet\ Exclusions: metals, inorganics, salts, mixtures, invalid
+   structures, duplicates, missing values, non-finite descriptors.\\
+\textbullet\ Rationale: define a coherent organic chemical domain.\\
+\textbf{Do not:} state that difficult molecules were removed merely because
+they were difficult to predict.}
+
+The binary toxicity endpoint, following the ApisTox
+dataset~\cite{adamczyk2025apistox}, is defined as
+\begin{equation}
+y=
+\begin{cases}
+1, & \mathrm{LD}_{50}\leq 11~\mu\mathrm{g/bee},\\
+0, & \mathrm{LD}_{50}>11~\mu\mathrm{g/bee}.
+\end{cases}
+\label{eq:endpoint}
+\end{equation}
+
+% ---- III-B -----------------------------------------------------------------
+\subsection{Compact X10 Molecular Representation}
+\label{sec:x10}
+% ~0.5 page
+
+\draftnote{%
+\textbf{Include:} chemical motivation for each descriptor; interpretability;
+low dimensionality; compatibility with 10-qubit experiments; avoidance of
+outcome-driven feature selection; correlation and redundancy checks.\\
+\textbf{Clarifications:}\\
+\textbullet\ \texttt{n\_OP}: structural-motif count — do \emph{not} interpret
+   causally.\\
+\textbullet\ LiPHEX: predicts hexadecane/water partition — it is \emph{not} a
+   bee-toxicity model.\\
+\textbullet\ MolLogP and LiPHEX measure related but non-identical partition
+   behavior.\\
+\textbf{Placeholders needed:} exact frozen SMARTS definitions; descriptor
+provenance and version.}
+
+% --- X10 descriptor table ---------------------------------------------------
+\begin{table}[htbp]
+\caption{X10 compact molecular descriptor set.
+\dnote{Confirm all descriptor names, symbols, and categories before submission.}}
+\label{tab:x10}
+\centering
+\begin{tabular}{@{}lllc@{}}
+\toprule
+\textbf{\#} & \textbf{Descriptor} & \textbf{Category} & \textbf{Dim.} \\
+\midrule
+1  & MolLogP         & Lipophilicity          & 1 \\
+2  & LiPHEX          & Lipophilicity (hex/w)  & 1 \\
+3  & TPSA            & Polarity               & 1 \\
+4  & MolWt           & Size                   & 1 \\
+5  & n\_OP           & Structural motif       & 1 \\
+6  & HBD             & H-bonding              & 1 \\
+7  & HBA             & H-bonding              & 1 \\
+8  & RotBonds        & Flexibility            & 1 \\
+9  & Polar ASA       & Polar surface area     & 1 \\
+10 & RingCount       & Topology               & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---- III-C -----------------------------------------------------------------
+\subsection{Structure-Aware Data Partitioning}
+\label{sec:partitioning}
+% ~0.4 page
+
+\draftnote{%
+\textbf{Confirm each value:}\\
+\textbullet\ Morgan radius: \textcolor{red}{[?]}\\
+\textbullet\ Fingerprint bits: \textcolor{red}{[?]}\\
+\textbullet\ Chirality: \textcolor{red}{[yes/no]}\\
+\textbullet\ Tanimoto similarity threshold: \textcolor{red}{[?]}\\
+\textbullet\ Butina cutoff: \textcolor{red}{[?]}\\
+\textbullet\ Clustering implementation: \textcolor{red}{[RDKit version?]}\\
+\textbullet\ Group-aware stratification: \textcolor{red}{[describe]}\\
+\textbullet\ Five frozen outer folds: \textcolor{red}{[confirm]}\\
+\textbullet\ No cluster overlap between folds: \textcolor{red}{[confirm]}\\
+\textbullet\ Historical holdout provenance: \textcolor{red}{[describe]}\\
+\textbullet\ Exact molecule counts at every stage: \textcolor{red}{[fill in]}\\[4pt]
+\textbf{Terminology:} Use ``structure-aware, cluster-disjoint holdout.''
+Do \emph{not} call it ``mathematically strict OOD evaluation.''\\
+\textbf{Do not:} imply that Butina generated the original ApisTox
+splits unless factually correct.}
+
+The dataset partitioning follows
+\begin{equation}
+893
+\longrightarrow
+712~\mathrm{DEVELOPMENT}
++
+181~\mathrm{historical\ holdout}.
+\label{eq:partition}
+\end{equation}
+
+% ---- III-D -----------------------------------------------------------------
+\subsection{Classical and Quantum Models}
+\label{sec:models}
+% ~0.6 page
+
+\draftnote{%
+\textbf{Organize with bold paragraph headings, not sub-subsections.}}
+
+\textbf{Classical models.}
+\draftnote{%
+\textbf{Include:} Logistic Regression, Random Forest, RBF-SVC;
+class weighting; hyperparameter spaces; nested group-aware selection;
+preprocessing fitted inside each training fold; pooled out-of-fold (OOF)
+predictions; same frozen outer folds for every model.}
+
+% Write classical-model paragraph here.
+
+\textbf{Quantum fidelity kernels.}
+\draftnote{%
+\textbf{Include:} exact NumPy statevector simulation; 10 qubits;
+Product/angle feature map; IQP-ZZ feature map; fidelity kernels;
+precomputed SVC; no shots; no noise; no physical quantum hardware;
+same X10 inputs, same preprocessing, same folds; matched RBF comparison.\\
+\textbf{State explicitly:} this compares kernel-induced geometries and
+predictive behavior, \emph{not} quantum-vs-classical execution speed.}
+
+The quantum fidelity kernel~\cite{havlicek2019quantumfeatures,schuld2019hilbertspaces}
+is
+\begin{equation}
+K_Q(x_i,x_j)=
+\left|
+\langle\phi(x_i)|\phi(x_j)\rangle
+\right|^2.
+\label{eq:fidelity}
+\end{equation}
+
+% Write quantum-kernel paragraph here.
+
+% ---- III-E -----------------------------------------------------------------
+\subsection{Ablations, Metrics, and Applicability Domain}
+\label{sec:ablations-metrics}
+% ~0.5 page
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/diagrama.pdf}
+    \caption{Overview of the proposed methodology.}
+    \label{fig:methodology}
+\end{figure}
+
+
+\draftnote{%
+\textbf{Ablations (hypothesis-driven, not renewed feature selection):}\\
+\textbullet\ Remove \texttt{n\_OP}.\\
+\textbullet\ Remove MolLogP.\\
+\textbullet\ Remove LiPHEX.\\
+\textbullet\ Remove MolLogP + LiPHEX jointly.\\
+\textbullet\ Any additional retained ablations: \textcolor{red}{[list]}.\\[4pt]
+\textbf{Metrics:}\\
+\textbullet\ Primary: AUROC.  Secondary: AUPRC, Balanced Accuracy, MCC.\\
+\textbullet\ Pooled OOF predictions; confidence intervals; paired
+$\Delta$-AUROC; statistical test used: \textcolor{red}{[name]}.\\[4pt]
+\textbf{Dual applicability domain:}\\
+1.\ Morgan/Tanimoto structural similarity (threshold:
+    \textcolor{red}{[?]}).\\
+2.\ Distance in standardized X10 space (threshold:
+    \textcolor{red}{[?]}).\\
+All thresholds defined from DEVELOPMENT; no use of external labels.}
+
+% ---- Example AUROC equations (keep as template examples) -------------------
+% These show how to typeset the metric; replace with final formulations.
+\draftnote{Example metric equation — adapt or delete:}
+\begin{equation}
+\mathrm{AUROC} = \int_{0}^{1} \mathrm{TPR}(t)\,d\,\mathrm{FPR}(t).
+\label{eq:auroc}
+\end{equation}
+
+% ---- III-F -----------------------------------------------------------------
+\subsection{Costa Rican External Evaluation}
+\label{sec:external}
+% ~0.3 page
+
+\draftnote{%
+\textbf{Include:}\\
+\textbullet\ $\approx$550 agrochemicals from UNA source.\\
+\textbullet\ Why qualitative UNA toxicity categories \emph{cannot} be
+   arbitrarily converted to BeeQ labels.\\
+\textbullet\ Second source with quantitative acute-toxicity values.\\
+\textbullet\ Resulting 73 candidate compounds.\\
+\textbullet\ Identifier matching, units, duplicates, chemical identity.\\
+\textbullet\ Overlap check with 893-molecule BeeQ corpus.\\
+\textbullet\ Provenance auditing.\\[4pt]
+\textbf{Do not:} call this ``completely independent external validation''
+until overlap and provenance have been fully verified.}
+
+%=============================================================================
+% IV. RESULTS AND DISCUSSION
+% Target: ~1.5 pages across A–D.
+%=============================================================================
+\section{Results and Discussion}
+\label{sec:results}
+
+% ---- IV-A ------------------------------------------------------------------
+\subsection{Chemical Space and Classical Baselines}
+\label{sec:results-classical}
+
+\draftnote{%
+\textbf{Include:}\\
+\textbullet\ X10 PCA projection (color by toxicity label; optionally by
+   partition).  PCA is an exploratory projection — do \emph{not} claim it
+   shows class separation.\\
+\textbullet\ LR, RF, RBF-SVC results: AUROC, AUPRC, BalAcc, MCC.}
+
+% --- Classical-performance table (EXAMPLE with placeholders) ----------------
+\begin{table}[htbp]
+\caption{Model performance on DEVELOPMENT using pooled OOF predictions.
+\dnote{PRELIMINARY --- confirm all values.}}
+\label{tab:model_performance}
+\centering
+\scriptsize
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} &
+\textbf{AUROC $\uparrow$} &
+\textbf{AUPRC $\uparrow$} &
+\textbf{BalAcc $\uparrow$} &
+\textbf{MCC $\uparrow$} \\
+\midrule
+Random Forest       & $\mathbf{0.748 \pm 0.057}$ & $0.657 \pm 0.097$ & \textbf{0.680} & \textbf{0.468} \\
+Logistic Regression & $0.733 \pm 0.104$ & $\mathbf{0.660 \pm 0.124}$ & 0.678 & 0.446 \\
+Product QK          & $0.722 \pm 0.108$ & $0.628 \pm 0.126$ & 0.658 & 0.397 \\
+IQP-ZZ QK           & $0.713 \pm 0.106$ & $0.645 \pm 0.112$ & 0.655 & 0.400 \\
+Matched RBF         & $0.711 \pm 0.108$ & $0.640 \pm 0.107$ & 0.663 & 0.406 \\
+MLP                 & $0.677 \pm 0.125$ & $0.596 \pm 0.138$ & 0.654 & 0.428 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---- IV-B ------------------------------------------------------------------
+\subsection{Chemical Information Encoded by X10}
+\label{sec:results-ablation}
+
+\draftnote{%
+\textbf{Include:}\\
+\textbullet\ Targeted-ablation $\Delta$-AUROC with CIs
+   (mark as \textcolor{red}{PRELIMINARY}).\\
+\textbullet\ Model-dependent contribution of \texttt{n\_OP}.\\
+\textbullet\ Partial complementarity of MolLogP and LiPHEX.\\
+\textbullet\ Paired $\Delta$-AUROC with confidence intervals.\\
+\textbf{Do not:} make causal claims.}
+
+% ---- IV-C ------------------------------------------------------------------
+\subsection{Quantum--Classical Performance and Kernel Geometry}
+\label{sec:results-quantum}
+
+\begin{figure}[t]
+    \centering
+    \includesvg[
+        width=\columnwidth,
+        keepaspectratio,
+        inkscapelatex=false
+    ]{fig/diagrama}
+    \caption{Overview of the proposed methodology.}
+    \label{fig:methodology}
+\end{figure}
+
+\draftnote{%
+\textbf{Preliminary values (replace with final):}\\
+\textbullet\ DEVELOPMENT OOF AUROC — Product kernel:
+   \textcolor{red}{[?.???]}\\
+\textbullet\ DEVELOPMENT OOF AUROC — IQP-ZZ kernel:
+   \textcolor{red}{[?.???]}\\
+\textbullet\ DEVELOPMENT OOF AUROC — matched RBF:
+   \textcolor{red}{[?.???]}\\
+\textbullet\ Historical-holdout AUROC — Product:
+   \textcolor{red}{[?.???]}\\
+\textbullet\ Historical-holdout AUROC — IQP-ZZ:
+   \textcolor{red}{[?.???]}\\
+\textbullet\ Historical-holdout AUROC — RBF:
+   \textcolor{red}{[?.???]}\\[4pt]
+\textbf{Intended figure layout:}\\
+Panel A: model AUROC.\\
+Panel B: paired $\Delta$-AUROC relative to matched RBF.\\
+Panel C: kernel geometry diagnostics.\\[4pt]
+\textbf{Discuss:} centered kernel alignment; effective rank; eigenspectrum;
+prediction disagreement; holdout behavior.\\[4pt]
+\textbf{Intended narrative:}\\
+small positive OOF difference $\to$
+highly aligned kernel geometries $\to$
+difference does not persist on historical holdout $\to$
+no evidence of generalizable quantum advantage.\\[4pt]
+\textbf{Do not:} claim quantum superiority, speedup, or hardware advantage.}
+
+% ---- IV-D ------------------------------------------------------------------
+\subsection{Applicability Domain and Regional Evaluation}
+\label{sec:results-ad}
+
+\draftnote{%
+\textbf{Include:}\\
+\textbullet\ Near / Middle / Far AUROC values (\textcolor{red}{PRELIMINARY}).\\
+\textbullet\ AD-IN vs.\ AD-OUT performance.\\
+\textbullet\ Regional external performance.\\
+\textbullet\ Acknowledge uncertainty from limited sample sizes.\\
+\textbf{Placeholders:} structural-similarity thresholds; X10-distance
+thresholds; AD flags; prediction scores; model disagreement.}
+
+%=============================================================================
+% V. LIMITATIONS
+% Target: ~0.3 page
+%=============================================================================
+\section{Limitations}
+\label{sec:limitations}
+
+\draftnote{%
+\textbf{Checklist — confirm each applies and keep the section concise:}\\
+\textbullet\ Historical holdout was previously inspected during development.\\
+\textbullet\ Binary strongest-available acute-toxicity endpoint.\\
+\textbullet\ Route and experiment heterogeneity in source data.\\
+\textbullet\ Small size of the regional external set.\\
+\textbullet\ Two in-house descriptors (n\_OP, LiPHEX).\\
+\textbullet\ Ideal statevector simulation (no shots, no noise, no hardware).\\
+\textbullet\ No demonstrated quantum advantage.\\
+\textbullet\ Limited curated chemical domain (organic small molecules).\\
+\textbullet\ Possible provenance or overlap limitations in external set.}
+
+%=============================================================================
+% VI. CONCLUSION
+% Target: ~0.25 page.  No new results, citations, or claims.
+%=============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+\draftnote{%
+\textbf{Summarize only confirmed findings:}\\
+\textbullet\ Predictive information retained in X10.\\
+\textbullet\ Chemically interpretable ablation results.\\
+\textbullet\ Matched quantum–classical comparison outcome.\\
+\textbullet\ Kernel-alignment finding.\\
+\textbullet\ Historical-holdout behavior.\\
+\textbullet\ Applicability-domain deterioration pattern.\\
+\textbullet\ Regional transfer result.\\[4pt]
+Do \emph{not} introduce new results, citations, or claims.}
+
+%=============================================================================
+\section*{Acknowledgment}
+\label{sec:acknowledgment}
+
+% Fill in before camera-ready:
+\textcolor{red!60!black}{[Acknowledgments placeholder — institutions,
+labs, computing resources, AI-tool disclosure.]}
+
+%=============================================================================
+\section*{Data Availability Statement}
+
+% Fill in before camera-ready:
+\textcolor{red!60!black}{[Repository URL, datasets, descriptors,
+code, per-fold metrics.]}
+
+%=============================================================================
+% REFERENCES
+%=============================================================================
+%
+% ── HOW TO SWITCH TO BIBTEX (preferred) ─────────────────────────────────
+%  1. Upload  BeeQ_references.bib  to the ROOT of your Overleaf project
+%     (same folder as main.tex).
+%  2. Delete the \begin{thebibliography}...\end{thebibliography} block below.
+%  3. Uncomment the two lines below.
+%  4. Recompile:  pdflatex → bibtex → pdflatex → pdflatex.
+%
+% \bibliographystyle{IEEEtran}
+% \bibliography{BeeQ_references}
+%
+% ── INLINE FALLBACK (works without .bib file) ──────────────────────────
+%  Delete this block once BibTeX is working.
+
+%%% MEJOR USAR ESTA
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+%=============================================================================
+%=============================================================================
+%
+%              COPYABLE LATEX EXAMPLES (all commented out)
+%
+%  These do NOT appear in the compiled PDF. Uncomment and adapt as needed.
+%
+%=============================================================================
+%=============================================================================
+
+% ---- ONE-COLUMN FIGURE EXAMPLE --------------------------------------------
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\columnwidth]{fig/example.png}
+%     \caption{Short caption; captions go \emph{below} figures.}
+%     \label{fig:example-single}
+% \end{figure}
+%
+% Reference:  Fig.~\ref{fig:example-single}
+
+% ---- TWO-COLUMN FIGURE EXAMPLE (figure*) ----------------------------------
+% \begin{figure*}[t]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{fig/example-wide.png}
+%     \caption{Wide figure spanning both columns. Only floats to page top.}
+%     \label{fig:example-wide}
+% \end{figure*}
+
+% ---- MULTIPANEL FIGURE (subcaption — IEEE-compatible) ----------------------
+% \usepackage{subcaption}   % <-- add to preamble if using this
+%
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}[b]{0.48\columnwidth}
+%         \includegraphics[width=\textwidth]{fig/panel_a.png}
+%         \caption{Panel A.}
+%         \label{fig:panel-a}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.48\columnwidth}
+%         \includegraphics[width=\textwidth]{fig/panel_b.png}
+%         \caption{Panel B.}
+%         \label{fig:panel-b}
+%     \end{subfigure}
+%     \caption{Main caption covering both panels.}
+%     \label{fig:panels}
+% \end{figure}
+
+% ---- COMPACT TABLE EXAMPLE -------------------------------------------------
+% \begin{table}[htbp]
+% \caption{Captions go \emph{above} tables in IEEE style.}
+% \label{tab:example}
+% \centering
+% \begin{tabular}{@{}lcc@{}}
+% \toprule
+% \textbf{Item} & \textbf{Value} & \textbf{Unit} \\
+% \midrule
+% Alpha & 0.123 & m/s \\
+% Beta  & 4.567 & kg  \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+%
+% Reference:  Table~\ref{tab:example}
+
+% ---- EQUATION EXAMPLE ------------------------------------------------------
+% \begin{equation}
+% E = mc^2
+% \label{eq:example}
+% \end{equation}
+%
+% Reference:  \eqref{eq:example}   or   ``as shown in \eqref{eq:example}''
+
+% ---- ALIGN ENVIRONMENT EXAMPLE ---------------------------------------------
+% \begin{align}
+% a &= b + c, \label{eq:align-a}\\
+% d &= e \cdot f. \label{eq:align-b}
+% \end{align}
+
+% ---- GROUPED CITATION EXAMPLE ---------------------------------------------
+% Three references compressed: \cite{adamczyk2025apistox,adamczyk2026evaluating,
+% carnesecchi2020integrating} renders as e.g. [1]--[3].
+
+% ---- CROSS-REFERENCE CHEAT SHEET ------------------------------------------
+% Figure:   Fig.~\ref{fig:label}     (abbrev. even at sentence start)
+% Table:    Table~\ref{tab:label}
+% Section:  Section~\ref{sec:label}
+% Equation: \eqref{eq:label}         (parenthesized automatically)
+
+\end{document}

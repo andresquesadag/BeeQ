@@ -1,0 +1,6 @@
+{
+  "note": "Warnings were captured and were not suppressed.",
+  "warnings": [
+    "Install `pyyaml` for better output"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "dependency_note": "Only generic exact backend/metrics helpers from A code were reused; A outer results were not used for pair/path selection.",
+  "src/exercise_a_campaign.py": "18520e101f43fbbc9c6488464b6ae740a7148990db5310f5c2f00174c5b9b61a",
+  "src/exercise_b_campaign.py": "0802080a5f5dfdea17024086481aebf681c62dfa993287531986193ba1b7ee16"
+}

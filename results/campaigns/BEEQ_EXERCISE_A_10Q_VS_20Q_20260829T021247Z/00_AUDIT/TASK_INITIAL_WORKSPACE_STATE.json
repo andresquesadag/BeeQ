@@ -1,0 +1,9 @@
+{
+  "branch": "main",
+  "captured_before_any_task_modification": true,
+  "head": "d0513433a22edaecdfbebab94c7a924e0b51f55e",
+  "python": "3.14.5",
+  "status_short_branch": [
+    "## main...origin/main"
+  ]
+}

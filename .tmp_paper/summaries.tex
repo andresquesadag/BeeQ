@@ -1,0 +1,1863 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{parskip}
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlist[itemize]{leftmargin=1.7em,itemsep=0.35em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=0.35em,topsep=0.35em}
+
+\newcommand{\reviewfield}[2]{\paragraph{#1}#2}
+\newcommand{\keytakeaway}[1]{\paragraph{Key takeaway for our paper}\emph{#1}}
+\newcommand{\paperdoi}[1]{\href{https://doi.org/#1}{\texttt{#1}}}
+
+\title{Detailed Previous-Work Review Notes\\
+Classical and Quantum Machine Learning for Honey-Bee Toxicity Prediction}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{How to Use This Document}
+
+This is a \textbf{review notebook in LaTeX form}, not a ready-to-submit Previous Work section. Its purpose is to preserve the detailed information extracted from the 32 papers selected for full reading so that the final manuscript can be drafted from evidence rather than from memory.
+
+For each paper, the notes separate the research question, dataset and endpoint, molecular representation and preprocessing, model architecture, validation protocol, numerical results, limitations, and the concrete reason the study matters for the planned classical--quantum ApisTox comparison.
+
+The papers are ordered by the \textbf{role they play in the Previous Work narrative}, not by search order or publication year. Where a detail could not be verified from the available source, it is explicitly marked as unverified rather than inferred.
+
+\section{Suggested Previous-Work Structure}
+
+\begin{longtable}{p{0.05\linewidth}p{0.36\linewidth}p{0.51\linewidth}}
+\toprule
+\textbf{Block} & \textbf{Subsection} & \textbf{Purpose in the manuscript} \\
+\midrule
+A & Honey-bee toxicity data, endpoint definition, and biological scope &
+Define what is being predicted, how honey-bee toxicity measurements vary, and what can and cannot be generalized from \textit{Apis mellifera}.\\
+B & Classical QSAR and machine learning for honey-bee toxicity &
+Show that strong structure--toxicity models already exist and establish the historical classical baselines.\\
+C & Graph, kernel, multimodal, and ApisTox-centered models &
+Move from fingerprints/descriptors to graph kernels, GNNs, multimodal systems, and the modern ApisTox benchmark.\\
+D & Transferable methodological advances from molecular toxicity ML &
+Justify activity-cliff analysis, applicability domain, consensus models, low-data behavior, read-across, leak-free pipelines, and interpretability.\\
+E & Quantum machine learning for molecular and toxicity prediction &
+Map the actual QML prior art: PQCs, quantum kernels, quantum annealing, QNNs, and quantum graph embeddings.\\
+F & Fair QML benchmarking and negative evidence &
+Establish why a rigorous classical--quantum comparison remains useful even if the quantum model does not win.\\
+\bottomrule
+\end{longtable}
+
+\newpage
+\section{Detailed Review Notes}
+
+\subsection{Honey-Bee Toxicity Data, Endpoint Definition, and Biological Scope}
+
+\subsubsection{[2] Shi, Fantke, and Jolliet (2026) --- \textit{A harmonized ecotoxicity dataset for honeybee based on the ECOTOX database}}
+\textbf{Venue:} Environmental Toxicology and Chemistry\\
+\textbf{Review basis:} Full text/metadata reviewed.\\
+\textbf{DOI:} \paperdoi{10.1093/etojnl/vgag054}
+
+\reviewfield{Research problem}{
+The paper addresses a problem that is easy to overlook when building a classifier: ``bee toxicity'' is not one perfectly standardized experimental variable. ECOTOX contains studies using different life stages, exposure routes, effect types, units, endpoints, and test protocols. The authors therefore focus on \emph{harmonization} rather than predictive ML.
+}
+
+\reviewfield{Data}{
+After curation and standardization, the resource covers \textbf{540 chemicals}. It includes oral-chronic, oral-acute, and acute-topical exposure scenarios and spans very wide toxicity ranges---approximately eight orders of magnitude for adult groups and six for larval groups.
+}
+
+\reviewfield{Endpoint harmonization}{
+The authors standardize disparate observations toward ED$_{10}$-equivalent quantities, including top/dermal acute ED$_{10}$ and oral-chronic ED$_{10}$. Weighted linear regressions are used to extrapolate heterogeneous endpoints to harmonized ED$_{10}$-equivalents; the reported $R^2$ values vary from about 0.38 to 0.99 depending on the relationship being harmonized.
+
+The study also examines adult-versus-larval relationships and performs uncertainty analysis for the oral-chronic and top-acute datasets.
+}
+
+\reviewfield{Why the endpoint discussion matters}{
+ApisTox deliberately collapses a set of experimental observations into a binary structure-based classification endpoint. This paper shows what is lost when exposure mode, duration, life stage, and effect measurement are collapsed. That does not make ApisTox invalid; it clarifies exactly what its label can and cannot represent.
+}
+
+\reviewfield{Limitations for direct comparison}{
+This is not a competing binary ApisTox classifier. Its endpoint and purpose differ, so its regression/harmonization statistics should not be placed next to ApisTox AUROC/MCC as if they represented the same task.
+}
+
+\keytakeaway{Use this paper to establish that endpoint curation is a scientific decision, not just preprocessing. It is also useful when acknowledging that a structure-only binary classifier cannot represent route-, stage-, or duration-specific toxicity.}
+
+\subsubsection{[3] Heard et al. (2017) --- \textit{Comparative toxicity of pesticides and environmental contaminants in bees: Are honey bees a useful proxy for wild bee species?}}
+\textbf{Venue:} Science of the Total Environment\\
+\textbf{Review basis:} Full text/abstract reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.scitotenv.2016.10.180}
+
+\reviewfield{Research question}{
+The study asks whether \textit{Apis mellifera}, the species used in many standard regulatory bee-toxicity tests, is a reasonable toxicity proxy for other bee species.
+}
+
+\reviewfield{Experimental design}{
+Three species are compared: \textit{Apis mellifera}, \textit{Bombus terrestris}, and \textit{Osmia bicornis}. The authors expose them to seven chemicals targeting different metabolic pathways, using acute and chronic exposure periods extending to 240 hours.
+}
+
+\reviewfield{Key result}{
+Interspecific differences occur and vary over time. The usual magnitude of between-species differences is often below approximately two-fold, although larger divergences occur for particular chemical/species combinations.
+
+A more striking observation is the \textbf{time dependence}: toxicity can change by more than 25-fold within a test as exposure duration changes. That temporal effect can be much larger than the typical between-species difference.
+}
+
+\reviewfield{Interpretation}{
+The authors conclude that \textit{A. mellifera} can sometimes serve as a practical proxy if an appropriate assessment factor is used to cover interspecies variation. They do not claim that honey-bee toxicity is universally interchangeable with toxicity in all pollinators.
+}
+
+\reviewfield{Why this constrains our claims}{
+A model trained on ApisTox predicts a label for \textit{Apis mellifera}; it should not automatically be described as a universal ``pollinator toxicity'' model. The paper also reminds us that exposure duration is biologically important but absent from a pure molecular-structure classifier.
+}
+
+\keytakeaway{Use this study to distinguish chemical-space generalization from species-level generalization. Our endpoint is species-specific.}
+
+\subsection{Classical QSAR and Machine Learning for Honey-Bee Toxicity}
+
+\subsubsection{[4] Hamadache et al. (2018) --- \textit{QSAR modeling in ecotoxicological risk assessment: application to the prediction of acute contact toxicity of pesticides on bees (Apis mellifera L.)}}
+\textbf{Venue:} Environmental Science and Pollution Research\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1007/s11356-017-0498-9}
+
+\reviewfield{Dataset and endpoint}{
+The authors begin with 162 pesticides from PPDB and apply data-quality filtering. They retain 131 compounds with experimental 48-hour contact LD$_{50}$ values. Of these, 111 are used for QSAR modeling and 20 are kept separately for a later equation-based prediction exercise. The 111-compound modeling subset is randomly split into 96 training and 15 test compounds.
+
+LD$_{50}$ values are originally expressed in $\mu$g/bee, converted to $\mu$mol/bee, and then transformed to pLD$_{50}$.
+}
+
+\reviewfield{Representation}{
+Molecular descriptors are calculated with Dragon. A genetic algorithm selects \textbf{12 descriptors} from the larger descriptor pool. Their interpretation indicates that electronic and structural molecular properties contribute strongly to the toxicity relationship.
+}
+
+\reviewfield{Model}{
+The predictive model is a multilayer-perceptron ANN with a \textbf{12--8--1} architecture. An unusual feature is that the authors explicitly derive a mathematical equation from the trained network weights and biases, making it possible to evaluate pLD$_{50}$ through the fitted ANN equation.
+}
+
+\reviewfield{Validation}{
+The work is organized around OECD QSAR-validation principles. The authors report internal and external validation statistics, applicability-domain analysis, residual diagnostics, and tests intended to detect overfitting. They report a prediction coefficient around 95\% and note that $R^2-Q^2_{\mathrm{LOO}}$ is essentially zero in their evaluation.
+}
+
+\reviewfield{Independent 20-pesticide equation test}{
+The extracted ANN equation is applied to the 20 pesticides held outside model construction. Predicted versus experimental toxicity yields $R^2=0.97$ and RMSE $=0.14$.
+}
+
+\reviewfield{Historical significance}{
+The authors compare with older bee-QSAR literature and explicitly argue that many earlier papers relied on weaker external-validation statistics. Their contribution is therefore not only a neural network but a validation-heavy QSAR workflow.
+}
+
+\reviewfield{Cautions}{
+The modeling set is small, the 96/15 partition is random, and the very high correlation on the final 20 compounds is not directly comparable to a MaxMin/time holdout. The task is also quantitative contact-toxicity regression rather than the binary ApisTox label.
+}
+
+\keytakeaway{This is an important early example of rigorous QSAR validation on the exact species/acute-contact problem. It shows that ``classical'' does not imply methodologically weak: descriptor selection, external testing, applicability domain, and OECD validation were already treated seriously.}
+
+\subsubsection{[5] Singh, Gupta, Basant, and Mohan (2014) --- \textit{QSTR modeling for qualitative and quantitative toxicity predictions of diverse chemical pesticides in honey bee for regulatory purposes}}
+\textbf{Venue:} Chemical Research in Toxicology\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/tx500100m}
+
+\reviewfield{Dataset}{
+The study begins from a U.S.-EPA-derived collection of roughly 303 records and removes salts, mixtures, unsuitable structures, and problematic entries, yielding \textbf{237 structurally diverse pesticides}. The endpoint is 48-hour contact LD$_{50}$ spanning roughly 0.01--1401.46~$\mu$g/bee. For quantitative modeling, toxicity is converted to a molar/logarithmic scale.
+}
+
+\reviewfield{Chemical-space analysis}{
+The authors compute 1024-bit fingerprints and Tanimoto similarities. Average similarity is only about 0.082, which they use as evidence that the collection is structurally diverse rather than a narrow homologous series.
+}
+
+\reviewfield{Descriptors and feature selection}{
+About 174 CDK 2D descriptors are calculated from SMILES, spanning topological, electronic, geometrical, and constitutional information. Constant/low-information variables are removed and compact descriptor subsets are chosen separately for the tasks: roughly five descriptors for two-class classification, ten for four-class classification, and eight for regression.
+}
+
+\reviewfield{Tasks and models}{
+The paper develops:
+\begin{itemize}
+    \item a two-category Probabilistic Neural Network (PNN) classifier;
+    \item a four-category PNN classifier;
+    \item a Generalized Regression Neural Network (GRNN) quantitative model.
+\end{itemize}
+The binary scheme uses a major cutoff around 100~$\mu$g/bee. The four-category scheme uses intervals around $\leq2$, 2--11, 11--100, and $>100~\mu$g/bee.
+}
+
+\reviewfield{Validation}{
+The data are split approximately 80/20. The authors additionally use five-fold cross-validation, Y-randomization, external validation, and applicability-domain checks based on descriptor ranges/leverage.
+}
+
+\reviewfield{Results}{
+For the two-class PNN, training accuracy is reported as 100\%, test accuracy about 87.10\%, and full-data accuracy 96.62\%. Full-data sensitivity is approximately 95.53\% and specificity 100\%.
+
+For the four-class classifier, test accuracy is around 89.83\% and full-data accuracy 95.57\%, although accuracy varies by toxicity category.
+
+For GRNN regression, $R^2$ is roughly 0.847 on training, 0.861 on test, and 0.841 on the complete dataset, with RMSE around 0.50, 0.33, and 0.47 respectively.
+}
+
+\reviewfield{Error analysis}{
+Some pesticides---including carbofuran, imidacloprid, and methiocarb---have errors greater than roughly 1.5 log units. This is useful evidence that a model with excellent global statistics can still contain chemically important local failures.
+}
+
+\reviewfield{Cautions}{
+The split is not scaffold/time/MaxMin, and the categorical thresholds differ from modern ApisTox. The very high aggregate classification accuracy should therefore be interpreted in its historical task definition.
+}
+
+\keytakeaway{Use this paper to establish that both qualitative and quantitative bee-toxicity prediction were already feasible with compact descriptor sets and neural QSAR. It is historical context, not the principal modern benchmark.}
+
+\subsubsection{[6] Como et al. (2017) --- \textit{Predicting acute contact toxicity of pesticides in honeybees (Apis mellifera) through a k-nearest neighbor model}}
+\textbf{Venue:} Chemosphere\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.chemosphere.2016.09.092}
+
+\reviewfield{Dataset and curation}{
+Acute-contact data are assembled from sources including DEMETRA, ECOTOX/OECD Toolbox, and EFSA. Repeated measurements are reconciled when reasonably concordant and excluded when strongly inconsistent. The final dataset contains \textbf{256 pesticides}.
+}
+
+\reviewfield{Split}{
+The authors use 205 compounds for training and 51 for testing. Rather than purely random partitioning, compounds are ordered by LD$_{50}$ and every fifth compound is assigned to the test set, producing an activity-distributed holdout.
+}
+
+\reviewfield{Endpoint}{
+Three PPDB-style categories are used:
+\begin{itemize}
+    \item highly toxic: $\leq1~\mu$g/bee;
+    \item moderately toxic: 1--100~$\mu$g/bee;
+    \item low/non-toxic: $>100~\mu$g/bee.
+\end{itemize}
+Binary versions at selected thresholds are also evaluated.
+}
+
+\reviewfield{Model and similarity}{
+The model is an in-house kNN system based on molecular similarity rather than a large descriptor vector. A selected configuration uses approximately $K=4$ with similarity constraints around 0.70--0.75. If a query compound has no sufficiently similar neighbor, the system can abstain from prediction, creating an implicit applicability domain.
+}
+
+\reviewfield{Results}{
+Three-class accuracy is about 0.70 on training and 0.76 on test.
+
+For a stringent high-toxicity threshold around 1~$\mu$g/bee, training accuracy/sensitivity/specificity/MCC are approximately 0.88/0.68/0.93/0.59; test values are about 0.86/0.75/0.88/0.55.
+
+For the broader $\leq100~\mu$g/bee threshold, test performance is approximately 0.84 accuracy, 0.80 sensitivity, 0.86 specificity, and 0.67 MCC.
+}
+
+\reviewfield{Coverage}{
+A small number of molecules receive no prediction because the training set contains no sufficiently similar analog. This is not merely a failure: it makes model reliability explicit.
+}
+
+\reviewfield{Limitations}{
+The method is local and its coverage depends directly on chemical-space overlap. The authors also note that oral/chronic toxicity remain important gaps.
+}
+
+\keytakeaway{This is a useful ``classical similarity'' reference. It motivates applicability-domain analysis and the idea that the quality of molecular similarity---not just the classifier---is central to toxicity prediction.}
+
+
+\subsubsection{[7] Carnesecchi et al. (2020) --- \textit{Integrating QSAR models predicting acute contact toxicity and mode of action profiling in honey bees (A. mellifera): Data curation using open source databases, performance testing and validation}}
+\textbf{Venue:} Science of the Total Environment\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.scitotenv.2020.139243}
+
+\reviewfield{Data sources and curation}{
+The authors integrate honey-bee toxicity information from EFSA OpenFoodTox, U.S.-EPA ECOTOX, and PPDB. They construct both a classification dataset and a smaller regression dataset from harmonized 48-hour acute-contact toxicity observations.
+}
+
+\reviewfield{Tasks}{
+The principal binary classifier contains about 411 compounds, with approximately 132 toxic and 279 non-toxic entries, using a 100~$\mu$g/bee cutoff. The regression task contains 113 compounds. Training/test partitions are approximately 328/83 for classification and 88/25 for regression.
+}
+
+\reviewfield{Split design}{
+The paper uses a MaxMin-style structure-aware partition based on PubChem fingerprints/Tanimoto similarity. This is important historically because it anticipates the structure-diversity logic later used in ApisTox rather than relying purely on random splitting.
+}
+
+\reviewfield{Representation and feature selection}{
+Dragon 2D descriptors are computed. Constant descriptors and strongly correlated variables (around $>95\%$ correlation) are removed. Genetic-algorithm and VSURF/Random-Forest feature-selection procedures are used to construct compact predictive representations.
+}
+
+\reviewfield{Models}{
+Classification compares Random Forest, Decision Tree, and kNN. Regression compares MLR, PLS, Random Forest, Decision Tree, and kNN.
+}
+
+\reviewfield{Classification results}{
+The kNN classifier is particularly strong on the test set:
+\begin{itemize}
+    \item sensitivity $\approx0.93$;
+    \item specificity $\approx0.85$;
+    \item balanced accuracy $\approx0.90$;
+    \item MCC $\approx0.78$.
+\end{itemize}
+RF is similarly competitive at roughly 0.96 sensitivity, 0.74 specificity, 0.89 balanced accuracy, and 0.75 MCC. The Decision Tree is around 0.89/0.89/0.89/0.76.
+}
+
+\reviewfield{Regression results}{
+The kNN regression model reaches training $R^2\approx0.90$, RMSE $\approx0.39$, MAE $\approx0.30$, and CCC $\approx0.94$. Cross-validated $Q^2$ is around 0.63. On the test set, $R^2\approx0.74$, RMSE $\approx0.71$, MAE $\approx0.52$, and CCC $\approx0.83$. RF test $R^2$ is around 0.72.
+}
+
+\reviewfield{Mode-of-action contribution}{
+For 113 pesticide active substances, the authors harmonize mode-of-action information from IRAC, FRAC, HRAC and related sources. Compounds are organized by physiological function, class, and target site. This introduces mechanistic categorization that can support chemical grouping and mixture-risk assessment.
+}
+
+\reviewfield{Applicability domain}{
+The study uses the VEGA-HUB framework to aggregate applicability-domain/reliability information. It also performs an independent validation exercise with 12 compounds, with most quantitative predictions considered satisfactory but some classification failures.
+}
+
+\reviewfield{Why it matters}{
+This paper is a direct precursor to the modern ApisTox evaluation philosophy: multiple data sources, structure-aware partitioning, applicability-domain thinking, and balanced metrics. It also demonstrates a complementary route to better prediction---adding mechanistic context rather than only increasing model complexity.
+}
+
+\keytakeaway{Use it both as direct bee-QSAR prior art and as evidence that MaxMin-like splitting, MCC/balanced accuracy, applicability domain, and mode-of-action information were already recognized as important before the ApisTox benchmark.}
+
+\subsubsection{[8] Xu et al. (2021) --- \textit{In silico prediction of chemical acute contact toxicity on honey bees via machine learning methods}}
+\textbf{Venue:} Toxicology in Vitro\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.tiv.2021.105089}
+
+\reviewfield{Dataset and endpoint}{
+The study collects \textbf{676 structurally diverse pesticides} from PPDB, ECOTOX, and EFSA. The U.S.-EPA-style classes are approximately: highly toxic $<2~\mu$g/bee, moderately toxic 2--10.9~$\mu$g/bee, and non-toxic $\geq11~\mu$g/bee. For binary learning, the toxic categories are merged, giving roughly 176 toxic versus 500 non-toxic compounds.
+}
+
+\reviewfield{Split}{
+A random 80/20 partition is used: about 540 training compounds (144 toxic/396 non-toxic) and 136 test compounds (32 toxic/104 non-toxic).
+}
+
+\reviewfield{Representations}{
+Nine PaDEL fingerprint families are evaluated:
+\begin{itemize}
+    \item Atom-Pair 2D (780);
+    \item Estate (79);
+    \item CDK (1024);
+    \item CDK Extended (1024);
+    \item Graph fingerprint (1024);
+    \item Klekota--Roth (4860);
+    \item MACCS (166);
+    \item PubChem (881);
+    \item Substructure fingerprint (307).
+\end{itemize}
+Representation choice is therefore part of the benchmark rather than a fixed preprocessing decision.
+}
+
+\reviewfield{Algorithms}{
+Six algorithms are crossed with the nine fingerprints, producing \textbf{54 classification models}: ANN, C4.5, kNN, Naive Bayes, Random Forest, and SVM.
+}
+
+\reviewfield{Validation and results}{
+Ten-fold cross-validation plus a held-out test set are used. The strongest CV configurations have AUC roughly 0.901--0.912, accuracy 0.870--0.904, sensitivity 0.727--0.799, specificity 0.908--0.948, and F1 about 0.692--0.857.
+
+On the external test set, the strongest models reach AUC about 0.847--0.924 and accuracy about 0.882--0.912. Sensitivity is roughly 0.735--0.794, specificity 0.912--0.951, and F1 0.771--0.818. The CDK-Extended-fingerprint SVM is the headline configuration.
+}
+
+\reviewfield{Applicability domain}{
+A kNN-distance applicability-domain analysis is used. Restricting attention to in-domain compounds improves metrics, showing that aggregate performance depends strongly on chemical-space coverage.
+}
+
+\reviewfield{Interpretability}{
+Nine structural alerts for acute contact toxicity are identified using information gain and substructure-frequency analysis.
+}
+
+\reviewfield{Limitations}{
+The main limitation for our purposes is the random split. A held-out set exists, but structurally similar compounds can still cross the partition, so these high AUC/accuracy values should not be compared directly with ApisTox MaxMin/time results.
+}
+
+\keytakeaway{This is one of the strongest traditional SVM/fingerprint precedents for the exact endpoint. It justifies systematic fingerprint selection and gives a natural classical-kernel baseline before introducing a quantum kernel.}
+
+\subsubsection{[9] Moreira-Filho et al. (2021) --- \textit{BeeToxAI: An artificial intelligence-based web app to assess acute toxicity of chemicals to honey bees}}
+\textbf{Venue:} Artificial Intelligence in the Life Sciences\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.ailsci.2021.100013}
+
+\reviewfield{Dataset construction}{
+The authors begin from more than 2,500 pesticide/chemical records from literature, ECOTOX, OpenFoodTox, OCHEM, and related sources. After chemical standardization and endpoint-specific curation, the classification datasets contain roughly 382 contact-toxicity compounds (113 toxic/269 non-toxic) and 169 oral-toxicity compounds (71 toxic/98 non-toxic). Regression datasets are smaller: around 218 contact and 142 oral compounds.
+}
+
+\reviewfield{Endpoint}{
+The main classification cutoff is 11~$\mu$g/bee. Contact and oral toxicity are modeled separately rather than collapsed into a single label.
+}
+
+\reviewfield{Representation}{
+The models use MACCS, Morgan/ECFP, and feature-Morgan/FCFP fingerprints with multiple diameters, generally represented as 2048-bit vectors for circular fingerprints.
+}
+
+\reviewfield{Models and optimization}{
+Classification focuses on SVM and Random Forest. Bayesian hyperparameter optimization uses a class-sensitive objective such as geometric mean, and decision-threshold movement is used to improve minority-class behavior. Regression uses feed-forward neural networks, with separate deep fully connected architectures for contact and oral toxicity.
+}
+
+\reviewfield{Classification performance}{
+Representative external results include:
+\begin{itemize}
+    \item contact FCFP4-SVM: accuracy $\sim0.91$, sensitivity 0.78, specificity 0.96, MCC 0.78, AUC $\sim0.87$;
+    \item contact ECFP4-RF: accuracy $\sim0.90$, sensitivity 0.83, specificity 0.93, MCC 0.75, AUC $\sim0.88$;
+    \item oral MACCS-RF: accuracy $\sim0.88$, sensitivity 0.86, specificity 0.90, MCC 0.76, AUC $\sim0.88$.
+\end{itemize}
+Coverage is below 100\% because applicability-domain filtering can reject predictions.
+}
+
+\reviewfield{Regression performance}{
+The best FNNs reach external $R^2$ around 0.75 for both contact and oral toxicity. Contact RMSE/MAE are about 0.39/0.32; oral errors are larger at roughly 0.68/0.53. RF/SVR regression alternatives are much weaker in this setup.
+}
+
+\reviewfield{Applicability domain and explanation}{
+The deployed web app returns predictions, confidence/applicability-domain information, and color-coded structural contribution maps. The domain uses fingerprint similarity to identify unreliable extrapolations.
+}
+
+\reviewfield{Additional external pesticide test}{
+A small pesticide set not used in model building is used as an extra sanity check. Contact classification correctly predicts all eight compounds in that exercise; oral prediction is less complete. Quantitative errors are substantially worse for molecules outside the AD.
+}
+
+\reviewfield{Important caution}{
+The main train/test evaluation is still same-corpus/random in spirit. Thus, $\sim0.9$ accuracy is not evidence that the system would preserve that performance on a MaxMin/time-like distribution shift.
+}
+
+\keytakeaway{BeeToxAI is a strong deployable classical baseline and a good precedent for coupling prediction with applicability-domain and local structural explanations.}
+
+\subsection{Graph-Based, Kernel, Multimodal, and ApisTox-Centered Models}
+
+\subsubsection{[10] Wang et al. (2020) --- \textit{Graph attention convolutional neural network model for chemical poisoning of honey bees' prediction}}
+\textbf{Venue:} Science Bulletin\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.scib.2020.04.006}
+
+\reviewfield{Dataset}{
+Approximately 900 pesticide records are assembled from PPDB, PAN Pesticide Database, and ECOTOX. Contact and oral observations can be merged, and when multiple toxicity observations conflict the more hazardous value is favored. The categorical distribution is roughly 653 low/non-toxic, 68 moderate, and 179 high, collapsed to about 247 toxic versus 653 non-toxic.
+}
+
+\reviewfield{Split}{
+A random 80/10/10 split gives about 720 training, 90 validation, and 90 test pesticides.
+}
+
+\reviewfield{Graph representation and architecture}{
+Atoms are nodes and bonds are edges, with RDKit-style one-hot atom/bond attributes. The architecture uses two graph-attention/convolution layers of roughly 128 dimensions, batch normalization, max pooling/graph gathering, a 256-unit dense stage, and softmax output.
+}
+
+\reviewfield{Training and baselines}{
+The network is trained for roughly 200 epochs with small dropout/regularization and class-aware handling of the toxic minority. Baselines include a dense neural network, RBF-SVM, and logistic regression.
+}
+
+\reviewfield{Results}{
+On the held-out test set, GACNN reports approximately:
+\begin{itemize}
+    \item accuracy = 83.72\%;
+    \item AUC = 83.78\%;
+    \item sensitivity = 69.84\%;
+    \item specificity = 89.09\%;
+    \item MCC = 59.61\%.
+\end{itemize}
+RBF-SVM has similar accuracy (83.11\%) and AUC (82.31\%) but much lower sensitivity (45.34\%), very high specificity (96.78\%), and MCC about 52.97\%. The main GACNN gain is therefore toxic-class recall/MCC rather than a dramatic jump in accuracy.
+}
+
+\reviewfield{Chemical interpretation}{
+The paper also performs PCA on a large descriptor set and maps molecular clusters/similarity to known mechanisms. Phosphorus-, sulfur-, and autocorrelation-related descriptors are highlighted, and the authors analyze groups of structurally related pesticides.
+}
+
+\reviewfield{Cautions}{
+Later bee-toxicity work has questioned aspects of early curation, including possible duplicate structures and the mixing of oral/contact information. The partition is random, so close analogues can cross train/test.
+}
+
+\keytakeaway{This is important early graph-learning prior art, but it also shows why recall, MCC, and endpoint curation matter more than headline accuracy.}
+
+\subsubsection{[11] Yang, Henle, Fern, and Simon (2022) --- \textit{Classifying the toxicity of pesticides to honey bees via support vector machines with random walk graph kernels}}
+\textbf{Venue:} Journal of Chemical Physics\\
+\textbf{Review basis:} Full text reviewed; headline values use the published record.\\
+\textbf{DOI:} \paperdoi{10.1063/5.0090573}
+
+\reviewfield{Why this paper is central}{
+This is the closest direct \textbf{classical-kernel} predecessor to our planned quantum-kernel comparison. It asks whether molecular graphs can be compared implicitly through a random-walk graph kernel and then classified with an SVM.
+}
+
+\reviewfield{Dataset}{
+The study uses \textbf{382 molecules} with honey-bee toxicity labels, corresponding to the curated BeeToxAI-style contact task (roughly 113 toxic/269 non-toxic under the 11~$\mu$g/bee convention).
+}
+
+\reviewfield{Representations}{
+Two representations are compared:
+\begin{itemize}
+    \item a fixed-length labeled random-walk graph representation, evaluated implicitly via a normalized random-walk graph kernel;
+    \item MACCS structural keys supplied explicitly to a conventional SVM.
+\end{itemize}
+The graph kernel counts label-consistent walks of length $L$, preserving graph-topological information without flattening it to a conventional fingerprint.
+}
+
+\reviewfield{Evaluation}{
+The paper repeatedly resamples the data rather than reporting one lucky split. The published record summarizes test performance over \textbf{2,000 runs}.
+}
+
+\reviewfield{Results}{
+The L-RWGK-SVM, with $L=4$ as the modal optimal walk length in the published version, obtains mean:
+\begin{itemize}
+    \item accuracy = 0.81;
+    \item precision = 0.68;
+    \item recall = 0.71;
+    \item F1 = 0.69.
+\end{itemize}
+The MACCS-SVM performs on par or marginally better on average but varies more across resamples.
+}
+
+\reviewfield{Interpretability}{
+MACCS offers a practical explanatory advantage because individual keys can be inspected to identify subgraph patterns that push the SVM toward toxic or non-toxic classifications. The RWGK is more structurally expressive but less transparent.
+}
+
+\reviewfield{Implication for our design}{
+A quantum-kernel experiment should not compare only against an RBF kernel. Molecular graph kernels are already direct prior art. If our quantum model uses compact descriptors or reduced fingerprints, it answers a different question: whether a quantum feature map supplies a useful similarity geometry under a constrained representation budget.
+}
+
+\keytakeaway{Kernel choice is already established in bee-toxicity ML. Novelty must come from the quantum representation plus rigorous controlled evaluation, not from using an SVM/kernel formulation itself.}
+
+\subsubsection{[12] Sharifi et al. (2024) --- \textit{Leveraging In Silico Structure--Activity Models to Predict Acute Honey Bee (Apis mellifera) Toxicity for Agrochemicals}}
+\textbf{Venue:} Journal of Agricultural and Food Chemistry\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acs.jafc.4c02518}
+
+\reviewfield{Data assembly}{
+The work combines PPDB honey-bee contact-toxicity data with a proprietary Corteva dataset. After cleanup, the PPDB component contains roughly 766 compounds and the proprietary component roughly 776, producing about \textbf{1,542 compounds} in the enlarged modeling resource.
+}
+
+\reviewfield{Endpoint}{
+The target is acute honey-bee toxicity under the 11~$\mu$g/bee toxic/non-toxic convention. The intended application is early crop-protection discovery, where pollinator hazard is screened before in-vivo testing.
+}
+
+\reviewfield{Representations}{
+Two descriptor systems are evaluated separately:
+\begin{itemize}
+    \item MOE descriptors (initially roughly 319 2D/3D variables);
+    \item ADMET Predictor descriptors (roughly 353 variables).
+\end{itemize}
+MOE preparation includes chemical washing/standardization, low-energy conformational preparation, and charge-related processing. Nearly constant descriptors are removed.
+}
+
+\reviewfield{Neural-network modeling}{
+The ADMET Modeler workflow explores ensembles of neural networks. Many candidate networks are fitted per architecture and a best-performing subset is retained. Descriptor count, hidden-neuron count, and training stopping are tuned.
+}
+
+\reviewfield{Test construction and applicability domain}{
+The data are split about 90/10. Chemical clustering/Kohonen-style procedures are used to choose a structurally representative test rather than selecting compounds by outcome. Applicability domain is checked both with MACCS/Tanimoto structural similarity and descriptor-space range/hypercube criteria.
+}
+
+\reviewfield{PPDB results}{
+The MOE-based model reaches roughly:
+\begin{itemize}
+    \item training sensitivity/specificity $\sim0.86/0.92$;
+    \item test sensitivity/specificity $\sim0.90/0.91$;
+    \item test MCC $\sim0.78$.
+\end{itemize}
+The best model uses a compact descriptor subset (roughly 38 variables) and a small hidden layer. The ADMET-descriptor model is weaker, with test sensitivity/specificity around 0.81/0.87 and MCC around 0.63.
+}
+
+\reviewfield{Combined PPDB + proprietary data}{
+The enlarged MOE model retains strong test behavior: sensitivity around 0.88, specificity around 0.91, and MCC around 0.79. The ADMET-descriptor system is slightly weaker but still competitive.
+}
+
+\reviewfield{Domain-shift experiment}{
+A particularly useful analysis applies an existing VEGA kNN-style model to the proprietary compounds. Only about 381 of 776 predictions are correct, 327 are wrong, and 68 receive no prediction; only a small subset receive the highest reliability designation. This is strong real-world evidence that a model trained in one chemical domain can deteriorate badly on another.
+}
+
+\reviewfield{Chemical interpretation}{
+Important descriptors include Kier/radius and BCUT/GCUT-style topology together with SlogP/VSA-like physicochemical variables, suggesting that both topology and global physicochemical behavior matter.
+}
+
+\reviewfield{Cautions}{
+The proprietary dataset is not fully open, and the main 90/10 evaluation remains a same-program/same-domain test rather than a MaxMin or temporal holdout. Historical PPDB labels are inherited rather than experimentally re-measured by the authors.
+}
+
+\keytakeaway{This is one of the strongest recent classical competitors. The failure of an external VEGA model on proprietary chemicals is especially useful evidence that domain generalization matters more than a high same-domain test score.}
+
+
+\subsubsection{[1] Adamczyk, Poziemski, and Siedlecki (2026) --- \textit{Evaluating machine learning models for predicting pesticide toxicity to honey bees}}
+\textbf{Venue:} Ecotoxicology and Environmental Safety\\
+\textbf{Review basis:} Full text reviewed; anchor/base paper for this project.\\
+\textbf{DOI:} \paperdoi{10.1016/j.ecoenv.2026.119869}
+
+\reviewfield{What the paper is actually asking}{
+This is not merely another classifier paper. Its central question is whether model families that work well in mainstream molecular-property prediction---especially methods developed around medicinal chemistry---remain effective when the target chemical space is agrochemical and species-specific. ApisTox is therefore used both as a prediction benchmark and as a test of \emph{domain transferability}.
+}
+
+\reviewfield{Dataset and endpoint}{
+ApisTox contains \textbf{1,035 standardized and deduplicated compounds} assembled from ECOTOX, PPDB, and BPDB. The binary distribution is 296 toxic versus 739 non-toxic compounds, so the toxic class is the minority.
+
+A compound is treated as positive when it is highly toxic in at least one available exposure mode, with the ApisTox convention based around the regulatory acute-toxicity threshold of approximately 11~$\mu$g/bee. The target is therefore a broad structure-based high-toxicity label rather than route-specific LD$_{50}$ regression.
+}
+
+\reviewfield{Predetermined test splits}{
+A major strength is that the paper does not rely on random splitting. ApisTox provides two 20\% test partitions:
+\begin{itemize}
+    \item \textbf{MaxMin split}: uses ECFP4/Tanimoto similarity to choose a chemically diverse test set, deliberately reducing train--test structural similarity;
+    \item \textbf{approximate temporal split}: uses PubChem literature chronology so that newer agrochemicals are preferentially placed in the test set.
+\end{itemize}
+Both are intended to approximate harder prospective use cases.
+}
+
+\reviewfield{Representations and models}{
+The benchmark is broad:
+\begin{itemize}
+    \item conventional fingerprints/descriptors with Random Forest;
+    \item simple/topological representations such as atom counts, LTP, and MOLTOP;
+    \item graph kernels with SVMs: Propagation, Shortest Paths, Weisfeiler--Lehman (WL), and Weisfeiler--Lehman Optimal Assignment (WL-OA);
+    \item GNNs including GCN, GraphSAGE, GIN, GAT, and AttentiveFP;
+    \item pretrained models such as MAT, R-MAT, GROVER, ChemBERTa, and Mol2Vec, generally used as frozen representation generators followed by a shallow classifier such as Logistic Regression.
+\end{itemize}
+Thus, handcrafted, kernel, end-to-end graph, and pretrained representations are compared in one framework.
+}
+
+\reviewfield{Training and evaluation}{
+Class weighting is used because of imbalance. Hyperparameters are selected through stratified five-fold cross-validation, with AUROC as a principal optimization criterion. RF/GNN configurations are repeated over many seeds (50 in the benchmark protocol), rather than reporting a single run.
+
+Reported metrics include AUROC, precision, recall, and MCC.
+}
+
+\reviewfield{Main results}{
+The strongest systems are not the newest neural architectures. On the \textbf{MaxMin split}, WL-OA achieves approximately MCC 0.49 and AUROC 83.95\%. On the \textbf{time split}, ECFP is among the strongest representations, with MCC around 0.48 and AUROC about 78.16\%.
+
+Fingerprints and graph kernels therefore remain extremely competitive under the hard partitions.
+}
+
+\reviewfield{Why GNN/pretrained models struggle}{
+GNN and pretrained systems generally fail to dominate. The authors connect this to:
+\begin{itemize}
+    \item the small sample size;
+    \item chemical-space differences between agrochemicals and medicinal compounds;
+    \item molecular fragmentation in ApisTox;
+    \item pretraining distributions biased toward biomedical/drug-like chemistry.
+\end{itemize}
+Approximately 14\% of ApisTox molecules are fragmented, and the dataset contains a noticeably larger fraction of atoms/patterns uncommon in medicinal benchmarks.
+}
+
+\reviewfield{Chemical-space analysis}{
+The paper compares ApisTox with MoleculeNet datasets and concludes that ApisTox occupies a distinct and highly diverse chemical space. Its diversity is high even relative to several established molecular benchmarks, helping explain why models pretrained on conventional drug space can generalize poorly.
+}
+
+\reviewfield{Interpretability and uncertain labels}{
+The study uses MMACE counterfactual explanations with the SVM/WL-OA system and separately evaluates uncertain molecules rather than silently mixing them into the standard benchmark.
+}
+
+\reviewfield{What remains open}{
+The benchmark does not exhaust:
+\begin{itemize}
+    \item classical boosting/ensemble selection;
+    \item explicit activity-cliff analysis;
+    \item richer applicability-domain diagnostics;
+    \item probability calibration/uncertainty;
+    \item a representation-controlled classical--quantum comparison.
+\end{itemize}
+}
+
+\keytakeaway{This paper defines the problem we are extending. Our contribution cannot be ``ML on ApisTox.'' The meaningful question is whether stronger classical analysis and a quantum kernel reveal anything new under the same structure-aware and temporal generalization conditions.}
+
+\subsubsection{[13] Damião, de Oliveira Neto, and de Alencar Filho (2025) --- \textit{New generation of QSAR modeling for bee safety: predicting toxicity using graph neural networks and ApisTox data}}
+\textbf{Venue:} Ecotoxicology\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1007/s10646-025-02970-0}
+
+\reviewfield{Dataset}{
+The study uses ApisTox: 1,035 compounds, approximately 296 toxic and 739 non-toxic labels, using the $\leq11~\mu$g/bee convention.
+}
+
+\reviewfield{Representation}{
+SMILES are converted with RDKit to molecular graphs. Each atom is represented by roughly 61 descriptors encoding element, degree, hydrogen count, valence, formal charge, aromaticity, and related properties.
+}
+
+\reviewfield{Architecture}{
+The model combines a graph-convolution stage with two attention layers, graph-level readout, and dense classification. Representative hyperparameters include a hidden dimension around 256, roughly four graph-processing layers, batch size 512, 100 epochs, learning rate 0.001, and small weight regularization.
+}
+
+\reviewfield{Evaluation}{
+Five-fold \textbf{random} cross-validation is used. Metrics include accuracy, AUROC, MCC, balanced accuracy, recall, specificity, precision, F1, and confusion matrices.
+}
+
+\reviewfield{Results}{
+Mean fold performance is approximately:
+\begin{itemize}
+    \item accuracy $0.822\pm0.026$;
+    \item AUROC $0.759\pm0.030$;
+    \item MCC $0.552\pm0.057$;
+    \item balanced accuracy $0.763\pm0.027$;
+    \item recall $0.625\pm0.057$;
+    \item specificity $0.901\pm0.039$;
+    \item precision $0.723\pm0.067$;
+    \item F1 $0.668\pm0.041$.
+\end{itemize}
+Pooling all fold predictions gives an overall AUC around 0.802.
+}
+
+\reviewfield{Train--test gap}{
+Training AUC is around 0.97 while average test AUC is around 0.76, a gap of about 0.21. This is more informative than the headline pooled AUC: the GNN can fit ApisTox extremely well but does not generalize nearly as strongly.
+}
+
+\reviewfield{Interpretability}{
+Attention highlights organophosphate-like regions, polyhalogenated groups, nucleophilic functional groups, lipophilic alkyl chains, and aromatic motifs. Several are consistent with known pesticide mechanisms such as acetylcholinesterase inhibition and persistence/bioaccumulation.
+}
+
+\reviewfield{Critical limitation}{
+The folds are random. The model is not tested on the exact MaxMin/time partitions that make the base ApisTox benchmark difficult. Its AUC should therefore not be interpreted as evidence that GNNs solve the domain-shift problem identified by Adamczyk et al.
+}
+
+\keytakeaway{This is the most direct GNN-on-ApisTox competitor. The large training--test gap and random CV actually strengthen the argument for structure-aware evaluation.}
+
+\subsubsection{[14] Chen et al. (2026) --- \textit{BeeEcoTox: A Large Language Model-Empowered Graph-Learning Framework for Predicting Ecotoxicity of Agrochemicals to Bees}}
+\textbf{Venue:} Environmental Science \& Technology\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acs.est.5c18162}
+
+\reviewfield{Dataset}{
+BeeEcoTox constructs a BED dataset of approximately \textbf{1,139 unique agrochemicals}, combining ApisTox with roughly one hundred additional entries from ECOTOX/PPDB/PAN-style sources. Most measurements are for \textit{Apis mellifera}, although other bee species can be represented.
+
+When multiple measurements exist, the more hazardous/lowest acute LD$_{50}$ is retained. A compound is considered ecotoxic if an available route/species observation crosses the 11~$\mu$g/bee threshold.
+}
+
+\reviewfield{Split}{
+The dataset is divided approximately 8:1:1 using \textbf{composite stratification} that balances label and coarse properties such as molecular weight, logP, and heavy-atom count. This is more controlled than naive random sampling but is \emph{not} a scaffold/MaxMin split.
+}
+
+\reviewfield{Multimodal representation}{
+The final model combines:
+\begin{itemize}
+    \item a molecular graph processed by a three-layer GIN with batch normalization;
+    \item frozen ChemFM-1B semantic features extracted from SMILES;
+    \item MACCS fingerprints.
+\end{itemize}
+Semantic information is progressively fused into the graph representation, and projected fingerprint features are merged before final classification.
+}
+
+\reviewfield{Class imbalance}{
+The method uses cost-sensitive/focal-style learning to prioritize toxic-class recall. SMOTE-like alternatives are explored but are less central to the final model.
+}
+
+\reviewfield{Baselines}{
+The benchmark includes RF, XGBoost, NGBoost, GCN, GIN, GAT, and newer tabular methods such as TabM/TabPFN.
+}
+
+\reviewfield{Main test results}{
+BeeEcoTox reports approximately:
+\begin{itemize}
+    \item AUC = 0.91;
+    \item recall = 0.90;
+    \item F1 = 0.74;
+    \item specificity = 0.80;
+    \item MCC = 0.64.
+\end{itemize}
+Representative RF behavior is AUC about 0.87, recall 0.58, specificity 0.96, MCC 0.62. XGBoost is similar. A plain GIN has AUC around 0.84 and much weaker MCC.
+}
+
+\reviewfield{Ablations}{
+A base GIN is around AUC 0.86/recall 0.74. Cost-sensitive training improves toxic-class recognition. ChemFM features raise recall strongly, while MACCS helps recover specificity. The final improvement is therefore a \textbf{fusion effect}, not merely a better GNN backbone.
+}
+
+\reviewfield{External validation and applicability domain}{
+A 65-compound external set yields AUC around 0.85 and accuracy about 0.83. KDE-style applicability-domain analysis identifies roughly 53 in-domain and 12 out-of-domain compounds. In-domain AUC is around 0.87 and accuracy around 0.85; the OOD subset is too small for strong statistical conclusions.
+}
+
+\reviewfield{Temporal-style split: the most important result for us}{
+Under a temporal-style evaluation related to the ApisTox chronology, performance falls dramatically: AUC drops from approximately \textbf{0.91 to 0.72}, MCC to about \textbf{0.22}, and train--test chemical-space distance increases substantially.
+
+This is one of the clearest modern demonstrations that excellent ordinary-split performance does not imply prospective agrochemical generalization.
+}
+
+\reviewfield{Explainability and limitations}{
+GNNExplainer is used to identify important toxicophore-like substructures. Remaining limitations include route specificity, quantitative exposure, coverage, and heterogeneous annotation.
+}
+
+\keytakeaway{BeeEcoTox is a state-of-the-art direct competitor. Its temporal-split collapse strongly justifies using hard ApisTox splits even if our absolute metrics end up much lower than random-split papers.}
+
+\subsubsection{[15] He et al. (2026) --- \textit{BeeMSAI: A multi-dimensional evaluation strategy for honeybee toxicity in agrochemicals integrating mode of action, structural analysis, and AI-powered prediction}}
+\textbf{Venue:} Journal of Hazardous Materials\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.jhazmat.2025.141018}
+
+\reviewfield{Objective}{
+BeeMSAI moves beyond a one-dimensional structure-only classifier by integrating mode of action, structural analysis, and AI prediction into one evaluation strategy.
+}
+
+\reviewfield{Dataset and classes}{
+The main acute-contact dataset contains about 569 compounds after curation: roughly 408 low, 78 moderate, and 83 high toxicity. A separate external set contains 44 pesticides, including neonicotinoids, recently introduced pesticides, growth regulators, and literature compounds.
+
+Three-class thresholds follow PPDB-style conventions: high below about 1~$\mu$g/bee, moderate 1--100~$\mu$g/bee, and low above 100~$\mu$g/bee. Binary results around 11~$\mu$g/bee are also reported.
+}
+
+\reviewfield{Mode-of-action layer}{
+Approximately 386 pesticides are organized into \textbf{46 MOAs} and \textbf{nine physiological systems} using IRAC/HRAC/FRAC/PPDB information. This is a mechanistic layer rather than a learned post-hoc explanation.
+}
+
+\reviewfield{Structural analysis}{
+More than 500 structures are grouped into structural families. Fingerprints include SubFP, PubChem, Klekota--Roth, and MACCS. Information-gain/frequency analysis identifies dozens of toxicity-associated fragments, a smaller representative set, and six structures with extremely high estimated toxicity probability.
+}
+
+\reviewfield{Models}{
+The predictive component compares SVM, ANN, LDA, and GAT. Hundreds of MOE descriptors are reduced through a staged selection procedure to a compact final set. The graph model combines graph representations with selected descriptor information.
+}
+
+\reviewfield{External results}{
+The SVM is strongest on the 44-compound external set:
+\begin{itemize}
+    \item overall accuracy = 81.82\%;
+    \item macro accuracy $\sim80.3\%$;
+    \item macro F1 $\sim0.80$;
+    \item high-toxicity recall $\sim85\%$;
+    \item moderate-class recall $\sim63.6\%$;
+    \item low-toxicity recall $\sim92.3\%$.
+\end{itemize}
+GAT and ANN are clearly lower; LDA performs poorly.
+}
+
+\reviewfield{Special subsets and binary task}{
+SVM accuracy is about 84.21\% on neonicotinoids and 80.77\% on newer pesticide structures. Under the binary 11~$\mu$g/bee formulation, external accuracy is about 77.27\%, recall 91.30\%, and MCC around 0.56.
+}
+
+\reviewfield{Oral/contact relationship}{
+For about 301 compounds with both routes, oral and contact toxicity correlate at roughly $R^2=0.796$, and more than 77\% remain in the same categorical class. The relationship is strong but not perfect.
+}
+
+\reviewfield{Limitations}{
+The moderate class is small, especially in the external data. GAT appears to generalize less effectively than the SVM. Because the system incorporates MOA/mechanistic information, it also uses richer information than a purely structure-only classifier.
+}
+
+\keytakeaway{BeeMSAI is evidence that richer biological context can help, but it also shows that a conventional SVM may generalize better than a complex graph model on small external data.}
+
+\subsection{Transferable Methodological Advances from Molecular-Toxicity ML}
+
+\subsubsection{[16] Masand et al. (2026) --- \textit{Machine learning modeling of acute inhalation toxicity using an RFA-RFR framework, supported by explainable AI and SALI-based activity cliff analysis}}
+\textbf{Venue:} Journal of Pharmacological and Toxicological Methods\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.vascn.2026.108426}
+
+\reviewfield{Why this non-bee paper was selected}{
+Its endpoint is acute inhalation toxicity, but its methodology directly addresses three weaknesses relevant to ApisTox: leak-aware feature selection, explicit activity-cliff analysis, and explanation/applicability-domain diagnostics.
+}
+
+\reviewfield{Dataset and features}{
+The final set contains \textbf{552 molecules} curated from the Integrated Chemical Environment. Three-dimensional structures are generated and roughly 58,000 molecular descriptors are calculated with RDKit/MOPAC/PyDescriptor-style tools.
+
+Unsupervised pruning reduces the space to about 853 variables. Outcome-aware refinement is performed only on training data and narrows it to 47 descriptors. A Red Fox Algorithm selection stage then produces about nine final descriptors.
+}
+
+\reviewfield{Split and model}{
+A roughly 441/111 train/test split is used. The predictor is a Random Forest Regressor optimized after feature selection.
+}
+
+\reviewfield{Validation}{
+The authors use leave-10\%-out validation, Y-randomization, external evaluation, applicability-domain analysis, and repeated split analysis rather than one train/test statistic.
+}
+
+\reviewfield{Results}{
+Representative values include:
+\begin{itemize}
+    \item training $R^2\approx0.907$;
+    \item leave-10\%-out $R^2\approx0.902$;
+    \item external $Q^2_{F3}\approx0.887$;
+    \item training RMSE $\sim0.38$, MAE $\sim0.29$;
+    \item external RMSE $\sim0.85$, MAE $\sim0.62$, CCC $\sim0.71$.
+\end{itemize}
+The larger external error is important: fit and extrapolation are not the same thing.
+}
+
+\reviewfield{Activity cliffs}{
+With Tanimoto similarity around 0.80 as a high-similarity criterion, the authors identify roughly 169 activity-cliff pairs. One example has similarity around 0.944 but a toxicity difference exceeding four log units, yielding a very large SALI value.
+
+This is directly relevant to kernels: a similarity-based model can fail where two molecules look almost identical under the representation yet have sharply different toxicity.
+}
+
+\reviewfield{Explainability and AD}{
+SHAP highlights molecular weight, hydrogen-bond/atom-count variables, lipophilic--polar balance, and oxygenated sp$^3$ carbon environments. Applicability-domain coverage is above 90\% for both train and external data.
+}
+
+\reviewfield{Limitations}{
+The species/endpoint differ from ApisTox, and the primary partition is not scaffold/time-based. This paper should justify methodology, not be used as a direct performance comparator.
+}
+
+\keytakeaway{The strongest transferable idea is SALI/activity-cliff analysis. Comparing cliff behavior between classical and quantum kernels could reveal whether either similarity geometry handles local discontinuities better.}
+
+\subsubsection{[17] Fuadah et al. (2024) --- \textit{QSAR Classification Modeling Using Machine Learning with a Consensus-Based Approach for Multivariate Chemical Hazard End Points}}
+\textbf{Venue:} ACS Omega\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acsomega.4c09356}
+
+\reviewfield{Scope}{
+The study builds classifiers for eight hazards: cardiac, inhalation, dermal, oral toxicity, skin irritation, skin sensitization, eye irritation, and respiratory irritation.
+}
+
+\reviewfield{Representations}{
+Four complementary feature blocks are considered:
+\begin{itemize}
+    \item Morgan circular fingerprints;
+    \item MACCS keys;
+    \item Mordred descriptors;
+    \item a smaller physicochemical descriptor set.
+\end{itemize}
+}
+
+\reviewfield{Algorithms and consensus}{
+Random Forest, XGBoost, and SVM are optimized separately for descriptor/fingerprint blocks using grid search and five-fold CV. The final consensus combines the strongest representation-specific outputs instead of assuming one representation is universally best.
+}
+
+\reviewfield{Evaluation}{
+The paper uses an approximately 80/20 train/test design and reports AUC, accuracy, sensitivity/recall, specificity, and F1.
+}
+
+\reviewfield{Results}{
+Performance varies by endpoint. Representative values include:
+\begin{itemize}
+    \item cardiac: accuracy $\sim0.82$, AUC $\sim0.90$, sensitivity $\sim0.89$, specificity $\sim0.75$, F1 $\sim0.85$;
+    \item inhalation: accuracy $\sim0.80$, AUC $\sim0.83$;
+    \item dermal: accuracy $\sim0.78$, AUC $\sim0.84$;
+    \item oral: accuracy $\sim0.79$, AUC $\sim0.87$;
+    \item skin irritation: accuracy $\sim0.86$, AUC $\sim0.90$;
+    \item skin sensitization/respiratory irritation: AUC roughly 0.78;
+    \item eye irritation: AUC roughly 0.81.
+\end{itemize}
+Consensus gains are not equally large for every endpoint.
+}
+
+\reviewfield{Interpretation}{
+Fingerprints frequently outperform the smaller physicochemical feature set. The study supports empirically selecting a model--representation combination rather than fixing one pipeline a priori.
+}
+
+\reviewfield{Limitations}{
+The split is random, endpoint sizes/qualities differ, and the consensus is relatively simple. It does not directly address OOD chemical-space testing.
+}
+
+\keytakeaway{Use this paper to justify a strong classical benchmark suite. The quantum model should be compared both against a same-input classical counterpart and against the best full-feature classical model selected from a broader search.}
+
+
+\subsubsection{[18] Jia et al. (2026) --- \textit{ADFC-ATP: Attention-Guided Dual-View Fusion and Contrastive Pretraining for Robust Aquatic Toxicity Prediction}}
+\textbf{Venue:} Journal of Cellular and Molecular Medicine\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1111/jcmm.71067}
+
+\reviewfield{Problem}{
+The study targets acute fish toxicity and focuses on data scarcity, multimodal representation, and pretraining. It is included because it is a modern example of how representation learning can be strengthened in a small environmental-toxicity setting.
+}
+
+\reviewfield{Pretraining data}{
+The model is pretrained on roughly \textbf{300,000+ unlabeled molecules} (about 306k ZINC bioactive compounds in the reviewed material). The objective is to learn general structural information before fine-tuning on small toxicity datasets.
+}
+
+\reviewfield{Downstream endpoints}{
+Four 96-hour LC$_{50}$ fish-toxicity datasets are modeled, corresponding to standard rainbow-trout, fathead-minnow, sheepshead-minnow, and bluegill benchmarks. Sample sizes are several hundred to just over one thousand compounds per species.
+}
+
+\reviewfield{Representation and augmentation}{
+ADFC-ATP combines:
+\begin{itemize}
+    \item molecular graphs;
+    \item a \textbf{Murcko-scaffold-preserving augmentation} procedure;
+    \item edge reconnection and functional-group substitution to generate chemically plausible views;
+    \item contrastive learning with an NT-Xent-like loss;
+    \item self-supervised masked reconstruction;
+    \item a GAT backbone;
+    \item fusion between pretrained graph information and fingerprint/similarity information.
+\end{itemize}
+
+The important nuance is that the \emph{augmentation} preserves the scaffold. The downstream train/test split itself is not scaffold-based.
+}
+
+\reviewfield{Downstream split and training}{
+Each fish dataset is randomly divided 8:1:1 into train, validation, and test sets. The pretrained GAT is fine-tuned with task-specific output heads. Typical fine-tuning settings include batch sizes 64/128, learning rate 0.001, dropout 0.2, seed 42, and 50--150 epochs.
+}
+
+\reviewfield{Results}{
+The authors report an average relative AUC improvement of roughly 10.2\% over classic GCN baselines. Representative ADFC-ATP AUCs are:
+\begin{itemize}
+    \item rainbow-trout-like dataset: $\sim0.942$;
+    \item fathead-minnow-like dataset: $\sim0.927$;
+    \item sheepshead-minnow-like dataset: $\sim0.913$;
+    \item bluegill dataset: $\sim0.906$.
+\end{itemize}
+The model usually exceeds GCN-ST/GCN-MT and several SVM/RF fingerprint baselines. On the bluegill set, some recent deep baselines have slightly higher AUC, while ADFC-ATP retains strong accuracy.
+}
+
+\reviewfield{Ablation and interpretation}{
+Ablation and attention-visualization analyses support the importance of scaffold-preserving augmentation, contrastive regularization, and dual-view fusion. The learned attention can also recover toxicophore-like regions consistent with QSAR intuition.
+}
+
+\reviewfield{Limitation relevant to our paper}{
+Because final evaluation is a \textbf{random 8:1:1 split}, the work should not be cited as evidence that the architecture solves scaffold/OOD generalization. Its strongest transferable contribution is the representation/pretraining strategy.
+}
+
+\keytakeaway{Rich pretraining and dual-view fusion can help small toxicity tasks, but hard chemical-space evaluation remains separate. For ApisTox, better representation should still be tested on MaxMin/time splits.}
+
+\subsubsection{[19] Wasswa and Barsainyan (2025) --- \textit{PHYSPROPNET: A Benchmarking Study of Machine Learning Models for Physicochemical Property Prediction in Data-Limited Environmental Research}}
+\textbf{Venue:} ACS ES\&T Water\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acsestwater.5c00850}
+
+\reviewfield{Why this paper matters}{
+PHYSPROPNET directly examines a question that also emerges from the ApisTox base paper: when does a sophisticated graph model actually beat a descriptor/fingerprint model?
+}
+
+\reviewfield{Benchmark scale}{
+The study evaluates \textbf{11 physicochemical/environmental-fate properties} from EPA PHYSPROP. Dataset sizes range from approximately 10,652 compounds for LogP down to roughly 150 compounds for half-life.
+}
+
+\reviewfield{Model/representation grid}{
+The benchmark crosses:
+\begin{itemize}
+    \item eight GNN architectures;
+    \item nine conventional algorithms;
+    \item five molecular descriptor/fingerprint sets.
+\end{itemize}
+Conventional models include LightGBM, CatBoost, and Random Forest; descriptor families include RDKit and Mordred.
+}
+
+\reviewfield{Evaluation}{
+Both random and scaffold splits are studied, and computational cost is considered alongside predictive error/accuracy.
+}
+
+\reviewfield{Central result}{
+Performance depends strongly on \textbf{sample size and molecular representation}. For endpoints with fewer than about 1,000 compounds, descriptor-based LightGBM/CatBoost/RF models with RDKit or Mordred features often match or outperform GNNs while taking less training time. As datasets become larger, GNNs become more competitive and can become superior.
+}
+
+\reviewfield{Overall ranking}{
+A composite ranking that combines predictive quality and computational cost identifies \textbf{LightGBM + RDKit descriptors} as the most effective overall configuration across the heterogeneous benchmark.
+}
+
+\reviewfield{Interpretability}{
+Feature-attribution analyses indicate that both shallow descriptor models and graph models capture chemically sensible structure--property relationships; interpretability is not exclusive to deep models.
+}
+
+\reviewfield{Relevance to ApisTox}{
+ApisTox has only around one thousand compounds. It therefore lies close to the data-size regime in which PHYSPROPNET finds that well-tuned descriptor/boosting models are particularly difficult to beat. This agrees with the ApisTox benchmark, where simple fingerprints and graph kernels outperform many deep/pretrained systems.
+}
+
+\keytakeaway{This paper gives a broad empirical reason to expect strong shallow baselines on ApisTox. A QML study must compare against optimized classical descriptor/fingerprint models, not only GNNs.}
+
+\subsubsection{[20] Kim, Jeong, and Choi (2024) --- \textit{Identification of Optimal Machine Learning Algorithms and Molecular Fingerprints for Explainable Toxicity Prediction Models Using ToxCast/Tox21 Bioassay Data}}
+\textbf{Venue:} ACS Omega\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acsomega.4c04474}
+
+\reviewfield{Scale and imbalance}{
+The authors begin with 1,473 ToxCast/Tox21 assays and select \textbf{1,092 target-specific assays}. The number of chemicals per assay ranges roughly from 109 to 6,542. Many assays are severely imbalanced, with actives often representing less than 10\% of the chemicals.
+
+Chemical diversity is also high: average fingerprint Tanimoto similarity is about $0.085\pm0.058$, with a 75th percentile around 0.115.
+}
+
+\reviewfield{Model grid}{
+For each assay, the intended search space contains:
+\begin{itemize}
+    \item five fingerprints: MACCS, Morgan, RDKit, Layered, Pattern;
+    \item six classifiers: Gradient Boosted Trees, Random Forest, MLP, kNN, Logistic Regression, and Naive Bayes.
+\end{itemize}
+This creates 30 representation/model combinations per assay.
+}
+
+\reviewfield{Training and imbalance handling}{
+An 80/20 train/test split and five-fold CV are used. SMOTE is applied to compensate for low active-class prevalence. The study explicitly treats F1 as important because accuracy can look excellent even when the toxic/active class is missed.
+}
+
+\reviewfield{How hard the assay collection is}{
+Of the 1,092 assays, only about 737 yield usable trained representative models. Roughly 670 have accuracy or F1 below 0.5, 67 reach at least 0.5, and only \textbf{35} satisfy the study's high-performance screen of accuracy or F1 at least 0.8.
+}
+
+\reviewfield{Which model/fingerprint combinations survive}{
+Among those 35 selected models:
+\begin{itemize}
+    \item RF appears 13 times;
+    \item GBT 7;
+    \item Logistic Regression 7;
+    \item MLP 7;
+    \item Naive Bayes 1;
+    \item kNN 0.
+\end{itemize}
+MACCS and Morgan each appear 11 times, followed by RDKit (6), Pattern (5), and Layered (2).
+}
+
+\reviewfield{Accuracy can be misleading}{
+Some assays obtain extremely high accuracy while F1 remains much lower because the active class is rare. One highlighted RF-MACCS model has accuracy around 0.977 but F1 around 0.75. This is directly relevant to bee toxicity, where a model can appear strong by predicting the majority non-toxic class.
+}
+
+\reviewfield{Predictivity versus interpretability}{
+The authors favor RF + MACCS as a useful compromise: RF is strong across many assays and MACCS keys correspond to recognizable structural patterns, making feature-level interpretation easier than with a very high-dimensional opaque representation.
+}
+
+\reviewfield{Limitations}{
+The models use chemical features only. The authors acknowledge that biological-response information could improve prediction. Their interpretability comparison is also more practical than formally quantitative.
+}
+
+\keytakeaway{Two lessons transfer directly: systematically search model $\times$ fingerprint combinations, and never judge an imbalanced toxicity model by accuracy alone.}
+
+\subsubsection{[21] Das and Ojha (2025) --- \textit{Revolutionizing toxicity predictions of diverse chemicals to protect human health: Comparative QSAR and q-RASAR modeling}}
+\textbf{Venue:} Toxicology Letters\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1016/j.toxlet.2025.06.019}
+
+\reviewfield{Why it is relevant}{
+The endpoint is human acute toxicity rather than bee toxicity, but the study is a useful example of \textbf{similarity-aware read-across} being explicitly fused with conventional descriptors. That is conceptually close to kernel modeling.
+}
+
+\reviewfield{Dataset}{
+The starting TOXRIC pTDLo dataset contains 121 chemicals. After chemical cleanup and outlier removal, 112 remain. Toxicity is modeled as pTDLo in molar units. The final split contains 84 training and 28 test compounds.
+}
+
+\reviewfield{Descriptor calculation}{
+AlvaDesc produces about \textbf{2,416 2D descriptors} spanning constitutional, ring, connectivity, functional-group, atom-centered, E-state, atom-pair, and ETA information. Redundant/highly correlated variables are filtered.
+}
+
+\reviewfield{Split selection}{
+The authors compare Kennard--Stone, Euclidean-distance, and activity-property partitioning and choose the activity-based split because it produces the strongest combined internal/external validation behavior.
+}
+
+\reviewfield{Baseline QSTR model}{
+Stepwise and best-subset selection yield a seven-descriptor PLS model with about two latent variables. Representative performance is:
+\begin{itemize}
+    \item training $R^2=0.657$;
+    \item $Q^2_{\mathrm{LOO}}=0.613$;
+    \item external $Q^2_{F1}=Q^2_{F2}=0.764$;
+    \item $Q^2_{F3}=0.771$;
+    \item test MAE $=0.579$;
+    \item CCC $=0.872$.
+\end{itemize}
+}
+
+\reviewfield{q-RASAR construction}{
+Read-across uses Gaussian-kernel similarity with optimized parameters and approximately four nearest source compounds. The resulting features encode not only molecular descriptors but \emph{properties of the local similarity neighborhood}: variation in neighbor activities, variation in similarity, average/weighted similarity, and related RASAR statistics.
+
+A second selection stage produces a seven-feature/three-latent-variable PLS q-RASAR model.
+}
+
+\reviewfield{q-RASAR results}{
+The similarity-enhanced model improves to:
+\begin{itemize}
+    \item training $R^2=0.710$;
+    \item $Q^2_{\mathrm{LOO}}=0.658$;
+    \item $Q^2_{F1}=Q^2_{F2}=0.812$;
+    \item $Q^2_{F3}=0.818$;
+    \item test MAE $=0.545$;
+    \item CCC $=0.898$;
+    \item $r_m^2(\mathrm{test})\approx0.741$.
+\end{itemize}
+The authors also compare RF, Gradient Boosting, and SVM on the same descriptor basis; the PLS q-RASAR remains strongest in their setup.
+}
+
+\reviewfield{Reliability checks}{
+Y-randomization and a DModX applicability-domain analysis are used. All 28 test compounds are considered inside the final AD. The model is subsequently used to screen large PPDB and DrugBank libraries.
+}
+
+\reviewfield{Why it matters to kernels}{
+The model makes \textbf{local similarity statistics themselves} part of the predictive representation. This gives a strong classical alternative to the claim that a more exotic kernel geometry is needed.
+}
+
+\keytakeaway{Use q-RASAR as a classical similarity-aware reference. If a quantum kernel helps, we should ask whether it contributes beyond what can already be gained from explicit read-across/neighborhood information.}
+
+\subsubsection{[22] Thombre et al. (2026) --- \textit{Comparative evaluation and selection of optimal QSAR-based machine learning model for liver toxicity prediction}}
+\textbf{Venue:} Molecular Diversity\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1007/s11030-026-11615-1}
+
+\reviewfield{Why this paper is methodologically valuable}{
+The endpoint is DILI, but this is one of the clearest examples in the reviewed corpus of a \textbf{leak-aware, multi-model QSAR pipeline} with external validation, interpretability, and applicability-domain analysis.
+}
+
+\reviewfield{Dataset integration}{
+Four sources are merged into a final \textbf{6,219-compound} dataset:
+\begin{itemize}
+    \item DILIst: 1,269;
+    \item LTKB: 1,012;
+    \item literature-derived data: 2,480;
+    \item ToxRIC: 1,458.
+\end{itemize}
+The final distribution is 3,273 hepatotoxic and 2,946 non-hepatotoxic compounds.
+}
+
+\reviewfield{Label harmonization}{
+Duplicate canonical SMILES are removed. When sources disagree, a source-priority hierarchy is used (DILIst $>$ LTKB $>$ ToxRIC $>$ literature). The authors acknowledge that this does not eliminate underlying differences in source annotation/evidence standards.
+}
+
+\reviewfield{Representation}{
+RDKit generates physicochemical/topological/electronic descriptors plus 2048-bit ECFP4. After filtering, about 129 continuous descriptors remain. Concatenating descriptors and fingerprints gives roughly 2,177 features.
+}
+
+\reviewfield{Leak-free preprocessing}{
+The pipeline fits preprocessing within training data:
+\begin{itemize}
+    \item excessive-missingness removal;
+    \item median imputation;
+    \item near-zero-variance filtering;
+    \item correlation filtering;
+    \item SMOTE \emph{inside CV training folds only};
+    \item scaling fit only on training folds.
+\end{itemize}
+This is exactly the discipline required if PCA/feature selection precedes QML.
+}
+
+\reviewfield{Splits}{
+The main data are stratified 70/30 into about 4,353 training and 1,866 test compounds. A separate balanced 50-compound holdout (25 toxic/25 non-toxic) is reserved before model development.
+}
+
+\reviewfield{Models and tuning}{
+Logistic Regression, RBF-SVM, kNN, RF, Gradient Boosting, AdaBoost, and XGBoost are benchmarked. GridSearchCV is used for most models; RF receives a broader randomized search. Five-fold stratified CV optimizes ROC-AUC.
+}
+
+\reviewfield{Results}{
+Cross-validation ROC-AUC is approximately:
+\begin{itemize}
+    \item RF: $0.7333\pm0.0042$;
+    \item XGBoost: $0.7296\pm0.0079$;
+    \item SVM: $0.7242\pm0.0070$.
+\end{itemize}
+
+The optimized RF obtains training AUC $\sim0.9745$ but test AUC only $\sim0.7289$. Test accuracy is about 0.684, recall 0.706, and F1 0.701. On the independent holdout, RF AUC is about 0.741; Gradient Boosting is slightly higher around 0.747, but the holdout is small and confidence intervals are wide.
+}
+
+\reviewfield{Why random molecular splits are dangerous}{
+For every test molecule, the paper computes maximum ECFP4 similarity to the training set. Mean maximum similarity is about 0.757, median 0.827, and almost \textbf{48.4\%} of test compounds have a training neighbor above 0.85 Tanimoto similarity. Only around 13.8\% are below 0.40.
+
+This directly quantifies how familiar a random molecular test set can be.
+}
+
+\reviewfield{Applicability domain}{
+A kNN-distance AD identifies about 78.2\% of test and 88\% of external compounds as in-domain. In-domain test AUC is roughly 0.741 versus 0.657 out-of-domain. Additional AD methods are combined into a consensus reliability decision.
+}
+
+\reviewfield{Explainability}{
+SHAP and LIME agree on ECFP4 substructure bits and VSA-style lipophilicity/electrostatic surface descriptors. The authors use cross-method agreement to support mechanistic credibility.
+}
+
+\reviewfield{Limitations}{
+Even with good leakage control, the main split remains random and the selected RF has a very large train--test gap. Multi-source label heterogeneity remains a second limitation.
+}
+
+\keytakeaway{This paper is an excellent template for pipeline hygiene. Any scaling/PCA/feature selection before QSVC must be fitted only inside training data. It also gives direct numerical evidence for why random molecular splits overestimate chemical-space generalization.}
+
+
+\subsection{Quantum Machine Learning for Molecular and Toxicity Prediction}
+
+The papers in this block use materially different meanings of ``quantum machine learning.'' Gate-based quantum kernels, trainable PQCs/QNNs, quantum graph embeddings, and quantum annealing should not be collapsed into a single family. The notes therefore state exactly where the quantum component enters each pipeline.
+
+\subsubsection{[23] Suzuki and Katouda (2020) --- \textit{Predicting toxicity by quantum machine learning}}
+\textbf{Venue:} Journal of Physics Communications\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1088/2399-6528/abd3d8}
+
+\reviewfield{Why it is foundational}{
+This is one of the earliest direct QML toxicity/QSAR studies. The target is nonlinear \textbf{regression}, not classification, but it establishes that parameterized quantum circuits can be used as QSTR models on real chemical data.
+}
+
+\reviewfield{Dataset and descriptors}{
+The model predicts the toxicity of \textbf{221 phenols}. Classical QSAR descriptors include hydrophobicity-related quantities, acidity information, and frontier-orbital energies. The objective is explicitly to compare a PQC-based nonlinear model with conventional chemometrics on the same descriptors.
+}
+
+\reviewfield{Holdout and cross-validation}{
+The principal holdout follows an earlier QSTR study: 180 compounds are used for training and 41 for validation. The Kennard--Stone algorithm generates the split so that the validation compounds lie within the training-domain coverage. The authors also run five-fold cross-validation on randomly ordered data.
+}
+
+\reviewfield{Quantum architecture}{
+The PQC has three stages:
+\begin{enumerate}
+    \item encoder circuit for classical descriptors;
+    \item trainable variational circuit;
+    \item measurement/loss evaluation.
+\end{enumerate}
+
+Three conventional encodings are studied: a Mitarai-style encoding (M), a simple angle encoding (A1), and a redundant two-rotation angle encoding (A2). The authors then construct ten \textbf{entangler-enhanced encoders} by combining encoding layers with CNOT or CZ blocks.
+}
+
+\reviewfield{Redundant encoding and qubit use}{
+The paper also encodes multiple copies of the input state. This consumes additional qubits but introduces higher-order feature interactions. The authors explicitly test whether that richer feature map improves toxicity regression.
+}
+
+\reviewfield{Variational circuit}{
+The trainable circuit uses hardware-heuristic layers of single-qubit rotations and CNOT/CZ entanglers. Time-evolution/Ising-style units are also considered, but the authors note the extreme classical simulation cost of large Trotter operators.
+}
+
+\reviewfield{Pure versus hybrid QML}{
+A ``pure'' model uses a single measured Pauli-$Z$ expectation as the regression output. A hybrid version measures several qubits and feeds those expectation values to an additional classical linear model. The extra flexibility becomes important because the hybrid model can overfit more strongly.
+}
+
+\reviewfield{Encoding experiments}{
+With five qubits, angle encodings outperform the original M encoding. Adding entanglement improves training fit further. The strongest encoder in this stage is A2--A2--CNOT with training $R^2$ around 0.842; A1--A1--CZ follows around 0.822.
+}
+
+\reviewfield{Best classical--quantum comparison}{
+For the main holdout:
+\begin{itemize}
+    \item MLR: $R^2_{\mathrm{train}}\approx0.609$, $R^2_{\mathrm{val}}\approx0.740$;
+    \item RBF neural network: $R^2_{\mathrm{train}}\approx0.928$, $R^2_{\mathrm{val}}\approx0.819$;
+    \item QML, A2--A2--CNOT with 10 qubits: $R^2_{\mathrm{train}}\approx0.906$, $R^2_{\mathrm{val}}\approx0.869$.
+\end{itemize}
+The best QML is much stronger than MLR and comparable to the nonlinear RBF network, with better validation $R^2$ in this split.
+}
+
+\reviewfield{Overfitting observation}{
+Under another/randomized validation analysis, RBF-NN and hybrid QML show large train--validation gaps: roughly 0.933/0.619 for RBF-NN and 0.932/0.479 for hybrid QML. The pure QML model is around 0.876/0.694 and therefore generalizes better in that analysis. The authors suggest that unitary circuit constraints can act as an implicit regularizer.
+}
+
+\reviewfield{What the paper does not prove}{
+All quantum results are obtained on classical simulation. The data are small and low-dimensional, and the main classical references are MLR/RBF-NN rather than a modern fingerprint/boosting benchmark. The work therefore supports feasibility and representation/generalization arguments, not a demonstrated computational quantum speedup.
+}
+
+\keytakeaway{This paper is important because it frames possible quantum benefit as representation and regularization. It also shows that encoding/entanglement choices can matter as much as the downstream learner.}
+
+\subsubsection{[24] Bhatia, Saggi, and Kais (2023) --- \textit{Quantum Machine Learning Predicting ADME-Tox Properties in Drug Discovery}}
+\textbf{Venue:} Journal of Chemical Information and Modeling\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acs.jcim.3c01079}
+
+\reviewfield{Why this is the closest quantum-kernel precedent}{
+This study directly combines molecular fingerprints, PCA, a gate-based quantum feature map, and a QSVC. It therefore provides the clearest literature precedent for a compact quantum-kernel toxicity pipeline.
+}
+
+\reviewfield{Datasets}{
+Four Therapeutics Data Commons datasets are used:
+\begin{itemize}
+    \item HIA: 578 molecules;
+    \item CYP2D6 substrate: 664;
+    \item DILI: 475;
+    \item carcinogenicity (CARC): 275 original molecules.
+\end{itemize}
+All are binary small-molecule classification tasks.
+}
+
+\reviewfield{Representation and dimensionality reduction}{
+RDKit produces \textbf{2048-bit fingerprints} with path length around seven. Because current hardware cannot directly encode thousands of bits, PCA reduces them to \textbf{2, 4, 8, or 16 features}. Reduced components are normalized and used as circuit angles.
+
+This creates a critical fairness distinction: the authors compare QSVC and classical SVC at the \emph{same reduced dimension}, while also showing an unconstrained full-2048-bit classical SVC.
+}
+
+\reviewfield{Quantum kernel}{
+QSVC uses a ZZFeatureMap with linear entanglement and approximately two repetitions. A fidelity-style quantum kernel is constructed from overlaps between encoded states. Experiments use Qiskit statevector and qasm simulators, a depolarizing-noise qasm model with $p\approx0.05$, and the 16-qubit IBMQ Guadalupe processor.
+}
+
+\reviewfield{Classical baselines}{
+The reduced-dimensional comparison includes classical SVC, AdaBoost, Logistic Regression, and kNN. The SVC parameter table lists a linear kernel with default $C=1$. RDKit and Morgan fingerprints are also explored for classical models.
+}
+
+\reviewfield{Imbalance and validation}{
+SMOTE is used on several datasets. All models are evaluated with four-fold cross-validation. Metrics include accuracy, precision, recall, F-score, and AUC-ROC.
+}
+
+\reviewfield{HIA}{
+With 16 features, QSVC AUC is about 0.954 on statevector, 0.955 on qasm, and 0.94 under the noise model. F1 is very poor with only two components but rises to roughly 0.86 with more features.
+}
+
+\reviewfield{CYP2D6}{
+This is substantially harder. Even with 16 features, QSVC AUC remains about 0.77--0.79. A full 2048-bit classical SVC achieves approximately 0.856 AUC, and Morgan/kNN configurations are also competitive.
+}
+
+\reviewfield{DILI}{
+At 16 reduced features, QSVC reaches AUC around 0.87 and F1 around 0.7--0.8. The reduced-feature classical SVC ranges roughly 0.65--0.82 depending on dimensionality.
+}
+
+\reviewfield{Carcinogenicity}{
+With 16 features, QSVC AUC is approximately 0.942 on statevector, 0.934 on qasm, and 0.90 under noise, with F1 around 0.88. However, the \textbf{full 2048-bit classical SVC reaches about 0.996 AUC}.
+}
+
+\reviewfield{Hardware behavior}{
+Hardware results broadly follow simulator trends. At eight features, QSVC can be similar to the reduced-feature SVC and slightly below kNN on some endpoints; at larger compact dimensions it can outperform the \emph{same reduced-input} SVC in selected cases.
+}
+
+\reviewfield{The most important nuance}{
+The paper itself acknowledges that classical SVC using the full RDKit fingerprint generally has better overall mean AUC. The evidence is therefore not ``quantum beats classical ADME-Tox.'' It is: \emph{under an aggressively compressed feature budget compatible with present hardware, a quantum kernel can sometimes outperform a classical model receiving the same reduced information.}
+}
+
+\keytakeaway{This paper essentially dictates our fairness design: report a representation-controlled classical SVM versus quantum kernel on the same $k$ features, and separately report the best practical classical model using the full representation.}
+
+\subsubsection{[25] Salloum et al. (2025) --- \textit{Performance of Quantum Annealing Machine Learning Classification Models on ADMET Datasets}}
+\textbf{Venue:} IEEE Access\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1109/ACCESS.2025.3531391}
+
+\reviewfield{Quantum paradigm}{
+This is \textbf{quantum annealing}, not a gate-based fidelity kernel. Its ``QSVM'' uses a D-Wave annealer to solve an SVM optimization/QUBO formulation. The quantum component is therefore in optimization, not in a circuit-computed molecular similarity kernel.
+}
+
+\reviewfield{Hardware}{
+Experiments use D-Wave Advantage/Pegasus hardware and hybrid-QPU capabilities, including fast-anneal functionality. This is genuine annealing hardware rather than an ideal-only simulator study.
+}
+
+\reviewfield{ADMET tasks and representations}{
+The benchmark spans permeability, HIA, BBB penetration, P-glycoprotein interaction, CYP metabolism, hERG, DILI, carcinogenicity, and related ADMET endpoints. Feature sources include combinations of Mordred/RDKit descriptors, graph-pretrained GIN representations, Graphormer-like embeddings, and contextual/fingerprint-style features.
+
+The appendix discusses AMES mutagenicity, but the main experimental performance table does \textbf{not} report an AMES quantum result. It should therefore not be cited as a demonstrated quantum-Ames benchmark.
+}
+
+\reviewfield{Models}{
+Two annealing methods are studied:
+\begin{itemize}
+    \item QBoost, which uses annealing to optimize an ensemble of weak learners;
+    \item annealing QSVM, which casts SVM optimization as a QUBO.
+\end{itemize}
+The classical reference is \textbf{LightAutoML}, which can combine linear models, CatBoost, LightGBM, stacking/blending, and cross-validated selection. This is a stronger baseline than a single untuned classifier.
+}
+
+\reviewfield{Results}{
+The result is mixed rather than a universal quantum win. LightAutoML is generally the strongest and most consistent system.
+
+QBoost reaches AUC about \textbf{0.8614} on Carcinogens\_Lagunin. On BBB\_Martins, annealing QSVM reaches about \textbf{0.7939}, whereas QBoost is only about 0.5826. Relative rankings vary substantially by dataset.
+}
+
+\reviewfield{Dataset-size behavior}{
+The authors observe that QBoost is relatively competitive on some small datasets but degrades with larger/more complex problems. QSVM is somewhat more stable and can improve as sample size grows, although it remains below LightAutoML in many cases.
+}
+
+\reviewfield{Interpretation}{
+The study shows that different quantum formulations have different failure modes and that strong classical AutoML can remain superior. It is one of the more realistic adjacent QML references because it uses real quantum hardware and real ADMET data.
+}
+
+\keytakeaway{Keep this paper in a separate quantum-annealing branch. It broadens the QML landscape and provides useful mixed/negative evidence, but it is not equivalent to the gate-based QSVC/kernel experiment we plan to run.}
+
+\subsubsection{[26] Rao, Rao, and Sitaratnam (2025) --- \textit{Exploring Quantum Machine Learning Algorithms for Enhanced Chemical Toxicity Classification}}
+\textbf{Venue:} Journal of Theoretical and Applied Information Technology\\
+\textbf{Review basis:} \textbf{Abstract/Scopus metadata only}; no full text was available in the supplied files.\\
+\textbf{DOI:} No DOI was present in the reviewed metadata.
+
+\reviewfield{What can be verified}{
+The abstract describes a five-step binary-toxicity pipeline:
+\[
+\text{SMILES}\rightarrow\text{molecular fingerprints}\rightarrow
+\text{dimensionality reduction}\rightarrow 4\text{ qubits}\rightarrow
+\text{QML model}.
+\]
+
+The quantum methods listed are QSVC, Variational Quantum Circuits (VQC), and a Quantum Autoencoder (QAE). Different optimizers are tested and accuracy is the principal reported metric.
+}
+
+\reviewfield{Headline result}{
+The abstract claims that QAE reaches \textbf{99\% accuracy}, outperforming the other quantum models.
+}
+
+\reviewfield{What could not be verified}{
+Without the full paper, the following remain unknown:
+\begin{itemize}
+    \item exact toxicity dataset and sample count;
+    \item class distribution;
+    \item train/validation/test design;
+    \item whether dimensionality reduction was fit only on training data;
+    \item duplicate/leakage controls;
+    \item exact fingerprint and reduction method;
+    \item simulator/hardware details;
+    \item strength of the classical baseline;
+    \item repeated-run or uncertainty statistics.
+\end{itemize}
+}
+
+\reviewfield{Safe citation use}{
+The paper is valid evidence that a SMILES/fingerprint-to-four-qubit toxicity pipeline has already been proposed. The 99\% number should \textbf{not} be treated as strong quantum-advantage evidence until the full methodology can be verified.
+}
+
+\keytakeaway{This reduces novelty at the pipeline level. Our stronger contribution has to be the ApisTox endpoint, hard chemical-space evaluation, fair classical controls, and detailed generalization analysis.}
+
+\subsubsection{[27] Hangun, Altun, and Eyecioglu (2025) --- \textit{A Hybrid Classical-Quantum Model for QSAR-Based Biodegradability Prediction}}
+\textbf{Venue:} IEEE HPEC 2025\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1109/HPEC67600.2025.11196555}
+
+\reviewfield{Dataset}{
+The paper uses the UCI QSAR biodegradation benchmark with \textbf{1,055 compounds}, 41 molecular descriptors, and a binary ready-biodegradable versus not-ready-biodegradable label. Its sample size is very close to ApisTox.
+}
+
+\reviewfield{Dimensionality reduction and compression}{
+The 41 descriptors are standardized and reduced by PCA to 10 components. A small classical neural network then maps the ten components to an \textbf{8-dimensional latent vector}. Eight values are chosen because they can be amplitude-encoded into three qubits.
+}
+
+\reviewfield{Quantum circuit}{
+The 8-vector is amplitude encoded into \textbf{3 qubits}. The QNN uses trainable RX/RY/RZ rotations, CNOT entanglement, and Pauli-$Z$ measurements. Adam with learning rate around 0.01 is used. The implementation is PennyLane/PyTorch on \texttt{default.qubit}, not physical hardware.
+}
+
+\reviewfield{Fair classical control}{
+A major strength is the \textbf{parameter-matched classical neural network}. The authors do not compare the small QNN only with an unrelated large classical model; they construct a classical counterpart with a similar trainable-parameter budget.
+}
+
+\reviewfield{Validation}{
+Five-fold cross-validation and several classification metrics are used.
+}
+
+\reviewfield{Results}{
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Classical NN & Hybrid QNN\\
+\midrule
+Accuracy & 85.59\% & 87.96\%\\
+Precision & 80.39\% & 84.29\%\\
+Recall & 75.85\% & 79.21\%\\
+F1 & 78.04\% & 81.61\%\\
+Specificity & 90.00\% & 91.85\%\\
+AUROC & 0.91 & 0.92\\
+\bottomrule
+\end{tabular}
+\end{center}
+The hybrid model improves slightly but consistently over the matched neural baseline.
+
+A previously published classical method still reaches about \textbf{90.38\% accuracy}, higher than the hybrid result. Thus, the study does not establish overall state-of-the-art quantum superiority.
+}
+
+\reviewfield{Limitations}{
+The quantum portion is simulated, the molecular data have already passed through PCA and a classical learned compressor, and optimization is classical. The result isolates the effect of the quantum \emph{head}, not a fully quantum molecular pipeline.
+}
+
+\keytakeaway{If we add a QNN as a secondary experiment, this is the cleanest template: same compact input, similar parameter budget, classical head versus quantum head.}
+
+
+\subsubsection{[28] Roosan et al. (2025) --- \textit{Variational Quantum Circuits for Molecular Classification Using Graph Neural Network}}
+\textbf{Venue:} QCNC 2025 Proceedings\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1109/QCNC64685.2025.00074}
+
+\reviewfield{Architecture}{
+The study combines a graph-attention neural network with a variational quantum feature transformation. SMILES are converted with RDKit to molecular graphs; atoms become nodes and bonds become edges. The classical backbone contains two GAT layers with hidden dimensions around 256 and 512.
+}
+
+\reviewfield{Quantum component}{
+The VQC uses feature-dependent RY/RZ rotations and CNOT entanglement. QAOA is also described as a method for selecting/tuning classical hyperparameters such as learning rate and dropout, after which ordinary Adam optimization trains the network.
+}
+
+\reviewfield{Dataset}{
+The paper states that approximately \textbf{337,114 PubChem molecules} are used and that the data are split 80/20.
+}
+
+\reviewfield{Reported results}{
+The displayed comparison is:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Model & AUC & Recall & F1\\
+\midrule
+Random Forest & 0.72 & 0.68 & 0.70\\
+RBF-SVM & 0.75 & 0.69 & 0.71\\
+Classical GNN & 0.76 & 0.71 & 0.74\\
+Quantum-enhanced GNN & 0.84 & 0.78 & 0.82\\
+\bottomrule
+\end{tabular}
+\end{center}
+The authors attribute the improvement to the quantum feature transformation and quantum-assisted tuning.
+}
+
+\reviewfield{Major reporting problem}{
+The PDF does not clearly define the actual molecular property/class corresponding to the binary target. Without a precise endpoint definition, AUC = 0.84 is difficult to interpret scientifically.
+}
+
+\reviewfield{Additional limitations}{
+The split is a simple 80/20 partition, the quantum circuits are simulated in Qiskit, there is no clean ablation separating the VQC feature map from QAOA hyperparameter tuning, and the classical graph baselines are limited relative to current molecular GNN/transformer systems.
+}
+
+\keytakeaway{Use this study as evidence that hybrid GNN+VQC architectures have been explored, but not as strong evidence of quantum superiority. Lu et al. provides a more rigorous graph-aware quantum reference.}
+
+\subsubsection{[29] Khattar, Kumawat, and Aryan (2025) --- \textit{Predicting Molecular Properties With Quantum Kernels: A Study on the QM9 Dataset}}
+\textbf{Venue:} IEEE ICWITE 2025 Proceedings\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1109/ICWITE64848.2025.11307106}
+
+\reviewfield{Task and data}{
+The paper studies regression of several QM9 molecular properties. QM9 contains roughly 134,000 molecules, but the main experimental description states that about \textbf{1,000 molecules are used for training and 100 for testing}. Elsewhere, the paper discusses 10,000-molecule computational scenarios, so the experimental scale is not reported consistently.
+}
+
+\reviewfield{Representation}{
+Molecules are represented with Coulomb matrices. PCA reduces the representation to about \textbf{64 components}, retaining around 95\% of the variance. This is appropriate for geometry/electronic-property tasks but is very different from fingerprint-based toxicity classification.
+}
+
+\reviewfield{Quantum kernel}{
+The described circuit uses approximately:
+\begin{itemize}
+    \item 8 qubits;
+    \item 6 layers;
+    \item rotational feature encoding;
+    \item linear CNOT entanglement;
+    \item 200 shots;
+    \item Qiskit Aer;
+    \item simulated gate error around 1\%.
+\end{itemize}
+The resulting quantum-kernel matrix is supplied to SVR.
+}
+
+\reviewfield{Baselines}{
+The paper compares with classical RBF-SVR and discusses modern neural molecular models such as SchNet.
+}
+
+\reviewfield{Internal inconsistency in performance reporting}{
+The prose claims quantum MAEs around 0.13 Debye for dipole moment and 0.08 eV for HOMO--LUMO gap and describes the quantum method as outperforming classical SVR.
+
+However, the paper's own tables show \emph{lower error for the classical SVR} on the displayed properties. Examples include:
+\begin{itemize}
+    \item dipole MAE: quantum $\sim0.937$ versus classical $\sim0.751$;
+    \item HOMO--LUMO-related MAE: quantum $\sim0.025$ versus classical $\sim0.016$;
+    \item dipole RMSE: quantum $\sim1.356$ versus classical $\sim1.135$.
+\end{itemize}
+Unless an undocumented scaling distinction exists, the tables contradict the narrative claim.
+}
+
+\reviewfield{Computational scaling}{
+Kernel construction is $O(N^2)$ in molecule count. The paper projects very large runtimes as $N$ increases and describes roughly 20 hours quantum versus 2 hours classical as an ``improvement,'' which appears to be another reporting inconsistency.
+}
+
+\keytakeaway{The pipeline is conceptually relevant, but the performance claims are too internally inconsistent to cite as quantum advantage. It is more useful as a warning about reporting discipline and kernel-scaling cost.}
+
+\subsubsection{[30] Lu et al. (2025) --- \textit{Quantum-Embedded Graph Neural Network Architecture for Molecular Property Prediction}}
+\textbf{Venue:} Journal of Chemical Information and Modeling\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1021/acs.jcim.5c01019}
+
+\reviewfield{Core idea}{
+Rather than replacing the final predictor with a QNN, this paper quantumizes the \textbf{representation layer}. The downstream message-passing GNN remains classical, while the MLP normally used to transform node/edge attributes is replaced by parameterized quantum embeddings.
+}
+
+\reviewfield{Quantum Node Embedding (QNEM)}{
+Atom features are encoded with Hadamards, feature-dependent RY rotations, trainable RX rotations, and controlled-RX entanglement. About 1,000 shots are used, and Pauli-$Z$ expectation values form the learned node representation.
+}
+
+\reviewfield{Quantum Edge Embedding (QEEM)}{
+A parallel circuit transforms bond attributes. Quantum node and edge embeddings are then supplied to otherwise classical GNN message passing.
+}
+
+\reviewfield{Backbones and matched control}{
+Quantum embeddings are inserted into GCN, Chebyshev convolution, GIN, and GAT. The classical control replaces the quantum embedding with a conventional MLP, making the comparison more architecture-matched than ``completely different classical model versus QNN.''
+}
+
+\reviewfield{Datasets}{
+Three molecular benchmarks are used:
+\begin{itemize}
+    \item ClinTox;
+    \item HIV;
+    \item BACE.
+\end{itemize}
+For experiments, each is standardized/subsampled to \textbf{500 molecules}. ClinTox is imbalanced at roughly 406/94; HIV and BACE are balanced around 250/250. Training uses an 80/20 split, batch size around four, 30 epochs, and Adam.
+}
+
+\reviewfield{Simulation results}{
+Representative GCN accuracy:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Dataset & Classical GCN & Quantum-embedded GCN\\
+\midrule
+ClinTox & 0.80 & 0.87\\
+BACE & 0.64 & 0.70\\
+HIV & 0.73 & 0.97\\
+\bottomrule
+\end{tabular}
+\end{center}
+Chebyshev networks show a similar direction (e.g., ClinTox 0.80$\rightarrow$0.85; HIV 0.71$\rightarrow$0.98). Several GIN/GAT configurations also improve with QNEM/QEEM.
+}
+
+\reviewfield{Parameter efficiency}{
+One of the most interesting results is the reduction in trainable embedding parameters. A representative GCN embedding falls from about \textbf{1,820 classical parameters to 371 quantum parameters}, roughly an 80\% reduction. A GIN embedding drops from about 2,770 to 1,321.
+}
+
+\reviewfield{Real quantum hardware}{
+The authors execute the embeddings on the \textbf{72-qubit Wukong superconducting processor}. Hardware performance falls relative to simulation but remains usable. Examples:
+\begin{itemize}
+    \item GCN: simulator $\sim0.94$, Wukong $\sim0.85$;
+    \item CCN: 0.87 $\rightarrow$ 0.84;
+    \item GIN-node: 0.87 $\rightarrow$ 0.75;
+    \item GAT-node: 0.89 $\rightarrow$ 0.82.
+\end{itemize}
+}
+
+\reviewfield{What this demonstrates---and what it does not}{
+The study shows that quantum embeddings can be compact and can improve accuracy relative to the authors' matched MLP embeddings, including on noisy hardware. It does \textbf{not} prove an asymptotic computational speedup over the best possible classical representation.
+}
+
+\reviewfield{Limitations}{
+All benchmarks are reduced to 500 molecules; evaluation is a random 80/20 split; accuracy is emphasized; ClinTox is imbalanced; and there is no scaffold/time/MaxMin test comparable to ApisTox.
+}
+
+\keytakeaway{This is the strongest graph-aware quantum representation paper in our set. It is an excellent future-extension reference, but implementing QEGNN in the current study would substantially expand the scope beyond a focused quantum-kernel comparison.}
+
+\subsection{Fair QML Benchmarking, Robustness, and Negative Evidence}
+
+\subsubsection{[31] Harjanto, Purnomo, and Hendry (2026) --- \textit{Comparative Study of Classical and Quantum Machine Learning Models: Insights into Quantum Advantage in Materials Informatics}}
+\textbf{Venue:} Advance Sustainable Science, Engineering and Technology\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.26877/asset.v8i2.2733}
+
+\reviewfield{Why a materials paper belongs here}{
+This is one of the cleanest examples of a \textbf{representation-controlled classical--quantum comparison}. Its methodological design is more relevant to us than its materials endpoint.
+}
+
+\reviewfield{Dataset and preprocessing}{
+The study uses 1,000 crystalline compounds from OQMD for binary stability classification. Features are min--max normalized and reduced by PCA to \textbf{four dimensions} because the QML models use four qubits.
+
+Crucially, PCA is fitted only on the training data and then applied to the test data, avoiding dimensionality-reduction leakage.
+}
+
+\reviewfield{Fairness constraint}{
+Every model---including the classical RBF-SVM---receives the \textbf{same four PCA components}. The classical model is not allowed to keep the full input while QML receives only four dimensions.
+}
+
+\reviewfield{Quantum models}{
+\begin{itemize}
+    \item QSVM: ZZFeatureMap, about two repetitions, fidelity quantum kernel, roughly 1,024 shots;
+    \item VQC: similar feature encoding followed by a TwoLocal-style RY/RZ ansatz with fully connected CZ entanglement, optimized with SPSA;
+    \item QNN: a deeper trainable variational network.
+\end{itemize}
+}
+
+\reviewfield{Repeated evaluation}{
+The study repeats experiments over several runs/seeds and reports mean $\pm$ standard deviation.
+}
+
+\reviewfield{Results}{
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Model & Accuracy\\
+\midrule
+Classical RBF-SVM & $0.918\pm0.012$\\
+QSVM & $0.608\pm0.035$\\
+VQC & $0.363\pm0.048$\\
+QNN & $0.298\pm0.055$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The classical model wins by a very large margin even though it receives exactly the same reduced information.
+}
+
+\reviewfield{Why QSVM remains the best quantum model}{
+QSVM does not optimize a deep variational circuit; it computes a feature-map kernel and leaves SVM optimization classical. VQC/QNN are much more vulnerable to initialization sensitivity, noisy gradients, and barren plateaus. Accordingly, QSVM is both more accurate and more stable.
+}
+
+\reviewfield{Computational cost}{
+The paper characterizes classical SVM as low cost, quantum-kernel SVM as medium with $O(N^2)$ kernel evaluation, VQC as high with thousands of circuit executions, and QNN as even more expensive.
+}
+
+\reviewfield{Interpretation}{
+The authors argue that future quantum gains are more likely to come from \textbf{better encoding/kernel design} than from simply adding variational depth.
+}
+
+\keytakeaway{This is the best citation in the set for the principle that a negative QML result is still publishable science. If RBF-SVM beats QSVC on ApisTox under a controlled representation, the useful contribution is understanding where and why the quantum geometry fails.}
+
+\subsubsection{[32] Sheoran, Yadav, and Sheoran (2025) --- \textit{Robust evaluation of classical and quantum machine learning under noise, imbalance, feature reduction and explainability}}
+\textbf{Venue:} Scientific Reports\\
+\textbf{Review basis:} Full text reviewed.\\
+\textbf{DOI:} \paperdoi{10.1038/s41598-025-28412-9}
+
+\reviewfield{Purpose}{
+This study asks how classical and quantum classifiers behave when data are noisy, imbalanced, and aggressively feature-reduced. Its datasets are not molecular; its value is methodological.
+}
+
+\reviewfield{Datasets}{
+Five public datasets are used:
+\begin{itemize}
+    \item Iris: 150 $\times$ 4;
+    \item Wine: 178 $\times$ 13;
+    \item Breast Cancer Wisconsin: 569 $\times$ 30;
+    \item Pima Diabetes: 768 $\times$ 8;
+    \item Human Activity Recognition: about 10,299 $\times$ 561.
+\end{itemize}
+}
+
+\reviewfield{Stress conditions}{
+The experiments vary:
+\begin{itemize}
+    \item SMOTE/ADASYN balancing;
+    \item injected Gaussian feature noise;
+    \item ANOVA SelectKBest feature reduction, often to six features;
+    \item PCA for compact QSVM inputs;
+    \item clean versus perturbed conditions.
+\end{itemize}
+}
+
+\reviewfield{Models}{
+Classical methods include SVM, Random Forest, Decision Tree, kNN, and Logistic Regression. Quantum methods include QSVM, quantum kNN, and VQC.
+}
+
+\reviewfield{Quantum configuration}{
+PennyLane \texttt{default.mixed} is used for noisy/mixed-state simulation. Inputs use AngleEmbedding. QSVM uses a precomputed overlap-style quantum kernel; VQC uses BasicEntanglerLayers with a small two-layer variational circuit and classical gradient descent. Quantum experiments generally use 4--8 qubits.
+}
+
+\reviewfield{Evaluation discipline}{
+Five independent runs are performed and results are summarized with mean and standard deviation. Small QML experiments use stratified cross-validation (around three folds), while classical hyperparameters are tuned with five-fold GridSearchCV. Metrics include accuracy, precision, recall, F1, ROC/AUC, confusion matrices, and runtime.
+}
+
+\reviewfield{Results}{
+Performance is strongly dataset-dependent. A Breast Cancer QSVM configuration reaches accuracy near 0.987 in one balancing/noise scenario, but HAR QSVM is much weaker (roughly 0.41--0.53 in displayed settings). VQC is frequently less stable and lower-performing than QSVM.
+
+The general pattern is:
+\begin{itemize}
+    \item classical models are usually high and stable;
+    \item QSVM can be moderate-to-high and relatively resilient in some noisy/imbalanced settings;
+    \item quantum kNN is intermediate;
+    \item VQC is often unstable/noise-sensitive.
+\end{itemize}
+}
+
+\reviewfield{Explainability caveat}{
+SHAP and LIME are included, but the detailed protocol applies them primarily to \textbf{classical} models. The study should not be cited as a complete quantum-explainability solution.
+}
+
+\reviewfield{What to borrow}{
+The useful ideas are repeated-run reporting, mean $\pm$ std, sensitivity to preprocessing/imbalance, runtime reporting, and examination of the \textbf{distribution of quantum-kernel similarities} rather than treating the kernel as a black box.
+}
+
+\keytakeaway{We do not need arbitrary synthetic noise in ApisTox, but we should report run-to-run variance, sensitivity to feature reduction, class-imbalance behavior, kernel diagnostics, and computational cost.}
+
+\newpage
+\section{Cross-Paper Synthesis for Writing the Actual Previous Work}
+
+\subsection{What the classical bee-toxicity literature already establishes}
+
+The manuscript should not imply that structure-based honey-bee toxicity prediction is new. The direct literature already shows:
+\begin{itemize}
+    \item descriptor-based QSTR/QSAR can predict both categorical and quantitative toxicity;
+    \item kNN/read-across-like local similarity is viable;
+    \item systematic fingerprint $\times$ classifier searches can produce strong SVM/RF baselines;
+    \item graph neural networks and graph kernels have already been applied directly to bee toxicity;
+    \item applicability-domain analysis and structural-alert interpretation are established concerns;
+    \item very high random/same-domain test performance is possible.
+\end{itemize}
+
+The unresolved issue is not whether ML can predict honey-bee toxicity at all. The harder issue is \textbf{generalization to chemically distinct or temporally newer agrochemicals}.
+
+\subsection{What ApisTox changes}
+
+The ApisTox benchmark shifts attention away from peak IID accuracy and toward chemical-space realism. Fingerprints and graph kernels remain strong under MaxMin/time partitions, while several GNN/pretrained systems lose their expected advantage.
+
+BeeEcoTox reinforces the same point: its ordinary split reaches AUC near 0.91, while a temporal-style evaluation falls to roughly 0.72 and MCC around 0.22. Therefore, a lower score under a harder split can be \emph{more scientifically informative} than a much higher random-split number.
+
+\subsection{What the transferable classical literature suggests adding}
+
+The strongest methodological additions for our experiment are:
+\begin{itemize}
+    \item \textbf{strict leakage control}: fit scaling, PCA, feature selection, and balancing only inside training data;
+    \item \textbf{two levels of classical comparison}: same reduced input for quantum fairness, plus the best full-feature practical baseline;
+    \item \textbf{activity-cliff/SALI analysis}: identify structurally similar molecules with opposing toxicity labels;
+    \item \textbf{applicability domain}: separate in-domain and out-of-domain behavior;
+    \item \textbf{systematic representation selection}: descriptors, Morgan/ECFP, MACCS, and compact selected descriptor sets;
+    \item \textbf{repeated evaluation}: report mean and standard deviation across seeds/runs;
+    \item \textbf{imbalance-aware metrics}: MCC, balanced accuracy, recall, AUPRC in addition to AUROC;
+    \item \textbf{interpretability/error analysis}: examine substructures and difficult molecules rather than only aggregate scores.
+\end{itemize}
+
+\subsection{What the QML literature actually supports}
+
+The reviewed QML literature does \textbf{not} support a blanket claim that quantum models outperform classical ML. It supports narrower observations:
+\begin{enumerate}
+    \item Quantum kernels can be competitive with classical kernels when both receive the same aggressively reduced input.
+    \item Full-feature classical molecular models can still outperform compact QML; Bhatia et al. explicitly show this.
+    \item QNNs can give small gains over parameter-matched neural heads without beating the strongest published classical method.
+    \item Quantum graph embeddings can reduce parameter count and improve matched embedding modules, including on real hardware, but existing evaluations are mostly small/random-split.
+    \item Quantum annealing is a distinct optimization paradigm and does not consistently beat strong AutoML.
+    \item Carefully controlled studies can show a large classical advantage; this remains a scientifically meaningful outcome.
+\end{enumerate}
+
+\subsection{A defensible gap statement}
+
+\begin{quote}
+Quantum machine learning has been applied to molecular property prediction, QSAR, ADME/Tox, chemical toxicity, biodegradability, and graph-based molecular learning using quantum kernels, variational circuits, quantum neural networks, quantum embeddings, and quantum annealing. In parallel, honey-bee toxicity prediction has a mature classical QSAR/ML literature and now includes graph models, multimodal systems, and the ApisTox benchmark. What remains insufficiently characterized is whether compact gate-based quantum kernels offer any predictive or representational benefit for honey-bee toxicity when evaluated against both representation-matched and best-practical classical baselines under structure-aware and temporally challenging chemical-space splits.
+\end{quote}
+
+This wording deliberately asks \emph{whether} a benefit exists; it does not presuppose quantum advantage.
+
+\section{Recommended Drafting Order}
+
+\begin{enumerate}
+    \item Define the biological endpoint and its limits using the harmonized ECOTOX and interspecies-proxy papers.
+    \item Summarize the progression of direct classical bee-QSAR: QSTR/ANN $\rightarrow$ kNN $\rightarrow$ systematic fingerprint/SVM/RF $\rightarrow$ BeeToxAI.
+    \item Introduce graph learning and graph kernels, then the larger 2024 agrochemical model.
+    \item Present ApisTox as the modern benchmark and explain why MaxMin/time splits expose a generalization problem.
+    \item Cover the newest ApisTox/bee models (GNN, BeeEcoTox, BeeMSAI), emphasizing what extra information and what split each uses.
+    \item Use the transferable toxicity papers briefly to motivate SALI, AD, consensus baselines, low-data behavior, and leak-free preprocessing.
+    \item Close with QML, separating gate-based kernels, PQC/QNN systems, quantum graph embeddings, and annealing.
+    \item End with mixed/negative QML evidence and the need for a controlled comparison rather than an assumed quantum advantage.
+\end{enumerate}
+
+\section{Important Comparison Warnings}
+
+\begin{itemize}
+    \item Do not compare AUROC from a random split directly with AUROC from an ApisTox MaxMin/time split as if they measure the same difficulty.
+    \item Do not call quantum-chemistry descriptors ``QML.'' Quantum-chemical calculations feeding a classical learner are not quantum machine learning.
+    \item Do not call the D-Wave annealing QSVM equivalent to a gate-based QSVC fidelity kernel.
+    \item Do not treat a reduced-feature QSVC win as evidence that QML beats the best full-feature classical model unless that latter comparison is actually shown.
+    \item Do not cite the 99\% result from the abstract-only QML toxicity paper as robust quantum-advantage evidence until its dataset/split/leakage controls are verified.
+    \item Do not infer species-wide pollinator safety from an \textit{Apis mellifera}-specific classifier.
+\end{itemize}
+
+\end{document}

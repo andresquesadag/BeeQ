@@ -1,0 +1,21 @@
+{
+  "result": {
+    "BEST_PAIR": "NumAromaticRings__n_OP",
+    "BEST_PAIR_MCC": 0.1504122984220774,
+    "BEST_PATH": "[\"MolWt\", \"NumRotatableBonds\", \"nHalogen\", \"MolLogP\", \"LiPHEX_prediction\", \"n_OP\", \"NumAromaticRings\", \"TPSA_SP\", \"NumHDonors\", \"sasa002_frac_polar_hetero_only\"]",
+    "BEST_PATH_EDGE_SD": 0.013471153016163338,
+    "BEST_PATH_MIN_EDGE": 0.0,
+    "BEST_PATH_SCORE": 0.11628466362160952,
+    "ELAPSED_SECONDS": 385.9535850000001,
+    "LABEL_SEED": 20360826,
+    "MODE": "complete_pair_screen_and_path_rebuild",
+    "PERMUTATION": 2
+  },
+  "signature": {
+    "input_sha256_lf": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984",
+    "permutation": 2,
+    "seed": 20260824,
+    "source_sha256": "0802080a5f5dfdea17024086481aebf681c62dfa993287531986193ba1b7ee16"
+  },
+  "status": "complete"
+}

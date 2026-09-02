@@ -1,0 +1,23 @@
+{
+  "campaign_specific_tests": {
+    "command": ".venv\\Scripts\\python.exe -m pytest tests\\test_exercise_a_campaign.py -q",
+    "passed": 5,
+    "failed": 0,
+    "status": "pass"
+  },
+  "existing_full_suite": {
+    "command": ".venv\\Scripts\\python.exe -m pytest -q",
+    "passed": 18,
+    "failed": 2,
+    "status": "known_windows_line_ending_failures",
+    "failures": [
+      "tests/test_auditability.py::test_versioned_input_hashes",
+      "tests/test_auditability.py::test_retained_campaign_manifests"
+    ],
+    "cause": "Physical CRLF worktree hashes differ from LF hashes stored by historical manifests.",
+    "canonical_lf_input_hashes_match": true,
+    "canonical_lf_historical_artifact_hashes_match": true,
+    "historical_expectations_modified": false
+  },
+  "git_diff_check": "pass"
+}

@@ -1,0 +1,52 @@
+{
+  "CR8_role": "post-freeze_descriptive_external_evaluation",
+  "CR8_used": true,
+  "CR8_used_for_selection": false,
+  "C_values": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "baseline_campaign_read_only": "C:\\Github_Repos\\BeeQ\\results\\campaigns\\BEEQ_FINAL_NESTED_STRUCT_IMPL_20260827T144143Z",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20260824,
+  "bootstrap_unit": "BUTINA_CLUSTER_ID",
+  "excluded_papers_used": false,
+  "exercise": "A",
+  "feature_scales": [
+    0.125,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "features": [
+    "MolLogP",
+    "MolWt",
+    "TPSA_SP",
+    "NumHDonors",
+    "NumRotatableBonds",
+    "NumAromaticRings",
+    "nHalogen",
+    "n_OP",
+    "LiPHEX_prediction",
+    "sasa002_frac_polar_hetero_only"
+  ],
+  "group": "BUTINA_CLUSTER_ID",
+  "historical_holdout_used": false,
+  "inner_folds": 4,
+  "outer_folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "resume": "atomic outer-fold JSON checkpoints validated by source/config/input signature",
+  "seed": 20260824,
+  "selection_metric": "mean_inner_AUROC",
+  "selection_tie_break": "feature_scale_order_then_C_ascending",
+  "simulation": "exact_no_shots_no_noise",
+  "splitter": "StratifiedGroupKFold",
+  "threshold": "max_inner_OOF_MCC_then_balanced_accuracy_then_abs_threshold_then_threshold"
+}

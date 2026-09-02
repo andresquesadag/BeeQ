@@ -18,6 +18,10 @@ authors:
     given-names: "Luis A."
     affiliation: "CBio3 Laboratory, School of Chemistry, University of Costa Rica"
     email: "luis.zumbadosilva@ucr.ac.cr"
+  - family-names: "Aguero-Sandi"
+    given-names: "Johnny"
+    affiliation: "Instituto Tecnológico de Costa Rica"
+    orcid: "https://orcid.org/0009-0009-3121-9631"
 abstract: >-
   Auditable classical and simulated-quantum kernel experiments for acute
   honey-bee toxicity screening, including versioned inputs, executable

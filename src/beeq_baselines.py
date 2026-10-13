@@ -223,7 +223,7 @@ def main():
             hm, hp = run_final(rep, label, train, test, y_all, len(train))
             hm.to_csv(a.out / f"{label}_HOLDOUT_METRICS.csv", index=False)
             hp.to_csv(a.out / f"{label}_HOLDOUT_PREDICTIONS.csv", index=False)
-        print(f"   {label}: AUROC externo medio={m.AUROC.mean():.3f} (SD {m.AUROC.std(ddof=1):.3f}), "
+        print(f"   {label}: mean outer fold AUROC ={m.AUROC.mean():.3f} (SD {m.AUROC.std(ddof=1):.3f}), "
               f"{time.perf_counter() - t0:.0f}s", flush=True)
 
 

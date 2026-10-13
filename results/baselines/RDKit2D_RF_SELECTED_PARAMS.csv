@@ -1,0 +1,6 @@
+MODEL,OUTER_FOLD,BEST_PARAMS,INNER_AUROC_MEAN,THRESHOLD,INNER_THRESHOLD_MCC
+RDKit2D_RF,1,"{""cfg_index"": 1, ""feature_config"": {""normalized"": true}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.8059770409408091,0.4066666666666667,0.5374283508798188
+RDKit2D_RF,2,"{""cfg_index"": 1, ""feature_config"": {""normalized"": true}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.7674773866993524,0.5885030529800582,0.4712507207395076
+RDKit2D_RF,3,"{""cfg_index"": 1, ""feature_config"": {""normalized"": true}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.769078795218852,0.47,0.46702736664133315
+RDKit2D_RF,4,"{""cfg_index"": 0, ""feature_config"": {""normalized"": false}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.776004489835926,0.49844768824118574,0.48292747272586184
+RDKit2D_RF,5,"{""cfg_index"": 1, ""feature_config"": {""normalized"": true}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.7797079513361873,0.37742148556893673,0.46331620658500716

@@ -1,0 +1,6 @@
+outer_fold,n_train,n_validation,train_negative,train_positive,validation_negative,validation_positive,train_clusters,validation_clusters,cluster_intersection
+1,575,137,393,182,97,40,299,75,0
+2,607,105,422,185,68,37,304,70,0
+3,565,147,380,185,110,37,295,79,0
+4,531,181,368,163,122,59,300,74,0
+5,570,142,397,173,93,49,298,76,0

@@ -1,0 +1,18 @@
+{
+  "seed": 20260824,
+  "rf": "beeq",
+  "reps": [
+    "X10",
+    "MACCS",
+    "RDKit2D",
+    "ECFP",
+    "AtomCounts",
+    "Mordred",
+    "WL-OA"
+  ],
+  "sklearn": "1.9.0",
+  "data_sha256": {
+    "train_RDKitFixed.csv": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984",
+    "test_RDKitFixed.csv": "3f964207e5d732315501d11be2d50c4f520e51a8c7f17b70fe8594390988c8f5"
+  }
+}

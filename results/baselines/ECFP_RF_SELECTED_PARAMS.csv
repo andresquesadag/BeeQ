@@ -1,0 +1,6 @@
+MODEL,OUTER_FOLD,BEST_PARAMS,INNER_AUROC_MEAN,THRESHOLD,INNER_THRESHOLD_MCC
+ECFP_RF,1,"{""cfg_index"": 5, ""feature_config"": {""count"": false, ""fp_size"": 2048, ""radius"": 3}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.8252939219165927,0.56,0.5474144033656241
+ECFP_RF,2,"{""cfg_index"": 0, ""feature_config"": {""count"": false, ""fp_size"": 512, ""radius"": 2}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.8055188294095481,0.4469438722166718,0.545438805144904
+ECFP_RF,3,"{""cfg_index"": 0, ""feature_config"": {""count"": false, ""fp_size"": 512, ""radius"": 2}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.8132533178749372,0.4770123221547527,0.586348047653726
+ECFP_RF,4,"{""cfg_index"": 5, ""feature_config"": {""count"": false, ""fp_size"": 2048, ""radius"": 3}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.8397737171632202,0.42,0.6176003949513926
+ECFP_RF,5,"{""cfg_index"": 11, ""feature_config"": {""count"": true, ""fp_size"": 2048, ""radius"": 3}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.8056420483647795,0.4633333333333333,0.5600772363025549

@@ -1,0 +1,6 @@
+MODEL,OUTER_FOLD,BEST_PARAMS,INNER_AUROC_MEAN,THRESHOLD,INNER_THRESHOLD_MCC
+X10_RF,1,"{""cfg_index"": 0, ""feature_config"": {}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.7899122970810342,0.5318873464768938,0.5545056156602938
+X10_RF,2,"{""cfg_index"": 0, ""feature_config"": {}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.7348851102137354,0.5601787460707077,0.5206768371168132
+X10_RF,3,"{""cfg_index"": 0, ""feature_config"": {}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.7254334994806628,0.62,0.4544753382942671
+X10_RF,4,"{""cfg_index"": 0, ""feature_config"": {}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 3}}",0.7491452118895312,0.6464497655516229,0.49749803125233744
+X10_RF,5,"{""cfg_index"": 0, ""feature_config"": {}, ""rf"": {""model__max_depth"": null, ""model__min_samples_leaf"": 1}}",0.7644059170985916,0.5366666666666666,0.47070159128512035

@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "All production artifact hashes and sizes match",
+    "Development freeze remains unchanged after external evaluation",
+    "693 fits: exact CV training membership, weights, local scalers, finite losses and no resampling",
+    "All 31 fixed-parameter balanced fits share parameters, seed, scaler and native stopping membership with controls",
+    "5 outer, 20 inner and 5 final-selection splits are cluster disjoint",
+    "Both searches have identical 12-candidate budgets: 240 nested + 60 final HPO fits each",
+    "18 threshold OOF pools have complete single coverage and reproduce MCC/BA/threshold tie rules",
+    "2,136 nested OOF, 543 holdout and 24 CR8 predictions reproduce all metrics and decisions without evaluation weights",
+    "Historical holdout clusters and exact/canonical CR8 identities remain separate from Development",
+    "Independent complete rerun: all 18 CSV outputs match exactly"
+  ],
+  "manuscript_integration": "reviewed source unavailable; replacement blocks supplied",
+  "run": "C:\\Github_Repos\\BeeQ\\results\\mlp_sensitivity\\full_20261009_v2",
+  "status": "passed",
+  "test_suite": "19 passed",
+  "training_warning_count": 0
+}

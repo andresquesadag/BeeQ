@@ -1,0 +1,568 @@
+EVALUATION,ID,name,BUTINA_CLUSTER_ID,MODEL,OUTER_FOLD,LABEL,SCORE,THRESHOLD,MARGIN,PRED
+historical_holdout,1,Ethanedioic acid,461.0,MLP_original,historical_holdout,0,0.22191349123450738,0.524583086867806,-0.3026695956332986,0
+historical_holdout,4,Tetradifon (Ref: ENT 23737),459.0,MLP_original,historical_holdout,1,0.4680191754191231,0.524583086867806,-0.05656391144868289,0
+historical_holdout,9,Bromophos,29.0,MLP_original,historical_holdout,1,0.5747557770349844,0.524583086867806,0.0501726901671784,1
+historical_holdout,28,Cartap (Ref: TL 1258),454.0,MLP_original,historical_holdout,1,0.30507891290828587,0.524583086867806,-0.2195041739595201,0
+historical_holdout,45,"N-Acetylphosphoramidothioic acid O,S-dimethyl ester",449.0,MLP_original,historical_holdout,1,0.3621945683528181,0.524583086867806,-0.16238851851498787,0
+historical_holdout,54,"2,4-Dichloro-1-(4-nitrophenoxy)benzene",1.0,MLP_original,historical_holdout,0,0.45778084125871066,0.524583086867806,-0.06680224560909531,0
+historical_holdout,61,"2,4-D (Ref: L 208)",1.0,MLP_original,historical_holdout,0,0.4073812038310236,0.524583086867806,-0.11720188303678236,0
+historical_holdout,63,"N-(1-Ethylpropyl)-3,4-dimethyl-2,6-dinitro-benzenamine",162.0,MLP_original,historical_holdout,0,0.423178907676983,0.524583086867806,-0.10140417919082295,0
+historical_holdout,64,Vernolate (Ref: R-106),34.0,MLP_original,historical_holdout,1,0.31493331272390956,0.524583086867806,-0.2096497741438964,0
+historical_holdout,73,"N,N-Bis(2-methylpropyl)carbamothioic acid S-ethyl ester",176.0,MLP_original,historical_holdout,0,0.2845249594915955,0.524583086867806,-0.24005812737621046,0
+historical_holdout,74,4-Chloro-alpha-(4-chlorophenyl)-alpha-methylbenzenemethanol,74.0,MLP_original,historical_holdout,0,0.3779288776456684,0.524583086867806,-0.14665420922213757,0
+historical_holdout,80,Jasmone,442.0,MLP_original,historical_holdout,0,0.20253992451070377,0.524583086867806,-0.3220431623571022,0
+historical_holdout,82,"N-[1-[(Butylamino)carbonyl]-1H-benzimidazol-2-yl]carbamic acid, Methyl ester",440.0,MLP_original,historical_holdout,1,0.33965342341679666,0.524583086867806,-0.1849296634510093,0
+historical_holdout,91,4-Chloro-alpha-(4-chlorophenyl)-alpha-(trichloromethyl)benzenemethanol,74.0,MLP_original,historical_holdout,1,0.48146820889779013,0.524583086867806,-0.04311487797001584,0
+historical_holdout,103,Pyrethrins (pyrethrin I),14.0,MLP_original,historical_holdout,1,0.3441752708848564,0.524583086867806,-0.18040781598294958,0
+historical_holdout,113,Carene,435.0,MLP_original,historical_holdout,0,0.14525674026751084,0.524583086867806,-0.37932634660029513,0
+historical_holdout,120,(4-chlorophenoxy)acetic acid,10.0,MLP_original,historical_holdout,0,0.33943541370627084,0.524583086867806,-0.18514767316153513,0
+historical_holdout,121,Pyrethrins and Pyrethroids,14.0,MLP_original,historical_holdout,1,0.3645242970719669,0.524583086867806,-0.1600587897958391,0
+historical_holdout,124,Acifluorfen (Ref: RH 5781),5.0,MLP_original,historical_holdout,0,0.44271442472358846,0.524583086867806,-0.08186866214421751,0
+historical_holdout,136,"1-[[2-(2,4-Dichlorophenyl)-4-propyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_original,historical_holdout,0,0.46953163422414007,0.524583086867806,-0.0550514526436659,0
+historical_holdout,137,2-(4-Chloro-2-methylphenoxy)acetic acid,10.0,MLP_original,historical_holdout,0,0.3359952840665121,0.524583086867806,-0.1885878028012939,0
+historical_holdout,139,"2,2-Dimethyl-3-(2-methyl-1-propen-1-yl)cyclopropanecarboxylic acid [5-(phenylmethyl)-3-furanyl]methyl ester",20.0,MLP_original,historical_holdout,1,0.40401147828884915,0.524583086867806,-0.12057160857895682,0
+historical_holdout,151,Bioallethrin,14.0,MLP_original,historical_holdout,1,0.3141886692474409,0.524583086867806,-0.2103944176203651,0
+historical_holdout,162,Chitosan hydrochloride,426.0,MLP_original,historical_holdout,0,0.003979237447126617,0.524583086867806,-0.5206038494206794,0
+historical_holdout,185,Delnav,105.0,MLP_original,historical_holdout,0,0.7155983089221504,0.524583086867806,0.1910152220543444,1
+historical_holdout,188,"2-(2,4,5-Trichlorophenoxy)propanoic acid",1.0,MLP_original,historical_holdout,0,0.43378017992481405,0.524583086867806,-0.09080290694299192,0
+historical_holdout,191,Naptalam (Ref: ACP 322),169.0,MLP_original,historical_holdout,0,0.34277904961719285,0.524583086867806,-0.18180403725061312,0
+historical_holdout,199,2-[4-[(6-Chloro-2-quinoxalinyl)oxy]phenoxy]propanoic acid,1.0,MLP_original,historical_holdout,0,0.4515053821078231,0.524583086867806,-0.07307770475998288,0
+historical_holdout,200,"2-[(3,5,6-Trichloro-2-pyridinyl)oxy]acetic acid",10.0,MLP_original,historical_holdout,0,0.45427035870958365,0.524583086867806,-0.07031272815822232,0
+historical_holdout,203,"N,N-dipropylcarbamothioic acid S-ethyl ester",34.0,MLP_original,historical_holdout,1,0.2853713300454959,0.524583086867806,-0.23921175682231005,0
+historical_holdout,207,Mecoprop (Ref: RD 4593),1.0,MLP_original,historical_holdout,0,0.33163475435738893,0.524583086867806,-0.19294833251041704,0
+historical_holdout,212,Daminozide,419.0,MLP_original,historical_holdout,0,0.27088207936167397,0.524583086867806,-0.253701007506132,0
+historical_holdout,214,MCPB (Ref: MB 3046),10.0,MLP_original,historical_holdout,0,0.38075780008354543,0.524583086867806,-0.14382528678426054,0
+historical_holdout,222,"2,4-DB (Ref: ENT 8538)",1.0,MLP_original,historical_holdout,0,0.4463747675647317,0.524583086867806,-0.07820831930307426,0
+historical_holdout,224,Dichlorprop (Ref: RD 406),1.0,MLP_original,historical_holdout,0,0.38452189740883513,0.524583086867806,-0.14006118945897084,0
+historical_holdout,234,"p-Phenylphosphonothioic acid, O-(4-Bromo-2,5-dichlorophenyl) O-methyl ester",29.0,MLP_original,historical_holdout,1,0.4774611723424509,0.524583086867806,-0.04712191452535508,0
+historical_holdout,244,"1,3-Dithiolo[4,5-b]quinoxaline-2-thione",413.0,MLP_original,historical_holdout,0,0.2975416471213598,0.524583086867806,-0.2270414397464462,0
+historical_holdout,260,Ioxynil (Ref: ACP 63-303),49.0,MLP_original,historical_holdout,1,0.3140031198068017,0.524583086867806,-0.2105799670610043,0
+historical_holdout,263,"1,3-Dithiolan-2-ylidenephosphoramidic acid diethyl ester",120.0,MLP_original,historical_holdout,1,0.4651226285417159,0.524583086867806,-0.05946045832609009,0
+historical_holdout,264,Chlorthal-dimethyl (Ref: DAC 893),51.0,MLP_original,historical_holdout,0,0.46955440416971606,0.524583086867806,-0.055028682698089915,0
+historical_holdout,267,Chlorthiamid (Ref: WL 5792.),408.0,MLP_original,historical_holdout,0,0.2769429538608181,0.524583086867806,-0.2476401330069879,0
+historical_holdout,274,"O-Ethyl O-(2,4,5-trichlorophenyl)ester ethylphosphonothioic acid",29.0,MLP_original,historical_holdout,1,0.4919780647563563,0.524583086867806,-0.032605022111449666,0
+historical_holdout,280,Tetramethrin (Ref: ENT 27339),14.0,MLP_original,historical_holdout,1,0.32710401024435987,0.524583086867806,-0.1974790766234461,0
+historical_holdout,288,Chlordimeform (Ref: ENT 27335),128.0,MLP_original,historical_holdout,0,0.2694707308565332,0.524583086867806,-0.25511235601127275,0
+historical_holdout,292,Pyrethrins (jasmolin I),14.0,MLP_original,historical_holdout,1,0.34716700483394247,0.524583086867806,-0.1774160820338635,0
+historical_holdout,293,Formetanate (Ref: SN 36056),39.0,MLP_original,historical_holdout,1,0.2870448522936277,0.524583086867806,-0.23753823457417828,0
+historical_holdout,295,Pyrethrins (jasmolin II),14.0,MLP_original,historical_holdout,1,0.36814093037765006,0.524583086867806,-0.15644215649015591,0
+historical_holdout,296,Diclofop-methyl (Ref: HOE 023408),1.0,MLP_original,historical_holdout,0,0.47754087118555105,0.524583086867806,-0.04704221568225492,0
+historical_holdout,299,"Phosphorothioic acid, O-(2,5-Dichloro-4-iodophenyl) O,O-dimethyl ester",29.0,MLP_original,historical_holdout,1,0.5712972147557,0.524583086867806,0.046714127887893975,1
+historical_holdout,312,Kelevan (Ref: GC-9160),399.0,MLP_original,historical_holdout,0,0.5498953578521648,0.524583086867806,0.025312270984358842,1
+historical_holdout,313,Picloram-methyl,51.0,MLP_original,historical_holdout,0,0.3769657255210295,0.524583086867806,-0.14761736134677644,0
+historical_holdout,317,"Octanoic acid, 2,6-Dibromo-4-cyanophenyl ester",49.0,MLP_original,historical_holdout,0,0.4072974472699874,0.524583086867806,-0.11728563959781857,0
+historical_holdout,324,"alpha, alpha-bis(4-Chlorophenyl)-3-pyridinemethanol",74.0,MLP_original,historical_holdout,1,0.43453695860645375,0.524583086867806,-0.09004612826135222,0
+historical_holdout,329,Bromophos-ethyl (Ref: SHG-2225),29.0,MLP_original,historical_holdout,1,0.5666851766604243,0.524583086867806,0.042102089792618314,1
+historical_holdout,342,N-(Phosphonomethyl)glycine,392.0,MLP_original,historical_holdout,0,0.2321589805197004,0.524583086867806,-0.29242410634810556,0
+historical_holdout,352,"N,N-Diethylcarbamothioic acid S-[(4-chlorophenyl)methyl] ester",34.0,MLP_original,historical_holdout,0,0.37699957646949156,0.524583086867806,-0.1475835103983144,0
+historical_holdout,360,"4-(1,1-Dimethylethyl)-N-(1-methylpropyl)-2,6-dinitrobenzenamine",162.0,MLP_original,historical_holdout,0,0.4177191481530875,0.524583086867806,-0.10686393871471844,0
+historical_holdout,369,Bifenox,1.0,MLP_original,historical_holdout,0,0.48633289320450046,0.524583086867806,-0.03825019366330551,0
+historical_holdout,373,N-(2-Chloro-4-pyridinyl)-N'-phenylurea  ,126.0,MLP_original,historical_holdout,0,0.3290800927637889,0.524583086867806,-0.19550299410401706,0
+historical_holdout,374,Pyrethrins (cinerin II),14.0,MLP_original,historical_holdout,1,0.3631271528982618,0.524583086867806,-0.16145593396954416,0
+historical_holdout,375,Pyrethrins (cinerin I),14.0,MLP_original,historical_holdout,1,0.32248379514975595,0.524583086867806,-0.20209929171805002,0
+historical_holdout,380,Piproctanyl bromide (Ref: ACR-1222),385.0,MLP_original,historical_holdout,0,0.3319199526706022,0.524583086867806,-0.19266313419720377,0
+historical_holdout,388,1-Methyl-3-phenyl-5-[3-(trifluoromethyl)phenyl]-4(1H)pyridinone,155.0,MLP_original,historical_holdout,0,0.4281582503831049,0.524583086867806,-0.09642483648470107,0
+historical_holdout,391,Lufenuron (Ref: CGA 184699),5.0,MLP_original,historical_holdout,0,0.44725836933485497,0.524583086867806,-0.077324717532951,0
+historical_holdout,394,"alpha-(4-Chlorophenyl)-alpha-(1-cyclopropylethyl)-1H-1,2,4-triazole-1-ethanol",21.0,MLP_original,historical_holdout,0,0.39320155142065216,0.524583086867806,-0.1313815354471538,0
+historical_holdout,395,alpha-(2-Chlorophenyl)-alpha-(4-chlorophenyl)-5-pyrimidinemethanol,74.0,MLP_original,historical_holdout,1,0.41270171021716734,0.524583086867806,-0.11188137665063863,0
+historical_holdout,398,Sulprofos (Ref: NTN 9306),99.0,MLP_original,historical_holdout,1,0.6137206009131183,0.524583086867806,0.08913751404531234,1
+historical_holdout,399,N-[2-[3-Chloro-5-(trifluoromethyl)-2-pyridinyl]ethyl]-2-(trifluoromethyl)benzamide,86.0,MLP_original,historical_holdout,0,0.4831913327526704,0.524583086867806,-0.04139175411513557,0
+historical_holdout,410,Flutriafol (Ref: PP 450),92.0,MLP_original,historical_holdout,1,0.4124051143693579,0.524583086867806,-0.11217797249844808,0
+historical_holdout,420,"2,6-Difluoro-N-[[[4-(trifluoromethyl)phenyl]amino]carbonyl]benzamide",5.0,MLP_original,historical_holdout,1,0.44386753951183433,0.524583086867806,-0.08071554735597164,0
+historical_holdout,422,P-(Aminocarbonyl)phosphonic acid monoethyl ester ammonium salt (1:1),159.0,MLP_original,historical_holdout,0,0.2976406644150705,0.524583086867806,-0.2269424224527355,0
+historical_holdout,429,Pyridate (Ref: CL 11344),376.0,MLP_original,historical_holdout,0,0.46834409236755487,0.524583086867806,-0.056238994500251105,0
+historical_holdout,440,Propamocarb (Ref: SN 39744),373.0,MLP_original,historical_holdout,0,0.30665790636896445,0.524583086867806,-0.21792518049884152,0
+historical_holdout,447,Diclofop (Ref: AE F021079),1.0,MLP_original,historical_holdout,0,0.4881522101039678,0.524583086867806,-0.03643087676383816,0
+historical_holdout,449,Ioxynil octanoate,49.0,MLP_original,historical_holdout,1,0.3906476354847868,0.524583086867806,-0.13393545138301916,0
+historical_holdout,453,Polyoxorim,138.0,MLP_original,historical_holdout,0,0.07861957729336293,0.524583086867806,-0.44596350957444303,0
+historical_holdout,457,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid 2-methyl-4-oxo-3-(2-propynyl)-2-cyclopenten-1-yl ester",14.0,MLP_original,historical_holdout,1,0.28697912362309447,0.524583086867806,-0.2376039632447115,0
+historical_holdout,460,Teflubenzuron (Ref: CME 13406),5.0,MLP_original,historical_holdout,0,0.44663866945968117,0.524583086867806,-0.0779444174081248,0
+historical_holdout,463,Clodinafop propargyl (Ref: CGA 184927),1.0,MLP_original,historical_holdout,0,0.47808932042749175,0.524583086867806,-0.04649376644031422,0
+historical_holdout,471,Piperophos (Ref: C 19 490),369.0,MLP_original,historical_holdout,0,0.61089273004385,0.524583086867806,0.08630964317604406,1
+historical_holdout,472,Quizalofop-ethyl (Ref: DPX Y6202),1.0,MLP_original,historical_holdout,1,0.44545569296238724,0.524583086867806,-0.07912739390541873,0
+historical_holdout,474,Haloxyfop (Ref: DOWCO 453),1.0,MLP_original,historical_holdout,0,0.48531599249945756,0.524583086867806,-0.03926709436834841,0
+historical_holdout,475,Fomesafen (Ref: PP 021),5.0,MLP_original,historical_holdout,0,0.4394391543486865,0.524583086867806,-0.08514393251911945,0
+historical_holdout,477,Fluroxypyr (Ref: DOW 43304-H),91.0,MLP_original,historical_holdout,0,0.3785991578980582,0.524583086867806,-0.14598392896974777,0
+historical_holdout,482,Mepiquat,366.0,MLP_original,historical_holdout,0,0.14278170287712147,0.524583086867806,-0.38180138399068453,0
+historical_holdout,485,Chlorfluazuron (Ref: CGA 112913),5.0,MLP_original,historical_holdout,0,0.4602875603121092,0.524583086867806,-0.06429552655569676,0
+historical_holdout,491,Hexaflumuron (Ref: XRD 473),5.0,MLP_original,historical_holdout,0,0.4604012176586964,0.524583086867806,-0.06418186920910957,0
+historical_holdout,493,1-[[2-(4-Ethoxyphenyl)-2-methylpropoxy]methyl]-3-phenoxybenzene,84.0,MLP_original,historical_holdout,1,0.39506656122857475,0.524583086867806,-0.12951652563923122,0
+historical_holdout,496,Paclobutrazol (Ref: PP 333),21.0,MLP_original,historical_holdout,1,0.3842906852619072,0.524583086867806,-0.1402924016058988,0
+historical_holdout,497,"alpha-Butyl-alpha-(4-chlorophenyl)-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_original,historical_holdout,0,0.4452253622746485,0.524583086867806,-0.07935772459315749,0
+historical_holdout,502,Isoxaben (Ref: EAF 496),363.0,MLP_original,historical_holdout,0,0.4308717823822253,0.524583086867806,-0.09371130448558068,0
+historical_holdout,504,Flufenoxuron (Ref: BAS 3071),5.0,MLP_original,historical_holdout,0,0.47534489875350155,0.524583086867806,-0.049238188114304415,0
+historical_holdout,508,Tebuconazole (Ref: HWG 1608),21.0,MLP_original,historical_holdout,0,0.4044666900103611,0.524583086867806,-0.12011639685744485,0
+historical_holdout,510,Fenoxaprop-ethyl,1.0,MLP_original,historical_holdout,0,0.4512033511781098,0.524583086867806,-0.07337973568969619,0
+historical_holdout,513,Flusilazole (Ref: DPX H6573),92.0,MLP_original,historical_holdout,0,0.4030012544808815,0.524583086867806,-0.1215818323869245,0
+historical_holdout,516,Flurtamone (Ref: RPA 590515),155.0,MLP_original,historical_holdout,0,0.44131378180121916,0.524583086867806,-0.08326930506658681,0
+historical_holdout,518,Diflufenican (Ref: AE 088657),5.0,MLP_original,historical_holdout,0,0.46604697794214495,0.524583086867806,-0.05853610892566102,0
+historical_holdout,537,Hexaconazole (Ref: PP 523),21.0,MLP_original,historical_holdout,0,0.4672944641103718,0.524583086867806,-0.05728862275743418,0
+historical_holdout,538,"4-Chloro-2-(1,1-dimethylethyl)-5-[[[4-(1,1-dimethylethyl)phenyl]methyl]thio]-3(2H)pyridazinene",357.0,MLP_original,historical_holdout,1,0.3980193300524728,0.524583086867806,-0.12656375681533316,0
+historical_holdout,539,Halfenprox (Ref: MTI 732),84.0,MLP_original,historical_holdout,1,0.46346667290427274,0.524583086867806,-0.061116413963533234,0
+historical_holdout,540,"5,7-Dichloro-4-(4-fluorophenoxy)quinoline",356.0,MLP_original,historical_holdout,0,0.41728570990539876,0.524583086867806,-0.10729737696240721,0
+historical_holdout,546,Triticonazole (Ref: RPA 400727),65.0,MLP_original,historical_holdout,0,0.38372740054301985,0.524583086867806,-0.14085568632478612,0
+historical_holdout,548,Tiocarbazil (Ref: M 3432),34.0,MLP_original,historical_holdout,0,0.38071370454733533,0.524583086867806,-0.14386938232047064,0
+historical_holdout,554,"3-(4-Chlorophenyl)-3-(3,4-dimethoxyphenyl)-1-(4-morpholinyl)-2-propen-1-one",148.0,MLP_original,historical_holdout,0,0.4280711424941409,0.524583086867806,-0.09651194437366506,0
+historical_holdout,558,Flucycloxuron (Ref: OMS 3041),48.0,MLP_original,historical_holdout,0,0.5446016676407162,0.524583086867806,0.02001858077291019,1
+historical_holdout,561,"N-(2,6-Difluorophenyl)-5-methyl-[1,2,4]triazolo[1,5-a]pyrimidine-2-sulfonamide",70.0,MLP_original,historical_holdout,0,0.43680939083359566,0.524583086867806,-0.08777369603421031,0
+historical_holdout,565,"alpha-[2-(4-Chlorophenyl)ethyl]-alpha-phenyl-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_original,historical_holdout,1,0.4100033753545624,0.524583086867806,-0.11457971151324359,0
+historical_holdout,566,"2-[(4-Amino-3,5-dichloro-6-fluoro-2-pyridinyl)oxy]acetic acid 1-methylheptyl ester",91.0,MLP_original,historical_holdout,0,0.4880940272693814,0.524583086867806,-0.03648905959842458,0
+historical_holdout,569,Fluoroglycofen,5.0,MLP_original,historical_holdout,0,0.4723451046442609,0.524583086867806,-0.05223798222354509,0
+historical_holdout,571,Florasulam (Ref: DE 570),70.0,MLP_original,historical_holdout,0,0.45757432565422707,0.524583086867806,-0.0670087612135789,0
+historical_holdout,574,Haloxyfop-P-methyl (Ref: DE 535),1.0,MLP_original,historical_holdout,0,0.4963193324315296,0.524583086867806,-0.028263754436276378,0
+historical_holdout,594,Prosulfocarb (Ref: SC 0574),34.0,MLP_original,historical_holdout,0,0.37440328704545145,0.524583086867806,-0.15017979982235452,0
+historical_holdout,596,Clofencet (Ref: MON 21250 ),342.0,MLP_original,historical_holdout,0,0.3898672337159888,0.524583086867806,-0.13471585315181717,0
+historical_holdout,614,Cloquintocet-mexyl (Ref: CGA 185072),91.0,MLP_original,historical_holdout,0,0.4423406857593156,0.524583086867806,-0.08224240110849035,0
+historical_holdout,617,Clodinafop (Ref: CGA 193469),1.0,MLP_original,historical_holdout,0,0.4956781303425241,0.524583086867806,-0.028904956525281855,0
+historical_holdout,618,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid, [2,5-dioxo-3-(2-propynyl)-1-imidazolidinyl]methyl ester",14.0,MLP_original,historical_holdout,1,0.34954709362765696,0.524583086867806,-0.175035993240149,0
+historical_holdout,619,Flusulfamide (Ref: MTF 651),336.0,MLP_original,historical_holdout,0,0.42712985349721794,0.524583086867806,-0.09745323337058803,0
+historical_holdout,621,Bromuconazole (Ref: LS 860263),57.0,MLP_original,historical_holdout,0,0.469675267252139,0.524583086867806,-0.054907819615666986,0
+historical_holdout,622,Orbencarb (Ref: B-3356),34.0,MLP_original,historical_holdout,0,0.3708194901315437,0.524583086867806,-0.15376359673626228,0
+historical_holdout,625,Flumorph (Ref: SYP L190),148.0,MLP_original,historical_holdout,0,0.4187443909573618,0.524583086867806,-0.10583869591044415,0
+historical_holdout,626,Fenoxaprop-P (Ref: AE-F088406),1.0,MLP_original,historical_holdout,0,0.4619090527769059,0.524583086867806,-0.06267403409090005,0
+historical_holdout,629,"N-[[[3-Chloro-4-[1,1,2-trifluoro-2-(trifluoromethoxy)ethoxy]phenyl]amino]carbonyl]-2,6-difluorobenzamide",5.0,MLP_original,historical_holdout,0,0.4614671600276293,0.524583086867806,-0.0631159268401767,0
+historical_holdout,631,Epoxiconazole (Ref: BAS 480F),92.0,MLP_original,historical_holdout,0,0.43392979181017644,0.524583086867806,-0.09065329505762953,0
+historical_holdout,638,"4-(Cyclopropylhydroxymethylene)-3,5-dioxocyclohexanecarboxylic acid ethyl ester",333.0,MLP_original,historical_holdout,0,0.27880082554565466,0.524583086867806,-0.2457822613221513,0
+historical_holdout,658,Pentoxazone (Ref: KPP-314),325.0,MLP_original,historical_holdout,0,0.4553818455115636,0.524583086867806,-0.0692012413562424,0
+historical_holdout,660,"4-Chloro-2-cyano-N,N-dimethyl-5-(4-methylphenyl)-1H-imidazole-1-sulfonamide",324.0,MLP_original,historical_holdout,0,0.39976560650049675,0.524583086867806,-0.12481748036730922,0
+historical_holdout,663,"1-[[(2,4-Dichlorophenyl)amino]carbonyl]cyclopropane carboxylic acid",323.0,MLP_original,historical_holdout,0,0.38391667611354213,0.524583086867806,-0.14066641075426384,0
+historical_holdout,668,"N-(2,6-Dichlorophenyl)-5-ethoxy-7-fluoro-[1,2,4-triazolo[1,5-c]pyrimidine-2-sulfonamide",70.0,MLP_original,historical_holdout,0,0.44738440604402224,0.524583086867806,-0.07719868082378373,0
+historical_holdout,669,"2-[(4-Chlorophenyl)methyl]-5-(1-methylethyl)-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",65.0,MLP_original,historical_holdout,0,0.417106023839537,0.524583086867806,-0.10747706302826898,0
+historical_holdout,672,"5-[(4-Chlorophenyl)methyl]-2,2-dimethyl-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",21.0,MLP_original,historical_holdout,0,0.3979809096587348,0.524583086867806,-0.1266021772090712,0
+historical_holdout,678,"(1R,3S)-3-(2,2-Dichloroethenyl)-2,2-dimethyl-(2,3,5,6-tetrafluorophenyl)methyl ester cyclopropanecarboxylic acid",20.0,MLP_original,historical_holdout,1,0.4808298578529767,0.524583086867806,-0.043753229014829254,0
+historical_holdout,684,Clothianidin (Ref: CGA 322704),316.0,MLP_original,historical_holdout,1,0.2882229685187059,0.524583086867806,-0.2363601183491001,0
+historical_holdout,689,Cyhalofop,1.0,MLP_original,historical_holdout,0,0.45083454215698054,0.524583086867806,-0.07374854471082543,0
+historical_holdout,700,Bromoxynil-butanoate,49.0,MLP_original,historical_holdout,0,0.40928318290663634,0.524583086867806,-0.11529990396116963,0
+historical_holdout,702,"2,2-Dimethylbutanoic acid, 3-(2,4-Dichlorophenyl)-2-oxo-1-oxaspiro[4.5]dec-3-en-4-yl ester",118.0,MLP_original,historical_holdout,0,0.4470611651892957,0.524583086867806,-0.0775219216785103,0
+historical_holdout,703,Tepraloxydim (Ref: BAS 620H),141.0,MLP_original,historical_holdout,0,0.36036925349690285,0.524583086867806,-0.16421383337090312,0
+historical_holdout,705,"2-Chloro-N-(4'-chloro[1,1'-biphenyl]-2-yl)-3-pyridinecarboxamide",312.0,MLP_original,historical_holdout,0,0.43482803658556873,0.524583086867806,-0.08975505028223724,0
+historical_holdout,712,Bistrifluron (Ref: DBI-3204),5.0,MLP_original,historical_holdout,0,0.4268194432580386,0.524583086867806,-0.09776364360976736,0
+historical_holdout,724,Mecoprop etexyl,10.0,MLP_original,historical_holdout,0,0.40424508709821483,0.524583086867806,-0.12033799976959114,0
+historical_holdout,733,Polyoxin B,138.0,MLP_original,historical_holdout,0,0.08136464976299523,0.524583086867806,-0.44321843710481074,0
+historical_holdout,739,MCPA-thioethyl,10.0,MLP_original,historical_holdout,0,0.3665019577085865,0.524583086867806,-0.15808112915921946,0
+historical_holdout,746,2-[2-(4-Cyanophenyl)-1-[3-(trifluoromethyl)phenyl]ethylidene]-N-[4-(trifluoromethoxy)phenyl]hydrazinecarboxamide,304.0,MLP_original,historical_holdout,1,0.5148986820666658,0.524583086867806,-0.00968440480114019,0
+historical_holdout,747,"4-Amino-3,5,6-trichloro-2-pyridinecarboxylic acid, Isooctyl ester",51.0,MLP_original,historical_holdout,0,0.5068318710821675,0.524583086867806,-0.01775121578563843,0
+historical_holdout,750,"2,6-Dichloro-N-[[3-chloro-5-(trifluoromethyl)-2-pyridinyl]methyl]benzamide",86.0,MLP_original,historical_holdout,0,0.46953100886332605,0.524583086867806,-0.05505207800447992,0
+historical_holdout,760,"(2R)-2-(2,4-Dichlorophenoxy)propanoic acid 2-ethylhexyl ester",1.0,MLP_original,historical_holdout,0,0.43092259813938627,0.524583086867806,-0.0936604887284197,0
+historical_holdout,772,"2-(4-Chloro-2-methylphenoxy)acetic acid, 2-Ethylhexyl ester",10.0,MLP_original,historical_holdout,0,0.4122345331510716,0.524583086867806,-0.11234855371673436,0
+historical_holdout,774,"3-[[[5-(Difluoromethoxy)-1-methyl-3-(trifluoromethyl)-1H-pyrazol-4-yl]methyl]sulfonyl]-4,5-dihydro-5,5-dimethyl-isoxazole",299.0,MLP_original,historical_holdout,0,0.48952103046405987,0.524583086867806,-0.0350620564037461,0
+historical_holdout,778,Flufenprox (Ref: ICIA5682),84.0,MLP_original,historical_holdout,1,0.4715950895965584,0.524583086867806,-0.05298799727124759,0
+historical_holdout,780,Guadipyr,133.0,MLP_original,historical_holdout,0,0.4393183604341413,0.524583086867806,-0.08526472643366467,0
+historical_holdout,792,"S-Prop-2-en-1-yl 5-amino-4-(2-methylphenyl)-3-oxo-2-(propan-2-yl)-2,3-dihydro-1H-pyrazole-1-carbothioate",293.0,MLP_original,historical_holdout,0,0.38778878594459265,0.524583086867806,-0.13679430092321332,0
+historical_holdout,798,4-Hydroxy-3-[[2-[(2-methoxyethoxy)methyl]-6-(trifluoromethyl)-3-pyridinyl]carbonyl]bicyclo[3.2.1]oct-3-en-2-one,291.0,MLP_original,historical_holdout,0,0.4822587204321726,0.524583086867806,-0.042324366435633365,0
+historical_holdout,804,4-Amino-3-chloro-6-(4-chloro-2-fluoro-3-methoxyphenyl)-2-pyridinecarboxylic acid methyl ester,51.0,MLP_original,historical_holdout,0,0.4802140255262649,0.524583086867806,-0.04436906134154106,0
+historical_holdout,809,"N-[1,1-Dimethyl-2-[2-methyl-4-(1-methylethoxy)phenyl]-2-oxoethyl]-3-methyl-2-thiophenecarboxamide",287.0,MLP_original,historical_holdout,0,0.44950340361173907,0.524583086867806,-0.0750796832560669,0
+historical_holdout,811,Momfluorothrin (Ref: S-1563),20.0,MLP_original,historical_holdout,1,0.4711882142837096,0.524583086867806,-0.053394872584096364,0
+historical_holdout,817,"2-[4-(4-Chlorophenoxy)-2-(trifluoromethyl)phenyl]-1-(1H-1,2,4-triazol-1-yl)propan-2-ol",21.0,MLP_original,historical_holdout,0,0.48013791724374566,0.524583086867806,-0.04444516962406031,0
+historical_holdout,832,"(1alpha,2alpha,3beta,4alpha,5alpha,6beta)-1,2,3,4,5,6-Hexachlorocyclohexane",280.0,MLP_original,historical_holdout,1,0.33039068833575386,0.524583086867806,-0.1941923985320521,0
+historical_holdout,846,"Tetrahydro-3,5-dimethyl-2H-1,3,5-thiadiazine-2-thione",275.0,MLP_original,historical_holdout,1,0.20134720813320245,0.524583086867806,-0.3232358787346035,0
+historical_holdout,852,Amitraz (Ref: ENT 27967),128.0,MLP_original,historical_holdout,0,0.37587370999710135,0.524583086867806,-0.14870937687070462,0
+historical_holdout,856,"1,2-Dihydro-3,6-pyridazinedione",269.0,MLP_original,historical_holdout,0,0.18174732026691154,0.524583086867806,-0.34283576660089443,0
+historical_holdout,861,L-ascorbic acid,265.0,MLP_original,historical_holdout,1,0.18097698877430893,0.524583086867806,-0.34360609809349707,0
+historical_holdout,882,Gentamicin,258.0,MLP_original,historical_holdout,0,0.13107121882006653,0.524583086867806,-0.3935118680477394,0
+historical_holdout,890,"N-Phenyl-N'-1,2,3-thiadiazol-5-yl-urea",126.0,MLP_original,historical_holdout,0,0.2807591453498437,0.524583086867806,-0.24382394151796227,0
+historical_holdout,894,"N,N,N',N'-Tetramethylphosphorodiamidic fluoride",252.0,MLP_original,historical_holdout,1,0.22561847959425957,0.524583086867806,-0.2989646072735464,0
+historical_holdout,897,Maple lactone,250.0,MLP_original,historical_holdout,0,0.21768954692898854,0.524583086867806,-0.3068935399388174,0
+historical_holdout,916,S-abscisic acid,244.0,MLP_original,historical_holdout,0,0.3048618152928802,0.524583086867806,-0.21972127157492577,0
+historical_holdout,927,4-[4-(Acetyloxy)phenyl]-2-butanone,237.0,MLP_original,historical_holdout,0,0.3388945446003026,0.524583086867806,-0.18568854226750336,0
+historical_holdout,928,"Phosphoramidothioic acid, O,S-Dimethyl ester",236.0,MLP_original,historical_holdout,1,0.3532341168726222,0.524583086867806,-0.1713489699951838,0
+historical_holdout,932,"5-Chloro-2-(3,4,4-trifluorobut-3-ene-1-sulfonyl)-1,3-thiazole",233.0,MLP_original,historical_holdout,0,0.4326963994962762,0.524583086867806,-0.09188668737152977,0
+historical_holdout,942,Tricyclazole (Ref: EL 291),228.0,MLP_original,historical_holdout,0,0.30999955124873135,0.524583086867806,-0.21458353561907462,0
+historical_holdout,946,"N-(4-Methyl-1,3-dithiolan-2-ylidene)phosphoramidic acid diethyl ester",120.0,MLP_original,historical_holdout,1,0.48124184428829136,0.524583086867806,-0.043341242579514605,0
+historical_holdout,955,"3,3-Dimethylbutanoic acid 2-oxo-3-(2,4,6-trimethylphenyl)-1-oaxspiro[4.4]non-3-en-4-yl ester",118.0,MLP_original,historical_holdout,0,0.40292057677933324,0.524583086867806,-0.12166251008847273,0
+historical_holdout,957,Mildiomycin (Ref: AR-1F1870),221.0,MLP_original,historical_holdout,0,0.09808309366608589,0.524583086867806,-0.42649999320172005,0
+historical_holdout,966,"(4R,5R)-rel-5-(4-Chlorophenyl)-N-cyclohexyl-4-methyl-2-oxo-3-thiazolidinecarboxamide",215.0,MLP_original,historical_holdout,0,0.4228158521585946,0.524583086867806,-0.1017672347092114,0
+historical_holdout,977,"1-[[2-[2-Chloro-4-(4-chlorophenoxyl)phenyl]-4-methyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_original,historical_holdout,0,0.45523839392396626,0.524583086867806,-0.06934469294383971,0
+historical_holdout,978,Fluazinam (Ref: IKF 1216),208.0,MLP_original,historical_holdout,0,0.3966818225961144,0.524583086867806,-0.12790126427169157,0
+historical_holdout,985,"(1E)-[2-[[6-(2-Chlorophenoxy)-5-fluoro-4-pyrimidinyl]oxy]phenyl](5,6-dihydro-1,4,2-dioxazin-3-yl)-methanone, O-Methyloxime",203.0,MLP_original,historical_holdout,0,0.4740063565805436,0.524583086867806,-0.050576730287262395,0
+historical_holdout,987,"2-(2,2-Difluoroethoxy)-N-(5,8-dimethoxy[1,2,4]triazolo[1,5-c]pyrimidin-2-yl)-6-(trifluoromethyl)benzenesulfonamide",70.0,MLP_original,historical_holdout,0,0.48164767387450913,0.524583086867806,-0.04293541299329684,0
+historical_holdout,996,Indanofan (Ref: MK 243),199.0,MLP_original,historical_holdout,0,0.4098306661071333,0.524583086867806,-0.11475242076067266,0
+historical_holdout,999,Noviflumuron,5.0,MLP_original,historical_holdout,0,0.445192024855859,0.524583086867806,-0.07939106201194696,0
+historical_holdout,1012,Proquinazid (Ref: DPX KQ926),193.0,MLP_original,historical_holdout,0,0.40968659607981844,0.524583086867806,-0.11489649078798753,0
+historical_holdout,1013,Sordidin,192.0,MLP_original,historical_holdout,0,0.1874472617499354,0.524583086867806,-0.33713582511787055,0
+historical_holdout,1,Ethanedioic acid,461.0,MLP_balanced_fixed,historical_holdout,0,0.33901050184009235,0.5362241016103697,-0.19721359977027736,0
+historical_holdout,4,Tetradifon (Ref: ENT 23737),459.0,MLP_balanced_fixed,historical_holdout,1,0.5618572835737137,0.5362241016103697,0.025633181963343965,1
+historical_holdout,9,Bromophos,29.0,MLP_balanced_fixed,historical_holdout,1,0.5532531399660574,0.5362241016103697,0.017029038355687698,1
+historical_holdout,28,Cartap (Ref: TL 1258),454.0,MLP_balanced_fixed,historical_holdout,1,0.43803091065205657,0.5362241016103697,-0.09819319095831314,0
+historical_holdout,45,"N-Acetylphosphoramidothioic acid O,S-dimethyl ester",449.0,MLP_balanced_fixed,historical_holdout,1,0.4540876618127251,0.5362241016103697,-0.08213643979764462,0
+historical_holdout,54,"2,4-Dichloro-1-(4-nitrophenoxy)benzene",1.0,MLP_balanced_fixed,historical_holdout,0,0.5062158416053703,0.5362241016103697,-0.030008260004999454,0
+historical_holdout,61,"2,4-D (Ref: L 208)",1.0,MLP_balanced_fixed,historical_holdout,0,0.4889535841500669,0.5362241016103697,-0.04727051746030281,0
+historical_holdout,63,"N-(1-Ethylpropyl)-3,4-dimethyl-2,6-dinitro-benzenamine",162.0,MLP_balanced_fixed,historical_holdout,0,0.4841894303651269,0.5362241016103697,-0.0520346712452428,0
+historical_holdout,64,Vernolate (Ref: R-106),34.0,MLP_balanced_fixed,historical_holdout,1,0.431980572637251,0.5362241016103697,-0.10424352897311873,0
+historical_holdout,73,"N,N-Bis(2-methylpropyl)carbamothioic acid S-ethyl ester",176.0,MLP_balanced_fixed,historical_holdout,0,0.4093612879032013,0.5362241016103697,-0.1268628137071684,0
+historical_holdout,74,4-Chloro-alpha-(4-chlorophenyl)-alpha-methylbenzenemethanol,74.0,MLP_balanced_fixed,historical_holdout,0,0.5077886205147184,0.5362241016103697,-0.028435481095651305,0
+historical_holdout,80,Jasmone,442.0,MLP_balanced_fixed,historical_holdout,0,0.3505047128190546,0.5362241016103697,-0.1857193887913151,0
+historical_holdout,82,"N-[1-[(Butylamino)carbonyl]-1H-benzimidazol-2-yl]carbamic acid, Methyl ester",440.0,MLP_balanced_fixed,historical_holdout,1,0.4406292169494069,0.5362241016103697,-0.09559488466096283,0
+historical_holdout,91,4-Chloro-alpha-(4-chlorophenyl)-alpha-(trichloromethyl)benzenemethanol,74.0,MLP_balanced_fixed,historical_holdout,1,0.5792830236882238,0.5362241016103697,0.04305892207785411,1
+historical_holdout,103,Pyrethrins (pyrethrin I),14.0,MLP_balanced_fixed,historical_holdout,1,0.4346843437236043,0.5362241016103697,-0.10153975788676539,0
+historical_holdout,113,Carene,435.0,MLP_balanced_fixed,historical_holdout,0,0.31689329141642686,0.5362241016103697,-0.21933081019394285,0
+historical_holdout,120,(4-chlorophenoxy)acetic acid,10.0,MLP_balanced_fixed,historical_holdout,0,0.4551551393658946,0.5362241016103697,-0.08106896224447513,0
+historical_holdout,121,Pyrethrins and Pyrethroids,14.0,MLP_balanced_fixed,historical_holdout,1,0.4451067142683604,0.5362241016103697,-0.0911173873420093,0
+historical_holdout,124,Acifluorfen (Ref: RH 5781),5.0,MLP_balanced_fixed,historical_holdout,0,0.48887323334330507,0.5362241016103697,-0.04735086826706464,0
+historical_holdout,136,"1-[[2-(2,4-Dichlorophenyl)-4-propyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_balanced_fixed,historical_holdout,0,0.5128097667624857,0.5362241016103697,-0.023414334847884022,0
+historical_holdout,137,2-(4-Chloro-2-methylphenoxy)acetic acid,10.0,MLP_balanced_fixed,historical_holdout,0,0.4519473328364035,0.5362241016103697,-0.08427676877396623,0
+historical_holdout,139,"2,2-Dimethyl-3-(2-methyl-1-propen-1-yl)cyclopropanecarboxylic acid [5-(phenylmethyl)-3-furanyl]methyl ester",20.0,MLP_balanced_fixed,historical_holdout,1,0.5067644551389667,0.5362241016103697,-0.029459646471402978,0
+historical_holdout,151,Bioallethrin,14.0,MLP_balanced_fixed,historical_holdout,1,0.42452712418396005,0.5362241016103697,-0.11169697742640966,0
+historical_holdout,162,Chitosan hydrochloride,426.0,MLP_balanced_fixed,historical_holdout,0,0.07739692129280382,0.5362241016103697,-0.45882718031756586,0
+historical_holdout,185,Delnav,105.0,MLP_balanced_fixed,historical_holdout,0,0.6551255406157308,0.5362241016103697,0.1189014390053611,1
+historical_holdout,188,"2-(2,4,5-Trichlorophenoxy)propanoic acid",1.0,MLP_balanced_fixed,historical_holdout,0,0.510789309153816,0.5362241016103697,-0.025434792456553668,0
+historical_holdout,191,Naptalam (Ref: ACP 322),169.0,MLP_balanced_fixed,historical_holdout,0,0.48626546116832936,0.5362241016103697,-0.04995864044204035,0
+historical_holdout,199,2-[4-[(6-Chloro-2-quinoxalinyl)oxy]phenoxy]propanoic acid,1.0,MLP_balanced_fixed,historical_holdout,0,0.5286761479082025,0.5362241016103697,-0.007547953702167209,0
+historical_holdout,200,"2-[(3,5,6-Trichloro-2-pyridinyl)oxy]acetic acid",10.0,MLP_balanced_fixed,historical_holdout,0,0.506382368202471,0.5362241016103697,-0.02984173340789875,0
+historical_holdout,203,"N,N-dipropylcarbamothioic acid S-ethyl ester",34.0,MLP_balanced_fixed,historical_holdout,1,0.41198930657552535,0.5362241016103697,-0.12423479503484436,0
+historical_holdout,207,Mecoprop (Ref: RD 4593),1.0,MLP_balanced_fixed,historical_holdout,0,0.4415519732838015,0.5362241016103697,-0.09467212832656818,0
+historical_holdout,212,Daminozide,419.0,MLP_balanced_fixed,historical_holdout,0,0.43494262919115606,0.5362241016103697,-0.10128147241921365,0
+historical_holdout,214,MCPB (Ref: MB 3046),10.0,MLP_balanced_fixed,historical_holdout,0,0.475341704733492,0.5362241016103697,-0.06088239687687769,0
+historical_holdout,222,"2,4-DB (Ref: ENT 8538)",1.0,MLP_balanced_fixed,historical_holdout,0,0.5139784773289913,0.5362241016103697,-0.02224562428137844,0
+historical_holdout,224,Dichlorprop (Ref: RD 406),1.0,MLP_balanced_fixed,historical_holdout,0,0.4816319710359002,0.5362241016103697,-0.05459213057446949,0
+historical_holdout,234,"p-Phenylphosphonothioic acid, O-(4-Bromo-2,5-dichlorophenyl) O-methyl ester",29.0,MLP_balanced_fixed,historical_holdout,1,0.49951205748238453,0.5362241016103697,-0.03671204412798518,0
+historical_holdout,244,"1,3-Dithiolo[4,5-b]quinoxaline-2-thione",413.0,MLP_balanced_fixed,historical_holdout,0,0.39542482299765097,0.5362241016103697,-0.14079927861271874,0
+historical_holdout,260,Ioxynil (Ref: ACP 63-303),49.0,MLP_balanced_fixed,historical_holdout,1,0.413891935586832,0.5362241016103697,-0.12233216602353769,0
+historical_holdout,263,"1,3-Dithiolan-2-ylidenephosphoramidic acid diethyl ester",120.0,MLP_balanced_fixed,historical_holdout,1,0.5100232013275403,0.5362241016103697,-0.026200900282829398,0
+historical_holdout,264,Chlorthal-dimethyl (Ref: DAC 893),51.0,MLP_balanced_fixed,historical_holdout,0,0.513934562323196,0.5362241016103697,-0.0222895392871737,0
+historical_holdout,267,Chlorthiamid (Ref: WL 5792.),408.0,MLP_balanced_fixed,historical_holdout,0,0.3960048704851303,0.5362241016103697,-0.14021923112523943,0
+historical_holdout,274,"O-Ethyl O-(2,4,5-trichlorophenyl)ester ethylphosphonothioic acid",29.0,MLP_balanced_fixed,historical_holdout,1,0.5188257962295623,0.5362241016103697,-0.017398305380807444,0
+historical_holdout,280,Tetramethrin (Ref: ENT 27339),14.0,MLP_balanced_fixed,historical_holdout,1,0.42525304499826844,0.5362241016103697,-0.11097105661210127,0
+historical_holdout,288,Chlordimeform (Ref: ENT 27335),128.0,MLP_balanced_fixed,historical_holdout,0,0.409445123903434,0.5362241016103697,-0.1267789777069357,0
+historical_holdout,292,Pyrethrins (jasmolin I),14.0,MLP_balanced_fixed,historical_holdout,1,0.4385377415996304,0.5362241016103697,-0.09768636001073933,0
+historical_holdout,293,Formetanate (Ref: SN 36056),39.0,MLP_balanced_fixed,historical_holdout,1,0.41534317272053844,0.5362241016103697,-0.12088092888983126,0
+historical_holdout,295,Pyrethrins (jasmolin II),14.0,MLP_balanced_fixed,historical_holdout,1,0.44739186664524955,0.5362241016103697,-0.08883223496512016,0
+historical_holdout,296,Diclofop-methyl (Ref: HOE 023408),1.0,MLP_balanced_fixed,historical_holdout,0,0.5206110067159219,0.5362241016103697,-0.015613094894447843,0
+historical_holdout,299,"Phosphorothioic acid, O-(2,5-Dichloro-4-iodophenyl) O,O-dimethyl ester",29.0,MLP_balanced_fixed,historical_holdout,1,0.5651527008716083,0.5362241016103697,0.028928599261238586,1
+historical_holdout,312,Kelevan (Ref: GC-9160),399.0,MLP_balanced_fixed,historical_holdout,0,0.6477220855559604,0.5362241016103697,0.11149798394559074,1
+historical_holdout,313,Picloram-methyl,51.0,MLP_balanced_fixed,historical_holdout,0,0.47019500064059466,0.5362241016103697,-0.06602910096977505,0
+historical_holdout,317,"Octanoic acid, 2,6-Dibromo-4-cyanophenyl ester",49.0,MLP_balanced_fixed,historical_holdout,0,0.47338954297335606,0.5362241016103697,-0.06283455863701365,0
+historical_holdout,324,"alpha, alpha-bis(4-Chlorophenyl)-3-pyridinemethanol",74.0,MLP_balanced_fixed,historical_holdout,1,0.553589472456127,0.5362241016103697,0.01736537084575729,1
+historical_holdout,329,Bromophos-ethyl (Ref: SHG-2225),29.0,MLP_balanced_fixed,historical_holdout,1,0.5730984969967055,0.5362241016103697,0.036874395386335745,1
+historical_holdout,342,N-(Phosphonomethyl)glycine,392.0,MLP_balanced_fixed,historical_holdout,0,0.3924739679019684,0.5362241016103697,-0.14375013370840128,0
+historical_holdout,352,"N,N-Diethylcarbamothioic acid S-[(4-chlorophenyl)methyl] ester",34.0,MLP_balanced_fixed,historical_holdout,0,0.47017375125139343,0.5362241016103697,-0.06605035035897627,0
+historical_holdout,360,"4-(1,1-Dimethylethyl)-N-(1-methylpropyl)-2,6-dinitrobenzenamine",162.0,MLP_balanced_fixed,historical_holdout,0,0.4803490192639938,0.5362241016103697,-0.05587508234637589,0
+historical_holdout,369,Bifenox,1.0,MLP_balanced_fixed,historical_holdout,0,0.5085515413822008,0.5362241016103697,-0.027672560228168885,0
+historical_holdout,373,N-(2-Chloro-4-pyridinyl)-N'-phenylurea  ,126.0,MLP_balanced_fixed,historical_holdout,0,0.4441708264766093,0.5362241016103697,-0.09205327513376038,0
+historical_holdout,374,Pyrethrins (cinerin II),14.0,MLP_balanced_fixed,historical_holdout,1,0.4491051845442644,0.5362241016103697,-0.0871189170661053,0
+historical_holdout,375,Pyrethrins (cinerin I),14.0,MLP_balanced_fixed,historical_holdout,1,0.42965917530856945,0.5362241016103697,-0.10656492630180026,0
+historical_holdout,380,Piproctanyl bromide (Ref: ACR-1222),385.0,MLP_balanced_fixed,historical_holdout,0,0.4567135730288909,0.5362241016103697,-0.07951052858147883,0
+historical_holdout,388,1-Methyl-3-phenyl-5-[3-(trifluoromethyl)phenyl]-4(1H)pyridinone,155.0,MLP_balanced_fixed,historical_holdout,0,0.5311374041145719,0.5362241016103697,-0.005086697495797821,0
+historical_holdout,391,Lufenuron (Ref: CGA 184699),5.0,MLP_balanced_fixed,historical_holdout,0,0.501870122269199,0.5362241016103697,-0.03435397934117068,0
+historical_holdout,394,"alpha-(4-Chlorophenyl)-alpha-(1-cyclopropylethyl)-1H-1,2,4-triazole-1-ethanol",21.0,MLP_balanced_fixed,historical_holdout,0,0.48555818046793586,0.5362241016103697,-0.050665921142433845,0
+historical_holdout,395,alpha-(2-Chlorophenyl)-alpha-(4-chlorophenyl)-5-pyrimidinemethanol,74.0,MLP_balanced_fixed,historical_holdout,1,0.5308728729482453,0.5362241016103697,-0.005351228662124452,0
+historical_holdout,398,Sulprofos (Ref: NTN 9306),99.0,MLP_balanced_fixed,historical_holdout,1,0.5934857856208129,0.5362241016103697,0.05726168401044318,1
+historical_holdout,399,N-[2-[3-Chloro-5-(trifluoromethyl)-2-pyridinyl]ethyl]-2-(trifluoromethyl)benzamide,86.0,MLP_balanced_fixed,historical_holdout,0,0.5337000027415809,0.5362241016103697,-0.0025240988687887933,0
+historical_holdout,410,Flutriafol (Ref: PP 450),92.0,MLP_balanced_fixed,historical_holdout,1,0.4813110343207072,0.5362241016103697,-0.0549130672896625,0
+historical_holdout,420,"2,6-Difluoro-N-[[[4-(trifluoromethyl)phenyl]amino]carbonyl]benzamide",5.0,MLP_balanced_fixed,historical_holdout,1,0.5020061300815355,0.5362241016103697,-0.03421797152883421,0
+historical_holdout,422,P-(Aminocarbonyl)phosphonic acid monoethyl ester ammonium salt (1:1),159.0,MLP_balanced_fixed,historical_holdout,0,0.4335765854883971,0.5362241016103697,-0.10264751612197259,0
+historical_holdout,429,Pyridate (Ref: CL 11344),376.0,MLP_balanced_fixed,historical_holdout,0,0.5118400990786196,0.5362241016103697,-0.024384002531750104,0
+historical_holdout,440,Propamocarb (Ref: SN 39744),373.0,MLP_balanced_fixed,historical_holdout,0,0.4614372739939796,0.5362241016103697,-0.0747868276163901,0
+historical_holdout,447,Diclofop (Ref: AE F021079),1.0,MLP_balanced_fixed,historical_holdout,0,0.5241630810621687,0.5362241016103697,-0.012061020548201018,0
+historical_holdout,449,Ioxynil octanoate,49.0,MLP_balanced_fixed,historical_holdout,1,0.4687798108680783,0.5362241016103697,-0.06744429074229141,0
+historical_holdout,453,Polyoxorim,138.0,MLP_balanced_fixed,historical_holdout,0,0.2080121239408714,0.5362241016103697,-0.3282119776694983,0
+historical_holdout,457,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid 2-methyl-4-oxo-3-(2-propynyl)-2-cyclopenten-1-yl ester",14.0,MLP_balanced_fixed,historical_holdout,1,0.41025855601748124,0.5362241016103697,-0.12596554559288847,0
+historical_holdout,460,Teflubenzuron (Ref: CME 13406),5.0,MLP_balanced_fixed,historical_holdout,0,0.5053843910656673,0.5362241016103697,-0.03083971054470236,0
+historical_holdout,463,Clodinafop propargyl (Ref: CGA 184927),1.0,MLP_balanced_fixed,historical_holdout,0,0.5176248791860691,0.5362241016103697,-0.018599222424300565,0
+historical_holdout,471,Piperophos (Ref: C 19 490),369.0,MLP_balanced_fixed,historical_holdout,0,0.6073182985222577,0.5362241016103697,0.07109419691188801,1
+historical_holdout,472,Quizalofop-ethyl (Ref: DPX Y6202),1.0,MLP_balanced_fixed,historical_holdout,1,0.5288758387692726,0.5362241016103697,-0.007348262841097131,0
+historical_holdout,474,Haloxyfop (Ref: DOWCO 453),1.0,MLP_balanced_fixed,historical_holdout,0,0.5128105686378712,0.5362241016103697,-0.023413532972498485,0
+historical_holdout,475,Fomesafen (Ref: PP 021),5.0,MLP_balanced_fixed,historical_holdout,0,0.4880340825490029,0.5362241016103697,-0.04819001906136683,0
+historical_holdout,477,Fluroxypyr (Ref: DOW 43304-H),91.0,MLP_balanced_fixed,historical_holdout,0,0.4484409419488307,0.5362241016103697,-0.08778315966153899,0
+historical_holdout,482,Mepiquat,366.0,MLP_balanced_fixed,historical_holdout,0,0.31352948295095084,0.5362241016103697,-0.22269461865941886,0
+historical_holdout,485,Chlorfluazuron (Ref: CGA 112913),5.0,MLP_balanced_fixed,historical_holdout,0,0.5444605894112201,0.5362241016103697,0.0082364878008504,1
+historical_holdout,491,Hexaflumuron (Ref: XRD 473),5.0,MLP_balanced_fixed,historical_holdout,0,0.5051089790557771,0.5362241016103697,-0.03111512255459259,0
+historical_holdout,493,1-[[2-(4-Ethoxyphenyl)-2-methylpropoxy]methyl]-3-phenoxybenzene,84.0,MLP_balanced_fixed,historical_holdout,1,0.5218801285124945,0.5362241016103697,-0.014343973097875162,0
+historical_holdout,496,Paclobutrazol (Ref: PP 333),21.0,MLP_balanced_fixed,historical_holdout,1,0.4801322038596873,0.5362241016103697,-0.05609189775068241,0
+historical_holdout,497,"alpha-Butyl-alpha-(4-chlorophenyl)-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_balanced_fixed,historical_holdout,0,0.511384067877383,0.5362241016103697,-0.02484003373298671,0
+historical_holdout,502,Isoxaben (Ref: EAF 496),363.0,MLP_balanced_fixed,historical_holdout,0,0.5332396458390086,0.5362241016103697,-0.002984455771361083,0
+historical_holdout,504,Flufenoxuron (Ref: BAS 3071),5.0,MLP_balanced_fixed,historical_holdout,0,0.5476858868045226,0.5362241016103697,0.011461785194152863,1
+historical_holdout,508,Tebuconazole (Ref: HWG 1608),21.0,MLP_balanced_fixed,historical_holdout,0,0.4943492851817841,0.5362241016103697,-0.04187481642858559,0
+historical_holdout,510,Fenoxaprop-ethyl,1.0,MLP_balanced_fixed,historical_holdout,0,0.5386910861871654,0.5362241016103697,0.0024669845767957277,1
+historical_holdout,513,Flusilazole (Ref: DPX H6573),92.0,MLP_balanced_fixed,historical_holdout,0,0.48910515782658404,0.5362241016103697,-0.04711894378378567,0
+historical_holdout,516,Flurtamone (Ref: RPA 590515),155.0,MLP_balanced_fixed,historical_holdout,0,0.529832209210898,0.5362241016103697,-0.006391892399471688,0
+historical_holdout,518,Diflufenican (Ref: AE 088657),5.0,MLP_balanced_fixed,historical_holdout,0,0.5025201601071319,0.5362241016103697,-0.033703941503237855,0
+historical_holdout,537,Hexaconazole (Ref: PP 523),21.0,MLP_balanced_fixed,historical_holdout,0,0.5215187468974751,0.5362241016103697,-0.01470535471289458,0
+historical_holdout,538,"4-Chloro-2-(1,1-dimethylethyl)-5-[[[4-(1,1-dimethylethyl)phenyl]methyl]thio]-3(2H)pyridazinene",357.0,MLP_balanced_fixed,historical_holdout,1,0.49997964757947105,0.5362241016103697,-0.036244454030898654,0
+historical_holdout,539,Halfenprox (Ref: MTI 732),84.0,MLP_balanced_fixed,historical_holdout,1,0.5896273673779706,0.5362241016103697,0.053403265767600905,1
+historical_holdout,540,"5,7-Dichloro-4-(4-fluorophenoxy)quinoline",356.0,MLP_balanced_fixed,historical_holdout,0,0.5370719657365264,0.5362241016103697,0.0008478641261566722,1
+historical_holdout,546,Triticonazole (Ref: RPA 400727),65.0,MLP_balanced_fixed,historical_holdout,0,0.48276723524830517,0.5362241016103697,-0.05345686636206454,0
+historical_holdout,548,Tiocarbazil (Ref: M 3432),34.0,MLP_balanced_fixed,historical_holdout,0,0.47252668817179805,0.5362241016103697,-0.06369741343857166,0
+historical_holdout,554,"3-(4-Chlorophenyl)-3-(3,4-dimethoxyphenyl)-1-(4-morpholinyl)-2-propen-1-one",148.0,MLP_balanced_fixed,historical_holdout,0,0.5051967439273557,0.5362241016103697,-0.031027357683014012,0
+historical_holdout,558,Flucycloxuron (Ref: OMS 3041),48.0,MLP_balanced_fixed,historical_holdout,0,0.6343117643524208,0.5362241016103697,0.09808766274205105,1
+historical_holdout,561,"N-(2,6-Difluorophenyl)-5-methyl-[1,2,4]triazolo[1,5-a]pyrimidine-2-sulfonamide",70.0,MLP_balanced_fixed,historical_holdout,0,0.4965871529485922,0.5362241016103697,-0.03963694866177753,0
+historical_holdout,565,"alpha-[2-(4-Chlorophenyl)ethyl]-alpha-phenyl-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_balanced_fixed,historical_holdout,1,0.48490860414648307,0.5362241016103697,-0.05131549746388664,0
+historical_holdout,566,"2-[(4-Amino-3,5-dichloro-6-fluoro-2-pyridinyl)oxy]acetic acid 1-methylheptyl ester",91.0,MLP_balanced_fixed,historical_holdout,0,0.5451661359707671,0.5362241016103697,0.008942034360397422,1
+historical_holdout,569,Fluoroglycofen,5.0,MLP_balanced_fixed,historical_holdout,0,0.508863877131888,0.5362241016103697,-0.027360224478481743,0
+historical_holdout,571,Florasulam (Ref: DE 570),70.0,MLP_balanced_fixed,historical_holdout,0,0.4886495095562525,0.5362241016103697,-0.04757459205411718,0
+historical_holdout,574,Haloxyfop-P-methyl (Ref: DE 535),1.0,MLP_balanced_fixed,historical_holdout,0,0.5143201681018597,0.5362241016103697,-0.021903933508510054,0
+historical_holdout,594,Prosulfocarb (Ref: SC 0574),34.0,MLP_balanced_fixed,historical_holdout,0,0.46799300647814646,0.5362241016103697,-0.06823109513222325,0
+historical_holdout,596,Clofencet (Ref: MON 21250 ),342.0,MLP_balanced_fixed,historical_holdout,0,0.4708041975438287,0.5362241016103697,-0.06541990406654102,0
+historical_holdout,614,Cloquintocet-mexyl (Ref: CGA 185072),91.0,MLP_balanced_fixed,historical_holdout,0,0.4984568195990667,0.5362241016103697,-0.03776728201130303,0
+historical_holdout,617,Clodinafop (Ref: CGA 193469),1.0,MLP_balanced_fixed,historical_holdout,0,0.5164850304147421,0.5362241016103697,-0.019739071195627567,0
+historical_holdout,618,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid, [2,5-dioxo-3-(2-propynyl)-1-imidazolidinyl]methyl ester",14.0,MLP_balanced_fixed,historical_holdout,1,0.44373924365399253,0.5362241016103697,-0.09248485795637718,0
+historical_holdout,619,Flusulfamide (Ref: MTF 651),336.0,MLP_balanced_fixed,historical_holdout,0,0.4814472583661043,0.5362241016103697,-0.054776843244265405,0
+historical_holdout,621,Bromuconazole (Ref: LS 860263),57.0,MLP_balanced_fixed,historical_holdout,0,0.5350416802107221,0.5362241016103697,-0.0011824213996476374,0
+historical_holdout,622,Orbencarb (Ref: B-3356),34.0,MLP_balanced_fixed,historical_holdout,0,0.46784498011589204,0.5362241016103697,-0.06837912149447767,0
+historical_holdout,625,Flumorph (Ref: SYP L190),148.0,MLP_balanced_fixed,historical_holdout,0,0.49053173302382147,0.5362241016103697,-0.04569236858654824,0
+historical_holdout,626,Fenoxaprop-P (Ref: AE-F088406),1.0,MLP_balanced_fixed,historical_holdout,0,0.539642502607042,0.5362241016103697,0.003418400996672344,1
+historical_holdout,629,"N-[[[3-Chloro-4-[1,1,2-trifluoro-2-(trifluoromethoxy)ethoxy]phenyl]amino]carbonyl]-2,6-difluorobenzamide",5.0,MLP_balanced_fixed,historical_holdout,0,0.50754554501874,0.5362241016103697,-0.028678556591629656,0
+historical_holdout,631,Epoxiconazole (Ref: BAS 480F),92.0,MLP_balanced_fixed,historical_holdout,0,0.5072440820382618,0.5362241016103697,-0.02898001957210794,0
+historical_holdout,638,"4-(Cyclopropylhydroxymethylene)-3,5-dioxocyclohexanecarboxylic acid ethyl ester",333.0,MLP_balanced_fixed,historical_holdout,0,0.41037267909546654,0.5362241016103697,-0.12585142251490317,0
+historical_holdout,658,Pentoxazone (Ref: KPP-314),325.0,MLP_balanced_fixed,historical_holdout,0,0.5117262917195349,0.5362241016103697,-0.024497809890834832,0
+historical_holdout,660,"4-Chloro-2-cyano-N,N-dimethyl-5-(4-methylphenyl)-1H-imidazole-1-sulfonamide",324.0,MLP_balanced_fixed,historical_holdout,0,0.47783430738241434,0.5362241016103697,-0.05838979422795537,0
+historical_holdout,663,"1-[[(2,4-Dichlorophenyl)amino]carbonyl]cyclopropane carboxylic acid",323.0,MLP_balanced_fixed,historical_holdout,0,0.48012105266847993,0.5362241016103697,-0.05610304894188978,0
+historical_holdout,668,"N-(2,6-Dichlorophenyl)-5-ethoxy-7-fluoro-[1,2,4-triazolo[1,5-c]pyrimidine-2-sulfonamide",70.0,MLP_balanced_fixed,historical_holdout,0,0.48722686387054986,0.5362241016103697,-0.04899723773981984,0
+historical_holdout,669,"2-[(4-Chlorophenyl)methyl]-5-(1-methylethyl)-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",65.0,MLP_balanced_fixed,historical_holdout,0,0.5064530105494669,0.5362241016103697,-0.02977109106090281,0
+historical_holdout,672,"5-[(4-Chlorophenyl)methyl]-2,2-dimethyl-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",21.0,MLP_balanced_fixed,historical_holdout,0,0.48906872199470197,0.5362241016103697,-0.047155379615667736,0
+historical_holdout,678,"(1R,3S)-3-(2,2-Dichloroethenyl)-2,2-dimethyl-(2,3,5,6-tetrafluorophenyl)methyl ester cyclopropanecarboxylic acid",20.0,MLP_balanced_fixed,historical_holdout,1,0.5718742721753816,0.5362241016103697,0.03565017056501185,1
+historical_holdout,684,Clothianidin (Ref: CGA 322704),316.0,MLP_balanced_fixed,historical_holdout,1,0.3847468486923755,0.5362241016103697,-0.1514772529179942,0
+historical_holdout,689,Cyhalofop,1.0,MLP_balanced_fixed,historical_holdout,0,0.5096996697257911,0.5362241016103697,-0.026524431884578648,0
+historical_holdout,700,Bromoxynil-butanoate,49.0,MLP_balanced_fixed,historical_holdout,0,0.491968803487852,0.5362241016103697,-0.04425529812251772,0
+historical_holdout,702,"2,2-Dimethylbutanoic acid, 3-(2,4-Dichlorophenyl)-2-oxo-1-oxaspiro[4.5]dec-3-en-4-yl ester",118.0,MLP_balanced_fixed,historical_holdout,0,0.5188571987932095,0.5362241016103697,-0.017366902817160246,0
+historical_holdout,703,Tepraloxydim (Ref: BAS 620H),141.0,MLP_balanced_fixed,historical_holdout,0,0.44059281223216834,0.5362241016103697,-0.09563128937820137,0
+historical_holdout,705,"2-Chloro-N-(4'-chloro[1,1'-biphenyl]-2-yl)-3-pyridinecarboxamide",312.0,MLP_balanced_fixed,historical_holdout,0,0.5517184566701422,0.5362241016103697,0.01549435505977248,1
+historical_holdout,712,Bistrifluron (Ref: DBI-3204),5.0,MLP_balanced_fixed,historical_holdout,0,0.496636791370701,0.5362241016103697,-0.039587310239668716,0
+historical_holdout,724,Mecoprop etexyl,10.0,MLP_balanced_fixed,historical_holdout,0,0.482365809589354,0.5362241016103697,-0.05385829202101572,0
+historical_holdout,733,Polyoxin B,138.0,MLP_balanced_fixed,historical_holdout,0,0.21707977321004324,0.5362241016103697,-0.31914432840032647,0
+historical_holdout,739,MCPA-thioethyl,10.0,MLP_balanced_fixed,historical_holdout,0,0.4682417069860007,0.5362241016103697,-0.067982394624369,0
+historical_holdout,746,2-[2-(4-Cyanophenyl)-1-[3-(trifluoromethyl)phenyl]ethylidene]-N-[4-(trifluoromethoxy)phenyl]hydrazinecarboxamide,304.0,MLP_balanced_fixed,historical_holdout,1,0.586529167592359,0.5362241016103697,0.05030506598198925,1
+historical_holdout,747,"4-Amino-3,5,6-trichloro-2-pyridinecarboxylic acid, Isooctyl ester",51.0,MLP_balanced_fixed,historical_holdout,0,0.5497042086533122,0.5362241016103697,0.013480107042942446,1
+historical_holdout,750,"2,6-Dichloro-N-[[3-chloro-5-(trifluoromethyl)-2-pyridinyl]methyl]benzamide",86.0,MLP_balanced_fixed,historical_holdout,0,0.5235221566230547,0.5362241016103697,-0.012701944987315028,0
+historical_holdout,760,"(2R)-2-(2,4-Dichlorophenoxy)propanoic acid 2-ethylhexyl ester",1.0,MLP_balanced_fixed,historical_holdout,0,0.501795026726549,0.5362241016103697,-0.03442907488382074,0
+historical_holdout,772,"2-(4-Chloro-2-methylphenoxy)acetic acid, 2-Ethylhexyl ester",10.0,MLP_balanced_fixed,historical_holdout,0,0.4884271518827024,0.5362241016103697,-0.04779694972766729,0
+historical_holdout,774,"3-[[[5-(Difluoromethoxy)-1-methyl-3-(trifluoromethyl)-1H-pyrazol-4-yl]methyl]sulfonyl]-4,5-dihydro-5,5-dimethyl-isoxazole",299.0,MLP_balanced_fixed,historical_holdout,0,0.5381202754604715,0.5362241016103697,0.0018961738501017678,1
+historical_holdout,778,Flufenprox (Ref: ICIA5682),84.0,MLP_balanced_fixed,historical_holdout,1,0.5856030349208906,0.5362241016103697,0.0493789333105209,1
+historical_holdout,780,Guadipyr,133.0,MLP_balanced_fixed,historical_holdout,0,0.49306096279962847,0.5362241016103697,-0.04316313881074124,0
+historical_holdout,792,"S-Prop-2-en-1-yl 5-amino-4-(2-methylphenyl)-3-oxo-2-(propan-2-yl)-2,3-dihydro-1H-pyrazole-1-carbothioate",293.0,MLP_balanced_fixed,historical_holdout,0,0.5044258607979888,0.5362241016103697,-0.03179824081238092,0
+historical_holdout,798,4-Hydroxy-3-[[2-[(2-methoxyethoxy)methyl]-6-(trifluoromethyl)-3-pyridinyl]carbonyl]bicyclo[3.2.1]oct-3-en-2-one,291.0,MLP_balanced_fixed,historical_holdout,0,0.5180285328109129,0.5362241016103697,-0.01819556879945683,0
+historical_holdout,804,4-Amino-3-chloro-6-(4-chloro-2-fluoro-3-methoxyphenyl)-2-pyridinecarboxylic acid methyl ester,51.0,MLP_balanced_fixed,historical_holdout,0,0.5131597927183856,0.5362241016103697,-0.023064308891984076,0
+historical_holdout,809,"N-[1,1-Dimethyl-2-[2-methyl-4-(1-methylethoxy)phenyl]-2-oxoethyl]-3-methyl-2-thiophenecarboxamide",287.0,MLP_balanced_fixed,historical_holdout,0,0.5618388522972525,0.5362241016103697,0.025614750686882792,1
+historical_holdout,811,Momfluorothrin (Ref: S-1563),20.0,MLP_balanced_fixed,historical_holdout,1,0.52223071510856,0.5362241016103697,-0.013993386501809701,0
+historical_holdout,817,"2-[4-(4-Chlorophenoxy)-2-(trifluoromethyl)phenyl]-1-(1H-1,2,4-triazol-1-yl)propan-2-ol",21.0,MLP_balanced_fixed,historical_holdout,0,0.5161372116489508,0.5362241016103697,-0.02008688996141894,0
+historical_holdout,832,"(1alpha,2alpha,3beta,4alpha,5alpha,6beta)-1,2,3,4,5,6-Hexachlorocyclohexane",280.0,MLP_balanced_fixed,historical_holdout,1,0.48566089776718335,0.5362241016103697,-0.050563203843186355,0
+historical_holdout,846,"Tetrahydro-3,5-dimethyl-2H-1,3,5-thiadiazine-2-thione",275.0,MLP_balanced_fixed,historical_holdout,1,0.3376309862402296,0.5362241016103697,-0.19859311537014013,0
+historical_holdout,852,Amitraz (Ref: ENT 27967),128.0,MLP_balanced_fixed,historical_holdout,0,0.48748769873923187,0.5362241016103697,-0.04873640287113784,0
+historical_holdout,856,"1,2-Dihydro-3,6-pyridazinedione",269.0,MLP_balanced_fixed,historical_holdout,0,0.3151928656681556,0.5362241016103697,-0.22103123594221413,0
+historical_holdout,861,L-ascorbic acid,265.0,MLP_balanced_fixed,historical_holdout,1,0.3564070515618876,0.5362241016103697,-0.17981705004848209,0
+historical_holdout,882,Gentamicin,258.0,MLP_balanced_fixed,historical_holdout,0,0.2958000874620779,0.5362241016103697,-0.2404240141482918,0
+historical_holdout,890,"N-Phenyl-N'-1,2,3-thiadiazol-5-yl-urea",126.0,MLP_balanced_fixed,historical_holdout,0,0.3792490434755502,0.5362241016103697,-0.1569750581348195,0
+historical_holdout,894,"N,N,N',N'-Tetramethylphosphorodiamidic fluoride",252.0,MLP_balanced_fixed,historical_holdout,1,0.3659171616836714,0.5362241016103697,-0.17030693992669832,0
+historical_holdout,897,Maple lactone,250.0,MLP_balanced_fixed,historical_holdout,0,0.3963376694739939,0.5362241016103697,-0.1398864321363758,0
+historical_holdout,916,S-abscisic acid,244.0,MLP_balanced_fixed,historical_holdout,0,0.4529596113352986,0.5362241016103697,-0.0832644902750711,0
+historical_holdout,927,4-[4-(Acetyloxy)phenyl]-2-butanone,237.0,MLP_balanced_fixed,historical_holdout,0,0.453068546713922,0.5362241016103697,-0.08315555489644771,0
+historical_holdout,928,"Phosphoramidothioic acid, O,S-Dimethyl ester",236.0,MLP_balanced_fixed,historical_holdout,1,0.45668353366463704,0.5362241016103697,-0.07954056794573267,0
+historical_holdout,932,"5-Chloro-2-(3,4,4-trifluorobut-3-ene-1-sulfonyl)-1,3-thiazole",233.0,MLP_balanced_fixed,historical_holdout,0,0.5007783921483635,0.5362241016103697,-0.0354457094620062,0
+historical_holdout,942,Tricyclazole (Ref: EL 291),228.0,MLP_balanced_fixed,historical_holdout,0,0.42261119089851695,0.5362241016103697,-0.11361291071185275,0
+historical_holdout,946,"N-(4-Methyl-1,3-dithiolan-2-ylidene)phosphoramidic acid diethyl ester",120.0,MLP_balanced_fixed,historical_holdout,1,0.5176860226023562,0.5362241016103697,-0.01853807900801352,0
+historical_holdout,955,"3,3-Dimethylbutanoic acid 2-oxo-3-(2,4,6-trimethylphenyl)-1-oaxspiro[4.4]non-3-en-4-yl ester",118.0,MLP_balanced_fixed,historical_holdout,0,0.48367431060348803,0.5362241016103697,-0.052549791006881674,0
+historical_holdout,957,Mildiomycin (Ref: AR-1F1870),221.0,MLP_balanced_fixed,historical_holdout,0,0.24338669149698064,0.5362241016103697,-0.29283741011338904,0
+historical_holdout,966,"(4R,5R)-rel-5-(4-Chlorophenyl)-N-cyclohexyl-4-methyl-2-oxo-3-thiazolidinecarboxamide",215.0,MLP_balanced_fixed,historical_holdout,0,0.511343673579674,0.5362241016103697,-0.024880428030695678,0
+historical_holdout,977,"1-[[2-[2-Chloro-4-(4-chlorophenoxyl)phenyl]-4-methyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_balanced_fixed,historical_holdout,0,0.5443821803372539,0.5362241016103697,0.008158078726884233,1
+historical_holdout,978,Fluazinam (Ref: IKF 1216),208.0,MLP_balanced_fixed,historical_holdout,0,0.46839598424691287,0.5362241016103697,-0.06782811736345684,0
+historical_holdout,985,"(1E)-[2-[[6-(2-Chlorophenoxy)-5-fluoro-4-pyrimidinyl]oxy]phenyl](5,6-dihydro-1,4,2-dioxazin-3-yl)-methanone, O-Methyloxime",203.0,MLP_balanced_fixed,historical_holdout,0,0.5436406376601662,0.5362241016103697,0.007416536049796529,1
+historical_holdout,987,"2-(2,2-Difluoroethoxy)-N-(5,8-dimethoxy[1,2,4]triazolo[1,5-c]pyrimidin-2-yl)-6-(trifluoromethyl)benzenesulfonamide",70.0,MLP_balanced_fixed,historical_holdout,0,0.5252127755843066,0.5362241016103697,-0.01101132602606314,0
+historical_holdout,996,Indanofan (Ref: MK 243),199.0,MLP_balanced_fixed,historical_holdout,0,0.4934588187240507,0.5362241016103697,-0.042765282886319034,0
+historical_holdout,999,Noviflumuron,5.0,MLP_balanced_fixed,historical_holdout,0,0.5023200679489711,0.5362241016103697,-0.0339040336613986,0
+historical_holdout,1012,Proquinazid (Ref: DPX KQ926),193.0,MLP_balanced_fixed,historical_holdout,0,0.4766321162118407,0.5362241016103697,-0.059591985398529,0
+historical_holdout,1013,Sordidin,192.0,MLP_balanced_fixed,historical_holdout,0,0.34209912028004336,0.5362241016103697,-0.19412498133032635,0
+historical_holdout,1,Ethanedioic acid,461.0,MLP_balanced_search,historical_holdout,0,0.3417027817455673,0.5283342876066929,-0.1866315058611256,0
+historical_holdout,4,Tetradifon (Ref: ENT 23737),459.0,MLP_balanced_search,historical_holdout,1,0.5637533842881199,0.5283342876066929,0.035419096681427065,1
+historical_holdout,9,Bromophos,29.0,MLP_balanced_search,historical_holdout,1,0.5509956303227459,0.5283342876066929,0.022661342716053023,1
+historical_holdout,28,Cartap (Ref: TL 1258),454.0,MLP_balanced_search,historical_holdout,1,0.4388032855322022,0.5283342876066929,-0.08953100207449066,0
+historical_holdout,45,"N-Acetylphosphoramidothioic acid O,S-dimethyl ester",449.0,MLP_balanced_search,historical_holdout,1,0.459041175768683,0.5283342876066929,-0.0692931118380099,0
+historical_holdout,54,"2,4-Dichloro-1-(4-nitrophenoxy)benzene",1.0,MLP_balanced_search,historical_holdout,0,0.5097307169568125,0.5283342876066929,-0.018603570649880385,0
+historical_holdout,61,"2,4-D (Ref: L 208)",1.0,MLP_balanced_search,historical_holdout,0,0.4914840341202985,0.5283342876066929,-0.03685025348639437,0
+historical_holdout,63,"N-(1-Ethylpropyl)-3,4-dimethyl-2,6-dinitro-benzenamine",162.0,MLP_balanced_search,historical_holdout,0,0.48633594065157254,0.5283342876066929,-0.041998346955120336,0
+historical_holdout,64,Vernolate (Ref: R-106),34.0,MLP_balanced_search,historical_holdout,1,0.43787241297764123,0.5283342876066929,-0.09046187462905164,0
+historical_holdout,73,"N,N-Bis(2-methylpropyl)carbamothioic acid S-ethyl ester",176.0,MLP_balanced_search,historical_holdout,0,0.41649028829924717,0.5283342876066929,-0.11184399930744571,0
+historical_holdout,74,4-Chloro-alpha-(4-chlorophenyl)-alpha-methylbenzenemethanol,74.0,MLP_balanced_search,historical_holdout,0,0.5131085672120442,0.5283342876066929,-0.015225720394648645,0
+historical_holdout,80,Jasmone,442.0,MLP_balanced_search,historical_holdout,0,0.3603649894632312,0.5283342876066929,-0.16796929814346168,0
+historical_holdout,82,"N-[1-[(Butylamino)carbonyl]-1H-benzimidazol-2-yl]carbamic acid, Methyl ester",440.0,MLP_balanced_search,historical_holdout,1,0.4441734576938533,0.5283342876066929,-0.08416082991283957,0
+historical_holdout,91,4-Chloro-alpha-(4-chlorophenyl)-alpha-(trichloromethyl)benzenemethanol,74.0,MLP_balanced_search,historical_holdout,1,0.5824485000214739,0.5283342876066929,0.05411421241478098,1
+historical_holdout,103,Pyrethrins (pyrethrin I),14.0,MLP_balanced_search,historical_holdout,1,0.4380552028532459,0.5283342876066929,-0.09027908475344698,0
+historical_holdout,113,Carene,435.0,MLP_balanced_search,historical_holdout,0,0.3298612502964303,0.5283342876066929,-0.19847303731026256,0
+historical_holdout,120,(4-chlorophenoxy)acetic acid,10.0,MLP_balanced_search,historical_holdout,0,0.46051823717470214,0.5283342876066929,-0.06781605043199074,0
+historical_holdout,121,Pyrethrins and Pyrethroids,14.0,MLP_balanced_search,historical_holdout,1,0.44772140171121716,0.5283342876066929,-0.08061288589547572,0
+historical_holdout,124,Acifluorfen (Ref: RH 5781),5.0,MLP_balanced_search,historical_holdout,0,0.49156398035271315,0.5283342876066929,-0.03677030725397973,0
+historical_holdout,136,"1-[[2-(2,4-Dichlorophenyl)-4-propyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_balanced_search,historical_holdout,0,0.5148670411139058,0.5283342876066929,-0.013467246492787077,0
+historical_holdout,137,2-(4-Chloro-2-methylphenoxy)acetic acid,10.0,MLP_balanced_search,historical_holdout,0,0.4571878347606173,0.5283342876066929,-0.07114645284607557,0
+historical_holdout,139,"2,2-Dimethyl-3-(2-methyl-1-propen-1-yl)cyclopropanecarboxylic acid [5-(phenylmethyl)-3-furanyl]methyl ester",20.0,MLP_balanced_search,historical_holdout,1,0.5062580771971456,0.5283342876066929,-0.022076210409547325,0
+historical_holdout,151,Bioallethrin,14.0,MLP_balanced_search,historical_holdout,1,0.42937250464410454,0.5283342876066929,-0.09896178296258834,0
+historical_holdout,162,Chitosan hydrochloride,426.0,MLP_balanced_search,historical_holdout,0,0.07732732420116928,0.5283342876066929,-0.4510069634055236,0
+historical_holdout,185,Delnav,105.0,MLP_balanced_search,historical_holdout,0,0.6470418686081825,0.5283342876066929,0.11870758100148959,1
+historical_holdout,188,"2-(2,4,5-Trichlorophenoxy)propanoic acid",1.0,MLP_balanced_search,historical_holdout,0,0.5152933501743568,0.5283342876066929,-0.01304093743233603,0
+historical_holdout,191,Naptalam (Ref: ACP 322),169.0,MLP_balanced_search,historical_holdout,0,0.4890777448918246,0.5283342876066929,-0.03925654271486828,0
+historical_holdout,199,2-[4-[(6-Chloro-2-quinoxalinyl)oxy]phenoxy]propanoic acid,1.0,MLP_balanced_search,historical_holdout,0,0.5302747654339008,0.5283342876066929,0.0019404778272079648,1
+historical_holdout,200,"2-[(3,5,6-Trichloro-2-pyridinyl)oxy]acetic acid",10.0,MLP_balanced_search,historical_holdout,0,0.5081384071897166,0.5283342876066929,-0.020195880416976286,0
+historical_holdout,203,"N,N-dipropylcarbamothioic acid S-ethyl ester",34.0,MLP_balanced_search,historical_holdout,1,0.4187905317325785,0.5283342876066929,-0.10954375587411436,0
+historical_holdout,207,Mecoprop (Ref: RD 4593),1.0,MLP_balanced_search,historical_holdout,0,0.4465528514035071,0.5283342876066929,-0.08178143620318579,0
+historical_holdout,212,Daminozide,419.0,MLP_balanced_search,historical_holdout,0,0.44058603910212796,0.5283342876066929,-0.08774824850456492,0
+historical_holdout,214,MCPB (Ref: MB 3046),10.0,MLP_balanced_search,historical_holdout,0,0.47929698338756294,0.5283342876066929,-0.04903730421912994,0
+historical_holdout,222,"2,4-DB (Ref: ENT 8538)",1.0,MLP_balanced_search,historical_holdout,0,0.5160597142299173,0.5283342876066929,-0.012274573376775622,0
+historical_holdout,224,Dichlorprop (Ref: RD 406),1.0,MLP_balanced_search,historical_holdout,0,0.4863902354148501,0.5283342876066929,-0.04194405219184277,0
+historical_holdout,234,"p-Phenylphosphonothioic acid, O-(4-Bromo-2,5-dichlorophenyl) O-methyl ester",29.0,MLP_balanced_search,historical_holdout,1,0.49970703552108947,0.5283342876066929,-0.028627252085603405,0
+historical_holdout,244,"1,3-Dithiolo[4,5-b]quinoxaline-2-thione",413.0,MLP_balanced_search,historical_holdout,0,0.401322983753758,0.5283342876066929,-0.12701130385293485,0
+historical_holdout,260,Ioxynil (Ref: ACP 63-303),49.0,MLP_balanced_search,historical_holdout,1,0.4190384886966295,0.5283342876066929,-0.10929579891006336,0
+historical_holdout,263,"1,3-Dithiolan-2-ylidenephosphoramidic acid diethyl ester",120.0,MLP_balanced_search,historical_holdout,1,0.511007457986817,0.5283342876066929,-0.01732682961987586,0
+historical_holdout,264,Chlorthal-dimethyl (Ref: DAC 893),51.0,MLP_balanced_search,historical_holdout,0,0.5151193235014995,0.5283342876066929,-0.013214964105193405,0
+historical_holdout,267,Chlorthiamid (Ref: WL 5792.),408.0,MLP_balanced_search,historical_holdout,0,0.4034734884916759,0.5283342876066929,-0.12486079911501696,0
+historical_holdout,274,"O-Ethyl O-(2,4,5-trichlorophenyl)ester ethylphosphonothioic acid",29.0,MLP_balanced_search,historical_holdout,1,0.5196605960232654,0.5283342876066929,-0.008673691583427456,0
+historical_holdout,280,Tetramethrin (Ref: ENT 27339),14.0,MLP_balanced_search,historical_holdout,1,0.4295500583222126,0.5283342876066929,-0.09878422928448027,0
+historical_holdout,288,Chlordimeform (Ref: ENT 27335),128.0,MLP_balanced_search,historical_holdout,0,0.4168582089828419,0.5283342876066929,-0.11147607862385095,0
+historical_holdout,292,Pyrethrins (jasmolin I),14.0,MLP_balanced_search,historical_holdout,1,0.4420415932794997,0.5283342876066929,-0.08629269432719316,0
+historical_holdout,293,Formetanate (Ref: SN 36056),39.0,MLP_balanced_search,historical_holdout,1,0.4200285978793471,0.5283342876066929,-0.10830568972734578,0
+historical_holdout,295,Pyrethrins (jasmolin II),14.0,MLP_balanced_search,historical_holdout,1,0.4500301627990744,0.5283342876066929,-0.0783041248076185,0
+historical_holdout,296,Diclofop-methyl (Ref: HOE 023408),1.0,MLP_balanced_search,historical_holdout,0,0.5232451590819618,0.5283342876066929,-0.00508912852473109,0
+historical_holdout,299,"Phosphorothioic acid, O-(2,5-Dichloro-4-iodophenyl) O,O-dimethyl ester",29.0,MLP_balanced_search,historical_holdout,1,0.5637520267717963,0.5283342876066929,0.03541773916510338,1
+historical_holdout,312,Kelevan (Ref: GC-9160),399.0,MLP_balanced_search,historical_holdout,0,0.6450007331326607,0.5283342876066929,0.11666644552596783,1
+historical_holdout,313,Picloram-methyl,51.0,MLP_balanced_search,historical_holdout,0,0.47514104784030664,0.5283342876066929,-0.053193239766386236,0
+historical_holdout,317,"Octanoic acid, 2,6-Dibromo-4-cyanophenyl ester",49.0,MLP_balanced_search,historical_holdout,0,0.4762158736955514,0.5283342876066929,-0.05211841391114147,0
+historical_holdout,324,"alpha, alpha-bis(4-Chlorophenyl)-3-pyridinemethanol",74.0,MLP_balanced_search,historical_holdout,1,0.5530827306404962,0.5283342876066929,0.024748443033803302,1
+historical_holdout,329,Bromophos-ethyl (Ref: SHG-2225),29.0,MLP_balanced_search,historical_holdout,1,0.5696643895426037,0.5283342876066929,0.0413301019359108,1
+historical_holdout,342,N-(Phosphonomethyl)glycine,392.0,MLP_balanced_search,historical_holdout,0,0.3930474538188422,0.5283342876066929,-0.13528683378785067,0
+historical_holdout,352,"N,N-Diethylcarbamothioic acid S-[(4-chlorophenyl)methyl] ester",34.0,MLP_balanced_search,historical_holdout,0,0.4748524304033596,0.5283342876066929,-0.05348185720333326,0
+historical_holdout,360,"4-(1,1-Dimethylethyl)-N-(1-methylpropyl)-2,6-dinitrobenzenamine",162.0,MLP_balanced_search,historical_holdout,0,0.4825236066441752,0.5283342876066929,-0.04581068096251767,0
+historical_holdout,369,Bifenox,1.0,MLP_balanced_search,historical_holdout,0,0.5096621673536855,0.5283342876066929,-0.01867212025300735,0
+historical_holdout,373,N-(2-Chloro-4-pyridinyl)-N'-phenylurea  ,126.0,MLP_balanced_search,historical_holdout,0,0.44838878987268244,0.5283342876066929,-0.07994549773401044,0
+historical_holdout,374,Pyrethrins (cinerin II),14.0,MLP_balanced_search,historical_holdout,1,0.4515803808464577,0.5283342876066929,-0.07675390676023519,0
+historical_holdout,375,Pyrethrins (cinerin I),14.0,MLP_balanced_search,historical_holdout,1,0.4345818489710638,0.5283342876066929,-0.0937524386356291,0
+historical_holdout,380,Piproctanyl bromide (Ref: ACR-1222),385.0,MLP_balanced_search,historical_holdout,0,0.46000768625253485,0.5283342876066929,-0.06832660135415802,0
+historical_holdout,388,1-Methyl-3-phenyl-5-[3-(trifluoromethyl)phenyl]-4(1H)pyridinone,155.0,MLP_balanced_search,historical_holdout,0,0.5346079599139902,0.5283342876066929,0.006273672307297362,1
+historical_holdout,391,Lufenuron (Ref: CGA 184699),5.0,MLP_balanced_search,historical_holdout,0,0.5043750264645015,0.5283342876066929,-0.02395926114219138,0
+historical_holdout,394,"alpha-(4-Chlorophenyl)-alpha-(1-cyclopropylethyl)-1H-1,2,4-triazole-1-ethanol",21.0,MLP_balanced_search,historical_holdout,0,0.4882575806452033,0.5283342876066929,-0.04007670696148957,0
+historical_holdout,395,alpha-(2-Chlorophenyl)-alpha-(4-chlorophenyl)-5-pyrimidinemethanol,74.0,MLP_balanced_search,historical_holdout,1,0.5309255014741482,0.5283342876066929,0.002591213867455311,1
+historical_holdout,398,Sulprofos (Ref: NTN 9306),99.0,MLP_balanced_search,historical_holdout,1,0.5877222509054817,0.5283342876066929,0.059387963298788815,1
+historical_holdout,399,N-[2-[3-Chloro-5-(trifluoromethyl)-2-pyridinyl]ethyl]-2-(trifluoromethyl)benzamide,86.0,MLP_balanced_search,historical_holdout,0,0.5336496796670924,0.5283342876066929,0.005315392060399549,1
+historical_holdout,410,Flutriafol (Ref: PP 450),92.0,MLP_balanced_search,historical_holdout,1,0.48327026595468775,0.5283342876066929,-0.045064021652005126,0
+historical_holdout,420,"2,6-Difluoro-N-[[[4-(trifluoromethyl)phenyl]amino]carbonyl]benzamide",5.0,MLP_balanced_search,historical_holdout,1,0.5057267761568663,0.5283342876066929,-0.022607511449826534,0
+historical_holdout,422,P-(Aminocarbonyl)phosphonic acid monoethyl ester ammonium salt (1:1),159.0,MLP_balanced_search,historical_holdout,0,0.43477787167990445,0.5283342876066929,-0.09355641592678843,0
+historical_holdout,429,Pyridate (Ref: CL 11344),376.0,MLP_balanced_search,historical_holdout,0,0.5167218831461379,0.5283342876066929,-0.011612404460555004,0
+historical_holdout,440,Propamocarb (Ref: SN 39744),373.0,MLP_balanced_search,historical_holdout,0,0.4660389465957473,0.5283342876066929,-0.06229534101094558,0
+historical_holdout,447,Diclofop (Ref: AE F021079),1.0,MLP_balanced_search,historical_holdout,0,0.5273676390786068,0.5283342876066929,-0.0009666485280860337,0
+historical_holdout,449,Ioxynil octanoate,49.0,MLP_balanced_search,historical_holdout,1,0.4705660957758079,0.5283342876066929,-0.057768191830884996,0
+historical_holdout,453,Polyoxorim,138.0,MLP_balanced_search,historical_holdout,0,0.20814230811988751,0.5283342876066929,-0.32019197948680533,0
+historical_holdout,457,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid 2-methyl-4-oxo-3-(2-propynyl)-2-cyclopenten-1-yl ester",14.0,MLP_balanced_search,historical_holdout,1,0.4175858185350399,0.5283342876066929,-0.11074846907165298,0
+historical_holdout,460,Teflubenzuron (Ref: CME 13406),5.0,MLP_balanced_search,historical_holdout,0,0.5071442165148871,0.5283342876066929,-0.021190071091805818,0
+historical_holdout,463,Clodinafop propargyl (Ref: CGA 184927),1.0,MLP_balanced_search,historical_holdout,0,0.518211907807009,0.5283342876066929,-0.01012237979968389,0
+historical_holdout,471,Piperophos (Ref: C 19 490),369.0,MLP_balanced_search,historical_holdout,0,0.6053550524514326,0.5283342876066929,0.07702076484473974,1
+historical_holdout,472,Quizalofop-ethyl (Ref: DPX Y6202),1.0,MLP_balanced_search,historical_holdout,1,0.5341070338902568,0.5283342876066929,0.005772746283563945,1
+historical_holdout,474,Haloxyfop (Ref: DOWCO 453),1.0,MLP_balanced_search,historical_holdout,0,0.5141796587596382,0.5283342876066929,-0.014154628847054651,0
+historical_holdout,475,Fomesafen (Ref: PP 021),5.0,MLP_balanced_search,historical_holdout,0,0.49074368117660344,0.5283342876066929,-0.037590606430089435,0
+historical_holdout,477,Fluroxypyr (Ref: DOW 43304-H),91.0,MLP_balanced_search,historical_holdout,0,0.44898241632132696,0.5283342876066929,-0.07935187128536592,0
+historical_holdout,482,Mepiquat,366.0,MLP_balanced_search,historical_holdout,0,0.3232988746431675,0.5283342876066929,-0.2050354129635254,0
+historical_holdout,485,Chlorfluazuron (Ref: CGA 112913),5.0,MLP_balanced_search,historical_holdout,0,0.5491404411159377,0.5283342876066929,0.020806153509244862,1
+historical_holdout,491,Hexaflumuron (Ref: XRD 473),5.0,MLP_balanced_search,historical_holdout,0,0.5092042481753818,0.5283342876066929,-0.019130039431311086,0
+historical_holdout,493,1-[[2-(4-Ethoxyphenyl)-2-methylpropoxy]methyl]-3-phenoxybenzene,84.0,MLP_balanced_search,historical_holdout,1,0.5203413969760493,0.5283342876066929,-0.007992890630643568,0
+historical_holdout,496,Paclobutrazol (Ref: PP 333),21.0,MLP_balanced_search,historical_holdout,1,0.4839110306621113,0.5283342876066929,-0.0444232569445816,0
+historical_holdout,497,"alpha-Butyl-alpha-(4-chlorophenyl)-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_balanced_search,historical_holdout,0,0.513340438048833,0.5283342876066929,-0.014993849557859873,0
+historical_holdout,502,Isoxaben (Ref: EAF 496),363.0,MLP_balanced_search,historical_holdout,0,0.5374808956381245,0.5283342876066929,0.009146608031431636,1
+historical_holdout,504,Flufenoxuron (Ref: BAS 3071),5.0,MLP_balanced_search,historical_holdout,0,0.5525447599318665,0.5283342876066929,0.024210472325173593,1
+historical_holdout,508,Tebuconazole (Ref: HWG 1608),21.0,MLP_balanced_search,historical_holdout,0,0.49775267567496423,0.5283342876066929,-0.030581611931728647,0
+historical_holdout,510,Fenoxaprop-ethyl,1.0,MLP_balanced_search,historical_holdout,0,0.5449006654310116,0.5283342876066929,0.01656637782431869,1
+historical_holdout,513,Flusilazole (Ref: DPX H6573),92.0,MLP_balanced_search,historical_holdout,0,0.4920143031014039,0.5283342876066929,-0.03631998450528895,0
+historical_holdout,516,Flurtamone (Ref: RPA 590515),155.0,MLP_balanced_search,historical_holdout,0,0.532361885100188,0.5283342876066929,0.0040275974934951275,1
+historical_holdout,518,Diflufenican (Ref: AE 088657),5.0,MLP_balanced_search,historical_holdout,0,0.5015887367843623,0.5283342876066929,-0.026745550822330544,0
+historical_holdout,537,Hexaconazole (Ref: PP 523),21.0,MLP_balanced_search,historical_holdout,0,0.5235539847062758,0.5283342876066929,-0.004780302900417088,0
+historical_holdout,538,"4-Chloro-2-(1,1-dimethylethyl)-5-[[[4-(1,1-dimethylethyl)phenyl]methyl]thio]-3(2H)pyridazinene",357.0,MLP_balanced_search,historical_holdout,1,0.5022130605776233,0.5283342876066929,-0.026121227029069605,0
+historical_holdout,539,Halfenprox (Ref: MTI 732),84.0,MLP_balanced_search,historical_holdout,1,0.5945965361280899,0.5283342876066929,0.06626224852139706,1
+historical_holdout,540,"5,7-Dichloro-4-(4-fluorophenoxy)quinoline",356.0,MLP_balanced_search,historical_holdout,0,0.54085632030829,0.5283342876066929,0.01252203270159713,1
+historical_holdout,546,Triticonazole (Ref: RPA 400727),65.0,MLP_balanced_search,historical_holdout,0,0.4869878060830079,0.5283342876066929,-0.041346481523684975,0
+historical_holdout,548,Tiocarbazil (Ref: M 3432),34.0,MLP_balanced_search,historical_holdout,0,0.47560784980446574,0.5283342876066929,-0.05272643780222713,0
+historical_holdout,554,"3-(4-Chlorophenyl)-3-(3,4-dimethoxyphenyl)-1-(4-morpholinyl)-2-propen-1-one",148.0,MLP_balanced_search,historical_holdout,0,0.507406350350015,0.5283342876066929,-0.020927937256677853,0
+historical_holdout,558,Flucycloxuron (Ref: OMS 3041),48.0,MLP_balanced_search,historical_holdout,0,0.6360455790400874,0.5283342876066929,0.10771129143339453,1
+historical_holdout,561,"N-(2,6-Difluorophenyl)-5-methyl-[1,2,4]triazolo[1,5-a]pyrimidine-2-sulfonamide",70.0,MLP_balanced_search,historical_holdout,0,0.49752205698618035,0.5283342876066929,-0.030812230620512526,0
+historical_holdout,565,"alpha-[2-(4-Chlorophenyl)ethyl]-alpha-phenyl-1H-1,2,4-triazole-1-propanenitrile",21.0,MLP_balanced_search,historical_holdout,1,0.48669117100935294,0.5283342876066929,-0.041643116597339935,0
+historical_holdout,566,"2-[(4-Amino-3,5-dichloro-6-fluoro-2-pyridinyl)oxy]acetic acid 1-methylheptyl ester",91.0,MLP_balanced_search,historical_holdout,0,0.5456233913484071,0.5283342876066929,0.017289103741714218,1
+historical_holdout,569,Fluoroglycofen,5.0,MLP_balanced_search,historical_holdout,0,0.5101366688780585,0.5283342876066929,-0.018197618728634346,0
+historical_holdout,571,Florasulam (Ref: DE 570),70.0,MLP_balanced_search,historical_holdout,0,0.48983481589537803,0.5283342876066929,-0.03849947171131485,0
+historical_holdout,574,Haloxyfop-P-methyl (Ref: DE 535),1.0,MLP_balanced_search,historical_holdout,0,0.5150823401373416,0.5283342876066929,-0.013251947469351322,0
+historical_holdout,594,Prosulfocarb (Ref: SC 0574),34.0,MLP_balanced_search,historical_holdout,0,0.4721535180857005,0.5283342876066929,-0.05618076952099238,0
+historical_holdout,596,Clofencet (Ref: MON 21250 ),342.0,MLP_balanced_search,historical_holdout,0,0.4744426517696495,0.5283342876066929,-0.05389163583704337,0
+historical_holdout,614,Cloquintocet-mexyl (Ref: CGA 185072),91.0,MLP_balanced_search,historical_holdout,0,0.5004652137111844,0.5283342876066929,-0.027869073895508523,0
+historical_holdout,617,Clodinafop (Ref: CGA 193469),1.0,MLP_balanced_search,historical_holdout,0,0.5177408703515419,0.5283342876066929,-0.01059341725515095,0
+historical_holdout,618,"2,2-Dimethyl-3-(2-methyl-1-propenyl)cyclopropanecarboxylic acid, [2,5-dioxo-3-(2-propynyl)-1-imidazolidinyl]methyl ester",14.0,MLP_balanced_search,historical_holdout,1,0.4454934861678174,0.5283342876066929,-0.08284080143887546,0
+historical_holdout,619,Flusulfamide (Ref: MTF 651),336.0,MLP_balanced_search,historical_holdout,0,0.4849949127418572,0.5283342876066929,-0.04333937486483569,0
+historical_holdout,621,Bromuconazole (Ref: LS 860263),57.0,MLP_balanced_search,historical_holdout,0,0.5375839118306573,0.5283342876066929,0.00924962422396447,1
+historical_holdout,622,Orbencarb (Ref: B-3356),34.0,MLP_balanced_search,historical_holdout,0,0.4728819570383727,0.5283342876066929,-0.05545233056832016,0
+historical_holdout,625,Flumorph (Ref: SYP L190),148.0,MLP_balanced_search,historical_holdout,0,0.4930245040421597,0.5283342876066929,-0.03530978356453318,0
+historical_holdout,626,Fenoxaprop-P (Ref: AE-F088406),1.0,MLP_balanced_search,historical_holdout,0,0.5438007628534836,0.5283342876066929,0.015466475246790679,1
+historical_holdout,629,"N-[[[3-Chloro-4-[1,1,2-trifluoro-2-(trifluoromethoxy)ethoxy]phenyl]amino]carbonyl]-2,6-difluorobenzamide",5.0,MLP_balanced_search,historical_holdout,0,0.5096733298361413,0.5283342876066929,-0.018660957770551545,0
+historical_holdout,631,Epoxiconazole (Ref: BAS 480F),92.0,MLP_balanced_search,historical_holdout,0,0.5105129211803892,0.5283342876066929,-0.01782136642630372,0
+historical_holdout,638,"4-(Cyclopropylhydroxymethylene)-3,5-dioxocyclohexanecarboxylic acid ethyl ester",333.0,MLP_balanced_search,historical_holdout,0,0.4163847910563435,0.5283342876066929,-0.11194949655034936,0
+historical_holdout,658,Pentoxazone (Ref: KPP-314),325.0,MLP_balanced_search,historical_holdout,0,0.5139595124331677,0.5283342876066929,-0.014374775173525145,0
+historical_holdout,660,"4-Chloro-2-cyano-N,N-dimethyl-5-(4-methylphenyl)-1H-imidazole-1-sulfonamide",324.0,MLP_balanced_search,historical_holdout,0,0.48075161904877123,0.5283342876066929,-0.04758266855792165,0
+historical_holdout,663,"1-[[(2,4-Dichlorophenyl)amino]carbonyl]cyclopropane carboxylic acid",323.0,MLP_balanced_search,historical_holdout,0,0.4824345916720875,0.5283342876066929,-0.045899695934605356,0
+historical_holdout,668,"N-(2,6-Dichlorophenyl)-5-ethoxy-7-fluoro-[1,2,4-triazolo[1,5-c]pyrimidine-2-sulfonamide",70.0,MLP_balanced_search,historical_holdout,0,0.48837331488587904,0.5283342876066929,-0.03996097272081384,0
+historical_holdout,669,"2-[(4-Chlorophenyl)methyl]-5-(1-methylethyl)-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",65.0,MLP_balanced_search,historical_holdout,0,0.5077492782727387,0.5283342876066929,-0.02058500933395413,0
+historical_holdout,672,"5-[(4-Chlorophenyl)methyl]-2,2-dimethyl-1-(1H-1,2,4-triazol-1-ylmethyl)cyclopentanol",21.0,MLP_balanced_search,historical_holdout,0,0.49250708462074544,0.5283342876066929,-0.03582720298594744,0
+historical_holdout,678,"(1R,3S)-3-(2,2-Dichloroethenyl)-2,2-dimethyl-(2,3,5,6-tetrafluorophenyl)methyl ester cyclopropanecarboxylic acid",20.0,MLP_balanced_search,historical_holdout,1,0.575420664482094,0.5283342876066929,0.04708637687540107,1
+historical_holdout,684,Clothianidin (Ref: CGA 322704),316.0,MLP_balanced_search,historical_holdout,1,0.39017312144550026,0.5283342876066929,-0.13816116616119262,0
+historical_holdout,689,Cyhalofop,1.0,MLP_balanced_search,historical_holdout,0,0.511590983573549,0.5283342876066929,-0.016743304033143835,0
+historical_holdout,700,Bromoxynil-butanoate,49.0,MLP_balanced_search,historical_holdout,0,0.49550415102423156,0.5283342876066929,-0.03283013658246131,0
+historical_holdout,702,"2,2-Dimethylbutanoic acid, 3-(2,4-Dichlorophenyl)-2-oxo-1-oxaspiro[4.5]dec-3-en-4-yl ester",118.0,MLP_balanced_search,historical_holdout,0,0.5184531193960349,0.5283342876066929,-0.009881168210657987,0
+historical_holdout,703,Tepraloxydim (Ref: BAS 620H),141.0,MLP_balanced_search,historical_holdout,0,0.4440526388278621,0.5283342876066929,-0.08428164877883076,0
+historical_holdout,705,"2-Chloro-N-(4'-chloro[1,1'-biphenyl]-2-yl)-3-pyridinecarboxamide",312.0,MLP_balanced_search,historical_holdout,0,0.5515261019135649,0.5283342876066929,0.023191814306872005,1
+historical_holdout,712,Bistrifluron (Ref: DBI-3204),5.0,MLP_balanced_search,historical_holdout,0,0.49895967121426144,0.5283342876066929,-0.02937461639243144,0
+historical_holdout,724,Mecoprop etexyl,10.0,MLP_balanced_search,historical_holdout,0,0.4840056462313184,0.5283342876066929,-0.044328641375374456,0
+historical_holdout,733,Polyoxin B,138.0,MLP_balanced_search,historical_holdout,0,0.21714887148022965,0.5283342876066929,-0.3111854161264632,0
+historical_holdout,739,MCPA-thioethyl,10.0,MLP_balanced_search,historical_holdout,0,0.4740664605760332,0.5283342876066929,-0.05426782703065969,0
+historical_holdout,746,2-[2-(4-Cyanophenyl)-1-[3-(trifluoromethyl)phenyl]ethylidene]-N-[4-(trifluoromethoxy)phenyl]hydrazinecarboxamide,304.0,MLP_balanced_search,historical_holdout,1,0.5914774056105144,0.5283342876066929,0.06314311800382155,1
+historical_holdout,747,"4-Amino-3,5,6-trichloro-2-pyridinecarboxylic acid, Isooctyl ester",51.0,MLP_balanced_search,historical_holdout,0,0.5498022061843914,0.5283342876066929,0.021467918577698475,1
+historical_holdout,750,"2,6-Dichloro-N-[[3-chloro-5-(trifluoromethyl)-2-pyridinyl]methyl]benzamide",86.0,MLP_balanced_search,historical_holdout,0,0.5248416443372705,0.5283342876066929,-0.0034926432694223353,0
+historical_holdout,760,"(2R)-2-(2,4-Dichlorophenoxy)propanoic acid 2-ethylhexyl ester",1.0,MLP_balanced_search,historical_holdout,0,0.5031366269488353,0.5283342876066929,-0.025197660657857557,0
+historical_holdout,772,"2-(4-Chloro-2-methylphenoxy)acetic acid, 2-Ethylhexyl ester",10.0,MLP_balanced_search,historical_holdout,0,0.4900360628159318,0.5283342876066929,-0.03829822479076106,0
+historical_holdout,774,"3-[[[5-(Difluoromethoxy)-1-methyl-3-(trifluoromethyl)-1H-pyrazol-4-yl]methyl]sulfonyl]-4,5-dihydro-5,5-dimethyl-isoxazole",299.0,MLP_balanced_search,historical_holdout,0,0.5381212089201927,0.5283342876066929,0.009786921313499786,1
+historical_holdout,778,Flufenprox (Ref: ICIA5682),84.0,MLP_balanced_search,historical_holdout,1,0.5893349457647689,0.5283342876066929,0.06100065815807598,1
+historical_holdout,780,Guadipyr,133.0,MLP_balanced_search,historical_holdout,0,0.4944581724427317,0.5283342876066929,-0.03387611516396116,0
+historical_holdout,792,"S-Prop-2-en-1-yl 5-amino-4-(2-methylphenyl)-3-oxo-2-(propan-2-yl)-2,3-dihydro-1H-pyrazole-1-carbothioate",293.0,MLP_balanced_search,historical_holdout,0,0.5070310052252588,0.5283342876066929,-0.021303282381434085,0
+historical_holdout,798,4-Hydroxy-3-[[2-[(2-methoxyethoxy)methyl]-6-(trifluoromethyl)-3-pyridinyl]carbonyl]bicyclo[3.2.1]oct-3-en-2-one,291.0,MLP_balanced_search,historical_holdout,0,0.519268659670977,0.5283342876066929,-0.009065627935715859,0
+historical_holdout,804,4-Amino-3-chloro-6-(4-chloro-2-fluoro-3-methoxyphenyl)-2-pyridinecarboxylic acid methyl ester,51.0,MLP_balanced_search,historical_holdout,0,0.5141328771602363,0.5283342876066929,-0.01420141044645662,0
+historical_holdout,809,"N-[1,1-Dimethyl-2-[2-methyl-4-(1-methylethoxy)phenyl]-2-oxoethyl]-3-methyl-2-thiophenecarboxamide",287.0,MLP_balanced_search,historical_holdout,0,0.5640750497948648,0.5283342876066929,0.035740762188171904,1
+historical_holdout,811,Momfluorothrin (Ref: S-1563),20.0,MLP_balanced_search,historical_holdout,1,0.5248337341764303,0.5283342876066929,-0.003500553430262565,0
+historical_holdout,817,"2-[4-(4-Chlorophenoxy)-2-(trifluoromethyl)phenyl]-1-(1H-1,2,4-triazol-1-yl)propan-2-ol",21.0,MLP_balanced_search,historical_holdout,0,0.5164546320743317,0.5283342876066929,-0.011879655532361144,0
+historical_holdout,832,"(1alpha,2alpha,3beta,4alpha,5alpha,6beta)-1,2,3,4,5,6-Hexachlorocyclohexane",280.0,MLP_balanced_search,historical_holdout,1,0.4982060227553688,0.5283342876066929,-0.030128264851324082,0
+historical_holdout,846,"Tetrahydro-3,5-dimethyl-2H-1,3,5-thiadiazine-2-thione",275.0,MLP_balanced_search,historical_holdout,1,0.34671484534514085,0.5283342876066929,-0.18161944226155202,0
+historical_holdout,852,Amitraz (Ref: ENT 27967),128.0,MLP_balanced_search,historical_holdout,0,0.4902038792150727,0.5283342876066929,-0.038130408391620185,0
+historical_holdout,856,"1,2-Dihydro-3,6-pyridazinedione",269.0,MLP_balanced_search,historical_holdout,0,0.3216698067831967,0.5283342876066929,-0.2066644808234962,0
+historical_holdout,861,L-ascorbic acid,265.0,MLP_balanced_search,historical_holdout,1,0.35825606590902404,0.5283342876066929,-0.17007822169766884,0
+historical_holdout,882,Gentamicin,258.0,MLP_balanced_search,historical_holdout,0,0.2973027051250539,0.5283342876066929,-0.23103158248163896,0
+historical_holdout,890,"N-Phenyl-N'-1,2,3-thiadiazol-5-yl-urea",126.0,MLP_balanced_search,historical_holdout,0,0.38409340388263025,0.5283342876066929,-0.14424088372406263,0
+historical_holdout,894,"N,N,N',N'-Tetramethylphosphorodiamidic fluoride",252.0,MLP_balanced_search,historical_holdout,1,0.3747576493372558,0.5283342876066929,-0.15357663826943707,0
+historical_holdout,897,Maple lactone,250.0,MLP_balanced_search,historical_holdout,0,0.4049427650700694,0.5283342876066929,-0.1233915225366235,0
+historical_holdout,916,S-abscisic acid,244.0,MLP_balanced_search,historical_holdout,0,0.4579413391341025,0.5283342876066929,-0.07039294847259037,0
+historical_holdout,927,4-[4-(Acetyloxy)phenyl]-2-butanone,237.0,MLP_balanced_search,historical_holdout,0,0.4580359970249349,0.5283342876066929,-0.07029829058175796,0
+historical_holdout,928,"Phosphoramidothioic acid, O,S-Dimethyl ester",236.0,MLP_balanced_search,historical_holdout,1,0.461974197514673,0.5283342876066929,-0.06636009009201987,0
+historical_holdout,932,"5-Chloro-2-(3,4,4-trifluorobut-3-ene-1-sulfonyl)-1,3-thiazole",233.0,MLP_balanced_search,historical_holdout,0,0.5031091217048769,0.5283342876066929,-0.025225165901816005,0
+historical_holdout,942,Tricyclazole (Ref: EL 291),228.0,MLP_balanced_search,historical_holdout,0,0.4281453960416139,0.5283342876066929,-0.10018889156507899,0
+historical_holdout,946,"N-(4-Methyl-1,3-dithiolan-2-ylidene)phosphoramidic acid diethyl ester",120.0,MLP_balanced_search,historical_holdout,1,0.5186143210745007,0.5283342876066929,-0.009719966532192204,0
+historical_holdout,955,"3,3-Dimethylbutanoic acid 2-oxo-3-(2,4,6-trimethylphenyl)-1-oaxspiro[4.4]non-3-en-4-yl ester",118.0,MLP_balanced_search,historical_holdout,0,0.48654122143415807,0.5283342876066929,-0.04179306617253481,0
+historical_holdout,957,Mildiomycin (Ref: AR-1F1870),221.0,MLP_balanced_search,historical_holdout,0,0.24333184675686564,0.5283342876066929,-0.28500244084982723,0
+historical_holdout,966,"(4R,5R)-rel-5-(4-Chlorophenyl)-N-cyclohexyl-4-methyl-2-oxo-3-thiazolidinecarboxamide",215.0,MLP_balanced_search,historical_holdout,0,0.514430435180924,0.5283342876066929,-0.013903852425768859,0
+historical_holdout,977,"1-[[2-[2-Chloro-4-(4-chlorophenoxyl)phenyl]-4-methyl-1,3-dioxolan-2-yl]methyl]-1H-1,2,4-triazole",57.0,MLP_balanced_search,historical_holdout,0,0.550202945871512,0.5283342876066929,0.021868658264819096,1
+historical_holdout,978,Fluazinam (Ref: IKF 1216),208.0,MLP_balanced_search,historical_holdout,0,0.472686677736111,0.5283342876066929,-0.05564760987058187,0
+historical_holdout,985,"(1E)-[2-[[6-(2-Chlorophenoxy)-5-fluoro-4-pyrimidinyl]oxy]phenyl](5,6-dihydro-1,4,2-dioxazin-3-yl)-methanone, O-Methyloxime",203.0,MLP_balanced_search,historical_holdout,0,0.5480893508975395,0.5283342876066929,0.01975506329084664,1
+historical_holdout,987,"2-(2,2-Difluoroethoxy)-N-(5,8-dimethoxy[1,2,4]triazolo[1,5-c]pyrimidin-2-yl)-6-(trifluoromethyl)benzenesulfonamide",70.0,MLP_balanced_search,historical_holdout,0,0.523607310265571,0.5283342876066929,-0.00472697734112193,0
+historical_holdout,996,Indanofan (Ref: MK 243),199.0,MLP_balanced_search,historical_holdout,0,0.495415720058491,0.5283342876066929,-0.03291856754820188,0
+historical_holdout,999,Noviflumuron,5.0,MLP_balanced_search,historical_holdout,0,0.5052627639971022,0.5283342876066929,-0.02307152360959064,0
+historical_holdout,1012,Proquinazid (Ref: DPX KQ926),193.0,MLP_balanced_search,historical_holdout,0,0.4786299793744927,0.5283342876066929,-0.04970430823220018,0
+historical_holdout,1013,Sordidin,192.0,MLP_balanced_search,historical_holdout,0,0.35125996548494937,0.5283342876066929,-0.1770743221217435,0
+CR8,1,Isotianil,,MLP_original,CR8,0,0.42768088395919607,0.524583086867806,-0.0969022029086099,0
+CR8,2,Fluoxapiprolin,,MLP_original,CR8,0,0.48719303798413005,0.524583086867806,-0.03739004888367592,0
+CR8,3,Ethiprole,,MLP_original,CR8,1,0.4890530041158925,0.524583086867806,-0.035530082751913494,0
+CR8,4,Cyclobutrifluram,,MLP_original,CR8,0,0.47081182454941717,0.524583086867806,-0.0537712623183888,0
+CR8,5,Isoprothiolane,,MLP_original,CR8,0,0.3726220606494672,0.524583086867806,-0.1519610262183388,0
+CR8,6,Isocycloseram,,MLP_original,CR8,1,0.5106466877297507,0.524583086867806,-0.013936399138055222,0
+CR8,7,Spiropidion,,MLP_original,CR8,0,0.41511741939950814,0.524583086867806,-0.10946566746829783,0
+CR8,8,Florylpicoxamid,,MLP_original,CR8,0,0.5352825910941633,0.524583086867806,0.010699504226357348,1
+CR8,1,Isotianil,,MLP_balanced_fixed,CR8,0,0.4770727467248362,0.5362241016103697,-0.059151354885533525,0
+CR8,2,Fluoxapiprolin,,MLP_balanced_fixed,CR8,0,0.5734254644396357,0.5362241016103697,0.037201362829266005,1
+CR8,3,Ethiprole,,MLP_balanced_fixed,CR8,1,0.5185534598234056,0.5362241016103697,-0.017670641786964092,0
+CR8,4,Cyclobutrifluram,,MLP_balanced_fixed,CR8,0,0.5200374595882953,0.5362241016103697,-0.016186642022074427,0
+CR8,5,Isoprothiolane,,MLP_balanced_fixed,CR8,0,0.4507470063195558,0.5362241016103697,-0.08547709529081393,0
+CR8,6,Isocycloseram,,MLP_balanced_fixed,CR8,1,0.5760277111851919,0.5362241016103697,0.03980360957482221,1
+CR8,7,Spiropidion,,MLP_balanced_fixed,CR8,0,0.4657639143126253,0.5362241016103697,-0.07046018729774439,0
+CR8,8,Florylpicoxamid,,MLP_balanced_fixed,CR8,0,0.645304108362857,0.5362241016103697,0.1090800067524873,1
+CR8,1,Isotianil,,MLP_balanced_search,CR8,0,0.48018586961322424,0.5283342876066929,-0.04814841799346864,0
+CR8,2,Fluoxapiprolin,,MLP_balanced_search,CR8,0,0.5747167516223347,0.5283342876066929,0.04638246401564183,1
+CR8,3,Ethiprole,,MLP_balanced_search,CR8,1,0.5204324588330423,0.5283342876066929,-0.007901828773650532,0
+CR8,4,Cyclobutrifluram,,MLP_balanced_search,CR8,0,0.5215725893783929,0.5283342876066929,-0.006761698228299973,0
+CR8,5,Isoprothiolane,,MLP_balanced_search,CR8,0,0.4535977933615785,0.5283342876066929,-0.07473649424511436,0
+CR8,6,Isocycloseram,,MLP_balanced_search,CR8,1,0.5729871495871947,0.5283342876066929,0.04465286198050178,1
+CR8,7,Spiropidion,,MLP_balanced_search,CR8,0,0.46799945113332897,0.5283342876066929,-0.060334836473363906,0
+CR8,8,Florylpicoxamid,,MLP_balanced_search,CR8,0,0.6532332298706641,0.5283342876066929,0.12489894226397125,1

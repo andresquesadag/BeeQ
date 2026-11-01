@@ -1,0 +1,89 @@
+{
+  "A": "original-selected hyperparameters fixed separately per outer fold and final fit",
+  "B": "12 candidates, four inner cluster folds; final selection on five frozen Development folds",
+  "candidates": 12,
+  "estimator_parameters": {
+    "activation": "relu",
+    "alpha": 0.0001,
+    "batch_size": "auto",
+    "beta_1": 0.9,
+    "beta_2": 0.999,
+    "early_stopping": true,
+    "epsilon": 1e-08,
+    "hidden_layer_sizes": [
+      100
+    ],
+    "learning_rate": "constant",
+    "learning_rate_init": 0.001,
+    "max_fun": 15000,
+    "max_iter": 2000,
+    "momentum": 0.9,
+    "n_iter_no_change": 10,
+    "nesterovs_momentum": true,
+    "power_t": 0.5,
+    "random_state": 20260824,
+    "shuffle": true,
+    "solver": "adam",
+    "tol": 0.0001,
+    "validation_fraction": 0.1,
+    "verbose": false,
+    "warm_start": false
+  },
+  "evaluation_sample_weights": false,
+  "feature_order": [
+    "MolLogP",
+    "MolWt",
+    "TPSA_SP",
+    "NumHDonors",
+    "NumRotatableBonds",
+    "NumAromaticRings",
+    "nHalogen",
+    "n_OP",
+    "LiPHEX_prediction",
+    "sasa002_frac_polar_hetero_only"
+  ],
+  "grid": {
+    "model__alpha": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "model__hidden_layer_sizes": [
+      [
+        32
+      ],
+      [
+        32,
+        16
+      ]
+    ],
+    "model__learning_rate_init": [
+      0.0003,
+      0.001
+    ]
+  },
+  "inner_folds": 4,
+  "inner_seeds": [
+    20260825,
+    20260826,
+    20260827,
+    20260828,
+    20260829
+  ],
+  "original_reproduction_tolerance": 1e-10,
+  "outer_folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "reference": "results/campaigns/BEEQ_FINAL_NESTED_STRUCT_IMPL_20260827T144143Z",
+  "resampling": false,
+  "retrospective": true,
+  "seed": 20260824,
+  "smoke": false,
+  "threshold": "max MCC, then BA, then abs(threshold), then threshold on local OOF",
+  "weight_formula": "N_fit / (2 * n_class_fit)",
+  "weight_scope": "CV training fit before native early-stopping reservation"
+}

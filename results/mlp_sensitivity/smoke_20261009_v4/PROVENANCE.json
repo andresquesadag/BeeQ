@@ -1,0 +1,45 @@
+{
+  "argv": [
+    "C:\\Github_Repos\\BeeQ\\src\\mlp_sensitivity.py",
+    "--smoke",
+    "--output-dir",
+    "results/mlp_sensitivity/smoke_20261009_v4"
+  ],
+  "git_commit": "ba75959da847eb9352bfd5e6e53cbd958a450eb4",
+  "git_status": [
+    " M data/official/ExternalFinal_RDKitFixed.csv",
+    " M data/official/master_RDKitFixed.csv",
+    " M data/official/test_RDKitFixed.csv",
+    " M data/official/train_RDKitFixed.csv",
+    " M data/reference/Externalset.csv",
+    "?? .gitattributes",
+    "?? docs/MLP_BALANCING_DIAGNOSIS.md",
+    "?? results/mlp_sensitivity/",
+    "?? src/mlp_sensitivity.py",
+    "?? tests/test_mlp_sensitivity.py"
+  ],
+  "input_hashes": {
+    "ExternalFinal_RDKitFixed.csv": "70a01eedd970991e072eb9db8e2acdbe854dc8d4623b42bb2263318486cd41fb",
+    "master_RDKitFixed.csv": "a0a6177b3319dba8f210d2358bdd63edbb1c6db3d9b657daa992459b11f2c38e",
+    "test_RDKitFixed.csv": "3f964207e5d732315501d11be2d50c4f520e51a8c7f17b70fe8594390988c8f5",
+    "train_RDKitFixed.csv": "06a0817c082d7715211ca62aae367079f192e1a6c6663c2005c8c8eb5c758984"
+  },
+  "installed_mlp_source_path": "C:\\Github_Repos\\BeeQ\\.venv\\Lib\\site-packages\\sklearn\\neural_network\\_multilayer_perceptron.py",
+  "installed_mlp_source_sha256": "2250288d1048b06fe65172120e59ab75aa9fa21b68d30338bc0ab239caec9785",
+  "matplotlib": "3.11.1",
+  "numpy": "2.5.1",
+  "pandas": "2.3.3",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.8",
+  "scipy": "1.18.1",
+  "sklearn": "1.9.0",
+  "source_hashes": {
+    "docs/MLP_BALANCING_DIAGNOSIS.md": "518dfccc127fa9b549b669b1021e29f61895b40443b384ea01a70cb4d6e46813",
+    "src/classical_models.py": "d2f9f534e347fa334e9fb458b2004687a4c68d73dca78dc4861bbc0dcdb01c0c",
+    "src/config.py": "908ac9a0d0a7af079cc9e800fbc6aeadfcd6d3060796cc6bceeed27860d49e1a",
+    "src/evaluation.py": "6918e6668978fe067d4f2b9ec0b4f38a97a27512c7a8258d83c658f21afed5c9",
+    "src/final_nested_campaign.py": "d933b1a57ccb0da11ede65b5c31d0b2d2f6bfaeb9313e4c637e596113334bdb5",
+    "src/mlp_sensitivity.py": "e154449564b5ae0301680007c886af6d1441bbac2141b235955e8512bb6067f5",
+    "src/model_artifacts.py": "f43ad04006825f605c62bfdf9a80ce69a788c937ac2a81a7bd68094c111cda8f"
+  }
+}

@@ -1,0 +1,9 @@
+# Canonical input hashes were recorded with LF; preserve them on Windows too.
+data/official/*.csv text eol=lf
+data/reference/*.csv text eol=lf
+# These retained artifacts were recorded with LF; other campaign CSVs use CRLF.
+results/campaigns/20260824T183229Z_418787d0cc/SUMMARY.md text eol=lf
+results/campaigns/20260825T034056Z_cd0dba4468/SUMMARY.md text eol=lf
+results/campaigns/20260825T034056Z_cd0dba4468/audit/Externalset_reference_only.csv text eol=lf
+results/campaigns/BEEQ_FINAL_NESTED_STRUCT_IMPL_20260825T234128Z/00_README/PRE_RUN_AUDIT.md text eol=lf
+results/campaigns/BEEQ_FINAL_NESTED_STRUCT_IMPL_20260825T234128Z/10_MANIFEST/SOURCE_CODE_PROVENANCE.json text eol=lf

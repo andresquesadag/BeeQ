@@ -75,6 +75,32 @@ Each invocation creates a new timestamped directory under
 See [docs/AUDITABILITY.md](docs/AUDITABILITY.md) for retained dependencies and
 known historical limitations.
 
+## Retrospective MLP balancing sensitivity
+
+The original unweighted MLP and historical campaigns are retained. An additional
+runner compares training sample weights at fixed original hyperparameters (A)
+and under the original full nested search (B), using the same X10 rows and folds.
+Use the exact historical `.venv` environment; output paths must be new:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.mlp_sensitivity --smoke
+.\.venv\Scripts\python.exe -m src.mlp_sensitivity `
+  --output-dir results/mlp_sensitivity/NEW_FULL
+.\.venv\Scripts\python.exe -m src.mlp_sensitivity `
+  --output-dir results/mlp_sensitivity/NEW_REPEAT `
+  --compare-to results/mlp_sensitivity/NEW_FULL
+.\.venv\Scripts\python.exe -m src.mlp_sensitivity_report `
+  --run results/mlp_sensitivity/NEW_REPEAT
+```
+
+The completed, independently repeated analysis is in
+`results/mlp_sensitivity/full_20261009_v2/`. See
+[the Spanish report](docs/mlp_sensitivity/REPORT_ES.md).
+Class weighting includes the native MLP interaction with stopping accuracy and
+minibatch regularization. These external evaluations are retrospective.
+Canonical input line endings are pinned in `.gitattributes` so Windows checkouts
+preserve the original input hashes.
+
 ## Licensing
 
 Code is MIT licensed. Dataset and descriptor redistribution rights are separate;

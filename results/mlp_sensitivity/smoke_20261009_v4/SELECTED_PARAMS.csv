@@ -1,0 +1,4 @@
+MODEL,OUTER_FOLD,BEST_PARAMS,THRESHOLD,INNER_THRESHOLD_MCC,INNER_THRESHOLD_BA
+MLP_original,1,"{""model__alpha"": 0.01, ""model__hidden_layer_sizes"": [32, 16], ""model__learning_rate_init"": 0.001}",0.5240377444370133,0.42646736549928954,0.6421930486815983
+MLP_balanced_fixed,1,"{""model__alpha"": 0.01, ""model__hidden_layer_sizes"": [32, 16], ""model__learning_rate_init"": 0.001}",0.5612335144895051,0.3641343640447303,0.6279954142549562
+MLP_balanced_search,1,"{""model__alpha"": 0.01, ""model__hidden_layer_sizes"": [32, 16], ""model__learning_rate_init"": 0.001}",0.5612335144895051,0.3641343640447303,0.6279954142549562

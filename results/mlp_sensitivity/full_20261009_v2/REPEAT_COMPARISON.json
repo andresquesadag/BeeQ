@@ -1,0 +1,74 @@
+[
+  {
+    "exact_csv_match": true,
+    "file": "DATASET_COUNTS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "EXTERNAL_METRICS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "EXTERNAL_PREDICTIONS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "FIT_AUDIT_SUMMARY.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "HPO_CANDIDATES.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "NESTED_FOLD_METRICS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "NESTED_OOF_PREDICTIONS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "NESTED_SUMMARY.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "PAIRED_CLUSTER_BOOTSTRAP.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "PAIRED_FOLD_DELTA_SUMMARY.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "PAIRED_FOLD_DELTAS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "REFERENCE_INTEGRITY.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "REFERENCE_METRIC_RECOMPUTATION.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "SELECTED_PARAMS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "SPLIT_COUNTS.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "SPLIT_INTEGRITY_AUDIT.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "SPLIT_MEMBERSHIP.csv"
+  },
+  {
+    "exact_csv_match": true,
+    "file": "THRESHOLD_OOF_PREDICTIONS.csv"
+  }
+]

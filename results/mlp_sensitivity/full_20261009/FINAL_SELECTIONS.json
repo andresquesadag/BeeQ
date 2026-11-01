@@ -1,0 +1,86 @@
+[
+  {
+    "artifact": "MLP_original.pkl",
+    "artifact_sha256": "b2ea3ce26493d6f7f4a6feaf7e341074ac3be188398595a66d12b9fbb5c05795",
+    "params": {
+      "model__alpha": 0.01,
+      "model__hidden_layer_sizes": [
+        32,
+        16
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "selection_mean_auroc": 0.6862977418753101,
+    "selection_sd_auroc": 0.11043025853467707,
+    "threshold": 0.524583086867806,
+    "threshold_oof_metrics": {
+      "auprc": 0.5961858895700392,
+      "auroc": 0.6837562051847765,
+      "balanced_accuracy": 0.6431605074462218,
+      "fn": 153,
+      "fp": 12,
+      "mcc": 0.41770585512530284,
+      "sensitivity": 0.3108108108108108,
+      "specificity": 0.9755102040816327,
+      "tn": 478,
+      "tp": 69
+    },
+    "variant": "MLP_original"
+  },
+  {
+    "artifact": "MLP_balanced_fixed.pkl",
+    "artifact_sha256": "8eede402d0e62042aac559c11506826b3f5101b3e96e3ae9f3ebdb759dd849b8",
+    "params": {
+      "model__alpha": 0.01,
+      "model__hidden_layer_sizes": [
+        32,
+        16
+      ],
+      "model__learning_rate_init": 0.0003
+    },
+    "selection_mean_auroc": NaN,
+    "selection_sd_auroc": NaN,
+    "threshold": 0.5362241016103697,
+    "threshold_oof_metrics": {
+      "auprc": 0.5841320923342403,
+      "auroc": 0.6742967457253172,
+      "balanced_accuracy": 0.6630814487957345,
+      "fn": 136,
+      "fp": 30,
+      "mcc": 0.4091258865789167,
+      "sensitivity": 0.38738738738738737,
+      "specificity": 0.9387755102040817,
+      "tn": 460,
+      "tp": 86
+    },
+    "variant": "MLP_balanced_fixed"
+  },
+  {
+    "artifact": "MLP_balanced_search.pkl",
+    "artifact_sha256": "e8aff63634302026f3694de2fbc03a1d794cdfa138eb2641659f8be1027a69a0",
+    "params": {
+      "model__alpha": 0.001,
+      "model__hidden_layer_sizes": [
+        32,
+        16
+      ],
+      "model__learning_rate_init": 0.001
+    },
+    "selection_mean_auroc": 0.688514074865156,
+    "selection_sd_auroc": 0.08980888610807167,
+    "threshold": 0.5283342876066929,
+    "threshold_oof_metrics": {
+      "auprc": 0.549701107239314,
+      "auroc": 0.672173193601765,
+      "balanced_accuracy": 0.6761077403934547,
+      "fn": 113,
+      "fp": 68,
+      "mcc": 0.3775021622109454,
+      "sensitivity": 0.49099099099099097,
+      "specificity": 0.8612244897959184,
+      "tn": 422,
+      "tp": 109
+    },
+    "variant": "MLP_balanced_search"
+  }
+]

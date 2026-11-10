@@ -1,0 +1,2107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BeeQ · Quantum fidelity kernels for molecular toxicity</title>
+<meta name="description" content="IEEE BIP 2026 conference talk for the BeeQ project: a matched comparison between a classical RBF kernel and two quantum fidelity kernels on the X10 representation.">
+<style>
+:root{
+  --ink:#14242a; --ink-2:#3d525c; --ink-3:#73878f;
+  --paper:#f5f3ec; --paper-2:#fffdf7; --surface:#fffdf7; --line:#d4d7cd;
+  --deep:#0d2328; --deep-2:#16353a;
+  --honey:#d9962a; --honey-ink:#a6761d; --honey-soft:#f0dcae;
+  --rbf:#1a6b61; --prod:#5648a6; --iqp:#9152a8;
+  --rf:#2a4a5c; --lr:#5c8396; --mlp:#9aa6ab;
+  --toxic:#b2463a; --safe:#8aa79c;
+  --serif:'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,Georgia,'Times New Roman',serif;
+  --sans:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#081215;color:var(--ink);font-family:var(--sans);
+  display:grid;grid-template-rows:1fr auto;overflow:hidden}
+.deckarea{position:relative;display:grid;place-items:center;overflow:hidden}
+
+.slide{width:1600px;height:900px;position:relative;flex-direction:column;
+  background:var(--paper);display:none;transform-origin:center center;
+  padding:72px 92px 76px;box-shadow:0 18px 70px #0007;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:var(--deep);color:var(--ink)}
+.slide.dark{--ink:#fffdf7;--ink-2:#cfdcd9;--ink-3:#9fb4b2;--line:#33555b;
+  --surface:#16353a;--honey:#e8ab3f;--honey-ink:#e8ab3f;
+  --rbf:#5cbfaf;--prod:#a294e6;--iqp:#cb95e0;--toxic:#e7917f;--safe:#a8c4ba}
+
+.rail{position:absolute;top:0;left:0;right:0;height:5px;display:flex;gap:3px}
+.rail i{display:block;height:100%;background:var(--line);border-radius:0 0 2px 2px}
+.rail i.on{background:var(--honey)}
+.rail i.done{background:var(--ink-3)}
+.eyebrow{display:flex;align-items:baseline;gap:14px;font-size:19px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.eyebrow b{color:var(--honey-ink);font-weight:800}
+h1{font-family:var(--serif);font-size:78px;line-height:1.02;letter-spacing:-.02em;
+  font-weight:600;max-width:1180px}
+h2{font-family:var(--serif);font-size:50px;line-height:1.08;letter-spacing:-.015em;
+  font-weight:600;max-width:1320px;margin-top:16px}
+h3{font-size:25px;line-height:1.22;font-weight:700;letter-spacing:-.01em}
+.sub{font-size:27px;line-height:1.38;color:var(--ink-2);max-width:1240px;margin-top:18px}
+.lede{font-size:31px;line-height:1.3;color:var(--ink-2);max-width:1150px;margin-top:20px}
+
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  padding-top:24px}
+.cols{display:grid;gap:56px;align-items:center;flex:1;min-height:0}
+.c-5050{grid-template-columns:1fr 1fr}
+.c-6040{grid-template-columns:1.46fr 1fr}
+.c-4060{grid-template-columns:1fr 1.46fr}
+.c-7030{grid-template-columns:1.38fr .62fr}
+.c-chart{grid-template-columns:1.66fr .76fr}
+.stack{display:flex;flex-direction:column;gap:22px}
+.stack.tight{gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+
+.point{font-size:26px;line-height:1.3}
+.point b{font-weight:700}
+.point span{display:block;font-size:21px;line-height:1.36;color:var(--ink-3);margin-top:7px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:26px 28px}
+.card.flat{background:transparent;border:0;border-top:3px solid var(--honey);
+  border-radius:0;padding:18px 0 0}
+.tag{display:inline-block;font-size:18px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:.34em .78em;border-radius:40px;
+  border:1.5px solid currentColor}
+.pill{display:inline-flex;align-items:center;gap:9px;font-size:20px;font-weight:600;
+  background:var(--surface);border:1px solid var(--line);border-radius:40px;padding:.4em .95em}
+.pill i{width:12px;height:12px;border-radius:50%;background:currentColor;flex:none}
+.statement{font-family:var(--serif);font-size:40px;line-height:1.16;font-weight:600;
+  letter-spacing:-.015em}
+.statement em{font-style:normal;color:var(--honey-ink)}
+.strip{border-top:1px solid var(--line);margin-top:24px;padding-top:22px;
+  font-size:23px;line-height:1.34;color:var(--ink-2)}
+.figtag{font-size:17px;line-height:1.35;color:var(--ink-3);margin-top:12px;
+  position:relative;padding-left:32px}
+.figtag::before{content:"";position:absolute;left:0;top:.62em;width:22px;height:0;
+  border-top:2px solid var(--ink-3)}
+.figtag.concept::before{border-top:2px dashed var(--honey)}
+.chart{display:block;width:100%;height:auto}
+.foot{position:absolute;left:92px;right:92px;bottom:28px;display:flex;
+  justify-content:space-between;align-items:baseline;font-size:17px;color:var(--ink-3);
+  border-top:1px solid var(--line);padding-top:13px}
+.foot b{font-weight:700;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+
+.bul{list-style:none;display:flex;flex-direction:column;gap:28px}
+.bul li{font-size:25px;line-height:1.3;position:relative;padding-left:34px}
+.bul li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:14px;
+  border-radius:50%;background:var(--honey)}
+.bul li b{font-weight:700}
+.bul li span{display:block;font-size:20px;line-height:1.36;color:var(--ink-3);margin-top:6px}
+.bul.no li::before{background:none;border-top:3px solid var(--toxic);width:18px;
+  height:0;border-radius:0;top:.62em}
+.bul.sm li{font-size:22px;padding-left:30px}
+.bul.sm li::before{width:11px;height:11px}
+
+.agenda{display:flex;flex-direction:column}
+.ag{display:grid;grid-template-columns:116px 1fr;gap:32px;align-items:baseline;
+  padding:20px 0;border-top:1px solid var(--line)}
+.ag:last-child{border-bottom:1px solid var(--line)}
+.ag u{font-family:var(--serif);font-size:42px;font-weight:600;color:var(--honey);
+  text-decoration:none;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.ag h3{font-size:30px;font-weight:700}
+.ag p{font-size:21px;line-height:1.35;color:var(--ink-3);margin-top:6px}
+
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
+.chips.c4{grid-template-columns:repeat(4,1fr)}
+.key.span2{grid-column:span 2}
+.chips.c4 .chip{align-self:start}
+.chip{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--g);
+  border-radius:10px;padding:12px 14px 11px;position:relative}
+.chip u{position:absolute;top:8px;right:11px;font-size:16px;color:var(--ink-3);
+  text-decoration:none;font-variant-numeric:tabular-nums}
+.chip b{display:block;font-size:23px;font-weight:700;letter-spacing:-.01em}
+.chip s{display:block;font-size:23px;text-decoration:none;color:var(--ink);font-weight:700;
+  font-variant-numeric:tabular-nums;margin:5px 0 7px;padding-bottom:7px;
+  border-bottom:1px solid var(--line)}
+.chip i{display:flex;justify-content:space-between;font-size:18px;font-style:normal;
+  color:var(--ink-2);font-variant-numeric:tabular-nums;line-height:1.45}
+.chip i span{color:var(--ink-3);font-family:var(--serif)}
+.key{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;display:flex;flex-direction:column;gap:13px}
+.key div{font-size:19px;line-height:1.36;color:var(--ink-2);display:grid;
+  grid-template-columns:30px 1fr;gap:12px;align-items:baseline}
+.key em{font-style:normal;font-family:var(--serif);font-size:23px;font-weight:700;
+  color:var(--honey-ink)}
+
+.math{font-family:var(--serif);font-size:30px;line-height:1.5;font-variant-numeric:tabular-nums}
+.math sub,.math sup{font-size:.62em}
+.mathbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:22px 26px}
+.banner{display:flex;align-items:center;gap:28px;background:var(--surface);
+  border:1px solid var(--line);border-left:4px solid var(--prod);border-radius:12px;
+  padding:15px 26px}
+.banner b{font-size:19px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);flex:none}
+
+.bar{height:54px;display:flex;align-items:center;justify-content:center;gap:12px;
+  color:#cfe0dd;font-size:14px;background:#081215;border-top:1px solid #16343a}
+.bar button{background:#10272c;color:inherit;border:1px solid #2b4c52;border-radius:7px;
+  padding:7px 13px;cursor:pointer;font:inherit}
+.bar button:hover{background:#1a3b42}
+.bar .count{font-variant-numeric:tabular-nums;min-width:74px;text-align:center}
+.bar .clock{font-variant-numeric:tabular-nums;color:#8fb0ac;min-width:116px;text-align:right}
+#presenter{display:none;position:fixed;right:18px;bottom:72px;width:470px;max-height:66vh;
+  overflow:auto;background:#fffdf7;color:#14242a;border-radius:12px;padding:22px 24px;
+  box-shadow:0 10px 50px #000a;font-size:16px;line-height:1.55;z-index:9}
+#presenter.show{display:block}
+#presenter h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#a6761d;
+  margin-bottom:10px;display:flex;justify-content:space-between}
+#presenter p{margin-bottom:11px}
+#presenter .cue{color:#73878f;font-style:italic}
+.notes{display:none}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{height:auto;overflow:visible;background:#fff;display:block}
+  .deckarea{display:block;overflow:visible;place-items:start}
+  .slide,.slide.active{display:flex!important;transform:none!important;
+    box-shadow:none;break-after:page;page-break-after:always}
+  .bar,#presenter{display:none!important}
+}
+</style>
+</head>
+<body>
+<main class="deckarea" id="deckarea">
+
+<!-- ======================= 1 · TITLE ======================= -->
+<section class="slide dark active" data-block="-" data-time="20" aria-label="Title">
+  <div class="eyebrow"><span>IEEE BIP 2026 · Guápiles, Costa Rica · 11–13 November</span></div>
+  <div class="body" style="justify-content:space-between;padding-top:34px">
+    <div>
+      <h1 style="font-size:66px;max-width:1420px">BeeQ: Evaluating Quantum Fidelity Kernels
+        as a <em style="font-style:normal;color:var(--honey)">New Approach Methodology</em>
+        for Molecular Toxicity Prediction</h1>
+      <div style="display:flex;gap:16px;margin-top:36px">
+        <span class="tag" style="color:var(--honey)">Matched comparison</span>
+        <span class="tag" style="color:var(--rbf)">893 molecules</span>
+        <span class="tag" style="color:var(--iqp)">10 simulated qubits</span>
+      </div>
+    </div>
+    <div class="grid3" style="gap:52px;border-top:1px solid var(--line);padding-top:30px;
+      font-size:19px;line-height:1.45;color:var(--ink-2)">
+      <div class="stack tight">
+        <div><b style="color:var(--ink);font-size:22px">Luis A. Zumbado-Silva</b><br>CBio3 Laboratory, School of Chemistry, UCR</div>
+        <div><b style="color:var(--ink);font-size:22px">Andrés Quesada-González</b><br>School of Computer Science and Informatics, UCR</div>
+      </div>
+      <div class="stack tight">
+        <div><b style="color:var(--ink);font-size:22px">Johnny Z. Agüero-Sandí</b><br>School of Computer Engineering, TEC</div>
+        <div><b style="color:var(--ink);font-size:22px">Melissa Carvajal-Charpentier</b><br>School of Computer Science, TEC</div>
+      </div>
+      <div class="stack tight">
+        <div><b style="color:var(--ink);font-size:22px">Mauricio Gutiérrez-Arguedas</b><br>School of Chemistry, UCR</div>
+        <div><b style="color:var(--ink);font-size:22px">William J. Zamora-Ramírez</b><br>CBio3 Laboratory, School of Chemistry, UCR</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>01 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Opening.</b> Good morning. This talk is about a controlled experiment: we took a real problem
+    in computational toxicology and asked whether a quantum kernel compares molecules differently from a
+    classical kernel, when everything else is held fixed.</p>
+    <p class="cue">Transition → "Here is the route."</p>
+  </aside>
+</section>
+
+<!-- ======================= 2 · AGENDA ======================= -->
+<section class="slide" data-block="-" data-time="25" aria-label="Agenda">
+  <div class="eyebrow"><span>Agenda</span></div>
+  <div class="body" style="padding-top:34px">
+    <div class="agenda">
+      <div class="ag"><u>01</u><div><h3>Context</h3>
+        <p>Why honey-bee toxicity matters, and the research question that drives the work.</p></div></div>
+      <div class="ag"><u>02</u><div><h3>Methodology</h3>
+        <p>The dataset, how molecular families are separated, and how each molecule is represented.</p></div></div>
+      <div class="ag"><u>03</u><div><h3>Implementation</h3>
+        <p>What a kernel is, how descriptors are encoded into quantum states, and the scope of the simulation.</p></div></div>
+      <div class="ag"><u>04</u><div><h3>Results</h3>
+        <p>Performance across model families, transfer beyond Development, and the external CR8 panel.</p></div></div>
+      <div class="ag"><u>05</u><div><h3>Conclusions</h3>
+        <p>What the study does and does not show, and where it goes next.</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>02 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Agenda.</b> Five blocks. Context and the question; methodology, which is the data and how we
+    prepared it; implementation, which is the kernel and the quantum encoding; results; and conclusions
+    with the future work.</p>
+    <p>The bar at the top always shows which block we are in.</p>
+    <p class="cue">Transition → "Let us start with the why."</p>
+  </aside>
+</section>
+
+<!-- ======================= 3 · CONTEXT ======================= -->
+<section class="slide dark" data-block="A" data-time="40" aria-label="The problem">
+  <div class="eyebrow"><b>A · Context</b><span>Why assess honey-bee toxicity</span></div>
+  <h2>There are far more substances than feasible assays</h2>
+  <div class="body" style="justify-content:flex-start;padding-top:30px">
+    <div class="grid3" style="align-items:start">
+      <div class="card flat">
+        <div style="font-size:19px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--honey)">01 · Exposure</div>
+        <p class="point" style="margin-top:18px"><b><i>Apis mellifera</i> is a key pollinator</b>
+          <span>Agricultural active ingredients can reach it, and the acute lethal dose is an
+          established regulatory criterion.</span></p>
+      </div>
+      <div class="card flat">
+        <div style="font-size:19px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--honey)">02 · Measurement</div>
+        <p class="point" style="margin-top:18px"><b>Measuring it requires animal testing</b>
+          <span>The in vivo assay gives the LD₅₀ per bee, but it is slow, costly, and does not scale to
+          the number of registered substances.</span></p>
+      </div>
+      <div class="card flat">
+        <div style="font-size:19px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--honey)">03 · Prioritisation</div>
+        <p class="point" style="margin-top:18px"><b>Not every molecule: the ones that matter</b>
+          <span>Models trained on already measured data flag which molecules are worth taking to the
+          laboratory and which are not.</span></p>
+      </div>
+    </div>
+    <div class="strip" style="display:flex;align-items:center;gap:56px;margin-top:86px">
+      <p style="flex:1">BeeQ sits at the third step: an exploratory prioritisation tool, not a
+        regulatory decision criterion.</p>
+      <svg viewBox="0 0 260 132" style="width:310px;flex:none" role="img" aria-label="Honey bee">
+        <title>Apis mellifera</title>
+        <defs><clipPath id="beeAbd"><ellipse cx="166" cy="80" rx="56" ry="33"/></clipPath></defs>
+        <g style="fill:var(--honey);opacity:.22">
+          <ellipse cx="132" cy="36" rx="46" ry="19" transform="rotate(-20 132 36)"/>
+          <ellipse cx="108" cy="42" rx="34" ry="14" transform="rotate(-34 108 42)"/>
+        </g>
+        <g style="fill:none;stroke:var(--honey);stroke-width:2;opacity:.55">
+          <ellipse cx="132" cy="36" rx="46" ry="19" transform="rotate(-20 132 36)"/>
+          <ellipse cx="108" cy="42" rx="34" ry="14" transform="rotate(-34 108 42)"/>
+        </g>
+        <ellipse cx="166" cy="80" rx="56" ry="33" style="fill:var(--honey)"/>
+        <g clip-path="url(#beeAbd)" style="fill:var(--deep)">
+          <rect x="150" y="44" width="17" height="74"/>
+          <rect x="182" y="44" width="16" height="74"/>
+          <rect x="210" y="44" width="14" height="74"/>
+        </g>
+        <path d="M222 80l26-9v18z" style="fill:var(--honey)"/>
+        <circle cx="104" cy="76" r="29" style="fill:var(--honey);opacity:.9"/>
+        <circle cx="66" cy="70" r="20" style="fill:var(--deep);stroke:var(--honey);stroke-width:2.6"/>
+        <circle cx="58" cy="66" r="4.5" style="fill:var(--honey)"/>
+        <g style="fill:none;stroke:var(--honey);stroke-width:2.6;stroke-linecap:round">
+          <path d="M58 54C52 40 44 34 34 32"/>
+          <path d="M70 52C68 38 62 30 52 26"/>
+        </g>
+        <g style="fill:none;stroke:var(--honey);stroke-width:2.6;stroke-linecap:round;opacity:.8">
+          <path d="M92 104l-8 18M116 106l2 18M142 108l8 16"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>03 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The problem.</b> Honey bees are important pollinators and are exposed to agricultural active
+    ingredients. The standard for acute toxicity is an in vivo assay that gives the LD₅₀ per bee:
+    reliable, but slow, expensive, and requiring animals.</p>
+    <p>The third step is what gives the project its purpose: the point is not to take every molecule to
+    the laboratory, but to have a prior comparison telling us which ones are more likely to be toxic and
+    deserve the assay. Prioritise, not replace.</p>
+    <p class="cue">Transition → "Within that frame, our question is methodological."</p>
+  </aside>
+</section>
+
+<!-- ======================= 4 · RESEARCH QUESTION ======================= -->
+<section class="slide" data-block="A" data-time="60" aria-label="Research question">
+  <div class="eyebrow"><b>A · Context</b><span>Research question</span></div>
+  <h2 style="max-width:1420px;font-size:42px">Does a fixed quantum fidelity kernel induce a predictively
+    and geometrically different similarity structure when the molecular representation, partitions,
+    pre-processing and evaluation are kept unchanged?</h2>
+  <div class="body" style="padding-top:12px">
+    <svg class="chart" viewBox="0 0 1416 372" role="img" aria-label="Shared pipeline in which only the kernel changes" style="font-family:var(--sans)">
+      <title>Matched design: only the kernel changes</title>
+      <g style="font-size:24px;font-weight:600">
+        <rect x="0" y="146" width="182" height="88" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="91" y="182" text-anchor="middle" style="fill:var(--ink)">ApisTox</text>
+        <text x="91" y="210" text-anchor="middle" style="fill:var(--ink-3);font-size:19px">1,035 → 893</text>
+
+        <rect x="218" y="146" width="212" height="88" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="324" y="182" text-anchor="middle" style="fill:var(--ink)">Pre-processing</text>
+        <text x="324" y="210" text-anchor="middle" style="fill:var(--ink-3);font-size:19px">curation and scaling</text>
+
+        <rect x="466" y="146" width="212" height="88" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="572" y="182" text-anchor="middle" style="fill:var(--ink)">Partitioning</text>
+        <text x="572" y="210" text-anchor="middle" style="fill:var(--ink-3);font-size:19px">cluster-disjoint folds</text>
+      </g>
+      <g style="stroke:var(--ink-3);stroke-width:2;fill:none">
+        <path d="M182 190h26M430 190h26"/>
+      </g>
+      <g style="fill:var(--ink-3)">
+        <path d="M208 184l12 6-12 6zM456 184l12 6-12 6z"/>
+      </g>
+      <path d="M678 190h32M710 78v224M710 78h34M710 302h34" style="stroke:var(--ink-3);stroke-width:2;fill:none"/>
+      <g style="fill:var(--ink-3)"><path d="M744 72l12 6-12 6zM744 296l12 6-12 6z"/></g>
+      <g style="font-size:23px;font-weight:600">
+        <rect x="760" y="40" width="326" height="76" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="784" y="72" style="fill:var(--ink)">Classical models</text>
+        <text x="784" y="100" style="font-size:20px;font-weight:700"><tspan style="fill:var(--lr)">LR</tspan><tspan style="fill:var(--ink-3)">  ·  </tspan><tspan style="fill:var(--rf)">Random Forest</tspan><tspan style="fill:var(--ink-3)">  ·  </tspan><tspan style="fill:var(--ink-3)">MLP</tspan></text>
+      </g>
+      <g style="font-size:23px;font-weight:600">
+        <rect x="760" y="264" width="326" height="76" rx="11" style="fill:#fcf2dd;stroke:var(--honey);stroke-width:2.6;stroke-dasharray:8 5"/>
+        <text x="784" y="296" style="fill:var(--honey-ink)">Kernels</text>
+        <text x="784" y="324" style="font-size:20px;font-weight:700"><tspan style="fill:var(--rbf)">RBF</tspan><tspan style="fill:var(--honey-ink)">  ·  </tspan><tspan style="fill:var(--prod)">Product QK</tspan><tspan style="fill:var(--honey-ink)">  ·  </tspan><tspan style="fill:var(--iqp)">IQP-ZZ QK</tspan></text>
+        <rect x="1116" y="264" width="112" height="76" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="1172" y="309" text-anchor="middle" style="fill:var(--ink)">SVC</text>
+      </g>
+      <path d="M1086 302h20" style="stroke:var(--ink-3);stroke-width:2;fill:none"/>
+      <g style="fill:var(--ink-3)"><path d="M1106 296l12 6-12 6z"/></g>
+      <path d="M1086 78h154M1228 302h12M1240 78v224" style="stroke:var(--ink-3);stroke-width:2;fill:none"/>
+      <path d="M1240 190h26" style="stroke:var(--ink-3);stroke-width:2;fill:none"/>
+      <g style="fill:var(--ink-3)"><path d="M1266 184l12 6-12 6z"/></g>
+      <g style="font-size:24px;font-weight:600">
+        <rect x="1284" y="146" width="132" height="88" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+        <text x="1350" y="198" text-anchor="middle" style="fill:var(--ink)">Metrics</text>
+      </g>
+      <text x="760" y="366" style="fill:var(--honey-ink);font-size:20px;font-weight:700">The only piece that changes across the three kernels</text>
+    </svg>
+    <p class="figtag concept">Conceptual schematic</p>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>04 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The question.</b> This is the paper's question, verbatim. A quantum kernel encodes descriptors
+    into quantum states and uses the fidelity between those states as a similarity measure. That changes
+    how similar two molecules are considered to be, but the classifier can stay classical.</p>
+    <p>Huang and colleagues showed that the geometric difference between classical and quantum kernels is
+    the key factor for their predictive behaviour to differ. Fidelity kernels can also concentrate
+    exponentially. So the question is empirical.</p>
+    <p><b>The pipeline.</b> We start from ApisTox, go through curation and pre-processing, partition by
+    molecular clusters, and then two tracks open: the classical reference models and the three kernels
+    sharing one SVC. Everything converges on the same metrics.</p>
+    <p>What matters is that everything is fixed except the amber box. That is why any difference can be
+    attributed to the kernel. One caveat: "matched RBF" does not mean matching the bandwidth.</p>
+    <p class="cue">Transition → "Let us look at the starting data."</p>
+  </aside>
+</section>
+
+<!-- ======================= 5 · DATASET ======================= -->
+<section class="slide" data-block="B" data-time="50" aria-label="BeeQ893 and the endpoint">
+  <div class="eyebrow"><b>B · Methodology</b><span>The dataset</span></div>
+  <h2>893 curated molecules with measured acute toxicity</h2>
+  <div class="body">
+    <div class="cols c-7030">
+      <div>
+        <svg class="chart" viewBox="0 0 1010 346" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composition of BeeQ893 and its partitions" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Composition of BeeQ893 and its partitions</title><rect x="270.0" y="18.0" width="18.0" height="18.0" rx="3" style="fill:var(--safe)"/><text x="298.0" y="34.0" font-size="22" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">non-toxic</text><rect x="450.0" y="18.0" width="18.0" height="18.0" rx="3" style="fill:var(--toxic)"/><text x="478.0" y="34.0" font-size="22" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">toxic  ·  LD₅₀ ≤ 11 µg/bee</text><text x="246.0" y="107.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">BeeQ893</text><rect x="270.0" y="70.0" width="376.1" height="54.0" rx="3" style="fill:var(--safe)"/><rect x="646.1" y="70.0" width="163.9" height="54.0" rx="3" style="fill:var(--toxic)"/><text x="284.0" y="106.0" font-size="24" font-weight="700" text-anchor="start" style="fill:#fff;font-variant-numeric:tabular-nums">622</text><text x="660.1" y="106.0" font-size="24" font-weight="700" text-anchor="start" style="fill:#fff;font-variant-numeric:tabular-nums">271</text><text x="822.0" y="106.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">462 clusters</text><text x="246.0" y="182.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Development</text><rect x="270.0" y="148.0" width="296.3" height="48.0" rx="3" style="fill:var(--safe)"/><rect x="566.3" y="148.0" width="134.2" height="48.0" rx="3" style="fill:var(--toxic)"/><text x="284.0" y="181.0" font-size="24" font-weight="700" text-anchor="start" style="fill:#fff;font-variant-numeric:tabular-nums">490</text><text x="580.3" y="181.0" font-size="24" font-weight="700" text-anchor="start" style="fill:#fff;font-variant-numeric:tabular-nums">222</text><text x="712.5" y="181.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">374 clusters</text><text x="246.0" y="252.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Historical holdout</text><rect x="270.0" y="218.0" width="79.8" height="48.0" rx="3" style="fill:var(--safe)"/><rect x="349.8" y="218.0" width="29.6" height="48.0" rx="3" style="fill:var(--toxic)"/><text x="284.0" y="251.0" font-size="24" font-weight="700" text-anchor="start" style="fill:#fff;font-variant-numeric:tabular-nums">132</text><text x="391.5" y="251.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--toxic);font-variant-numeric:tabular-nums">49</text><text x="437.5" y="251.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">88 clusters</text><text x="246.0" y="312.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">External CR8</text><circle cx="286.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="322.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="358.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="394.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="430.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="466.0" cy="304.0" r="13" style="fill:var(--safe)"/><circle cx="502.0" cy="304.0" r="13" style="fill:var(--toxic)"/><circle cx="538.0" cy="304.0" r="13" style="fill:var(--toxic)"/><text x="582.0" y="312.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3)">8 · 2 toxic · no cluster ID</text></svg>
+        <p class="figtag">SI Table S1 · frozen campaign</p>
+      </div>
+      <div class="stack">
+        <ul class="bul">
+          <li><b>From 1,035 to 893</b>
+            <span>ApisTox contributes 1,035 compounds; additional curation and standardisation with
+            RDKit leaves 893 organic molecules.</span></li>
+          <li><b>Binary classification, not regression</b>
+            <span>The threshold was fixed before modelling and never tuned on performance.</span></li>
+        </ul>
+        <div class="mathbox">
+          <p style="font-size:19px;color:var(--ink-3);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px">The endpoint</p>
+          <p class="math" style="font-size:27px">y = 1 &nbsp;if&nbsp; LD<sub>50</sub> ≤ 11 µg/bee<br>
+             y = 0 &nbsp;if&nbsp; LD<sub>50</sub> &gt; 11 µg/bee</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>05 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The data.</b> We start from ApisTox, which integrates curated data from ECOTOX, PPDB and BPDB,
+    with 1,035 compounds. After an additional curation and structural standardisation stage — excluding
+    metal-containing structures, handling salts and charge states with RDKit — 893 organic molecules
+    remain: 622 non-toxic and 271 toxic.</p>
+    <p>Those 893 split into Development, 712 molecules, and a historical holdout of 181. Separately there
+    is CR8, an external panel of eight active ingredients approved in Costa Rica.</p>
+    <p>The endpoint is binary: toxic if the LD₅₀ is at most 11 micrograms per bee. That threshold comes
+    from ApisTox and the EPA bee-risk guidance, was fixed before modelling, and was not optimised.</p>
+    <p class="cue">If asked: for the 142 excluded molecules a per-operation removal ledger cannot be
+    reconstructed; and the label aggregates the most severe exposure route available, so it is not one
+    homogeneous protocol.</p>
+    <p class="cue">Transition → "Now, how they are split for a fair evaluation."</p>
+  </aside>
+</section>
+
+<!-- ======================= 6 · PARTITIONS AND FREEZE ======================= -->
+<section class="slide" data-block="B" data-time="55" aria-label="Partitions and freezing">
+  <div class="eyebrow"><b>B · Methodology</b><span>Partitions and freezing</span></div>
+  <h2>Molecular families are never split across sides</h2>
+  <div class="body" style="padding-top:22px;justify-content:flex-start;gap:34px">
+    <div style="width:95%;margin:0 auto"><svg class="chart" viewBox="0 0 1340 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composition of the five frozen outer folds" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Composition of the five frozen outer folds</title><text x="200.0" y="36.0" font-size="22" font-weight="700" text-anchor="start" style="fill:var(--ink-3)">inner training</text><text x="870.0" y="36.0" font-size="22" font-weight="700" text-anchor="start" style="fill:var(--ink-3)">validation</text><text x="1334.0" y="36.0" font-size="22" font-weight="700" text-anchor="end" style="fill:var(--ink-3)">shared clusters</text><text x="174.0" y="83.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Fold 1</text><rect x="200.0" y="58.0" width="662.2" height="32.0" rx="3" style="fill:var(--ink-3);opacity:0.26"/><text x="214.0" y="83.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">575</text><rect x="867.2" y="58.0" width="111.7" height="32.0" rx="3" style="fill:var(--safe)"/><rect x="978.9" y="58.0" width="46.1" height="32.0" rx="3" style="fill:var(--toxic)"/><text x="1038.0" y="83.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">137  (97/40)</text><text x="1334.0" y="83.0" font-size="30" font-weight="700" text-anchor="end" style="fill:var(--rbf);font-variant-numeric:tabular-nums">0</text><text x="174.0" y="129.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Fold 2</text><rect x="200.0" y="104.0" width="699.1" height="32.0" rx="3" style="fill:var(--ink-3);opacity:0.26"/><text x="214.0" y="129.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">607</text><rect x="904.1" y="104.0" width="78.3" height="32.0" rx="3" style="fill:var(--safe)"/><rect x="982.4" y="104.0" width="42.6" height="32.0" rx="3" style="fill:var(--toxic)"/><text x="1038.0" y="129.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">105  (68/37)</text><text x="1334.0" y="129.0" font-size="30" font-weight="700" text-anchor="end" style="fill:var(--rbf);font-variant-numeric:tabular-nums">0</text><text x="174.0" y="175.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Fold 3</text><rect x="200.0" y="150.0" width="650.7" height="32.0" rx="3" style="fill:var(--ink-3);opacity:0.26"/><text x="214.0" y="175.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">565</text><rect x="855.7" y="150.0" width="126.7" height="32.0" rx="3" style="fill:var(--safe)"/><rect x="982.4" y="150.0" width="42.6" height="32.0" rx="3" style="fill:var(--toxic)"/><text x="1038.0" y="175.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">147  (110/37)</text><text x="1334.0" y="175.0" font-size="30" font-weight="700" text-anchor="end" style="fill:var(--rbf);font-variant-numeric:tabular-nums">0</text><text x="174.0" y="221.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Fold 4</text><rect x="200.0" y="196.0" width="611.5" height="32.0" rx="3" style="fill:var(--ink-3);opacity:0.26"/><text x="214.0" y="221.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">531</text><rect x="816.5" y="196.0" width="140.5" height="32.0" rx="3" style="fill:var(--safe)"/><rect x="957.1" y="196.0" width="67.9" height="32.0" rx="3" style="fill:var(--toxic)"/><text x="1038.0" y="221.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">181  (122/59)</text><text x="1334.0" y="221.0" font-size="30" font-weight="700" text-anchor="end" style="fill:var(--rbf);font-variant-numeric:tabular-nums">0</text><text x="174.0" y="267.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Fold 5</text><rect x="200.0" y="242.0" width="656.5" height="32.0" rx="3" style="fill:var(--ink-3);opacity:0.26"/><text x="214.0" y="267.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">570</text><rect x="861.5" y="242.0" width="107.1" height="32.0" rx="3" style="fill:var(--safe)"/><rect x="968.6" y="242.0" width="56.4" height="32.0" rx="3" style="fill:var(--toxic)"/><text x="1038.0" y="267.0" font-size="24" font-weight="500" text-anchor="start" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">142  (93/49)</text><text x="1334.0" y="267.0" font-size="30" font-weight="700" text-anchor="end" style="fill:var(--rbf);font-variant-numeric:tabular-nums">0</text></svg></div>
+    <div style="border-top:1px solid var(--line);padding-top:34px"><svg class="chart" viewBox="0 0 1340 196" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inner selection, freezing and external evaluation" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Inner selection, freezing and external evaluation</title><rect x="0.0" y="56.0" width="70.0" height="44.0" rx="4" style="fill:var(--rbf);opacity:0.2"/><text x="35.0" y="84.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--rbf)">i1</text><rect x="80.0" y="56.0" width="70.0" height="44.0" rx="4" style="fill:var(--rbf);opacity:0.2"/><text x="115.0" y="84.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--rbf)">i2</text><rect x="160.0" y="56.0" width="70.0" height="44.0" rx="4" style="fill:var(--rbf);opacity:0.2"/><text x="195.0" y="84.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--rbf)">i3</text><rect x="240.0" y="56.0" width="70.0" height="44.0" rx="4" style="fill:var(--rbf);opacity:0.2"/><text x="275.0" y="84.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--rbf)">i4</text><text x="0.0" y="36.0" font-size="20" font-weight="700" text-anchor="start" style="fill:var(--ink-3);letter-spacing:.07em">WITHIN EACH OUTER FOLD</text><text x="0.0" y="132.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">4 cluster-grouped splits</text><line x1="330.0" y1="78.0" x2="362.0" y2="78.0" style="stroke:var(--ink-3);stroke-width:2"/><path d="M362 72l12 6-12 6" style="fill:var(--ink-3)"/><rect x="394.0" y="36.0" width="300.0" height="112.0" rx="11" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="414.0" y="72.0" font-size="26" font-weight="700" text-anchor="start" style="fill:var(--ink)">Selection</text><text x="414.0" y="102.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">hyperparameters by AUROC</text><text x="414.0" y="128.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">threshold by maximum MCC</text><line x1="708.0" y1="78.0" x2="740.0" y2="78.0" style="stroke:var(--ink-3);stroke-width:2"/><path d="M740 72l12 6-12 6" style="fill:var(--ink-3)"/><rect x="772.0" y="36.0" width="268.0" height="112.0" rx="11" style="fill:#fcf2dd;stroke:var(--honey);stroke-width:2.4"/><text x="792.0" y="72.0" font-size="26" font-weight="800" text-anchor="start" style="fill:var(--honey-ink)">FROZEN</text><text x="792.0" y="102.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--honey-ink)">one refit on the 712</text><text x="792.0" y="128.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--honey-ink)">+ final threshold</text><line x1="1054.0" y1="78.0" x2="1086.0" y2="78.0" style="stroke:var(--ink-3);stroke-width:2"/><path d="M1086 72l12 6-12 6" style="fill:var(--ink-3)"/><rect x="1118.0" y="36.0" width="222.0" height="50.0" rx="9" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="1229.0" y="68.0" font-size="26" font-weight="600" text-anchor="middle" style="fill:var(--ink)">Holdout  ·  181</text><rect x="1118.0" y="98.0" width="222.0" height="50.0" rx="9" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="1229.0" y="130.0" font-size="26" font-weight="600" text-anchor="middle" style="fill:var(--ink)">CR8  ·  8</text><text x="1118.0" y="174.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">evaluated once</text></svg></div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>06 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The partitions.</b> The central risk in molecular evaluation is similarity leakage: if an
+    evaluation molecule has a near-identical relative in training, the model looks better than it is.</p>
+    <p>So we cluster first. Morgan fingerprints of radius 2 and 1,024 bits with chirality, Tanimoto
+    similarity, and Butina clustering at a 0.60 cutoff. That gives 462 clusters, 334 of them singletons
+    and the largest with 40 molecules. Whole clusters are assigned disjointly.</p>
+    <p>At the top you see the composition of the five frozen outer folds and the audit: zero clusters
+    shared across either side of any fold. Note the heterogeneity — fold 4 validates 181 molecules with
+    59 toxic; fold 2 only 105 with 37. That will explain much of the dispersion we are about to see.</p>
+    <p>Below, the selection and freezing flow. Within each outer fold's training partition, four inner
+    cluster-grouped splits choose hyperparameters by mean inner AUROC and the threshold by maximum MCC.
+    Then a single refit on all 712, and everything is frozen. The manifest is written before the holdout
+    and CR8 are opened; both are evaluated once.</p>
+    <p class="cue">Caveat: the holdout is "historical" — it was inspected during earlier exploratory
+    stages. And cluster disjointness is not a formal out-of-distribution guarantee.</p>
+    <p class="cue">Transition → "And how do we describe each molecule?"</p>
+  </aside>
+</section>
+
+<!-- ======================= 7 · X10 REPRESENTATION ======================= -->
+<section class="slide" data-block="B" data-time="65" aria-label="From molecule to X10">
+  <div class="eyebrow"><b>B · Methodology</b><span>The X10 representation</span></div>
+  <h2>From a chemical structure to ten numbers</h2>
+  <div class="body" style="padding-top:18px;justify-content:flex-start">
+    <div class="cols" style="grid-template-columns:.80fr 1.20fr;gap:44px;flex:none;align-items:start">
+      <div class="stack tight">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 8px">
+          <svg class="mol" role="img" style="width:100%;height:auto;display:block" version='1.1' baseProfile='full'
+              xmlns='http://www.w3.org/2000/svg'
+                      xmlns:rdkit='http://www.rdkit.org/xml'
+                      xmlns:xlink='http://www.w3.org/1999/xlink'
+                  xml:space='preserve' viewBox='0 0 560 340'>
+
+<path class='bond-0 atom-0 atom-1' d='M 72.5,128.8 L 120.7,123.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-1 atom-1 atom-2' d='M 120.7,123.6 L 130.8,137.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-1 atom-1 atom-2' d='M 130.8,137.5 L 140.8,151.3' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 144.0,174.6 L 139.3,185.1' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 139.3,185.1 L 134.7,195.5' style='fill:none;fill-rule:evenodd;stroke:#FF0000;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-3 atom-2 atom-4' d='M 165.4,161.1 L 181.4,159.4' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-3 atom-2 atom-4' d='M 181.4,159.4 L 197.4,157.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-4 atom-4 atom-5' d='M 197.4,157.7 L 221.6,115.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-5 atom-5 atom-6' d='M 221.6,115.7 L 201.8,71.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 201.8,71.5 L 194.5,55.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 194.5,55.2 L 187.2,38.8' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 195.6,74.3 L 188.3,57.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 188.3,57.9 L 181.0,41.5' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 208.0,68.8 L 200.7,52.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 200.7,52.4 L 193.4,36.0' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 221.6,115.7 L 240.2,119.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 240.2,119.7 L 258.9,123.7' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 225.0,123.4 L 241.2,126.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 241.2,126.8 L 257.5,130.3' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-8 atom-8 atom-9' d='M 270.2,137.3 L 272.9,162.5' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-9 atom-9 atom-10' d='M 284.1,179.7 L 300.1,188.9' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-9 atom-9 atom-10' d='M 300.1,188.9 L 316.0,198.1' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 316.0,198.1 L 316.1,246.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 322.8,202.0 L 322.8,242.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-11 atom-12' d='M 316.1,246.7 L 298.2,257.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-11 atom-12' d='M 298.2,257.0 L 280.4,267.3' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-12 atom-11 atom-13' d='M 316.1,246.7 L 358.1,270.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-13 atom-13 atom-14' d='M 358.1,270.7 L 400.0,246.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-13 atom-13 atom-14' d='M 358.0,262.9 L 393.2,242.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-14 atom-14 atom-15' d='M 400.0,246.6 L 442.0,270.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 442.0,270.7 L 433.2,286.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 433.2,286.0 L 424.4,301.2' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-15 atom-17' d='M 442.0,270.7 L 450.8,286.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-15 atom-17' d='M 450.8,286.0 L 459.6,301.2' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-15 atom-18' d='M 442.0,270.7 L 458.4,261.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-15 atom-18' d='M 458.4,261.2 L 474.9,251.7' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-18 atom-14 atom-19' d='M 400.0,246.6 L 400.0,198.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 400.0,198.0 L 358.0,173.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 393.2,202.0 L 358.0,181.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 358.0,173.9 L 358.0,155.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 358.0,155.7 L 357.9,137.5' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-9 atom-22' d='M 264.0,178.4 L 246.9,186.1' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-9 atom-22' d='M 246.9,186.1 L 229.8,193.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 229.8,193.7 L 226.0,211.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 226.0,211.6 L 222.2,229.6' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-4' d='M 229.8,193.7 L 197.4,157.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-4' d='M 231.6,185.5 L 205.7,156.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-24 atom-20 atom-10' d='M 358.0,173.9 L 316.0,198.1' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path d='M 118.3,123.9 L 120.7,123.6 L 121.2,124.3' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 202.8,73.7 L 201.8,71.5 L 201.4,70.7' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 356.0,269.5 L 358.1,270.7 L 360.2,269.5' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 400.0,200.5 L 400.0,198.0 L 397.9,196.8' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path class='atom-2' d='M 145.8 166.9
+Q 145.9 167.0, 146.5 167.2
+Q 147.1 167.5, 147.7 167.6
+Q 148.3 167.7, 148.9 167.7
+Q 150.1 167.7, 150.7 167.2
+Q 151.4 166.6, 151.4 165.7
+Q 151.4 165.0, 151.0 164.6
+Q 150.7 164.2, 150.2 164.0
+Q 149.7 163.8, 148.8 163.5
+Q 147.8 163.2, 147.1 162.9
+Q 146.5 162.6, 146.0 161.9
+Q 145.6 161.3, 145.6 160.2
+Q 145.6 158.7, 146.6 157.7
+Q 147.7 156.8, 149.7 156.8
+Q 151.1 156.8, 152.7 157.5
+L 152.3 158.8
+Q 150.8 158.2, 149.7 158.2
+Q 148.6 158.2, 147.9 158.7
+Q 147.3 159.1, 147.3 160.0
+Q 147.3 160.6, 147.6 161.0
+Q 148.0 161.4, 148.4 161.6
+Q 148.9 161.8, 149.7 162.1
+Q 150.8 162.4, 151.5 162.8
+Q 152.1 163.1, 152.6 163.8
+Q 153.1 164.5, 153.1 165.7
+Q 153.1 167.3, 151.9 168.2
+Q 150.8 169.1, 149.0 169.1
+Q 147.9 169.1, 147.1 168.9
+Q 146.3 168.7, 145.3 168.3
+L 145.8 166.9
+' fill='#CCCC00'/>
+<path class='atom-2' d='M 154.6 158.8
+L 156.8 158.8
+L 156.8 156.6
+L 157.7 156.6
+L 157.7 158.8
+L 159.9 158.8
+L 159.9 159.6
+L 157.7 159.6
+L 157.7 161.8
+L 156.8 161.8
+L 156.8 159.6
+L 154.6 159.6
+L 154.6 158.8
+' fill='#CCCC00'/>
+<path class='atom-3' d='M 124.0 207.1
+Q 124.0 204.2, 125.4 202.6
+Q 126.9 201.0, 129.5 201.0
+Q 132.2 201.0, 133.6 202.6
+Q 135.1 204.2, 135.1 207.1
+Q 135.1 210.0, 133.6 211.7
+Q 132.2 213.4, 129.5 213.4
+Q 126.9 213.4, 125.4 211.7
+Q 124.0 210.1, 124.0 207.1
+M 129.5 212.0
+Q 131.4 212.0, 132.4 210.8
+Q 133.4 209.5, 133.4 207.1
+Q 133.4 204.8, 132.4 203.6
+Q 131.4 202.4, 129.5 202.4
+Q 127.7 202.4, 126.7 203.5
+Q 125.7 204.7, 125.7 207.1
+Q 125.7 209.5, 126.7 210.8
+Q 127.7 212.0, 129.5 212.0
+' fill='#FF0000'/>
+<path class='atom-3' d='M 136.8 203.0
+L 140.9 203.0
+L 140.9 203.9
+L 136.8 203.9
+L 136.8 203.0
+' fill='#FF0000'/>
+<path class='atom-7' d='M 179.4 21.3
+L 183.3 27.6
+Q 183.7 28.3, 184.4 29.4
+Q 185.0 30.6, 185.0 30.6
+L 185.0 21.3
+L 186.6 21.3
+L 186.6 33.3
+L 185.0 33.3
+L 180.7 26.3
+Q 180.2 25.5, 179.7 24.6
+Q 179.2 23.7, 179.0 23.4
+L 179.0 33.3
+L 177.5 33.3
+L 177.5 21.3
+L 179.4 21.3
+' fill='#0000FF'/>
+<path class='atom-8' d='M 266.3 119.8
+L 270.2 126.2
+Q 270.6 126.8, 271.2 127.9
+Q 271.9 129.1, 271.9 129.1
+L 271.9 119.8
+L 273.5 119.8
+L 273.5 131.8
+L 271.8 131.8
+L 267.6 124.9
+Q 267.1 124.0, 266.6 123.1
+Q 266.1 122.2, 265.9 121.9
+L 265.9 131.8
+L 264.4 131.8
+L 264.4 119.8
+L 266.3 119.8
+' fill='#0000FF'/>
+<path class='atom-9' d='M 271.4 168.0
+L 275.4 174.3
+Q 275.8 175.0, 276.4 176.1
+Q 277.0 177.2, 277.0 177.3
+L 277.0 168.0
+L 278.6 168.0
+L 278.6 180.0
+L 277.0 180.0
+L 272.8 173.0
+Q 272.3 172.2, 271.7 171.3
+Q 271.2 170.3, 271.1 170.0
+L 271.1 180.0
+L 269.5 180.0
+L 269.5 168.0
+L 271.4 168.0
+' fill='#0000FF'/>
+<path class='atom-12' d='M 262.8 271.3
+Q 262.8 268.3, 264.2 266.7
+Q 265.7 265.2, 268.3 265.2
+Q 270.8 265.2, 272.1 266.9
+L 271.0 267.8
+Q 270.0 266.6, 268.3 266.6
+Q 266.5 266.6, 265.5 267.8
+Q 264.6 269.0, 264.6 271.3
+Q 264.6 273.7, 265.6 274.9
+Q 266.6 276.1, 268.5 276.1
+Q 269.8 276.1, 271.4 275.3
+L 271.9 276.6
+Q 271.2 277.0, 270.3 277.2
+Q 269.3 277.5, 268.3 277.5
+Q 265.7 277.5, 264.2 275.9
+Q 262.8 274.3, 262.8 271.3
+' fill='#00CC00'/>
+<path class='atom-12' d='M 273.3 264.4
+L 274.9 264.4
+L 274.9 277.3
+L 273.3 277.3
+L 273.3 264.4
+' fill='#00CC00'/>
+<path class='atom-16' d='M 414.2 306.7
+L 421.4 306.7
+L 421.4 308.1
+L 415.8 308.1
+L 415.8 311.7
+L 420.7 311.7
+L 420.7 313.1
+L 415.8 313.1
+L 415.8 318.7
+L 414.2 318.7
+L 414.2 306.7
+' fill='#33CCCC'/>
+<path class='atom-17' d='M 462.7 306.7
+L 469.8 306.7
+L 469.8 308.0
+L 464.3 308.0
+L 464.3 311.7
+L 469.2 311.7
+L 469.2 313.1
+L 464.3 313.1
+L 464.3 318.7
+L 462.7 318.7
+L 462.7 306.7
+' fill='#33CCCC'/>
+<path class='atom-18' d='M 480.3 240.5
+L 487.5 240.5
+L 487.5 241.8
+L 481.9 241.8
+L 481.9 245.5
+L 486.9 245.5
+L 486.9 246.9
+L 481.9 246.9
+L 481.9 252.5
+L 480.3 252.5
+L 480.3 240.5
+' fill='#33CCCC'/>
+<path class='atom-21' d='M 353.3 125.9
+Q 353.3 122.9, 354.7 121.3
+Q 356.1 119.7, 358.8 119.7
+Q 361.3 119.7, 362.6 121.5
+L 361.5 122.4
+Q 360.5 121.1, 358.8 121.1
+Q 357.0 121.1, 356.0 122.3
+Q 355.0 123.5, 355.0 125.9
+Q 355.0 128.2, 356.0 129.5
+Q 357.0 130.7, 359.0 130.7
+Q 360.3 130.7, 361.8 129.9
+L 362.3 131.2
+Q 361.7 131.6, 360.7 131.8
+Q 359.8 132.0, 358.7 132.0
+Q 356.1 132.0, 354.7 130.4
+Q 353.3 128.8, 353.3 125.9
+' fill='#00CC00'/>
+<path class='atom-21' d='M 363.8 119.0
+L 365.4 119.0
+L 365.4 131.9
+L 363.8 131.9
+L 363.8 119.0
+' fill='#00CC00'/>
+<path class='atom-23' d='M 217.1 235.1
+L 221.1 241.5
+Q 221.5 242.1, 222.1 243.2
+Q 222.7 244.4, 222.7 244.4
+L 222.7 235.1
+L 224.3 235.1
+L 224.3 247.1
+L 222.7 247.1
+L 218.5 240.2
+Q 218.0 239.3, 217.4 238.4
+Q 216.9 237.5, 216.8 237.2
+L 216.8 247.1
+L 215.2 247.1
+L 215.2 235.1
+L 217.1 235.1
+' fill='#0000FF'/>
+<path class='atom-23' d='M 226.6 235.1
+L 228.3 235.1
+L 228.3 240.2
+L 234.4 240.2
+L 234.4 235.1
+L 236.1 235.1
+L 236.1 247.1
+L 234.4 247.1
+L 234.4 241.6
+L 228.3 241.6
+L 228.3 247.1
+L 226.6 247.1
+L 226.6 235.1
+' fill='#0000FF'/>
+<path class='atom-23' d='M 238.4 246.7
+Q 238.7 246.0, 239.4 245.5
+Q 240.1 245.1, 241.1 245.1
+Q 242.3 245.1, 242.9 245.8
+Q 243.6 246.4, 243.6 247.6
+Q 243.6 248.8, 242.7 249.8
+Q 241.9 250.9, 240.1 252.3
+L 243.7 252.3
+L 243.7 253.1
+L 238.4 253.1
+L 238.4 252.4
+Q 239.9 251.3, 240.8 250.6
+Q 241.6 249.8, 242.1 249.1
+Q 242.5 248.4, 242.5 247.6
+Q 242.5 246.9, 242.1 246.4
+Q 241.7 246.0, 241.1 246.0
+Q 240.4 246.0, 240.0 246.3
+Q 239.6 246.5, 239.3 247.1
+L 238.4 246.7
+' fill='#0000FF'/>
+</svg>
+        </div>
+        <p style="font-size:28px;font-weight:700;margin-top:6px">Ethiprole</p>
+        <p class="figtag" style="margin-top:2px">Structure drawn with RDKit from the frozen CR8 SMILES</p>
+      </div>
+      <div class="chips c4" id="chips">
+        <div class="key span2" id="x10key">
+          <div><em>·</em><span><b>value</b> of the descriptor computed on the structure</span></div>
+          <div><em>z</em><span><b>standardised:</b> (value − mean) / SD, with Development mean and SD</span></div>
+          <div><em>θ</em><span><b>angle:</b> θ = s · z, what rotates the qubit, with s = 0.25</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>07 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The representation.</b> Every model receives the same ordered ten-dimensional vector, X10. Here
+    we build it with a concrete molecule, Ethiprole, from the external panel.</p>
+    <p>Three steps. First, ten physicochemical and structural descriptors are computed on the structure:
+    that is the large value on each card. Second, standardisation: subtract the mean and divide by the
+    standard deviation of the corresponding training partition, never using evaluation data; that is z.
+    Third, and this is what connects to the quantum part: that standardised value is multiplied by the
+    encoding scale s, which is 0.25, giving the angle theta that rotates a qubit.</p>
+    <p>One descriptor, one qubit. The descriptor order determines which qubit receives which; that is why
+    each card carries its number in the corner. That decision comes back in the future work.</p>
+    <p>Note that nHal gives the largest angle: Ethiprole has five halogens against a mean of 1.25.
+    LiPHEX gives the most negative one.</p>
+    <p>The useful analogy is a house fact sheet: floor area, rooms, year built. It lets you compare
+    houses, but nobody would say it reconstructs the house.</p>
+    <p class="cue">Transition → "With the molecule now in numbers, on to the models."</p>
+  </aside>
+</section>
+
+<!-- ======================= 8 · WHAT A KERNEL IS ======================= -->
+<section class="slide" data-block="C" data-time="40" aria-label="What a kernel does">
+  <div class="eyebrow"><b>C · Implementation</b><span>The idea of a kernel</span></div>
+  <h2>A kernel is a way of measuring likeness</h2>
+  <div class="body">
+    <div class="cols c-5050" style="gap:72px">
+      <div class="stack">
+        <p class="lede" style="margin-top:0">Instead of asking the model to reason about each molecule on
+          its own, we hand it a table with the likeness of <b>every pair</b> of molecules.</p>
+        <div class="mathbox">
+          <p class="math">K<sub>RBF</sub>(z, z′) = exp(−γ ‖z − z′‖²)</p>
+          <p style="font-size:20px;color:var(--ink-3);margin-top:12px">The classical reference. It decays
+            with the distance between standardised descriptors; γ controls how fast.</p>
+        </div>
+      </div>
+      <div>
+        <svg class="chart" viewBox="0 0 620 520" role="img" aria-label="Two molecules produce a similarity value inside a Gram matrix" style="font-family:var(--sans)">
+          <title>From a pair of molecules to the similarity matrix</title>
+          <g style="fill:none;stroke:var(--rbf);stroke-width:3.6">
+            <path d="M44 72l42-24 42 24v48l-42 24-42-24z"/>
+          </g>
+          <circle cx="44" cy="72" r="8" style="fill:var(--honey)"/>
+          <text x="86" y="176" text-anchor="middle" style="fill:var(--ink-2);font-size:20px">molecule z</text>
+          <path d="M136 96h44" style="stroke:var(--line);stroke-width:2.4"/>
+          <g style="fill:none;stroke:var(--iqp);stroke-width:3.6">
+            <path d="M188 72l42-24 42 24v48l-42 24-42-24z"/>
+          </g>
+          <circle cx="272" cy="120" r="8" style="fill:var(--honey)"/>
+          <text x="230" y="176" text-anchor="middle" style="fill:var(--ink-2);font-size:20px">molecule z′</text>
+          <path d="M280 96h44" style="stroke:var(--line);stroke-width:2.4"/>
+          <rect x="332" y="62" width="170" height="68" rx="34" style="fill:#fcf2dd;stroke:var(--honey);stroke-width:2.4"/>
+          <text x="417" y="106" text-anchor="middle" style="fill:var(--honey-ink);font-size:27px;font-weight:700;font-family:var(--serif)">k(z, z′)</text>
+          <path d="M417 130v48" style="stroke:var(--honey);stroke-width:2.4;fill:none"/>
+          <path d="M410 178l7 14 7-14" style="fill:var(--honey)"/>
+          <g transform="translate(188,214)">
+            <text x="122" y="-10" text-anchor="middle" style="fill:var(--ink-3);font-size:20px;font-weight:700">similarity matrix</text>
+            <rect x="0" y="6" width="244" height="244" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/>
+            <g style="fill:var(--rbf)">
+              <rect x="0" y="6" width="30.5" height="30.5"/>
+              <rect x="30.5" y="36.5" width="30.5" height="30.5"/>
+              <rect x="61" y="67" width="30.5" height="30.5"/>
+              <rect x="91.5" y="97.5" width="30.5" height="30.5"/>
+              <rect x="122" y="128" width="30.5" height="30.5"/>
+              <rect x="152.5" y="158.5" width="30.5" height="30.5"/>
+              <rect x="183" y="189" width="30.5" height="30.5"/>
+              <rect x="213.5" y="219.5" width="30.5" height="30.5"/>
+              <rect x="30.5" y="6" width="30.5" height="30.5" style="opacity:.42"/>
+              <rect x="0" y="36.5" width="30.5" height="30.5" style="opacity:.42"/>
+              <rect x="91.5" y="67" width="30.5" height="30.5" style="opacity:.55"/>
+              <rect x="61" y="97.5" width="30.5" height="30.5" style="opacity:.55"/>
+              <rect x="183" y="158.5" width="30.5" height="30.5" style="opacity:.3"/>
+              <rect x="152.5" y="189" width="30.5" height="30.5" style="opacity:.3"/>
+              <rect x="122" y="67" width="30.5" height="30.5" style="opacity:.16"/>
+            </g>
+            <g style="stroke:var(--surface);stroke-width:1.6">
+              <path d="M30.5 6v244M61 6v244M91.5 6v244M122 6v244M152.5 6v244M183 6v244M213.5 6v244"/>
+              <path d="M0 36.5h244M0 67h244M0 97.5h244M0 128h244M0 158.5h244M0 189h244M0 219.5h244"/>
+            </g>
+            <rect x="91.5" y="97.5" width="30.5" height="30.5" style="fill:none;stroke:var(--honey);stroke-width:3.6"/>
+          </g>
+          <text x="310" y="498" text-anchor="middle" style="fill:var(--ink-3);font-size:20px">One pair of molecules fills one cell.</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>08 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>What a kernel is.</b> For those who do not work with this: a kernel is a function that, given
+    two molecules, returns a number saying how similar they are. Do that for every pair and you get a
+    square table, the Gram matrix.</p>
+    <p>The classical reference is the RBF kernel, which decays exponentially with the squared distance
+    between standardised descriptors. Gamma says how fast it decays, that is, how demanding the notion of
+    "similar" is.</p>
+    <p>The key point for this talk: the classifier does not change. An SVC receives the pre-computed
+    table and learns the boundary. Changing the kernel changes the similarity geometry, not the machine
+    that decides. That is how we can isolate the kernel's effect.</p>
+    <p class="cue">Transition → "And here is where the quantum part comes in."</p>
+  </aside>
+</section>
+
+<!-- ======================= 9 · QUANTUM ENCODING ======================= -->
+<section class="slide" data-block="C" data-time="75" aria-label="Quantum fidelity kernels">
+  <div class="eyebrow"><b>C · Implementation</b><span>Quantum encoding and fidelity</span></div>
+  <h2>Each descriptor rotates a qubit; likeness is the fidelity</h2>
+  <div class="body" style="padding-top:14px;gap:16px;justify-content:flex-start">
+    <div class="banner" style="padding:12px 24px;gap:24px">
+      <b>Likeness = fidelity</b>
+      <span class="math" style="font-size:26px">K<sub>Q</sub>(z, z′) = |⟨ψ(z)|ψ(z′)⟩|²</span>
+      <span style="font-size:19px;color:var(--ink-3);line-height:1.35">Between 0 and 1; it is 1 when the
+        two states coincide.</span>
+    </div>
+    <div class="cols" style="grid-template-columns:.70fr 1.30fr;gap:52px;flex:none;align-items:center">
+      <div>
+        <svg class="chart" viewBox="0 0 420 400" role="img" aria-label="Bloch sphere with an RY rotation by the standardised descriptor" style="font-family:var(--sans)">
+          <title>RY rotation on the Bloch sphere</title>
+          <circle cx="210" cy="198" r="142" style="fill:none;stroke:var(--line);stroke-width:1.8"/>
+          <ellipse cx="210" cy="198" rx="142" ry="43" style="fill:none;stroke:var(--line);stroke-width:1.6;stroke-dasharray:6 5"/>
+          <path d="M210 56v284M68 198h284" style="stroke:var(--line);stroke-width:1.4"/>
+          <path d="M121 254l178-112" style="stroke:var(--line);stroke-width:1.4;stroke-dasharray:5 5"/>
+          <text x="210" y="42" text-anchor="middle" style="fill:var(--ink-2);font-size:25px;font-family:var(--serif)">|0⟩</text>
+          <text x="210" y="372" text-anchor="middle" style="fill:var(--ink-2);font-size:25px;font-family:var(--serif)">|1⟩</text>
+          <path d="M210 198L314 124" style="stroke:var(--prod);stroke-width:5;stroke-linecap:round"/>
+          <circle cx="314" cy="124" r="10" style="fill:var(--prod)"/>
+          <path d="M210 128a70 70 0 0 1 56 26" style="fill:none;stroke:var(--honey);stroke-width:3.4"/>
+          <text x="272" y="108" style="fill:var(--honey-ink);font-size:25px;font-weight:700;font-family:var(--serif)">θ</text>
+          <text x="210" y="396" text-anchor="middle" style="fill:var(--ink-3);font-size:20px">θᵢ = s · zᵢ   ·   one qubit per descriptor</text>
+        </svg>
+      </div>
+      <div>
+        <svg class="chart" viewBox="0 0 940 400" role="img" aria-label="Circuits of the two feature maps" style="font-family:var(--sans)">
+          <title>Product and IQP-ZZ feature maps</title>
+          <text x="0" y="20" style="fill:var(--prod);font-size:24px;font-weight:800;letter-spacing:.05em">PRODUCT  ·  s = 0.25</text>
+          <g style="stroke:var(--ink-3);stroke-width:1.8">
+            <path d="M80 58h480M80 102h480M80 162h480"/>
+          </g>
+          <g style="font-family:var(--serif);font-size:24px;fill:var(--ink-2)">
+            <text x="10" y="66">|0⟩</text><text x="10" y="110">|0⟩</text><text x="10" y="170">|0⟩</text>
+          </g>
+          <g style="fill:#ece9f7;stroke:var(--prod);stroke-width:2.2">
+            <rect x="230" y="36" width="170" height="42" rx="6"/>
+            <rect x="230" y="80" width="170" height="42" rx="6"/>
+            <rect x="230" y="140" width="170" height="42" rx="6"/>
+          </g>
+          <g style="fill:var(--prod);font-size:23px;font-weight:600">
+            <text x="315" y="65" text-anchor="middle">RY(s z₁)</text>
+            <text x="315" y="109" text-anchor="middle">RY(s z₂)</text>
+            <text x="315" y="169" text-anchor="middle">RY(s z₁₀)</text>
+          </g>
+          <text x="315" y="137" text-anchor="middle" style="fill:var(--ink-3);font-size:25px;letter-spacing:.24em">⋯</text>
+          <text x="590" y="110" style="fill:var(--ink-3);font-size:21px">no entanglement</text>
+
+          <text x="0" y="226" style="fill:var(--iqp);font-size:24px;font-weight:800;letter-spacing:.05em">IQP-ZZ  ·  s = 0.125  ·  λ = 1</text>
+          <g style="stroke:var(--ink-3);stroke-width:1.8">
+            <path d="M80 264h480M80 308h480M80 368h480"/>
+          </g>
+          <g style="font-family:var(--serif);font-size:24px;fill:var(--ink-2)">
+            <text x="10" y="272">|0⟩</text><text x="10" y="316">|0⟩</text><text x="10" y="376">|0⟩</text>
+          </g>
+          <g style="fill:#f5ecf8;stroke:var(--iqp);stroke-width:2.2">
+            <rect x="100" y="244" width="44" height="40" rx="5"/>
+            <rect x="100" y="288" width="44" height="40" rx="5"/>
+            <rect x="100" y="348" width="44" height="40" rx="5"/>
+            <rect x="170" y="244" width="130" height="40" rx="5"/>
+            <rect x="170" y="288" width="130" height="40" rx="5"/>
+            <rect x="170" y="348" width="130" height="40" rx="5"/>
+          </g>
+          <g style="fill:var(--iqp);font-size:22px;font-weight:600">
+            <text x="122" y="272" text-anchor="middle">H</text><text x="122" y="316" text-anchor="middle">H</text>
+            <text x="122" y="376" text-anchor="middle">H</text>
+            <text x="235" y="272" text-anchor="middle">RZ(z₁)</text>
+            <text x="235" y="316" text-anchor="middle">RZ(z₂)</text>
+            <text x="235" y="376" text-anchor="middle">RZ(z₁₀)</text>
+          </g>
+          <text x="235" y="340" text-anchor="middle" style="fill:var(--ink-3);font-size:25px;letter-spacing:.24em">⋯</text>
+          <g style="stroke:var(--iqp);stroke-width:2.8">
+            <path d="M370 264v44M440 308v60"/>
+          </g>
+          <g style="fill:var(--iqp)">
+            <circle cx="370" cy="264" r="8"/><circle cx="370" cy="308" r="8"/>
+            <circle cx="440" cy="308" r="8"/><circle cx="440" cy="368" r="8"/>
+          </g>
+          <text x="590" y="292" style="fill:var(--iqp);font-size:21px;font-weight:600">RZZ chain</text>
+          <text x="590" y="320" style="fill:var(--ink-3);font-size:21px">nearest neighbours</text>
+          <text x="590" y="348" style="fill:var(--ink-3);font-size:21px">no final Hadamard</text>
+        </svg>
+      </div>
+    </div>
+    <p class="figtag concept" style="margin-top:0">Conceptual schematics</p>
+    <ul class="bul sm" style="flex-direction:row;gap:46px;margin-top:4px">
+      <li>Exact statevectors in NumPy</li>
+      <li>1,024 amplitudes per molecule</li>
+      <li>No shots, no noise, no quantum hardware</li>
+    </ul>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>09 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The quantum part.</b> We take the standardised descriptor and turn it into an angle. On the
+    Bloch sphere, a qubit starting at the |0⟩ pole tilts by an angle theta equal to s times z. With ten
+    descriptors, ten qubits.</p>
+    <p>The Product map does exactly that: ten independent RY rotations, with no entangling operation. The
+    IQP-ZZ map starts from a uniform superposition with Hadamards, applies a layer of RZ phases and then
+    RZZ phases between neighbouring qubits in a chain, with interaction strength fixed at one and a
+    single repetition. There is no final Hadamard layer.</p>
+    <p>Note that detail about the chain: only neighbouring qubits are coupled. We will come back to it.</p>
+    <p>The similarity between two molecules is the fidelity between their states: the squared modulus of
+    the inner product. It lies between zero and one, and equals one when the states coincide.</p>
+    <p><b>The scope, worth stating before any result:</b> everything was simulated with exact statevectors
+    in NumPy, 1,024 amplitudes per molecule, without shot sampling, without a noise model and without
+    hardware execution. Qiskit appears in the environment but did not execute the reported campaign.
+    This is not a hardware benchmark.</p>
+    <p class="cue">Transition → "Let us see what happened when we measured."</p>
+  </aside>
+</section>
+
+<!-- ======================= 10 · PERFORMANCE ======================= -->
+<section class="slide" data-block="D" data-time="70" aria-label="Performance of the six families">
+  <div class="eyebrow"><b>D · Results</b><span>Performance on Development</span></div>
+  <h2>Dispersion across folds exceeds the differences between models</h2>
+  <div class="body" style="padding-top:10px">
+    <div class="cols c-chart" style="gap:46px">
+      <div>
+        <svg class="chart" viewBox="0 0 1130 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AUROC per outer fold, mean, deviation and holdout" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>AUROC per outer fold, mean, deviation and holdout</title><line x1="330.0" y1="62.0" x2="330.0" y2="452.0" style="stroke:var(--line);stroke-width:0.9;opacity:0.55"/><line x1="404.4" y1="62.0" x2="404.4" y2="452.0" style="stroke:var(--line);stroke-width:1.5;opacity:1"/><text x="404.4" y="482.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.5</text><line x1="478.9" y1="62.0" x2="478.9" y2="452.0" style="stroke:var(--line);stroke-width:0.9;opacity:0.55"/><line x1="553.3" y1="62.0" x2="553.3" y2="452.0" style="stroke:var(--line);stroke-width:1.5;opacity:1"/><text x="553.3" y="482.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.6</text><line x1="627.8" y1="62.0" x2="627.8" y2="452.0" style="stroke:var(--line);stroke-width:0.9;opacity:0.55"/><line x1="702.2" y1="62.0" x2="702.2" y2="452.0" style="stroke:var(--line);stroke-width:1.5;opacity:1"/><text x="702.2" y="482.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.7</text><line x1="776.7" y1="62.0" x2="776.7" y2="452.0" style="stroke:var(--line);stroke-width:0.9;opacity:0.55"/><line x1="851.1" y1="62.0" x2="851.1" y2="452.0" style="stroke:var(--line);stroke-width:1.5;opacity:1"/><text x="851.1" y="482.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.8</text><line x1="925.6" y1="62.0" x2="925.6" y2="452.0" style="stroke:var(--line);stroke-width:0.9;opacity:0.55"/><line x1="1000.0" y1="62.0" x2="1000.0" y2="452.0" style="stroke:var(--line);stroke-width:1.5;opacity:1"/><text x="1000.0" y="482.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.9</text><line x1="404.4" y1="52.0" x2="404.4" y2="452.0" style="stroke:var(--toxic);stroke-width:1.8;stroke-dasharray:6 5;opacity:0.5"/><text x="404.4" y="42.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--toxic);opacity:0.85">chance</text><text x="1120.0" y="482.0" font-size="20" font-weight="700" text-anchor="end" style="fill:var(--ink-3)">mean</text><text x="314.0" y="100.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Random Forest</text><line x1="688.2" y1="90.0" x2="859.2" y2="90.0" style="stroke:var(--rf);stroke-width:9;opacity:0.24"/><circle cx="684.2" cy="90.0" r="9" style="fill:var(--paper);stroke:var(--rf);stroke-width:2.6"/><circle cx="773.1" cy="90.0" r="9" style="fill:var(--paper);stroke:var(--rf);stroke-width:2.6"/><circle cx="731.6" cy="90.0" r="9" style="fill:var(--paper);stroke:var(--rf);stroke-width:2.6"/><circle cx="766.7" cy="90.0" r="9" style="fill:var(--paper);stroke:var(--rf);stroke-width:2.6"/><circle cx="913.0" cy="90.0" r="9" style="fill:var(--paper);stroke:var(--rf);stroke-width:2.6"/><path d="M773.7 78.0L785.7 90.0L773.7 102.0L761.7 90.0Z" style="fill:var(--rf)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="682.2" y1="81.0" x2="700.2" y2="99.0"/><line x1="682.2" y1="99.0" x2="700.2" y2="81.0"/></g><text x="1120.0" y="100.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.748</text><text x="314.0" y="166.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Logistic Regression</text><line x1="596.4" y1="156.0" x2="905.8" y2="156.0" style="stroke:var(--lr);stroke-width:9;opacity:0.24"/><circle cx="511.0" cy="156.0" r="9" style="fill:var(--paper);stroke:var(--lr);stroke-width:2.6"/><circle cx="687.9" cy="156.0" r="9" style="fill:var(--paper);stroke:var(--lr);stroke-width:2.6"/><circle cx="851.1" cy="156.0" r="9" style="fill:var(--paper);stroke:var(--lr);stroke-width:2.6"/><circle cx="810.3" cy="156.0" r="9" style="fill:var(--paper);stroke:var(--lr);stroke-width:2.6"/><circle cx="894.7" cy="156.0" r="9" style="fill:var(--paper);stroke:var(--lr);stroke-width:2.6"/><path d="M751.1 144.0L763.1 156.0L751.1 168.0L739.1 156.0Z" style="fill:var(--lr)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="670.6" y1="147.0" x2="688.6" y2="165.0"/><line x1="670.6" y1="165.0" x2="688.6" y2="147.0"/></g><text x="1120.0" y="166.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.733</text><text x="314.0" y="232.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Product QK</text><line x1="574.3" y1="222.0" x2="894.4" y2="222.0" style="stroke:var(--prod);stroke-width:9;opacity:0.24"/><circle cx="496.6" cy="222.0" r="9" style="fill:var(--paper);stroke:var(--prod);stroke-width:2.6"/><circle cx="641.2" cy="222.0" r="9" style="fill:var(--paper);stroke:var(--prod);stroke-width:2.6"/><circle cx="862.9" cy="222.0" r="9" style="fill:var(--paper);stroke:var(--prod);stroke-width:2.6"/><circle cx="826.2" cy="222.0" r="9" style="fill:var(--paper);stroke:var(--prod);stroke-width:2.6"/><circle cx="845.3" cy="222.0" r="9" style="fill:var(--paper);stroke:var(--prod);stroke-width:2.6"/><path d="M734.4 210.0L746.4 222.0L734.4 234.0L722.4 222.0Z" style="fill:var(--prod)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="689.4" y1="213.0" x2="707.4" y2="231.0"/><line x1="689.4" y1="231.0" x2="707.4" y2="213.0"/></g><text x="1120.0" y="232.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.722</text><text x="314.0" y="298.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">IQP-ZZ QK</text><line x1="564.4" y1="288.0" x2="878.8" y2="288.0" style="stroke:var(--iqp);stroke-width:9;opacity:0.24"/><circle cx="523.9" cy="288.0" r="9" style="fill:var(--paper);stroke:var(--iqp);stroke-width:2.6"/><circle cx="624.1" cy="288.0" r="9" style="fill:var(--paper);stroke:var(--iqp);stroke-width:2.6"/><circle cx="893.5" cy="288.0" r="9" style="fill:var(--paper);stroke:var(--iqp);stroke-width:2.6"/><circle cx="702.5" cy="288.0" r="9" style="fill:var(--paper);stroke:var(--iqp);stroke-width:2.6"/><circle cx="863.9" cy="288.0" r="9" style="fill:var(--paper);stroke:var(--iqp);stroke-width:2.6"/><path d="M721.6 276.0L733.6 288.0L721.6 300.0L709.6 288.0Z" style="fill:var(--iqp)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="687.6" y1="279.0" x2="705.6" y2="297.0"/><line x1="687.6" y1="297.0" x2="705.6" y2="279.0"/></g><text x="1120.0" y="298.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.713</text><text x="314.0" y="364.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Matched RBF</text><line x1="556.6" y1="354.0" x2="879.4" y2="354.0" style="stroke:var(--rbf);stroke-width:9;opacity:0.24"/><circle cx="492.0" cy="354.0" r="9" style="fill:var(--paper);stroke:var(--rbf);stroke-width:2.6"/><circle cx="615.7" cy="354.0" r="9" style="fill:var(--paper);stroke:var(--rbf);stroke-width:2.6"/><circle cx="823.3" cy="354.0" r="9" style="fill:var(--paper);stroke:var(--rbf);stroke-width:2.6"/><circle cx="772.2" cy="354.0" r="9" style="fill:var(--paper);stroke:var(--rbf);stroke-width:2.6"/><circle cx="886.8" cy="354.0" r="9" style="fill:var(--paper);stroke:var(--rbf);stroke-width:2.6"/><path d="M718.0 342.0L730.0 354.0L718.0 366.0L706.0 354.0Z" style="fill:var(--rbf)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="701.9" y1="345.0" x2="719.9" y2="363.0"/><line x1="701.9" y1="363.0" x2="719.9" y2="345.0"/></g><text x="1120.0" y="364.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.711</text><text x="314.0" y="430.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Balanced MLP</text><line x1="522.8" y1="420.0" x2="819.8" y2="420.0" style="stroke:var(--mlp);stroke-width:9;opacity:0.24"/><circle cx="457.8" cy="420.0" r="9" style="fill:var(--paper);stroke:var(--mlp);stroke-width:2.6"/><circle cx="621.0" cy="420.0" r="9" style="fill:var(--paper);stroke:var(--mlp);stroke-width:2.6"/><circle cx="822.6" cy="420.0" r="9" style="fill:var(--paper);stroke:var(--mlp);stroke-width:2.6"/><circle cx="653.9" cy="420.0" r="9" style="fill:var(--paper);stroke:var(--mlp);stroke-width:2.6"/><circle cx="801.3" cy="420.0" r="9" style="fill:var(--paper);stroke:var(--mlp);stroke-width:2.6"/><path d="M671.3 408.0L683.3 420.0L671.3 432.0L659.3 420.0Z" style="fill:var(--mlp)"/><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="368.7" y1="411.0" x2="386.7" y2="429.0"/><line x1="368.7" y1="429.0" x2="386.7" y2="411.0"/></g><text x="1120.0" y="430.0" font-size="26" font-weight="700" text-anchor="end" style="fill:var(--ink);font-variant-numeric:tabular-nums">0.679</text><circle cx="338.0" cy="525.0" r="9" style="fill:var(--paper);stroke:var(--ink-3);stroke-width:2.6"/><text x="356.0" y="532.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">outer fold</text><path d="M510.0 514.0L521.0 525.0L510.0 536.0L499.0 525.0Z" style="fill:var(--ink-3)"/><text x="528.0" y="532.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">mean of 5 folds</text><line x1="706.0" y1="525.0" x2="760.0" y2="525.0" style="stroke:var(--ink-3);stroke-width:9;opacity:0.24"/><text x="772.0" y="532.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">± 1 SD across folds</text><g style="stroke:var(--ink);stroke-width:2.8;stroke-linecap:round"><line x1="966.0" y1="516.0" x2="984.0" y2="534.0"/><line x1="966.0" y1="534.0" x2="984.0" y2="516.0"/></g><text x="993.0" y="532.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">holdout</text></svg>
+        <p class="figtag">Paper Table I · SI Tables S17 and S18</p>
+      </div>
+      <div class="stack">
+        <p class="statement">Random Forest reached the highest mean: <em>0.748</em></p>
+        <div style="height:1px;background:var(--line)"></div>
+        <p class="point"><b>AUROC: ranking, not accuracy</b>
+          <span>Probability that a random toxic molecule scores above a random non-toxic one.</span></p>
+        <p class="point"><b>The three kernels landed together</b>
+          <span>Product 0.722 · IQP-ZZ 0.713 · RBF 0.711, with fold-wise SDs of 0.106 to 0.108.</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>10 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Predictive results.</b> First, what AUROC is, because everything else depends on it: the
+    probability that a randomly chosen toxic molecule scores higher than a randomly chosen non-toxic one.
+    It measures <b>ranking ability</b>, not percentage correct.</p>
+    <p>Random Forest reached the highest mean, 0.748 ± 0.057. Then logistic regression at 0.733. The three
+    kernels landed very close together: Product 0.722, IQP-ZZ 0.713 and matched RBF 0.711. The balanced
+    MLP, 0.679.</p>
+    <p><b>What I want you to see is the dispersion, not the ordering.</b> Each open circle is one fold.
+    The kernels' standard deviations are around 0.106 to 0.108, while the differences between their means
+    are one or two thousandths. Fold 1 drags every kernel below 0.57; fold 5 lifts them above 0.79.
+    Remember the fold composition: they are not interchangeable.</p>
+    <p>The crosses are the historical holdout, for reference.</p>
+    <p>Random Forest doing well is consistent with nonlinear relationships within X10; logistic regression
+    being competitive suggests a simple linear model captures much of the signal.</p>
+    <p class="cue">If asked about the paired comparison: the per-fold differences between Product and RBF,
+    and between IQP-ZZ and RBF, average +0.011 and +0.002, do not keep a consistent direction across
+    folds, and change sign on the holdout. The cluster-level paired bootstrap includes zero in all three
+    contrasts.</p>
+    <p class="cue">Transition → "But all of this is ranking ability. What about detection?"</p>
+  </aside>
+</section>
+
+<!-- ======================= 11 · RANKING VS DETECTION ======================= -->
+<section class="slide" data-block="D" data-time="60" aria-label="Ranking versus detection">
+  <div class="eyebrow"><b>D · Results</b><span>Historical holdout · n = 181</span></div>
+  <h2>Ranking well and detecting little are compatible</h2>
+  <div class="body" style="padding-top:10px">
+    <div class="cols" style="grid-template-columns:1.62fr .78fr;gap:46px">
+      <div>
+        <svg class="chart" viewBox="0 0 1170 442" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Historical holdout: ranking versus detection" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Historical holdout: ranking versus detection</title><text x="300.0" y="38.0" font-size="22" font-weight="700" text-anchor="start" style="fill:var(--ink-3)">AUROC  ·  ranking</text><text x="760.0" y="38.0" font-size="22" font-weight="700" text-anchor="start" style="fill:var(--ink-3)">Sensitivity  ·  detection</text><line x1="300.0" y1="54.0" x2="300.0" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="300.0" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.4</text><line x1="391.4" y1="54.0" x2="391.4" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="391.4" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.5</text><line x1="482.9" y1="54.0" x2="482.9" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="482.9" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.6</text><line x1="574.3" y1="54.0" x2="574.3" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="574.3" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.7</text><line x1="391.4" y1="54.0" x2="391.4" y2="392.0" style="stroke:var(--toxic);stroke-width:1.8;stroke-dasharray:6 5;opacity:0.55"/><line x1="760.0" y1="54.0" x2="760.0" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="760.0" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.00</text><line x1="853.3" y1="54.0" x2="853.3" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="853.3" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.10</text><line x1="946.7" y1="54.0" x2="946.7" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="946.7" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.20</text><line x1="1040.0" y1="54.0" x2="1040.0" y2="392.0" style="stroke:var(--line);stroke-width:1.0"/><text x="1040.0" y="420.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.30</text><text x="278.0" y="99.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Random Forest</text><rect x="300.0" y="72.0" width="267.5" height="38.0" rx="3" style="fill:var(--rf);opacity:0.9"/><text x="578.5" y="99.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.693</text><rect x="760.0" y="72.0" width="247.6" height="38.0" rx="3" style="fill:var(--rf);opacity:0.9"/><text x="1018.6" y="99.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">13 of 49</text><text x="278.0" y="153.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Logistic Regression</text><rect x="300.0" y="126.0" width="260.4" height="38.0" rx="3" style="fill:var(--lr);opacity:0.9"/><text x="571.4" y="153.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.685</text><rect x="760.0" y="126.0" width="152.4" height="38.0" rx="3" style="fill:var(--lr);opacity:0.9"/><text x="923.4" y="153.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">8 of 49</text><text x="278.0" y="207.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Product QK</text><rect x="300.0" y="180.0" width="271.9" height="38.0" rx="3" style="fill:var(--prod);opacity:0.9"/><text x="582.9" y="207.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.697</text><rect x="760.0" y="180.0" width="76.2" height="38.0" rx="3" style="fill:var(--prod);opacity:0.9"/><text x="847.2" y="207.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">4 of 49</text><text x="278.0" y="261.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">IQP-ZZ QK</text><rect x="300.0" y="234.0" width="270.8" height="38.0" rx="3" style="fill:var(--iqp);opacity:0.9"/><text x="581.8" y="261.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.696</text><rect x="760.0" y="234.0" width="76.2" height="38.0" rx="3" style="fill:var(--iqp);opacity:0.9"/><text x="847.2" y="261.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">4 of 49</text><text x="278.0" y="315.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Matched RBF</text><rect x="300.0" y="288.0" width="279.6" height="38.0" rx="3" style="fill:var(--rbf);opacity:0.9"/><text x="590.6" y="315.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.706</text><rect x="760.0" y="288.0" width="95.2" height="38.0" rx="3" style="fill:var(--rbf);opacity:0.9"/><text x="866.2" y="315.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">5 of 49</text><text x="278.0" y="369.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">Balanced MLP</text><rect x="300.0" y="342.0" width="75.0" height="38.0" rx="3" style="fill:var(--mlp);opacity:0.9"/><text x="386.0" y="369.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.482</text><rect x="760.0" y="342.0" width="247.6" height="38.0" rx="3" style="fill:var(--mlp);opacity:0.9"/><text x="1018.6" y="369.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">13 of 49</text></svg>
+        <p class="figtag">SI Table S18</p>
+      </div>
+      <div class="stack">
+        <div><svg class="chart" viewBox="0 0 580 396" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The 49 toxic holdout molecules under Random Forest" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>The 49 toxic holdout molecules under Random Forest</title><text x="14.0" y="36.0" font-size="22" font-weight="700" text-anchor="start" style="fill:var(--ink-3)">The 49 toxic holdout compounds · Random Forest</text><circle cx="30.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="84.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="138.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="192.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="246.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="300.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="354.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="408.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="462.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="516.0" cy="84.0" r="16" style="fill:var(--toxic)"/><circle cx="30.0" cy="138.0" r="16" style="fill:var(--toxic)"/><circle cx="84.0" cy="138.0" r="16" style="fill:var(--toxic)"/><circle cx="138.0" cy="138.0" r="16" style="fill:var(--toxic)"/><circle cx="192.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="246.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="300.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="354.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="408.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="462.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="516.0" cy="138.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="30.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="84.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="138.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="192.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="246.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="300.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="354.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="408.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="462.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="516.0" cy="192.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="30.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="84.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="138.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="192.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="246.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="300.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="354.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="408.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="462.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="516.0" cy="246.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="30.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="84.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="138.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="192.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="246.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="300.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="354.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="408.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="462.0" cy="300.0" r="16" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><circle cx="30.0" cy="368.0" r="14" style="fill:var(--toxic)"/><text x="52.0" y="376.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink)">13 detected</text><circle cx="262.0" cy="368.0" r="14" style="fill:none;stroke:var(--toxic);stroke-width:2.6"/><text x="284.0" y="376.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink)">36 missed</text></svg></div>
+        <p class="statement" style="font-size:33px">Five models hold AUROC near 0.70 and still
+          <em>let most of the toxic compounds through</em>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>11 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The distinction that matters most to a toxicologist.</b> A regulatory decision needs a threshold
+    and a binary answer. And there the picture changes completely.</p>
+    <p>On the holdout of 181 molecules — 49 toxic and 132 non-toxic — five of the six models hold AUROC
+    between 0.68 and 0.71, similar to Development. The matched RBF even rises to 0.706.</p>
+    <p><b>But at the frozen thresholds, sensitivity collapses:</b> between 0.082 and 0.265. The best case
+    is Random Forest, detecting 13 of 49 and letting 36 through. Product and IQP-ZZ detect four each.
+    Specificity is high, between 0.833 and 0.985.</p>
+    <p>Put differently: these models rank reasonably, but at the chosen operating point they behave as
+    very conservative filters that almost never raise an alarm. For prioritisation that is a serious
+    problem, because the false negative is the costly error.</p>
+    <p class="cue">On the MLP: the one shown is the balanced, retuned variant. It detects 13 of 49 like
+    Random Forest, but at the cost of 22 false positives and an AUROC of 0.482, below chance.</p>
+    <p class="cue">Transition → "And what if the molecule resembles what the model has already seen?"</p>
+  </aside>
+</section>
+
+<!-- ======================= 12 · CR8 AND DOMAIN ======================= -->
+<section class="slide" data-block="D" data-time="55" aria-label="CR8 and applicability domain">
+  <div class="eyebrow"><b>D · Results</b><span>External CR8 panel and applicability domain</span></div>
+  <h2>Being inside the domain does not guarantee a correct call</h2>
+  <div class="body" style="padding-top:8px">
+    <div class="cols" style="grid-template-columns:1.14fr .86fr;gap:44px;align-items:center">
+      <div>
+        <svg class="chart" viewBox="0 0 1060 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dual applicability domain of the CR8 panel" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Dual applicability domain of the CR8 panel</title><rect x="320.0" y="90.0" width="46.6" height="306.0" rx="0" style="fill:var(--toxic);opacity:0.06"/><rect x="320.0" y="90.0" width="670.0" height="72.2" rx="0" style="fill:var(--toxic);opacity:0.06"/><line x1="341.6" y1="90.0" x2="341.6" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="341.6" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.2</text><line x1="449.7" y1="90.0" x2="449.7" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="449.7" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.3</text><line x1="557.7" y1="90.0" x2="557.7" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="557.7" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.4</text><line x1="665.8" y1="90.0" x2="665.8" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="665.8" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.5</text><line x1="773.9" y1="90.0" x2="773.9" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="773.9" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.6</text><line x1="881.9" y1="90.0" x2="881.9" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="881.9" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.7</text><line x1="990.0" y1="90.0" x2="990.0" y2="396.0" style="stroke:var(--line);stroke-width:0.9"/><text x="990.0" y="426.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.8</text><line x1="320.0" y1="378.0" x2="990.0" y2="378.0" style="stroke:var(--line);stroke-width:0.9"/><text x="304.0" y="385.0" font-size="20" font-weight="400" text-anchor="end" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">1.0</text><line x1="320.0" y1="288.0" x2="990.0" y2="288.0" style="stroke:var(--line);stroke-width:0.9"/><text x="304.0" y="295.0" font-size="20" font-weight="400" text-anchor="end" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">1.5</text><line x1="320.0" y1="198.0" x2="990.0" y2="198.0" style="stroke:var(--line);stroke-width:0.9"/><text x="304.0" y="205.0" font-size="20" font-weight="400" text-anchor="end" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">2.0</text><line x1="320.0" y1="108.0" x2="990.0" y2="108.0" style="stroke:var(--line);stroke-width:0.9"/><text x="304.0" y="115.0" font-size="20" font-weight="400" text-anchor="end" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">2.5</text><line x1="320.0" y1="396.0" x2="990.0" y2="396.0" style="stroke:var(--ink-3);stroke-width:1.6"/><line x1="320.0" y1="90.0" x2="320.0" y2="396.0" style="stroke:var(--ink-3);stroke-width:1.6"/><line x1="366.6" y1="90.0" x2="366.6" y2="396.0" style="stroke:var(--toxic);stroke-width:2;stroke-dasharray:7 5;opacity:0.85"/><text x="376.6" y="80.0" font-size="20" font-weight="700" text-anchor="start" style="fill:var(--toxic)">P05 = 0.223</text><line x1="320.0" y1="162.2" x2="990.0" y2="162.2" style="stroke:var(--toxic);stroke-width:2;stroke-dasharray:7 5;opacity:0.85"/><text x="990.0" y="150.2" font-size="20" font-weight="700" text-anchor="end" style="fill:var(--toxic)">P95 = 2.199</text><circle cx="411.0" cy="305.3" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><circle cx="709.9" cy="119.2" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><text x="729.9" y="128.2" font-size="22" font-weight="500" text-anchor="start" style="fill:var(--ink-2)">Fluoxapiprolin</text><circle cx="925.2" cy="242.7" r="14" style="fill:var(--toxic)"/><circle cx="925.2" cy="242.7" r="23" style="fill:none;stroke:var(--toxic);stroke-width:1.8;opacity:0.5"/><text x="899.2" y="222.7" font-size="22" font-weight="700" text-anchor="end" style="fill:var(--toxic)">Ethiprole</text><circle cx="411.5" cy="375.8" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><circle cx="446.8" cy="311.7" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><circle cx="376.8" cy="273.7" r="14" style="fill:var(--toxic)"/><circle cx="376.8" cy="273.7" r="23" style="fill:none;stroke:var(--toxic);stroke-width:1.8;opacity:0.5"/><text x="376.8" y="233.7" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--toxic)">Isocycloseram</text><circle cx="521.2" cy="348.6" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><circle cx="458.9" cy="255.4" r="12" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><text x="320.0" y="456.0" font-size="24" font-weight="600" text-anchor="start" style="fill:var(--ink-2)">Maximum Morgan/Tanimoto similarity  →  structural support</text><text x="34" y="243.0" font-size="24" font-weight="600" text-anchor="middle" style="fill:var(--ink-2)" transform="rotate(-90 34 243.0)">Mean distance to 5 neighbours in X10</text><circle cx="710.0" cy="48.0" r="13" style="fill:var(--toxic)"/><text x="732.0" y="56.0" font-size="22" font-weight="400" text-anchor="start" style="fill:var(--ink-2)">toxic</text><circle cx="840.0" cy="48.0" r="11" style="fill:var(--paper);stroke:var(--ink-2);stroke-width:2.6"/><text x="862.0" y="56.0" font-size="22" font-weight="400" text-anchor="start" style="fill:var(--ink-2)">non-toxic</text></svg>
+        <p class="figtag">SI Table S26</p>
+      </div>
+      <div>
+        <svg class="chart" viewBox="0 0 700 508" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Frozen decisions of the six models on CR8" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Frozen decisions of the six models on CR8</title><text x="293.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">RF</text><text x="363.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">LR</text><text x="433.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">Prod</text><text x="503.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">IQP</text><text x="573.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">RBF</text><text x="643.0" y="60.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">MLP</text><text x="240.0" y="110.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Isotianil</text><circle cx="293.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="643.0" cy="102.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><text x="240.0" y="154.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Fluoxapiprolin</text><circle cx="293.0" cy="146.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="146.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="146.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="146.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="146.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="633.0" y1="136.0" x2="653.0" y2="156.0"/><line x1="633.0" y1="156.0" x2="653.0" y2="136.0"/></g><rect x="4.0" y="172.0" width="684.0" height="36.0" rx="4" style="fill:var(--toxic);opacity:0.07"/><text x="240.0" y="198.0" font-size="22" font-weight="700" text-anchor="end" style="fill:var(--toxic)">Ethiprole</text><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="283.0" y1="180.0" x2="303.0" y2="200.0"/><line x1="283.0" y1="200.0" x2="303.0" y2="180.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="353.0" y1="180.0" x2="373.0" y2="200.0"/><line x1="353.0" y1="200.0" x2="373.0" y2="180.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="423.0" y1="180.0" x2="443.0" y2="200.0"/><line x1="423.0" y1="200.0" x2="443.0" y2="180.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="493.0" y1="180.0" x2="513.0" y2="200.0"/><line x1="493.0" y1="200.0" x2="513.0" y2="180.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="563.0" y1="180.0" x2="583.0" y2="200.0"/><line x1="563.0" y1="200.0" x2="583.0" y2="180.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="633.0" y1="180.0" x2="653.0" y2="200.0"/><line x1="633.0" y1="200.0" x2="653.0" y2="180.0"/></g><text x="240.0" y="242.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Cyclobutrifluram</text><circle cx="293.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="643.0" cy="234.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><text x="240.0" y="286.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Isoprothiolane</text><circle cx="293.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="643.0" cy="278.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><rect x="4.0" y="304.0" width="684.0" height="36.0" rx="4" style="fill:var(--toxic);opacity:0.07"/><text x="240.0" y="330.0" font-size="22" font-weight="700" text-anchor="end" style="fill:var(--toxic)">Isocycloseram</text><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="283.0" y1="312.0" x2="303.0" y2="332.0"/><line x1="283.0" y1="332.0" x2="303.0" y2="312.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="353.0" y1="312.0" x2="373.0" y2="332.0"/><line x1="353.0" y1="332.0" x2="373.0" y2="312.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="423.0" y1="312.0" x2="443.0" y2="332.0"/><line x1="423.0" y1="332.0" x2="443.0" y2="312.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="493.0" y1="312.0" x2="513.0" y2="332.0"/><line x1="493.0" y1="332.0" x2="513.0" y2="312.0"/></g><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="563.0" y1="312.0" x2="583.0" y2="332.0"/><line x1="563.0" y1="332.0" x2="583.0" y2="312.0"/></g><circle cx="643.0" cy="322.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><text x="240.0" y="374.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Spiropidion</text><circle cx="293.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="643.0" cy="366.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><text x="240.0" y="418.0" font-size="22" font-weight="500" text-anchor="end" style="fill:var(--ink-2)">Florylpicoxamid</text><circle cx="293.0" cy="410.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="363.0" cy="410.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="433.0" cy="410.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="503.0" cy="410.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><circle cx="573.0" cy="410.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="633.0" y1="400.0" x2="653.0" y2="420.0"/><line x1="633.0" y1="420.0" x2="653.0" y2="400.0"/></g><circle cx="28.0" cy="470.0" r="12" style="fill:none;stroke:var(--rbf);stroke-width:2.6"/><text x="48.0" y="478.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">correct decision</text><g style="stroke:var(--toxic);stroke-width:3.4;stroke-linecap:round"><line x1="252.0" y1="460.0" x2="272.0" y2="480.0"/><line x1="252.0" y1="480.0" x2="272.0" y2="460.0"/></g><text x="282.0" y="478.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">error</text><text x="386.0" y="478.0" font-size="20" font-weight="400" text-anchor="start" style="fill:var(--ink-3)">frozen thresholds, no retuning</text></svg>
+        <p class="figtag">SI Table S27 · balanced MLP</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>12 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>CR8 and the applicability domain.</b> CR8 is an external panel of eight active ingredients
+    approved in Costa Rica under decree 43838, with no overlap against BeeQ893 or ApisTox, verified by
+    canonical SMILES and full InChIKey.</p>
+    <p>The domain is defined by two criteria derived from Development only. The horizontal axis is
+    structural support: maximum Morgan/Tanimoto similarity to Development, cut at the 5th percentile,
+    0.223. The vertical axis is descriptor-space support: mean distance to the five nearest neighbours in
+    standardised X10, cut at the 95th percentile, 2.199. Neither was optimised on performance.</p>
+    <p>Seven of the eight fall inside both domains; the only one outside is Fluoxapiprolin, on descriptor
+    distance.</p>
+    <p><b>And here is the point:</b> both toxic compounds, Ethiprole and Isocycloseram, are inside both
+    domains. Ethiprole was called non-toxic by all six models, and Isocycloseram by five: the balanced
+    MLP did detect it, but in exchange produced two false positives, Fluoxapiprolin and Florylpicoxamid.
+    Formal domain membership quantifies proximity to Development; it does not guarantee a correct
+    classification.</p>
+    <p class="cue">With eight compounds and two positives, changing one decision moves sensitivity by
+    half a point. These are compound-level observations, not population-level conclusions. The two axes
+    are weakly associated, Spearman −0.31.</p>
+    <p class="cue">Transition → "Let us look closely at the Ethiprole case."</p>
+  </aside>
+</section>
+
+<!-- ======================= 13 · ETHIPROLE ======================= -->
+<section class="slide" data-block="D" data-time="45" aria-label="Ethiprole and its nearest neighbour">
+  <div class="eyebrow"><b>D · Results</b><span>Local chemical support</span></div>
+  <h2>A nearly identical toxic neighbour was not enough</h2>
+  <div class="body" style="padding-top:10px">
+    <div class="cols" style="grid-template-columns:1fr auto 1fr;gap:40px;align-items:center">
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 10px">
+          <svg class="mol" role="img" style="width:100%;height:auto;display:block" version='1.1' baseProfile='full'
+              xmlns='http://www.w3.org/2000/svg'
+                      xmlns:rdkit='http://www.rdkit.org/xml'
+                      xmlns:xlink='http://www.w3.org/1999/xlink'
+                  xml:space='preserve' viewBox='0 0 560 340'>
+
+<path class='bond-0 atom-0 atom-1' d='M 72.5,128.8 L 120.7,123.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-1 atom-1 atom-2' d='M 120.7,123.6 L 130.8,137.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-1 atom-1 atom-2' d='M 130.8,137.5 L 140.8,151.3' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 144.0,174.6 L 139.3,185.1' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 139.3,185.1 L 134.7,195.5' style='fill:none;fill-rule:evenodd;stroke:#FF0000;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-3 atom-2 atom-4' d='M 165.4,161.1 L 181.4,159.4' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-3 atom-2 atom-4' d='M 181.4,159.4 L 197.4,157.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-4 atom-4 atom-5' d='M 197.4,157.7 L 221.6,115.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-5 atom-5 atom-6' d='M 221.6,115.7 L 201.8,71.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 201.8,71.5 L 194.5,55.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 194.5,55.2 L 187.2,38.8' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 195.6,74.3 L 188.3,57.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 188.3,57.9 L 181.0,41.5' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 208.0,68.8 L 200.7,52.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 200.7,52.4 L 193.4,36.0' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 221.6,115.7 L 240.2,119.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 240.2,119.7 L 258.9,123.7' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 225.0,123.4 L 241.2,126.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-5 atom-8' d='M 241.2,126.8 L 257.5,130.3' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-8 atom-8 atom-9' d='M 270.2,137.3 L 272.9,162.5' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-9 atom-9 atom-10' d='M 284.1,179.7 L 300.1,188.9' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-9 atom-9 atom-10' d='M 300.1,188.9 L 316.0,198.1' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 316.0,198.1 L 316.1,246.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 322.8,202.0 L 322.8,242.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-11 atom-12' d='M 316.1,246.7 L 298.2,257.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-11 atom-12' d='M 298.2,257.0 L 280.4,267.3' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-12 atom-11 atom-13' d='M 316.1,246.7 L 358.1,270.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-13 atom-13 atom-14' d='M 358.1,270.7 L 400.0,246.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-13 atom-13 atom-14' d='M 358.0,262.9 L 393.2,242.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-14 atom-14 atom-15' d='M 400.0,246.6 L 442.0,270.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 442.0,270.7 L 433.2,286.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 433.2,286.0 L 424.4,301.2' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-15 atom-17' d='M 442.0,270.7 L 450.8,286.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-15 atom-17' d='M 450.8,286.0 L 459.6,301.2' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-15 atom-18' d='M 442.0,270.7 L 458.4,261.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-15 atom-18' d='M 458.4,261.2 L 474.9,251.7' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-18 atom-14 atom-19' d='M 400.0,246.6 L 400.0,198.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 400.0,198.0 L 358.0,173.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 393.2,202.0 L 358.0,181.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 358.0,173.9 L 358.0,155.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 358.0,155.7 L 357.9,137.5' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-9 atom-22' d='M 264.0,178.4 L 246.9,186.1' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-9 atom-22' d='M 246.9,186.1 L 229.8,193.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 229.8,193.7 L 226.0,211.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 226.0,211.6 L 222.2,229.6' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-4' d='M 229.8,193.7 L 197.4,157.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-4' d='M 231.6,185.5 L 205.7,156.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-24 atom-20 atom-10' d='M 358.0,173.9 L 316.0,198.1' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path d='M 118.3,123.9 L 120.7,123.6 L 121.2,124.3' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 202.8,73.7 L 201.8,71.5 L 201.4,70.7' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 356.0,269.5 L 358.1,270.7 L 360.2,269.5' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 400.0,200.5 L 400.0,198.0 L 397.9,196.8' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path class='atom-2' d='M 145.8 166.9
+Q 145.9 167.0, 146.5 167.2
+Q 147.1 167.5, 147.7 167.6
+Q 148.3 167.7, 148.9 167.7
+Q 150.1 167.7, 150.7 167.2
+Q 151.4 166.6, 151.4 165.7
+Q 151.4 165.0, 151.0 164.6
+Q 150.7 164.2, 150.2 164.0
+Q 149.7 163.8, 148.8 163.5
+Q 147.8 163.2, 147.1 162.9
+Q 146.5 162.6, 146.0 161.9
+Q 145.6 161.3, 145.6 160.2
+Q 145.6 158.7, 146.6 157.7
+Q 147.7 156.8, 149.7 156.8
+Q 151.1 156.8, 152.7 157.5
+L 152.3 158.8
+Q 150.8 158.2, 149.7 158.2
+Q 148.6 158.2, 147.9 158.7
+Q 147.3 159.1, 147.3 160.0
+Q 147.3 160.6, 147.6 161.0
+Q 148.0 161.4, 148.4 161.6
+Q 148.9 161.8, 149.7 162.1
+Q 150.8 162.4, 151.5 162.8
+Q 152.1 163.1, 152.6 163.8
+Q 153.1 164.5, 153.1 165.7
+Q 153.1 167.3, 151.9 168.2
+Q 150.8 169.1, 149.0 169.1
+Q 147.9 169.1, 147.1 168.9
+Q 146.3 168.7, 145.3 168.3
+L 145.8 166.9
+' fill='#CCCC00'/>
+<path class='atom-2' d='M 154.6 158.8
+L 156.8 158.8
+L 156.8 156.6
+L 157.7 156.6
+L 157.7 158.8
+L 159.9 158.8
+L 159.9 159.6
+L 157.7 159.6
+L 157.7 161.8
+L 156.8 161.8
+L 156.8 159.6
+L 154.6 159.6
+L 154.6 158.8
+' fill='#CCCC00'/>
+<path class='atom-3' d='M 124.0 207.1
+Q 124.0 204.2, 125.4 202.6
+Q 126.9 201.0, 129.5 201.0
+Q 132.2 201.0, 133.6 202.6
+Q 135.1 204.2, 135.1 207.1
+Q 135.1 210.0, 133.6 211.7
+Q 132.2 213.4, 129.5 213.4
+Q 126.9 213.4, 125.4 211.7
+Q 124.0 210.1, 124.0 207.1
+M 129.5 212.0
+Q 131.4 212.0, 132.4 210.8
+Q 133.4 209.5, 133.4 207.1
+Q 133.4 204.8, 132.4 203.6
+Q 131.4 202.4, 129.5 202.4
+Q 127.7 202.4, 126.7 203.5
+Q 125.7 204.7, 125.7 207.1
+Q 125.7 209.5, 126.7 210.8
+Q 127.7 212.0, 129.5 212.0
+' fill='#FF0000'/>
+<path class='atom-3' d='M 136.8 203.0
+L 140.9 203.0
+L 140.9 203.9
+L 136.8 203.9
+L 136.8 203.0
+' fill='#FF0000'/>
+<path class='atom-7' d='M 179.4 21.3
+L 183.3 27.6
+Q 183.7 28.3, 184.4 29.4
+Q 185.0 30.6, 185.0 30.6
+L 185.0 21.3
+L 186.6 21.3
+L 186.6 33.3
+L 185.0 33.3
+L 180.7 26.3
+Q 180.2 25.5, 179.7 24.6
+Q 179.2 23.7, 179.0 23.4
+L 179.0 33.3
+L 177.5 33.3
+L 177.5 21.3
+L 179.4 21.3
+' fill='#0000FF'/>
+<path class='atom-8' d='M 266.3 119.8
+L 270.2 126.2
+Q 270.6 126.8, 271.2 127.9
+Q 271.9 129.1, 271.9 129.1
+L 271.9 119.8
+L 273.5 119.8
+L 273.5 131.8
+L 271.8 131.8
+L 267.6 124.9
+Q 267.1 124.0, 266.6 123.1
+Q 266.1 122.2, 265.9 121.9
+L 265.9 131.8
+L 264.4 131.8
+L 264.4 119.8
+L 266.3 119.8
+' fill='#0000FF'/>
+<path class='atom-9' d='M 271.4 168.0
+L 275.4 174.3
+Q 275.8 175.0, 276.4 176.1
+Q 277.0 177.2, 277.0 177.3
+L 277.0 168.0
+L 278.6 168.0
+L 278.6 180.0
+L 277.0 180.0
+L 272.8 173.0
+Q 272.3 172.2, 271.7 171.3
+Q 271.2 170.3, 271.1 170.0
+L 271.1 180.0
+L 269.5 180.0
+L 269.5 168.0
+L 271.4 168.0
+' fill='#0000FF'/>
+<path class='atom-12' d='M 262.8 271.3
+Q 262.8 268.3, 264.2 266.7
+Q 265.7 265.2, 268.3 265.2
+Q 270.8 265.2, 272.1 266.9
+L 271.0 267.8
+Q 270.0 266.6, 268.3 266.6
+Q 266.5 266.6, 265.5 267.8
+Q 264.6 269.0, 264.6 271.3
+Q 264.6 273.7, 265.6 274.9
+Q 266.6 276.1, 268.5 276.1
+Q 269.8 276.1, 271.4 275.3
+L 271.9 276.6
+Q 271.2 277.0, 270.3 277.2
+Q 269.3 277.5, 268.3 277.5
+Q 265.7 277.5, 264.2 275.9
+Q 262.8 274.3, 262.8 271.3
+' fill='#00CC00'/>
+<path class='atom-12' d='M 273.3 264.4
+L 274.9 264.4
+L 274.9 277.3
+L 273.3 277.3
+L 273.3 264.4
+' fill='#00CC00'/>
+<path class='atom-16' d='M 414.2 306.7
+L 421.4 306.7
+L 421.4 308.1
+L 415.8 308.1
+L 415.8 311.7
+L 420.7 311.7
+L 420.7 313.1
+L 415.8 313.1
+L 415.8 318.7
+L 414.2 318.7
+L 414.2 306.7
+' fill='#33CCCC'/>
+<path class='atom-17' d='M 462.7 306.7
+L 469.8 306.7
+L 469.8 308.0
+L 464.3 308.0
+L 464.3 311.7
+L 469.2 311.7
+L 469.2 313.1
+L 464.3 313.1
+L 464.3 318.7
+L 462.7 318.7
+L 462.7 306.7
+' fill='#33CCCC'/>
+<path class='atom-18' d='M 480.3 240.5
+L 487.5 240.5
+L 487.5 241.8
+L 481.9 241.8
+L 481.9 245.5
+L 486.9 245.5
+L 486.9 246.9
+L 481.9 246.9
+L 481.9 252.5
+L 480.3 252.5
+L 480.3 240.5
+' fill='#33CCCC'/>
+<path class='atom-21' d='M 353.3 125.9
+Q 353.3 122.9, 354.7 121.3
+Q 356.1 119.7, 358.8 119.7
+Q 361.3 119.7, 362.6 121.5
+L 361.5 122.4
+Q 360.5 121.1, 358.8 121.1
+Q 357.0 121.1, 356.0 122.3
+Q 355.0 123.5, 355.0 125.9
+Q 355.0 128.2, 356.0 129.5
+Q 357.0 130.7, 359.0 130.7
+Q 360.3 130.7, 361.8 129.9
+L 362.3 131.2
+Q 361.7 131.6, 360.7 131.8
+Q 359.8 132.0, 358.7 132.0
+Q 356.1 132.0, 354.7 130.4
+Q 353.3 128.8, 353.3 125.9
+' fill='#00CC00'/>
+<path class='atom-21' d='M 363.8 119.0
+L 365.4 119.0
+L 365.4 131.9
+L 363.8 131.9
+L 363.8 119.0
+' fill='#00CC00'/>
+<path class='atom-23' d='M 217.1 235.1
+L 221.1 241.5
+Q 221.5 242.1, 222.1 243.2
+Q 222.7 244.4, 222.7 244.4
+L 222.7 235.1
+L 224.3 235.1
+L 224.3 247.1
+L 222.7 247.1
+L 218.5 240.2
+Q 218.0 239.3, 217.4 238.4
+Q 216.9 237.5, 216.8 237.2
+L 216.8 247.1
+L 215.2 247.1
+L 215.2 235.1
+L 217.1 235.1
+' fill='#0000FF'/>
+<path class='atom-23' d='M 226.6 235.1
+L 228.3 235.1
+L 228.3 240.2
+L 234.4 240.2
+L 234.4 235.1
+L 236.1 235.1
+L 236.1 247.1
+L 234.4 247.1
+L 234.4 241.6
+L 228.3 241.6
+L 228.3 247.1
+L 226.6 247.1
+L 226.6 235.1
+' fill='#0000FF'/>
+<path class='atom-23' d='M 238.4 246.7
+Q 238.7 246.0, 239.4 245.5
+Q 240.1 245.1, 241.1 245.1
+Q 242.3 245.1, 242.9 245.8
+Q 243.6 246.4, 243.6 247.6
+Q 243.6 248.8, 242.7 249.8
+Q 241.9 250.9, 240.1 252.3
+L 243.7 252.3
+L 243.7 253.1
+L 238.4 253.1
+L 238.4 252.4
+Q 239.9 251.3, 240.8 250.6
+Q 241.6 249.8, 242.1 249.1
+Q 242.5 248.4, 242.5 247.6
+Q 242.5 246.9, 242.1 246.4
+Q 241.7 246.0, 241.1 246.0
+Q 240.4 246.0, 240.0 246.3
+Q 239.6 246.5, 239.3 247.1
+L 238.4 246.7
+' fill='#0000FF'/>
+</svg>
+        </div>
+        <p style="font-size:30px;font-weight:700;margin-top:16px">Ethiprole</p>
+        <p style="font-size:21px;color:var(--ink-3);margin-top:4px">CR8 · external</p>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:14px">
+          <span class="pill" style="color:var(--toxic)"><i></i>toxic</span>
+          <span class="pill" style="color:var(--toxic)">predicted non-toxic ×6</span>
+        </div>
+      </div>
+      <div style="text-align:center;padding:0 8px">
+        <div style="font-family:var(--serif);font-size:62px;font-weight:600;color:var(--honey-ink);font-variant-numeric:tabular-nums;letter-spacing:-.03em">0.740</div>
+        <p style="font-size:20px;color:var(--ink-3);line-height:1.32;max-width:170px;margin-top:8px">Morgan/Tanimoto similarity</p>
+        <svg viewBox="0 0 140 40" style="width:140px;height:40px;margin-top:12px" aria-hidden="true">
+          <path d="M4 20h132" style="stroke:var(--honey);stroke-width:3"/>
+          <path d="M4 20l14-8v16zM136 20l-14-8v16z" style="fill:var(--honey)"/>
+        </svg>
+      </div>
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 10px">
+          <svg class="mol" role="img" style="width:100%;height:auto;display:block" version='1.1' baseProfile='full'
+              xmlns='http://www.w3.org/2000/svg'
+                      xmlns:rdkit='http://www.rdkit.org/xml'
+                      xmlns:xlink='http://www.w3.org/1999/xlink'
+                  xml:space='preserve' viewBox='0 0 560 340'>
+
+<path class='bond-0 atom-0 atom-1' d='M 448.4,75.8 L 433.7,89.1' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-0 atom-0 atom-1' d='M 433.7,89.1 L 419.0,102.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-0 atom-0 atom-1' d='M 453.5,81.4 L 438.8,94.7' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-0 atom-0 atom-1' d='M 438.8,94.7 L 424.1,108.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-0 atom-0 atom-1' d='M 443.3,70.2 L 428.6,83.5' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-0 atom-0 atom-1' d='M 428.6,83.5 L 413.9,96.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-1 atom-1 atom-2' d='M 419.0,102.4 L 378.9,138.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 378.9,138.7 L 357.8,134.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 357.8,134.2 L 336.7,129.8' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 372.0,144.9 L 353.6,141.1' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-2 atom-2 atom-3' d='M 353.6,141.1 L 335.2,137.2' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-3 atom-3 atom-4' d='M 319.1,139.7 L 306.1,162.3' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-4 atom-4 atom-5' d='M 288.5,175.6 L 266.9,177.9' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-4 atom-4 atom-5' d='M 266.9,177.9 L 245.4,180.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-5 atom-5 atom-6' d='M 245.4,180.2 L 213.5,136.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-5 atom-5 atom-6' d='M 236.7,181.1 L 210.0,144.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 213.5,136.6 L 221.7,118.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-6 atom-6 atom-7' d='M 221.7,118.2 L 229.8,99.9' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-7 atom-6 atom-8' d='M 213.5,136.6 L 159.8,142.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-8 atom-8 atom-9' d='M 159.8,142.4 L 138.0,191.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-8 atom-8 atom-9' d='M 165.0,149.4 L 146.7,190.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-9 atom-9 atom-10' d='M 138.0,191.8 L 84.2,197.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 84.2,197.6 L 82.0,176.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-10 atom-10 atom-11' d='M 82.0,176.8 L 79.8,156.0' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-10 atom-12' d='M 84.2,197.6 L 64.4,188.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-11 atom-10 atom-12' d='M 64.4,188.8 L 44.5,180.0' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-12 atom-10 atom-13' d='M 84.2,197.6 L 76.0,216.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-12 atom-10 atom-13' d='M 76.0,216.2 L 67.7,234.8' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-13 atom-9 atom-14' d='M 138.0,191.8 L 169.8,235.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-14 atom-14 atom-15' d='M 169.8,235.4 L 223.6,229.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-14 atom-14 atom-15' d='M 173.4,227.4 L 218.4,222.6' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 223.6,229.6 L 235.2,245.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-15 atom-15 atom-16' d='M 235.2,245.5 L 246.8,261.4' style='fill:none;fill-rule:evenodd;stroke:#00CC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-4 atom-17' d='M 309.8,186.2 L 322.6,200.4' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-16 atom-4 atom-17' d='M 322.6,200.4 L 335.4,214.5' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-17 atom-18' d='M 335.4,214.5 L 331.1,234.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-17 atom-17 atom-18' d='M 331.1,234.9 L 326.8,255.3' style='fill:none;fill-rule:evenodd;stroke:#0000FF;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-18 atom-17 atom-19' d='M 335.4,214.5 L 384.7,192.4' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-18 atom-17 atom-19' d='M 337.3,205.3 L 376.6,187.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 384.7,192.4 L 403.2,203.0' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-19 atom-19 atom-20' d='M 403.2,203.0 L 421.6,213.6' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 431.6,231.7 L 431.6,246.4' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-20 atom-20 atom-21' d='M 431.6,246.4 L 431.7,261.1' style='fill:none;fill-rule:evenodd;stroke:#FF0000;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-20 atom-22' d='M 448.4,209.6 L 463.3,200.9' style='fill:none;fill-rule:evenodd;stroke:#CCCC00;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-21 atom-20 atom-22' d='M 463.3,200.9 L 478.3,192.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 478.3,192.2 L 468.3,174.9' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-22 atom-22 atom-23' d='M 468.3,174.9 L 458.2,157.6' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-24' d='M 478.3,192.2 L 488.3,174.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-23 atom-22 atom-24' d='M 488.3,174.8 L 498.3,157.4' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-24 atom-22 atom-25' d='M 478.3,192.2 L 496.9,202.8' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-24 atom-22 atom-25' d='M 496.9,202.8 L 515.5,213.5' style='fill:none;fill-rule:evenodd;stroke:#33CCCC;stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-25 atom-19 atom-2' d='M 384.7,192.4 L 378.9,138.7' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path class='bond-26 atom-15 atom-5' d='M 223.6,229.6 L 245.4,180.2' style='fill:none;fill-rule:evenodd;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1' />
+<path d='M 419.7,101.7 L 419.0,102.4 L 417.0,104.2' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 162.5,142.1 L 159.8,142.4 L 158.7,144.8' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path d='M 168.2,233.2 L 169.8,235.4 L 172.5,235.1' style='fill:none;stroke:var(--ink);stroke-width:2.0px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;' />
+<path class='atom-0' d='M 456.4 60.1
+L 460.4 66.5
+Q 460.7 67.1, 461.4 68.3
+Q 462.0 69.4, 462.0 69.5
+L 462.0 60.1
+L 463.6 60.1
+L 463.6 72.2
+L 462.0 72.2
+L 457.7 65.2
+Q 457.3 64.4, 456.7 63.4
+Q 456.2 62.5, 456.1 62.2
+L 456.1 72.2
+L 454.5 72.2
+L 454.5 60.1
+L 456.4 60.1
+' fill='#0000FF'/>
+<path class='atom-3' d='M 323.4 121.5
+L 327.3 127.9
+Q 327.7 128.5, 328.4 129.7
+Q 329.0 130.8, 329.0 130.9
+L 329.0 121.5
+L 330.6 121.5
+L 330.6 133.6
+L 329.0 133.6
+L 324.7 126.6
+Q 324.2 125.8, 323.7 124.9
+Q 323.2 123.9, 323.0 123.6
+L 323.0 133.6
+L 321.5 133.6
+L 321.5 121.5
+L 323.4 121.5
+' fill='#0000FF'/>
+<path class='atom-4' d='M 296.5 168.4
+L 300.4 174.8
+Q 300.8 175.4, 301.4 176.6
+Q 302.1 177.7, 302.1 177.8
+L 302.1 168.4
+L 303.7 168.4
+L 303.7 180.5
+L 302.1 180.5
+L 297.8 173.5
+Q 297.3 172.7, 296.8 171.7
+Q 296.3 170.8, 296.1 170.5
+L 296.1 180.5
+L 294.6 180.5
+L 294.6 168.4
+L 296.5 168.4
+' fill='#0000FF'/>
+<path class='atom-7' d='M 230.8 87.6
+Q 230.8 84.6, 232.2 83.0
+Q 233.6 81.4, 236.2 81.4
+Q 238.7 81.4, 240.0 83.2
+L 238.9 84.1
+Q 238.0 82.8, 236.2 82.8
+Q 234.4 82.8, 233.5 84.1
+Q 232.5 85.3, 232.5 87.6
+Q 232.5 90.0, 233.5 91.2
+Q 234.5 92.4, 236.4 92.4
+Q 237.8 92.4, 239.3 91.6
+L 239.8 92.9
+Q 239.1 93.3, 238.2 93.5
+Q 237.2 93.8, 236.2 93.8
+Q 233.6 93.8, 232.2 92.2
+Q 230.8 90.6, 230.8 87.6
+' fill='#00CC00'/>
+<path class='atom-7' d='M 241.3 80.7
+L 242.8 80.7
+L 242.8 93.6
+L 241.3 93.6
+L 241.3 80.7
+' fill='#00CC00'/>
+<path class='atom-11' d='M 74.9 137.8
+L 82.0 137.8
+L 82.0 139.2
+L 76.5 139.2
+L 76.5 142.8
+L 81.4 142.8
+L 81.4 144.2
+L 76.5 144.2
+L 76.5 149.8
+L 74.9 149.8
+L 74.9 137.8
+' fill='#33CCCC'/>
+<path class='atom-12' d='M 31.2 169.7
+L 38.4 169.7
+L 38.4 171.1
+L 32.9 171.1
+L 32.9 174.7
+L 37.8 174.7
+L 37.8 176.1
+L 32.9 176.1
+L 32.9 181.7
+L 31.2 181.7
+L 31.2 169.7
+' fill='#33CCCC'/>
+<path class='atom-13' d='M 58.8 241.0
+L 66.0 241.0
+L 66.0 242.3
+L 60.4 242.3
+L 60.4 246.0
+L 65.4 246.0
+L 65.4 247.4
+L 60.4 247.4
+L 60.4 253.0
+L 58.8 253.0
+L 58.8 241.0
+' fill='#33CCCC'/>
+<path class='atom-16' d='M 250.8 273.7
+Q 250.8 270.7, 252.2 269.1
+Q 253.6 267.5, 256.3 267.5
+Q 258.7 267.5, 260.1 269.3
+L 259.0 270.2
+Q 258.0 268.9, 256.3 268.9
+Q 254.4 268.9, 253.5 270.2
+Q 252.5 271.4, 252.5 273.7
+Q 252.5 276.1, 253.5 277.3
+Q 254.5 278.5, 256.5 278.5
+Q 257.8 278.5, 259.3 277.7
+L 259.8 279.0
+Q 259.2 279.4, 258.2 279.6
+Q 257.3 279.9, 256.2 279.9
+Q 253.6 279.9, 252.2 278.3
+Q 250.8 276.7, 250.8 273.7
+' fill='#00CC00'/>
+<path class='atom-16' d='M 261.3 266.8
+L 262.9 266.8
+L 262.9 279.7
+L 261.3 279.7
+L 261.3 266.8
+' fill='#00CC00'/>
+<path class='atom-18' d='M 321.6 261.4
+L 325.6 267.7
+Q 326.0 268.4, 326.6 269.5
+Q 327.2 270.6, 327.3 270.7
+L 327.3 261.4
+L 328.9 261.4
+L 328.9 273.4
+L 327.2 273.4
+L 323.0 266.4
+Q 322.5 265.6, 322.0 264.7
+Q 321.5 263.7, 321.3 263.5
+L 321.3 273.4
+L 319.7 273.4
+L 319.7 261.4
+L 321.6 261.4
+' fill='#0000FF'/>
+<path class='atom-18' d='M 331.2 261.4
+L 332.8 261.4
+L 332.8 266.5
+L 338.9 266.5
+L 338.9 261.4
+L 340.6 261.4
+L 340.6 273.4
+L 338.9 273.4
+L 338.9 267.8
+L 332.8 267.8
+L 332.8 273.4
+L 331.2 273.4
+L 331.2 261.4
+' fill='#0000FF'/>
+<path class='atom-18' d='M 342.9 273.0
+Q 343.2 272.2, 343.9 271.8
+Q 344.6 271.4, 345.6 271.4
+Q 346.8 271.4, 347.5 272.0
+Q 348.1 272.7, 348.1 273.8
+Q 348.1 275.0, 347.3 276.1
+Q 346.4 277.2, 344.6 278.5
+L 348.3 278.5
+L 348.3 279.4
+L 342.9 279.4
+L 342.9 278.7
+Q 344.4 277.6, 345.3 276.8
+Q 346.2 276.0, 346.6 275.3
+Q 347.0 274.6, 347.0 273.9
+Q 347.0 273.1, 346.6 272.7
+Q 346.2 272.3, 345.6 272.3
+Q 344.9 272.3, 344.5 272.5
+Q 344.1 272.8, 343.8 273.4
+L 342.9 273.0
+' fill='#0000FF'/>
+<path class='atom-20' d='M 428.2 223.4
+Q 428.3 223.5, 428.9 223.7
+Q 429.4 224.0, 430.0 224.1
+Q 430.7 224.2, 431.3 224.2
+Q 432.4 224.2, 433.1 223.7
+Q 433.7 223.1, 433.7 222.2
+Q 433.7 221.5, 433.4 221.1
+Q 433.1 220.7, 432.6 220.5
+Q 432.1 220.2, 431.2 220.0
+Q 430.1 219.7, 429.5 219.4
+Q 428.9 219.1, 428.4 218.4
+Q 428.0 217.8, 428.0 216.7
+Q 428.0 215.2, 429.0 214.2
+Q 430.0 213.3, 432.1 213.3
+Q 433.5 213.3, 435.0 214.0
+L 434.6 215.3
+Q 433.2 214.7, 432.1 214.7
+Q 430.9 214.7, 430.3 215.2
+Q 429.7 215.6, 429.7 216.5
+Q 429.7 217.1, 430.0 217.5
+Q 430.3 217.9, 430.8 218.1
+Q 431.3 218.3, 432.1 218.6
+Q 433.2 218.9, 433.9 219.3
+Q 434.5 219.6, 435.0 220.3
+Q 435.4 221.0, 435.4 222.2
+Q 435.4 223.8, 434.3 224.7
+Q 433.2 225.6, 431.4 225.6
+Q 430.3 225.6, 429.5 225.4
+Q 428.7 225.2, 427.7 224.8
+L 428.2 223.4
+' fill='#CCCC00'/>
+<path class='atom-20' d='M 437.0 215.3
+L 439.1 215.3
+L 439.1 213.1
+L 440.1 213.1
+L 440.1 215.3
+L 442.3 215.3
+L 442.3 216.1
+L 440.1 216.1
+L 440.1 218.3
+L 439.1 218.3
+L 439.1 216.1
+L 437.0 216.1
+L 437.0 215.3
+' fill='#CCCC00'/>
+<path class='atom-21' d='M 426.2 273.4
+Q 426.2 270.5, 427.6 268.9
+Q 429.0 267.2, 431.7 267.2
+Q 434.4 267.2, 435.8 268.9
+Q 437.2 270.5, 437.2 273.4
+Q 437.2 276.3, 435.8 278.0
+Q 434.3 279.6, 431.7 279.6
+Q 429.1 279.6, 427.6 278.0
+Q 426.2 276.3, 426.2 273.4
+M 431.7 278.2
+Q 433.5 278.2, 434.5 277.0
+Q 435.5 275.8, 435.5 273.4
+Q 435.5 271.0, 434.5 269.8
+Q 433.5 268.6, 431.7 268.6
+Q 429.9 268.6, 428.9 269.8
+Q 427.9 271.0, 427.9 273.4
+Q 427.9 275.8, 428.9 277.0
+Q 429.9 278.2, 431.7 278.2
+' fill='#FF0000'/>
+<path class='atom-21' d='M 439.0 269.2
+L 443.1 269.2
+L 443.1 270.1
+L 439.0 270.1
+L 439.0 269.2
+' fill='#FF0000'/>
+<path class='atom-23' d='M 447.6 139.4
+L 454.8 139.4
+L 454.8 140.8
+L 449.2 140.8
+L 449.2 144.4
+L 454.1 144.4
+L 454.1 145.8
+L 449.2 145.8
+L 449.2 151.4
+L 447.6 151.4
+L 447.6 139.4
+' fill='#33CCCC'/>
+<path class='atom-24' d='M 501.6 139.3
+L 508.8 139.3
+L 508.8 140.7
+L 503.3 140.7
+L 503.3 144.3
+L 508.2 144.3
+L 508.2 145.7
+L 503.3 145.7
+L 503.3 151.3
+L 501.6 151.3
+L 501.6 139.3
+' fill='#33CCCC'/>
+<path class='atom-25' d='M 521.6 213.1
+L 528.8 213.1
+L 528.8 214.4
+L 523.2 214.4
+L 523.2 218.1
+L 528.1 218.1
+L 528.1 219.5
+L 523.2 219.5
+L 523.2 225.1
+L 521.6 225.1
+L 521.6 213.1
+' fill='#33CCCC'/>
+</svg>
+        </div>
+        <p style="font-size:30px;font-weight:700;margin-top:16px">Fipronil</p>
+        <p style="font-size:21px;color:var(--ink-3);margin-top:4px">Development · ID 387</p>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:14px">
+          <span class="pill" style="color:var(--toxic)"><i></i>toxic</span>
+          <span class="pill" style="color:var(--rbf)">in training</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>13 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>The Ethiprole case.</b> To me this is the most instructive result. Ethiprole's nearest neighbour
+    in Development is fipronil, at Tanimoto similarity 0.740. They are clearly related structures: the
+    same pyrazole core with the dichloro, trifluoromethyl phenyl; what changes is the sulfur substituent.</p>
+    <p>And fipronil is labelled <b>toxic</b> and was in training. The model had a very similar toxic
+    example and still called Ethiprole non-toxic. All six models failed.</p>
+    <p>Nor is it a borderline case: Ethiprole's experimental LD₅₀ is well below the 11 µg per bee
+    threshold, so the error is not explained by proximity to the endpoint boundary.</p>
+    <p>Isocycloseram is the complementary case: its maximum structural support is 0.233, barely above the
+    cutoff. There the problem does look like chemotype extrapolation.</p>
+    <p>The honest reading is that X10 may not capture some structure-activity relationships relevant to
+    this endpoint. That is a hypothesis for toxicodynamic and biophysical studies, not a conclusion
+    demonstrated here.</p>
+    <p class="cue">Transition → "Let us close with what this does and does not show."</p>
+  </aside>
+</section>
+
+<!-- ======================= 14 · CONCLUSIONS ======================= -->
+<section class="slide dark" data-block="E" data-time="55" aria-label="Conclusions">
+  <div class="eyebrow"><b>E · Conclusions</b><span>Bounded results</span></div>
+  <h2>Two findings, and a clear boundary</h2>
+  <div class="body">
+    <div class="grid2" style="align-items:start">
+      <div>
+        <h3 style="color:var(--honey);letter-spacing:.08em;text-transform:uppercase;font-size:20px;margin-bottom:26px">What we found</h3>
+        <ul class="bul">
+          <li><b>No consistent predictive improvement</b>
+            <span>Both fidelity kernels landed very close to the matched RBF.</span></li>
+          <li><b>No clearly distinct geometry</b>
+            <span>The Gram matrices turned out highly aligned with each other.</span></li>
+          <li><b>Detection remains the challenge</b>
+            <span>Beyond Development, sensitivity falls to 0.082–0.265.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--toxic);letter-spacing:.08em;text-transform:uppercase;font-size:20px;margin-bottom:26px">What this work does not show</h3>
+        <ul class="bul no">
+          <li>It does not demonstrate quantum advantage</li>
+          <li>It does not evaluate noise or real quantum hardware</li>
+          <li>It does not establish clinical or regulatory utility</li>
+          <li>It does not generalise beyond X10, these maps and this protocol</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>14 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Conclusions.</b> Two findings under molecular-cluster-disjoint evaluation.</p>
+    <p>First: the quantum kernels evaluated did not deliver a consistent predictive improvement over the
+    matched RBF. They came very close, but without an advantage that persisted across the five folds, and
+    on the holdout the contrasts changed sign.</p>
+    <p>Second: they did not induce a clearly distinct similarity geometry either. The three kernels' Gram
+    matrices are highly aligned: CKA of 0.982 and 0.985 against the RBF, and 0.9995 between the two
+    quantum kernels.</p>
+    <p>And a practical finding that goes beyond the quantum question: detection of toxic compounds
+    outside Development is weak.</p>
+    <p><b>The right-hand column matters just as much.</b> This does not demonstrate quantum advantage: it
+    shows that these two fixed maps, with this representation and this protocol, do not separate from the
+    RBF. We did not evaluate noise or hardware. It does not establish clinical or regulatory utility. And
+    it does not generalise beyond X10 and these maps.</p>
+    <p class="cue">Transition → "Where do we go next?"</p>
+  </aside>
+</section>
+
+<!-- ======================= 15 · FUTURE WORK ======================= -->
+<section class="slide" data-block="E" data-time="50" aria-label="Future work">
+  <div class="eyebrow"><b>E · Conclusions</b><span>Future work</span></div>
+  <h2>Separating kernel changes from representation changes</h2>
+  <div class="body" style="padding-top:14px">
+    <div class="cols" style="grid-template-columns:1.02fr .98fr;gap:52px;align-items:center">
+      <div>
+        <ul class="bul">
+          <li><b>Optimise the encoding scale</b>
+            <span>Bandwidth turned out to be decisive; it deserves to be an object of study rather than a
+            by-product of the search.</span></li>
+          <li><b>Train the embedding by kernel-target alignment</b>
+            <span>Instead of fixed maps, learn the map's parameters.</span></li>
+          <li><b>Rearrange and widen the qubits</b>
+            <span>Duplicate qubits per descriptor, add more descriptors, or change the order: since the
+            RZZ chain only couples neighbours, which descriptor sits next to which may matter.</span></li>
+        </ul>
+      </div>
+      <div>
+        <svg class="chart" viewBox="0 0 1010 532" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Single-descriptor AUROC on Development" style="font-family:ui-sans-serif,'Segoe UI Variable Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif"><title>Single-descriptor AUROC on Development</title><line x1="320.0" y1="56.0" x2="320.0" y2="448.0" style="stroke:var(--line);stroke-width:1.1"/><text x="320.0" y="478.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.50</text><line x1="477.5" y1="56.0" x2="477.5" y2="448.0" style="stroke:var(--line);stroke-width:1.1"/><text x="477.5" y="478.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.55</text><line x1="635.0" y1="56.0" x2="635.0" y2="448.0" style="stroke:var(--line);stroke-width:1.1"/><text x="635.0" y="478.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.60</text><line x1="792.5" y1="56.0" x2="792.5" y2="448.0" style="stroke:var(--line);stroke-width:1.1"/><text x="792.5" y="478.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.65</text><line x1="950.0" y1="56.0" x2="950.0" y2="448.0" style="stroke:var(--line);stroke-width:1.1"/><text x="950.0" y="478.0" font-size="20" font-weight="400" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">0.70</text><line x1="320.0" y1="56.0" x2="320.0" y2="448.0" style="stroke:var(--ink-3);stroke-width:1.8"/><text x="224.0" y="42.0" font-size="22" font-weight="700" text-anchor="end" style="fill:var(--ink-3);letter-spacing:.05em">descriptor</text><text x="268.0" y="42.0" font-size="22" font-weight="700" text-anchor="middle" style="fill:var(--ink-3)">qb</text><text x="224.0" y="96.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">nOP</text><circle cx="268.0" cy="89.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="96.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">8</text><rect x="320.0" y="76.0" width="552.5" height="26.0" rx="3" style="fill:var(--prod);opacity:0.92"/><text x="884.5" y="97.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.675</text><text x="224.0" y="136.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">logP</text><circle cx="268.0" cy="129.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="136.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">1</text><rect x="320.0" y="116.0" width="336.1" height="26.0" rx="3" style="fill:var(--honey-ink);opacity:0.92"/><text x="668.1" y="137.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.607</text><text x="224.0" y="176.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">HBD</text><circle cx="268.0" cy="169.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="176.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">4</text><rect x="320.0" y="156.0" width="324.5" height="26.0" rx="3" style="fill:var(--rbf);opacity:0.92"/><text x="656.5" y="177.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.603</text><text x="224.0" y="216.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">RotB</text><circle cx="268.0" cy="209.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="216.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">5</text><rect x="320.0" y="196.0" width="322.6" height="26.0" rx="3" style="fill:var(--lr);opacity:0.92"/><text x="654.6" y="217.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.602</text><text x="224.0" y="256.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">TPSA</text><circle cx="268.0" cy="249.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="256.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">3</text><rect x="320.0" y="236.0" width="279.4" height="26.0" rx="3" style="fill:var(--rbf);opacity:0.92"/><text x="611.4" y="257.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.589</text><text x="224.0" y="296.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">fSASA</text><circle cx="268.0" cy="289.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="296.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">10</text><rect x="320.0" y="276.0" width="230.3" height="26.0" rx="3" style="fill:var(--rbf);opacity:0.92"/><text x="562.3" y="297.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.573</text><text x="224.0" y="336.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">ArR</text><circle cx="268.0" cy="329.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="336.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">6</text><rect x="320.0" y="316.0" width="208.5" height="26.0" rx="3" style="fill:var(--lr);opacity:0.92"/><text x="540.5" y="337.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.566</text><text x="224.0" y="376.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">MW</text><circle cx="268.0" cy="369.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="376.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">2</text><rect x="320.0" y="356.0" width="191.5" height="26.0" rx="3" style="fill:var(--ink-3);opacity:0.92"/><text x="523.5" y="377.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.561</text><text x="224.0" y="416.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">nHal</text><circle cx="268.0" cy="409.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="416.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">7</text><rect x="320.0" y="396.0" width="105.8" height="26.0" rx="3" style="fill:var(--prod);opacity:0.92"/><text x="437.8" y="417.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.534</text><text x="224.0" y="456.0" font-size="30" font-weight="600" text-anchor="end" style="fill:var(--ink)">LiPHEX</text><circle cx="268.0" cy="449.0" r="15" style="fill:var(--surface);stroke:var(--line);stroke-width:1.6"/><text x="268.0" y="456.0" font-size="20" font-weight="700" text-anchor="middle" style="fill:var(--ink-3);font-variant-numeric:tabular-nums">9</text><rect x="320.0" y="436.0" width="22.4" height="26.0" rx="3" style="fill:var(--honey-ink);opacity:0.92"/><text x="354.4" y="457.0" font-size="24" font-weight="700" text-anchor="start" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">0.507</text><text x="635.0" y="518.0" font-size="22" font-weight="600" text-anchor="middle" style="fill:var(--ink-2)">AUROC using a single descriptor</text></svg>
+        <p class="figtag">SI Table S5 · descriptive</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026</span><span><b>15 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Future work.</b> Three concrete directions.</p>
+    <p>First: extend encoding-scale optimisation. Bandwidth turned out to be the decisive factor, so it
+    deserves to be treated as an object of study rather than a by-product of the hyperparameter search.</p>
+    <p>Second: instead of fixed maps, train the embedding parameters through kernel-target alignment.</p>
+    <p>Third, and this is where the figure comes in: rearrange and widen the qubits. Recall that in the
+    IQP-ZZ map the RZZ interactions only couple neighbouring qubits in a chain. That means <b>which
+    descriptor sits next to which</b> determines which pairs of features can interact. Today the order is
+    simply inherited from the table.</p>
+    <p>The figure shows how much signal each descriptor carries on its own in Development. nOP is the most
+    informative at 0.675; LiPHEX alone is close to chance. One line of work is to use that structure to
+    decide the qubit ordering, duplicate qubits per descriptor to retain more context, or add descriptors.
+    I stress that this figure is descriptive: no descriptor was selected or removed from it.</p>
+    <p class="cue">Transition → "And with that I will close."</p>
+  </aside>
+</section>
+
+<!-- ======================= 16 · CLOSING ======================= -->
+<section class="slide dark" data-block="E" data-time="25" aria-label="Data, code and closing">
+  <div class="eyebrow"><b>E · Conclusions</b><span>Closing</span></div>
+  <div class="body" style="justify-content:center">
+    <div class="cols c-5050" style="gap:80px;align-items:center">
+      <div>
+        <h1 style="font-size:70px">Thank you.<br><span style="color:var(--honey)">Questions?</span></h1>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <p style="font-size:19px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px">Data and code</p>
+          <p style="font-size:22px;line-height:1.55;color:var(--ink-2)">
+            Supporting Information archived on Zenodo<br>
+            <span style="font-size:20px;color:var(--ink-3)">doi.org/10.5281/zenodo.23329579</span></p>
+          <p style="font-size:22px;line-height:1.55;color:var(--ink-2);margin-top:18px">
+            Curated dataset, descriptors and training workflow<br>
+            <span style="font-size:20px;color:var(--ink-3)">github.com/andresquesadag/BeeQ</span></p>
+        </div>
+        <p style="font-size:20px;line-height:1.45;color:var(--ink-3)">University of Costa Rica ·
+          Costa Rica Institute of Technology</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>BeeQ · IEEE BIP 2026 · Guápiles, Costa Rica</span><span><b>16 / 16</b></span></div>
+  <aside class="notes">
+    <p><b>Closing.</b> The Supporting Information is archived on Zenodo, and the curated dataset, the
+    descriptors and the training workflow are in the GitHub repository. Thank you very much.</p>
+    <p class="cue">Likely questions: why no hardware? → cost and noise; the aim was to isolate the
+    geometry. Why only ten descriptors? → one descriptor, one qubit. Is it a negative result? → it is a
+    bounded and informative one: it points future work at the encoding scale.</p>
+  </aside>
+</section>
+
+</main>
+
+<nav class="bar" aria-label="Controls">
+  <button id="prev" title="Previous (←)">← Previous</button>
+  <span class="count" id="count">1 / 16</span>
+  <button id="next" title="Next (→)">Next →</button>
+  <button id="bnotes" title="Notes (N)">Notes</button>
+  <button id="bfull" title="Fullscreen (F)">Fullscreen</button>
+  <button id="bprint" title="Print / PDF (P)">PDF</button>
+  <button id="btimer" title="Timer (T)">▶ Timer</button>
+  <span class="clock" id="clock">00:00 / 13:10</span>
+</nav>
+
+<div id="presenter" role="complementary" aria-label="Presenter notes"></div>
+
+<script>
+(function () {
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var area = document.getElementById("deckarea");
+  var idx = 0;
+
+  /* ---- block rail --------------------------------------------------- */
+  var BLOCKS = ["A", "B", "C", "D", "E"];
+  var counts = {};
+  slides.forEach(function (s) {
+    var b = s.dataset.block;
+    if (b !== "-") counts[b] = (counts[b] || 0) + 1;
+  });
+  slides.forEach(function (s) {
+    var rail = document.createElement("div");
+    rail.className = "rail";
+    var here = BLOCKS.indexOf(s.dataset.block);
+    BLOCKS.forEach(function (b, i) {
+      var seg = document.createElement("i");
+      seg.style.flex = String(counts[b] || 1);
+      if (here === i) seg.className = "on";
+      else if (here > -1 && i < here) seg.className = "done";
+      rail.appendChild(seg);
+    });
+    s.insertBefore(rail, s.firstChild);
+  });
+
+  /* ---- descriptor chips, slide 7 ------------------------------------ */
+  /* From build/encoding_values.py: raw values from the frozen CR8 CSV, z
+     standardized on the 712 Development molecules (StandardScaler convention,
+     SI Eq. S3), theta = s * z with the frozen s = 0.25.                  */
+  var X10 = [
+    ["logP",   "3.78",   "+0.44", "+0.109", "var(--honey-ink)"],
+    ["MW",     "397.21", "+0.77", "+0.193", "var(--ink-3)"],
+    ["TPSA",   "90.69",  "+0.37", "+0.092", "var(--rbf)"],
+    ["HBD",    "1",      "+0.12", "+0.031", "var(--rbf)"],
+    ["RotB",   "3",      "−0.52", "−0.130", "var(--lr)"],
+    ["ArR",    "2",      "+0.78", "+0.195", "var(--lr)"],
+    ["nHal",   "5",      "+1.94", "+0.486", "var(--prod)"],
+    ["nOP",    "0",      "−0.36", "−0.090", "var(--prod)"],
+    ["LiPHEX", "−1.92",  "−1.62", "−0.406", "var(--honey-ink)"],
+    ["fSASA",  "0.19",   "+0.27", "+0.067", "var(--rbf)"]
+  ];
+  (function fillChips() {
+    var host = document.getElementById("chips");
+    if (!host) return;
+    X10.forEach(function (d, i) {
+      var el = document.createElement("div");
+      el.className = "chip";
+      el.style.setProperty("--g", d[4]);
+      el.innerHTML =
+        '<u>' + (i + 1) + '</u><b>' + d[0] + '</b><s>' + d[1] + '</s>' +
+        '<i><span>z</span>' + d[2] + '</i>' +
+        '<i><span>θ</span>' + d[3] + '</i>';
+      host.appendChild(el);
+    });
+    // the legend card is the last cell of the grid, spanning two columns
+    var key = document.getElementById("x10key");
+    if (key) host.appendChild(key);
+  })();
+
+  /* ---- scaling ------------------------------------------------------ */
+  function fit() {
+    var w = area.clientWidth, h = area.clientHeight;
+    var s = Math.min(w / 1600, h / 900);
+    slides.forEach(function (el) { el.style.transform = "scale(" + s + ")"; });
+  }
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(area);
+  window.addEventListener("resize", fit);
+
+  /* ---- timing ------------------------------------------------------- */
+  var times = slides.map(function (s) { return parseInt(s.dataset.time, 10) || 0; });
+  var total = times.reduce(function (a, b) { return a + b; }, 0);
+  var cum = [];
+  times.reduce(function (a, t, i) { cum[i] = a + t; return cum[i]; }, 0);
+  function mmss(x) {
+    var m = Math.floor(x / 60), s = Math.round(x % 60);
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  /* ---- navigation --------------------------------------------------- */
+  var presenter = document.getElementById("presenter");
+  function render() {
+    slides.forEach(function (s, i) { s.classList.toggle("active", i === idx); });
+    document.getElementById("count").textContent = (idx + 1) + " / " + slides.length;
+    var note = slides[idx].querySelector(".notes");
+    presenter.innerHTML =
+      '<h4><span>Notes · slide ' + (idx + 1) + '</span><span>' +
+      mmss(times[idx]) + ' · cum. ' + mmss(cum[idx]) + '</span></h4>' +
+      (note ? note.innerHTML : "");
+    // replaceState throws on file:// in some browsers; the deck must still work
+    try { history.replaceState(null, "", "#" + (idx + 1)); } catch (err) { /* ignore */ }
+    fit();
+  }
+  function go(n) {
+    idx = Math.max(0, Math.min(slides.length - 1, n));
+    render();
+  }
+  document.getElementById("prev").onclick = function () { go(idx - 1); };
+  document.getElementById("next").onclick = function () { go(idx + 1); };
+  document.getElementById("bnotes").onclick = function () {
+    presenter.classList.toggle("show");
+  };
+  document.getElementById("bfull").onclick = function () {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  };
+  document.getElementById("bprint").onclick = function () { window.print(); };
+
+  /* ---- rehearsal timer ---------------------------------------------- */
+  var t0 = null, acc = 0, tick = null;
+  var clock = document.getElementById("clock");
+  function paint() {
+    var el = acc + (t0 ? (Date.now() - t0) / 1000 : 0);
+    clock.textContent = mmss(el) + " / " + mmss(total);
+    clock.style.color = el > total ? "#e08a7c" : "";
+  }
+  document.getElementById("btimer").onclick = function () {
+    if (t0) { acc += (Date.now() - t0) / 1000; t0 = null; clearInterval(tick); this.textContent = "▶ Timer"; }
+    else { t0 = Date.now(); tick = setInterval(paint, 500); this.textContent = "❚❚ Pause"; }
+    paint();
+  };
+  paint();
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === "ArrowRight" || k === "PageDown" || k === " ") { e.preventDefault(); go(idx + 1); }
+    else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); go(idx - 1); }
+    else if (k === "Home") { e.preventDefault(); go(0); }
+    else if (k === "End") { e.preventDefault(); go(slides.length - 1); }
+    else if (k.toLowerCase() === "n") { presenter.classList.toggle("show"); }
+    else if (k.toLowerCase() === "f") { document.getElementById("bfull").click(); }
+    else if (k.toLowerCase() === "p") { e.preventDefault(); window.print(); }
+    else if (k.toLowerCase() === "t") { document.getElementById("btimer").click(); }
+  });
+
+  var h = parseInt((location.hash || "").slice(1), 10);
+  go(isFinite(h) && h > 0 ? h - 1 : 0);
+})();
+</script>
+</body>
+</html>

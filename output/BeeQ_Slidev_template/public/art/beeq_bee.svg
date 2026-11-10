@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" role="img" aria-label="BeeQ bee icon">
+<g stroke="#E5AD08" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+  <!-- two independent wings with clean junctions -->
+  <path d="M211 193 C169 137 98 115 71 155 C46 194 87 237 135 230 C159 226 188 210 211 193Z" fill="#FFF8D5"/>
+  <path d="M289 193 C331 137 402 115 429 155 C454 194 413 237 365 230 C341 226 312 210 289 193Z" fill="#FFF8D5"/>
+  <!-- wing veins understated -->
+  <path d="M194 194 Q143 169 107 176" fill="none" stroke-width="5" opacity=".65"/>
+  <path d="M306 194 Q357 169 393 176" fill="none" stroke-width="5" opacity=".65"/>
+  <!-- antennae start from head, distinct from wings -->
+  <path d="M233 139 Q208 99 182 103" fill="none" stroke-width="9"/>
+  <path d="M267 139 Q292 99 318 103" fill="none" stroke-width="9"/>
+  <circle cx="177" cy="102" r="7" fill="#E5AD08" stroke="none"/>
+  <circle cx="323" cy="102" r="7" fill="#E5AD08" stroke="none"/>
+  <!-- legs behind abdomen, not tangled with head -->
+  <path d="M213 273 Q172 267 150 291 M206 319 Q163 324 154 353 M287 273 Q328 267 350 291 M294 319 Q337 324 346 353" fill="none" stroke-width="9"/>
+  <!-- abdomen separate, elliptical taper -->
+  <path d="M250 224 C198 224 176 267 181 316 C186 366 217 400 250 415 C283 400 314 366 319 316 C324 267 302 224 250 224Z" fill="#FFFDF5"/>
+  <!-- three curved body stripes -->
+  <path d="M193 285 Q250 313 307 285" fill="none" stroke-width="11"/>
+  <path d="M189 325 Q250 353 311 325" fill="none" stroke-width="11"/>
+  <path d="M215 374 Q250 390 285 374" fill="none" stroke-width="10"/>
+  <!-- thorax and head overlap cleanly, no cross strokes -->
+  <path d="M208 234 C208 207 226 187 250 187 C274 187 292 207 292 234" fill="#FFFDF5"/>
+  <circle cx="250" cy="174" r="40" fill="#FFFDF5"/>
+  <circle cx="235" cy="176" r="5.5" fill="#222" stroke="none"/>
+  <circle cx="265" cy="176" r="5.5" fill="#222" stroke="none"/>
+  <!-- tiny distinct stinger -->
+  <path d="M241 415 L250 435 L259 415" fill="#FFF8D5" stroke-width="9"/>
+</g></svg>
